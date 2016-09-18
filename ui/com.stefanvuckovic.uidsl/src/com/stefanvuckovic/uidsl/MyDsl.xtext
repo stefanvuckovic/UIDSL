@@ -1,0 +1,9 @@
+grammar com.stefanvuckovic.uidsl.MyDsl with org.eclipse.xtext.common.Terminals
+
+generate myDsl "http://www.stefanvuckovic.com/uidsl/MyDsl"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';
