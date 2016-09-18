@@ -1,0 +1,28 @@
+grammar com.stefanvuckovic.dto.DTO with com.stefanvuckovic.domainmodel.DomainModel
+
+generate dTO "http://www.stefanvuckovic.com/dto/DTO"
+import "http://www.stefanvuckovic.com/domainmodel/DomainModel" as domainModel
+
+
+DTOModel:
+	concepts+=Concept*;
+	
+Concept returns domainModel::Concept: 
+	DTOClass | Enum
+;
+
+DTOClass:
+	'class' name = ID ('extends' superType=[DTOClass])? '{'
+		attributes += Attribute*
+	'}'
+;
+
+BasicType returns domainModel::BasicType:
+	super |
+	{TextType} 'text' |
+	{EmailType} 'email' |
+	{PasswordType} 'password' |
+	{FileType} 'file' |
+	{ImageType} 'image'
+;
+

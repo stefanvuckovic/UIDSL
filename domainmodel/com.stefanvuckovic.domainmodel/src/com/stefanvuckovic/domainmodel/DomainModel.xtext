@@ -1,0 +1,94 @@
+grammar com.stefanvuckovic.domainmodel.DomainModel with org.eclipse.xtext.common.Terminals
+
+generate domainModel "http://www.stefanvuckovic.com/domainmodel/DomainModel"
+
+Model: concepts += Concept*;
+
+Concept:
+	Entity | Enum
+;
+
+Entity:
+	'entity' name = ID ('extends' superType=[Entity])? 
+		('options' '(' options+=EntityOption (',' options+=EntityOption)* ')'
+		)? '{'
+		attributes += Attribute*
+	'}'
+;
+
+Enum:
+	'enum' name = ID '{'
+		attributes += Attribute*
+		literals += EnumLiteral+
+	'}'
+;
+
+EnumLiteral:
+	name = ID ('(' params+=Constant (',' params+=Constant)* ')')?
+;
+
+Constant:
+	{IntConstant} value=INT |
+	{LongConstant} value=INT 'L'|
+	{StringConstant} value=STRING |
+	{BoolConstant} value=('true' | 'false') |
+	{DateConstant} day=INT '/' month=INT '/' year=INT |
+	{Null} 'null'
+;
+
+Option:
+	EntityOption | AttributeOption
+;
+
+EntityOption:
+	{EntityDeleteOption} deleteByFlag?='deleteByFlag' |
+	{InheritanceMappingOption} 'inheritance' '=' inheritanceMapping=InheritanceMappingType
+;
+
+InheritanceMappingType: 
+	type=('SINGLE_TABLE' | 'TABLE_PER_CONCRETE_CLASS' | 'TABLE_PER_CLASS') 
+;
+
+Attribute:
+	type=AttributeType name=ID (options+=AttributeOption (',' options+=AttributeOption)*)? ';' 
+;
+	
+AttributeType:
+	SingleType | CollectionType
+;
+
+SingleType:
+	BasicType | RefType
+;
+
+BasicType:
+	{StringType} 'string' |
+	{IntType} 'int' |
+	{LongType} 'long' |
+	{BoolType} 'boolean' | 
+	{DateType} 'date'
+;
+
+RefType:
+	reference = [Concept]
+;
+
+CollectionType:
+	'List' '<' ofType=SingleType '>'
+;
+
+AttributeOption:
+	{Required} required?='required' |
+	{PartOf} partOf?='partOf' | 
+	{RelationshipOwner} 'relationshipOwner' '=' relationshipOwner=StaticFieldSelection |
+	{Cardinality} 'reverse_cardinality' '=' card=CardinalityType
+;
+
+enum CardinalityType:
+	One = 'one' |
+	Many = 'many'
+;
+
+StaticFieldSelection:
+	receiver=[Entity] '.' member=[Attribute]
+;
