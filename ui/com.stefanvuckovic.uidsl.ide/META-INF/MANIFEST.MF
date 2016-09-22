@@ -7,5 +7,10 @@ Bundle-SymbolicName: com.stefanvuckovic.uidsl.ide; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.stefanvuckovic.uidsl,
  org.eclipse.xtext.ide,
- org.eclipse.xtext.xbase.ide
+ org.eclipse.xtext.xbase.ide,
+ com.stefanvuckovic.dto;bundle-version="1.0.0",
+ com.stefanvuckovic.domainmodel;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: com.stefanvuckovic.uidsl.ide.contentassist.antlr,
+ com.stefanvuckovic.uidsl.ide.contentassist.antlr.internal
+

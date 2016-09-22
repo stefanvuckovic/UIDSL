@@ -1,0 +1,87 @@
+grammar com.stefanvuckovic.uidsl.UIDSL with com.stefanvuckovic.dto.DTO
+
+generate uIDSL "http://www.stefanvuckovic.com/uidsl/UIDSL"
+import "http://www.stefanvuckovic.com/domainmodel/DomainModel" as domainModel
+
+
+UIModel:
+	concepts+=UIConcept*
+;
+	
+UIConcept:
+	ServerComponent | UIContainer
+;
+
+Concept returns domainModel::Concept:
+	super |
+	ServerComponent
+;
+
+ServerComponent:
+	'server_component' name=ID '{'
+		members+=Member*
+		expressions+=Expression*
+	'}'
+;
+
+Member:
+	Field | Method
+;
+
+Field:
+	TypedConcept ';'
+;
+
+Method:
+	TypedConcept '(' params+=Variable (',' params+=Variable)* ')' ';'
+;
+
+Variable:
+	TypedConcept
+;
+
+fragment TypedConcept *:
+	type = AttributeType name=ID
+;
+
+UIContainer:
+	Page | Template | Fragment
+;
+
+Page:
+	'page' name=ID
+;
+
+Template:
+	'template' name=ID
+;
+
+Fragment:
+	'fragment' name=ID
+;
+
+//overriding abstract rule from domainModel dsl
+Expression returns domainModel::Expression:
+	MemberSelectionExpression
+;
+
+MemberSelectionExpression returns domainModel::Expression:
+	AtomExpression
+	(
+		{MemberSelectionExpression.receiver=current} '.'
+		member=[domainModel::SelectionMember]
+		(isMethod?='('
+			(params+=Expression (',' params+=Expression)*)? ')'
+		)?
+	)*
+;
+
+AtomExpression returns domainModel::Expression:
+	Constant |
+	{VariableReference} ref = [Variable]
+;
+
+SelectionMember returns domainModel::SelectionMember:
+	super |
+	Member
+;
