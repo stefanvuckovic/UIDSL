@@ -14,6 +14,6 @@ package com.stefanvuckovic.domainmodel.domainModel;
  * @model
  * @generated
  */
-public interface Null extends Constant
+public interface Null extends Expression
 {
 } // Null

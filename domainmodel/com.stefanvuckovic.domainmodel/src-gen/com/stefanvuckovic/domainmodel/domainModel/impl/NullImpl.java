@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class NullImpl extends ConstantImpl implements Null
+public class NullImpl extends ExpressionImpl implements Null
 {
   /**
    * <!-- begin-user-doc -->

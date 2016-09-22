@@ -270,6 +270,25 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 		//')'
 		public Keyword getRightParenthesisKeyword_1_3() { return cRightParenthesisKeyword_1_3; }
 	}
+	public class ExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.domainmodel.DomainModel.Expression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cExpressionAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cTo_be_implementedKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//Expression:
+		//	{Expression} 'to_be_implemented';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{Expression} 'to_be_implemented'
+		public Group getGroup() { return cGroup; }
+		
+		//{Expression}
+		public Action getExpressionAction_0() { return cExpressionAction_0; }
+		
+		//'to_be_implemented'
+		public Keyword getTo_be_implementedKeyword_1() { return cTo_be_implementedKeyword_1; }
+	}
 	public class ConstantElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.domainmodel.DomainModel.Constant");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -306,9 +325,9 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cNullAction_5_0 = (Action)cGroup_5.eContents().get(0);
 		private final Keyword cNullKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
 		
-		//Constant:
+		//Constant Expression:
 		//	{IntConstant} value=INT | {LongConstant} value=INT 'L' | {StringConstant} value=STRING | {BoolConstant} value=('true'
-		//	| 'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {Null} 'null';
+		//	| 'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {Null} 'null'
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{IntConstant} value=INT | {LongConstant} value=INT 'L' | {StringConstant} value=STRING | {BoolConstant} value=('true' |
@@ -860,6 +879,49 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getMemberAttributeIDTerminalRuleCall_2_0_1() { return cMemberAttributeIDTerminalRuleCall_2_0_1; }
 	}
+	public class SelectionMemberElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.domainmodel.DomainModel.SelectionMember");
+		private final RuleCall cAttributeParserRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//SelectionMember:
+		//	Attribute;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//Attribute
+		public RuleCall getAttributeParserRuleCall() { return cAttributeParserRuleCall; }
+	}
+	public class DumbSelectionMemberElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.domainmodel.DomainModel.DumbSelectionMember");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cDumb_selectionKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cTypeAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cTypeAttributeTypeParserRuleCall_1_0 = (RuleCall)cTypeAssignment_1.eContents().get(0);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		
+		////this rule should not be used. It just forces creation of feature in base class
+		//DumbSelectionMember SelectionMember:
+		//	'dumb_selection' type=AttributeType name=ID
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'dumb_selection' type=AttributeType name=ID
+		public Group getGroup() { return cGroup; }
+		
+		//'dumb_selection'
+		public Keyword getDumb_selectionKeyword_0() { return cDumb_selectionKeyword_0; }
+		
+		//type=AttributeType
+		public Assignment getTypeAssignment_1() { return cTypeAssignment_1; }
+		
+		//AttributeType
+		public RuleCall getTypeAttributeTypeParserRuleCall_1_0() { return cTypeAttributeTypeParserRuleCall_1_0; }
+		
+		//name=ID
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+	}
 	
 	public class CardinalityTypeElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.domainmodel.DomainModel.CardinalityType");
@@ -895,6 +957,7 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 	private final EntityElements pEntity;
 	private final EnumElements pEnum;
 	private final EnumLiteralElements pEnumLiteral;
+	private final ExpressionElements pExpression;
 	private final ConstantElements pConstant;
 	private final OptionElements pOption;
 	private final EntityOptionElements pEntityOption;
@@ -908,6 +971,8 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 	private final AttributeOptionElements pAttributeOption;
 	private final CardinalityTypeElements eCardinalityType;
 	private final StaticFieldSelectionElements pStaticFieldSelection;
+	private final SelectionMemberElements pSelectionMember;
+	private final DumbSelectionMemberElements pDumbSelectionMember;
 	
 	private final Grammar grammar;
 	
@@ -923,6 +988,7 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 		this.pEntity = new EntityElements();
 		this.pEnum = new EnumElements();
 		this.pEnumLiteral = new EnumLiteralElements();
+		this.pExpression = new ExpressionElements();
 		this.pConstant = new ConstantElements();
 		this.pOption = new OptionElements();
 		this.pEntityOption = new EntityOptionElements();
@@ -936,6 +1002,8 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 		this.pAttributeOption = new AttributeOptionElements();
 		this.eCardinalityType = new CardinalityTypeElements();
 		this.pStaticFieldSelection = new StaticFieldSelectionElements();
+		this.pSelectionMember = new SelectionMemberElements();
+		this.pDumbSelectionMember = new DumbSelectionMemberElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1021,9 +1089,19 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getEnumLiteralAccess().getRule();
 	}
 	
-	//Constant:
+	//Expression:
+	//	{Expression} 'to_be_implemented';
+	public ExpressionElements getExpressionAccess() {
+		return pExpression;
+	}
+	
+	public ParserRule getExpressionRule() {
+		return getExpressionAccess().getRule();
+	}
+	
+	//Constant Expression:
 	//	{IntConstant} value=INT | {LongConstant} value=INT 'L' | {StringConstant} value=STRING | {BoolConstant} value=('true'
-	//	| 'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {Null} 'null';
+	//	| 'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {Null} 'null'
 	public ConstantElements getConstantAccess() {
 		return pConstant;
 	}
@@ -1153,6 +1231,27 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getStaticFieldSelectionRule() {
 		return getStaticFieldSelectionAccess().getRule();
+	}
+	
+	//SelectionMember:
+	//	Attribute;
+	public SelectionMemberElements getSelectionMemberAccess() {
+		return pSelectionMember;
+	}
+	
+	public ParserRule getSelectionMemberRule() {
+		return getSelectionMemberAccess().getRule();
+	}
+	
+	////this rule should not be used. It just forces creation of feature in base class
+	//DumbSelectionMember SelectionMember:
+	//	'dumb_selection' type=AttributeType name=ID
+	public DumbSelectionMemberElements getDumbSelectionMemberAccess() {
+		return pDumbSelectionMember;
+	}
+	
+	public ParserRule getDumbSelectionMemberRule() {
+		return getDumbSelectionMemberAccess().getRule();
 	}
 	
 	//terminal ID:

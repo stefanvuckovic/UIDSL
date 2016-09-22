@@ -1,13 +1,13 @@
 package com.stefanvuckovic.domainmodel.scoping
 
-import javax.inject.Inject
-import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
-import org.eclipse.xtext.resource.IContainer
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.EClass
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage
+import javax.inject.Inject
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.resource.IContainer
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.resource.IResourceServiceProvider
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 
 class CustomIndex {
 	@Inject ResourceDescriptionsProvider rdp

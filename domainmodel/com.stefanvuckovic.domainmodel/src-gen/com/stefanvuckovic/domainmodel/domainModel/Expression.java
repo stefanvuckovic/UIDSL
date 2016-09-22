@@ -7,14 +7,14 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Constant</b></em>'.
+ * A representation of the model object '<em><b>Expression</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage#getConstant()
+ * @see com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage#getExpression()
  * @model
  * @generated
  */
-public interface Constant extends EObject
+public interface Expression extends EObject
 {
-} // Constant
+} // Expression

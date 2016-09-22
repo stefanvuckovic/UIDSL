@@ -12,7 +12,6 @@ import com.stefanvuckovic.domainmodel.domainModel.BoolType;
 import com.stefanvuckovic.domainmodel.domainModel.Cardinality;
 import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
-import com.stefanvuckovic.domainmodel.domainModel.Constant;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
@@ -20,6 +19,7 @@ import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityDeleteOption;
 import com.stefanvuckovic.domainmodel.domainModel.EntityOption;
 import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral;
+import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingOption;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingType;
 import com.stefanvuckovic.domainmodel.domainModel.IntConstant;
@@ -33,6 +33,7 @@ import com.stefanvuckovic.domainmodel.domainModel.PartOf;
 import com.stefanvuckovic.domainmodel.domainModel.RefType;
 import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner;
 import com.stefanvuckovic.domainmodel.domainModel.Required;
+import com.stefanvuckovic.domainmodel.domainModel.SelectionMember;
 import com.stefanvuckovic.domainmodel.domainModel.SingleType;
 import com.stefanvuckovic.domainmodel.domainModel.StaticFieldSelection;
 import com.stefanvuckovic.domainmodel.domainModel.StringConstant;
@@ -134,9 +135,9 @@ public class DomainModelAdapterFactory extends AdapterFactoryImpl
         return createEnumLiteralAdapter();
       }
       @Override
-      public Adapter caseConstant(Constant object)
+      public Adapter caseExpression(Expression object)
       {
-        return createConstantAdapter();
+        return createExpressionAdapter();
       }
       @Override
       public Adapter caseOption(Option object)
@@ -192,6 +193,11 @@ public class DomainModelAdapterFactory extends AdapterFactoryImpl
       public Adapter caseStaticFieldSelection(StaticFieldSelection object)
       {
         return createStaticFieldSelectionAdapter();
+      }
+      @Override
+      public Adapter caseSelectionMember(SelectionMember object)
+      {
+        return createSelectionMemberAdapter();
       }
       @Override
       public Adapter caseIntConstant(IntConstant object)
@@ -376,16 +382,16 @@ public class DomainModelAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.domainmodel.domainModel.Constant <em>Constant</em>}'.
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.domainmodel.domainModel.Expression <em>Expression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.stefanvuckovic.domainmodel.domainModel.Constant
+   * @see com.stefanvuckovic.domainmodel.domainModel.Expression
    * @generated
    */
-  public Adapter createConstantAdapter()
+  public Adapter createExpressionAdapter()
   {
     return null;
   }
@@ -551,6 +557,21 @@ public class DomainModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createStaticFieldSelectionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.domainmodel.domainModel.SelectionMember <em>Selection Member</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.domainmodel.domainModel.SelectionMember
+   * @generated
+   */
+  public Adapter createSelectionMemberAdapter()
   {
     return null;
   }

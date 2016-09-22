@@ -341,9 +341,19 @@ public class DTOGrammarAccess extends AbstractGrammarElementFinder {
 		return getEnumLiteralAccess().getRule();
 	}
 	
-	//Constant:
+	//Expression:
+	//	{Expression} 'to_be_implemented';
+	public DomainModelGrammarAccess.ExpressionElements getExpressionAccess() {
+		return gaDomainModel.getExpressionAccess();
+	}
+	
+	public ParserRule getExpressionRule() {
+		return getExpressionAccess().getRule();
+	}
+	
+	//Constant Expression:
 	//	{IntConstant} value=INT | {LongConstant} value=INT 'L' | {StringConstant} value=STRING | {BoolConstant} value=('true'
-	//	| 'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {Null} 'null';
+	//	| 'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {Null} 'null'
 	public DomainModelGrammarAccess.ConstantElements getConstantAccess() {
 		return gaDomainModel.getConstantAccess();
 	}
@@ -473,6 +483,27 @@ public class DTOGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getStaticFieldSelectionRule() {
 		return getStaticFieldSelectionAccess().getRule();
+	}
+	
+	//SelectionMember:
+	//	Attribute;
+	public DomainModelGrammarAccess.SelectionMemberElements getSelectionMemberAccess() {
+		return gaDomainModel.getSelectionMemberAccess();
+	}
+	
+	public ParserRule getSelectionMemberRule() {
+		return getSelectionMemberAccess().getRule();
+	}
+	
+	////this rule should not be used. It just forces creation of feature in base class
+	//DumbSelectionMember SelectionMember:
+	//	'dumb_selection' type=AttributeType name=ID
+	public DomainModelGrammarAccess.DumbSelectionMemberElements getDumbSelectionMemberAccess() {
+		return gaDomainModel.getDumbSelectionMemberAccess();
+	}
+	
+	public ParserRule getDumbSelectionMemberRule() {
+		return getDumbSelectionMemberAccess().getRule();
 	}
 	
 	//terminal ID:

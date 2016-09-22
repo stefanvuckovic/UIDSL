@@ -25,4 +25,3 @@ BasicType returns domainModel::BasicType:
 	{FileType} 'file' |
 	{ImageType} 'image'
 ;
-

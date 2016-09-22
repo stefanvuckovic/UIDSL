@@ -12,7 +12,6 @@ import com.stefanvuckovic.domainmodel.domainModel.BoolType;
 import com.stefanvuckovic.domainmodel.domainModel.Cardinality;
 import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
-import com.stefanvuckovic.domainmodel.domainModel.Constant;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
@@ -20,6 +19,7 @@ import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityDeleteOption;
 import com.stefanvuckovic.domainmodel.domainModel.EntityOption;
 import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral;
+import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingOption;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingType;
 import com.stefanvuckovic.domainmodel.domainModel.IntConstant;
@@ -33,6 +33,7 @@ import com.stefanvuckovic.domainmodel.domainModel.PartOf;
 import com.stefanvuckovic.domainmodel.domainModel.RefType;
 import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner;
 import com.stefanvuckovic.domainmodel.domainModel.Required;
+import com.stefanvuckovic.domainmodel.domainModel.SelectionMember;
 import com.stefanvuckovic.domainmodel.domainModel.SingleType;
 import com.stefanvuckovic.domainmodel.domainModel.StaticFieldSelection;
 import com.stefanvuckovic.domainmodel.domainModel.StringConstant;
@@ -143,10 +144,10 @@ public class DomainModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case DomainModelPackage.CONSTANT:
+      case DomainModelPackage.EXPRESSION:
       {
-        Constant constant = (Constant)theEObject;
-        T result = caseConstant(constant);
+        Expression expression = (Expression)theEObject;
+        T result = caseExpression(expression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -176,6 +177,7 @@ public class DomainModelSwitch<T> extends Switch<T>
       {
         Attribute attribute = (Attribute)theEObject;
         T result = caseAttribute(attribute);
+        if (result == null) result = caseSelectionMember(attribute);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -235,11 +237,18 @@ public class DomainModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DomainModelPackage.SELECTION_MEMBER:
+      {
+        SelectionMember selectionMember = (SelectionMember)theEObject;
+        T result = caseSelectionMember(selectionMember);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DomainModelPackage.INT_CONSTANT:
       {
         IntConstant intConstant = (IntConstant)theEObject;
         T result = caseIntConstant(intConstant);
-        if (result == null) result = caseConstant(intConstant);
+        if (result == null) result = caseExpression(intConstant);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -247,7 +256,7 @@ public class DomainModelSwitch<T> extends Switch<T>
       {
         LongConstant longConstant = (LongConstant)theEObject;
         T result = caseLongConstant(longConstant);
-        if (result == null) result = caseConstant(longConstant);
+        if (result == null) result = caseExpression(longConstant);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -255,7 +264,7 @@ public class DomainModelSwitch<T> extends Switch<T>
       {
         StringConstant stringConstant = (StringConstant)theEObject;
         T result = caseStringConstant(stringConstant);
-        if (result == null) result = caseConstant(stringConstant);
+        if (result == null) result = caseExpression(stringConstant);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -263,7 +272,7 @@ public class DomainModelSwitch<T> extends Switch<T>
       {
         BoolConstant boolConstant = (BoolConstant)theEObject;
         T result = caseBoolConstant(boolConstant);
-        if (result == null) result = caseConstant(boolConstant);
+        if (result == null) result = caseExpression(boolConstant);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -271,7 +280,7 @@ public class DomainModelSwitch<T> extends Switch<T>
       {
         DateConstant dateConstant = (DateConstant)theEObject;
         T result = caseDateConstant(dateConstant);
-        if (result == null) result = caseConstant(dateConstant);
+        if (result == null) result = caseExpression(dateConstant);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -279,7 +288,7 @@ public class DomainModelSwitch<T> extends Switch<T>
       {
         Null null_ = (Null)theEObject;
         T result = caseNull(null_);
-        if (result == null) result = caseConstant(null_);
+        if (result == null) result = caseExpression(null_);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -472,17 +481,17 @@ public class DomainModelSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Constant</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Constant</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Expression</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseConstant(Constant object)
+  public T caseExpression(Expression object)
   {
     return null;
   }
@@ -659,6 +668,22 @@ public class DomainModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseStaticFieldSelection(StaticFieldSelection object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Selection Member</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Selection Member</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSelectionMember(SelectionMember object)
   {
     return null;
   }

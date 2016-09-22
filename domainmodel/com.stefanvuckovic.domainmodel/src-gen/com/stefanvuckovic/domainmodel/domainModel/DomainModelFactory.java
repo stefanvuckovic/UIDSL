@@ -69,13 +69,13 @@ public interface DomainModelFactory extends EFactory
   EnumLiteral createEnumLiteral();
 
   /**
-   * Returns a new object of class '<em>Constant</em>'.
+   * Returns a new object of class '<em>Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Constant</em>'.
+   * @return a new object of class '<em>Expression</em>'.
    * @generated
    */
-  Constant createConstant();
+  Expression createExpression();
 
   /**
    * Returns a new object of class '<em>Option</em>'.
@@ -175,6 +175,15 @@ public interface DomainModelFactory extends EFactory
    * @generated
    */
   StaticFieldSelection createStaticFieldSelection();
+
+  /**
+   * Returns a new object of class '<em>Selection Member</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Selection Member</em>'.
+   * @generated
+   */
+  SelectionMember createSelectionMember();
 
   /**
    * Returns a new object of class '<em>Int Constant</em>'.

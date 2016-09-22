@@ -15,13 +15,13 @@ import com.stefanvuckovic.domainmodel.domainModel.Cardinality;
 import com.stefanvuckovic.domainmodel.domainModel.CardinalityType;
 import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
-import com.stefanvuckovic.domainmodel.domainModel.Constant;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelFactory;
 import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityDeleteOption;
 import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral;
+import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingOption;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingType;
 import com.stefanvuckovic.domainmodel.domainModel.IntConstant;
@@ -266,22 +266,22 @@ public class DomainModelGenerator extends AbstractGenerator {
     String _name = literal.getName();
     _builder.append(_name, "");
     {
-      EList<Constant> _params = literal.getParams();
+      EList<Expression> _params = literal.getParams();
       boolean _isEmpty = _params.isEmpty();
       boolean _not = (!_isEmpty);
       if (_not) {
         _builder.append("(");
       }
     }
-    EList<Constant> _params_1 = literal.getParams();
-    final Function1<Constant, Object> _function = (Constant it) -> {
+    EList<Expression> _params_1 = literal.getParams();
+    final Function1<Expression, Object> _function = (Expression it) -> {
       return this.compile(it);
     };
-    List<Object> _map = ListExtensions.<Constant, Object>map(_params_1, _function);
+    List<Object> _map = ListExtensions.<Expression, Object>map(_params_1, _function);
     String _join = IterableExtensions.join(_map, ", ");
     _builder.append(_join, "");
     {
-      EList<Constant> _params_2 = literal.getParams();
+      EList<Expression> _params_2 = literal.getParams();
       boolean _isEmpty_1 = _params_2.isEmpty();
       boolean _not_1 = (!_isEmpty_1);
       if (_not_1) {
@@ -309,7 +309,7 @@ public class DomainModelGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  public Object compile(final Constant const_) {
+  public Object compile(final Expression const_) {
     Object _switchResult = null;
     boolean _matched = false;
     if (const_ instanceof IntConstant) {

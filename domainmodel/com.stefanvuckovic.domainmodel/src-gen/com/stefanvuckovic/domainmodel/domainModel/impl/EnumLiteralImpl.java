@@ -3,9 +3,9 @@
  */
 package com.stefanvuckovic.domainmodel.domainModel.impl;
 
-import com.stefanvuckovic.domainmodel.domainModel.Constant;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral;
+import com.stefanvuckovic.domainmodel.domainModel.Expression;
 
 import java.util.Collection;
 
@@ -67,7 +67,7 @@ public class EnumLiteralImpl extends MinimalEObjectImpl.Container implements Enu
    * @generated
    * @ordered
    */
-  protected EList<Constant> params;
+  protected EList<Expression> params;
 
   /**
    * <!-- begin-user-doc -->
@@ -118,11 +118,11 @@ public class EnumLiteralImpl extends MinimalEObjectImpl.Container implements Enu
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Constant> getParams()
+  public EList<Expression> getParams()
   {
     if (params == null)
     {
-      params = new EObjectContainmentEList<Constant>(Constant.class, this, DomainModelPackage.ENUM_LITERAL__PARAMS);
+      params = new EObjectContainmentEList<Expression>(Expression.class, this, DomainModelPackage.ENUM_LITERAL__PARAMS);
     }
     return params;
   }
@@ -177,7 +177,7 @@ public class EnumLiteralImpl extends MinimalEObjectImpl.Container implements Enu
         return;
       case DomainModelPackage.ENUM_LITERAL__PARAMS:
         getParams().clear();
-        getParams().addAll((Collection<? extends Constant>)newValue);
+        getParams().addAll((Collection<? extends Expression>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

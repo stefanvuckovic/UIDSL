@@ -4,11 +4,11 @@ import com.stefanvuckovic.domainmodel.domainModel.Attribute;
 import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
 import com.stefanvuckovic.domainmodel.domainModel.BoolConstant;
 import com.stefanvuckovic.domainmodel.domainModel.BoolType;
-import com.stefanvuckovic.domainmodel.domainModel.Constant;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelFactory;
 import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral;
+import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.IntConstant;
 import com.stefanvuckovic.domainmodel.domainModel.IntType;
 import com.stefanvuckovic.domainmodel.domainModel.LongConstant;
@@ -35,7 +35,7 @@ public class TypeComputing {
   
   public final static NullType NULL_TYPE = new NullType();
   
-  public AttributeType getType(final Constant c) {
+  public AttributeType getType(final Expression c) {
     AttributeType _switchResult = null;
     boolean _matched = false;
     if (c instanceof StringConstant) {
@@ -75,8 +75,8 @@ public class TypeComputing {
     return _switchResult;
   }
   
-  public AttributeType getExpectedType(final Constant c) {
-    final EObject cont = c.eContainer();
+  public AttributeType getExpectedType(final Expression e) {
+    final EObject cont = e.eContainer();
     boolean _matched = false;
     if (cont instanceof EnumLiteral) {
       _matched=true;
@@ -84,8 +84,8 @@ public class TypeComputing {
       final com.stefanvuckovic.domainmodel.domainModel.Enum enumCont = ((com.stefanvuckovic.domainmodel.domainModel.Enum) _eContainer);
       try {
         EList<Attribute> _attributes = enumCont.getAttributes();
-        EList<Constant> _params = ((EnumLiteral) cont).getParams();
-        int _indexOf = _params.indexOf(c);
+        EList<Expression> _params = ((EnumLiteral) cont).getParams();
+        int _indexOf = _params.indexOf(e);
         Attribute _get = _attributes.get(_indexOf);
         return _get.getType();
       } catch (final Throwable _t) {

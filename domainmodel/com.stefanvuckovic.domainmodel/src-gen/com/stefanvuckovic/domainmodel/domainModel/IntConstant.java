@@ -20,7 +20,7 @@ package com.stefanvuckovic.domainmodel.domainModel;
  * @model
  * @generated
  */
-public interface IntConstant extends Constant
+public interface IntConstant extends Expression
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.

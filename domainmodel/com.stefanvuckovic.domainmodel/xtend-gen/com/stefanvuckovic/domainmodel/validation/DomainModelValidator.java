@@ -12,11 +12,11 @@ import com.stefanvuckovic.domainmodel.domainModel.BasicType;
 import com.stefanvuckovic.domainmodel.domainModel.Cardinality;
 import com.stefanvuckovic.domainmodel.domainModel.CardinalityType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
-import com.stefanvuckovic.domainmodel.domainModel.Constant;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityOption;
 import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral;
+import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.Model;
 import com.stefanvuckovic.domainmodel.domainModel.Option;
 import com.stefanvuckovic.domainmodel.domainModel.Required;
@@ -165,7 +165,7 @@ public class DomainModelValidator extends AbstractDomainModelValidator {
   }
   
   @Check
-  public void checkEnumTypes(final Constant const_) {
+  public void checkEnumTypes(final Expression const_) {
     final AttributeType type = this._typeComputing.getType(const_);
     final AttributeType expectedType = this._typeComputing.getExpectedType(const_);
     if ((Objects.equal(expectedType, null) || Objects.equal(type, null))) {
@@ -206,7 +206,7 @@ public class DomainModelValidator extends AbstractDomainModelValidator {
   public void checkNumberOfEnumConstructorParameters(final EnumLiteral literal) {
     EObject _eContainer = literal.eContainer();
     final com.stefanvuckovic.domainmodel.domainModel.Enum enum_ = ((com.stefanvuckovic.domainmodel.domainModel.Enum) _eContainer);
-    EList<Constant> _params = literal.getParams();
+    EList<Expression> _params = literal.getParams();
     int _size = _params.size();
     EList<Attribute> _attributes = enum_.getAttributes();
     int _size_1 = _attributes.size();
@@ -216,11 +216,11 @@ public class DomainModelValidator extends AbstractDomainModelValidator {
       int _size_2 = _attributes_1.size();
       String _plus = ("Invalid number of arguments: expected " + Integer.valueOf(_size_2));
       String _plus_1 = (_plus + " but was ");
-      EList<Constant> _params_1 = literal.getParams();
+      EList<Expression> _params_1 = literal.getParams();
       int _size_3 = _params_1.size();
       String _plus_2 = (_plus_1 + Integer.valueOf(_size_3));
-      EAttribute _enumLiteral_Name = DomainModelPackage.eINSTANCE.getEnumLiteral_Name();
-      this.error(_plus_2, _enumLiteral_Name);
+      EAttribute _concept_Name = DomainModelPackage.eINSTANCE.getConcept_Name();
+      this.error(_plus_2, _concept_Name);
     }
   }
   

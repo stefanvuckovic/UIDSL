@@ -54,6 +54,7 @@ public class DomainModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEnumLiteralAccess().getGroup(), "rule__EnumLiteral__Group__0");
 					put(grammarAccess.getEnumLiteralAccess().getGroup_1(), "rule__EnumLiteral__Group_1__0");
 					put(grammarAccess.getEnumLiteralAccess().getGroup_1_2(), "rule__EnumLiteral__Group_1_2__0");
+					put(grammarAccess.getExpressionAccess().getGroup(), "rule__Expression__Group__0");
 					put(grammarAccess.getConstantAccess().getGroup_0(), "rule__Constant__Group_0__0");
 					put(grammarAccess.getConstantAccess().getGroup_1(), "rule__Constant__Group_1__0");
 					put(grammarAccess.getConstantAccess().getGroup_2(), "rule__Constant__Group_2__0");
@@ -76,6 +77,7 @@ public class DomainModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAttributeOptionAccess().getGroup_2(), "rule__AttributeOption__Group_2__0");
 					put(grammarAccess.getAttributeOptionAccess().getGroup_3(), "rule__AttributeOption__Group_3__0");
 					put(grammarAccess.getStaticFieldSelectionAccess().getGroup(), "rule__StaticFieldSelection__Group__0");
+					put(grammarAccess.getDumbSelectionMemberAccess().getGroup(), "rule__DumbSelectionMember__Group__0");
 					put(grammarAccess.getModelAccess().getConceptsAssignment(), "rule__Model__ConceptsAssignment");
 					put(grammarAccess.getEntityAccess().getNameAssignment_1(), "rule__Entity__NameAssignment_1");
 					put(grammarAccess.getEntityAccess().getSuperTypeAssignment_2_1(), "rule__Entity__SuperTypeAssignment_2_1");
@@ -110,6 +112,8 @@ public class DomainModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAttributeOptionAccess().getCardAssignment_3_3(), "rule__AttributeOption__CardAssignment_3_3");
 					put(grammarAccess.getStaticFieldSelectionAccess().getReceiverAssignment_0(), "rule__StaticFieldSelection__ReceiverAssignment_0");
 					put(grammarAccess.getStaticFieldSelectionAccess().getMemberAssignment_2(), "rule__StaticFieldSelection__MemberAssignment_2");
+					put(grammarAccess.getDumbSelectionMemberAccess().getTypeAssignment_1(), "rule__DumbSelectionMember__TypeAssignment_1");
+					put(grammarAccess.getDumbSelectionMemberAccess().getNameAssignment_2(), "rule__DumbSelectionMember__NameAssignment_2");
 				}
 			};
 		}

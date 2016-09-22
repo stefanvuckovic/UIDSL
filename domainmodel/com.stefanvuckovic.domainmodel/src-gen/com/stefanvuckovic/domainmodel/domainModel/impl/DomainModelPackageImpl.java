@@ -13,7 +13,6 @@ import com.stefanvuckovic.domainmodel.domainModel.Cardinality;
 import com.stefanvuckovic.domainmodel.domainModel.CardinalityType;
 import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
-import com.stefanvuckovic.domainmodel.domainModel.Constant;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelFactory;
@@ -22,6 +21,7 @@ import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityDeleteOption;
 import com.stefanvuckovic.domainmodel.domainModel.EntityOption;
 import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral;
+import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingOption;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingType;
 import com.stefanvuckovic.domainmodel.domainModel.IntConstant;
@@ -35,6 +35,7 @@ import com.stefanvuckovic.domainmodel.domainModel.PartOf;
 import com.stefanvuckovic.domainmodel.domainModel.RefType;
 import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner;
 import com.stefanvuckovic.domainmodel.domainModel.Required;
+import com.stefanvuckovic.domainmodel.domainModel.SelectionMember;
 import com.stefanvuckovic.domainmodel.domainModel.SingleType;
 import com.stefanvuckovic.domainmodel.domainModel.StaticFieldSelection;
 import com.stefanvuckovic.domainmodel.domainModel.StringConstant;
@@ -96,7 +97,7 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass constantEClass = null;
+  private EClass expressionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -174,6 +175,13 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
    * @generated
    */
   private EClass staticFieldSelectionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass selectionMemberEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -499,9 +507,9 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getConstant()
+  public EClass getExpression()
   {
-    return constantEClass;
+    return expressionEClass;
   }
 
   /**
@@ -559,29 +567,9 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAttribute_Type()
-  {
-    return (EReference)attributeEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAttribute_Name()
-  {
-    return (EAttribute)attributeEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getAttribute_Options()
   {
-    return (EReference)attributeEClass.getEStructuralFeatures().get(2);
+    return (EReference)attributeEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -692,6 +680,36 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
   public EReference getStaticFieldSelection_Member()
   {
     return (EReference)staticFieldSelectionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSelectionMember()
+  {
+    return selectionMemberEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSelectionMember_Type()
+  {
+    return (EReference)selectionMemberEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getSelectionMember_Name()
+  {
+    return (EAttribute)selectionMemberEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1052,7 +1070,7 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
     createEAttribute(enumLiteralEClass, ENUM_LITERAL__NAME);
     createEReference(enumLiteralEClass, ENUM_LITERAL__PARAMS);
 
-    constantEClass = createEClass(CONSTANT);
+    expressionEClass = createEClass(EXPRESSION);
 
     optionEClass = createEClass(OPTION);
 
@@ -1062,8 +1080,6 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
     createEAttribute(inheritanceMappingTypeEClass, INHERITANCE_MAPPING_TYPE__TYPE);
 
     attributeEClass = createEClass(ATTRIBUTE);
-    createEReference(attributeEClass, ATTRIBUTE__TYPE);
-    createEAttribute(attributeEClass, ATTRIBUTE__NAME);
     createEReference(attributeEClass, ATTRIBUTE__OPTIONS);
 
     attributeTypeEClass = createEClass(ATTRIBUTE_TYPE);
@@ -1083,6 +1099,10 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
     staticFieldSelectionEClass = createEClass(STATIC_FIELD_SELECTION);
     createEReference(staticFieldSelectionEClass, STATIC_FIELD_SELECTION__RECEIVER);
     createEReference(staticFieldSelectionEClass, STATIC_FIELD_SELECTION__MEMBER);
+
+    selectionMemberEClass = createEClass(SELECTION_MEMBER);
+    createEReference(selectionMemberEClass, SELECTION_MEMBER__TYPE);
+    createEAttribute(selectionMemberEClass, SELECTION_MEMBER__NAME);
 
     intConstantEClass = createEClass(INT_CONSTANT);
     createEAttribute(intConstantEClass, INT_CONSTANT__VALUE);
@@ -1167,17 +1187,18 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
     entityEClass.getESuperTypes().add(this.getConcept());
     enumEClass.getESuperTypes().add(this.getConcept());
     entityOptionEClass.getESuperTypes().add(this.getOption());
+    attributeEClass.getESuperTypes().add(this.getSelectionMember());
     singleTypeEClass.getESuperTypes().add(this.getAttributeType());
     basicTypeEClass.getESuperTypes().add(this.getSingleType());
     refTypeEClass.getESuperTypes().add(this.getSingleType());
     collectionTypeEClass.getESuperTypes().add(this.getAttributeType());
     attributeOptionEClass.getESuperTypes().add(this.getOption());
-    intConstantEClass.getESuperTypes().add(this.getConstant());
-    longConstantEClass.getESuperTypes().add(this.getConstant());
-    stringConstantEClass.getESuperTypes().add(this.getConstant());
-    boolConstantEClass.getESuperTypes().add(this.getConstant());
-    dateConstantEClass.getESuperTypes().add(this.getConstant());
-    nullEClass.getESuperTypes().add(this.getConstant());
+    intConstantEClass.getESuperTypes().add(this.getExpression());
+    longConstantEClass.getESuperTypes().add(this.getExpression());
+    stringConstantEClass.getESuperTypes().add(this.getExpression());
+    boolConstantEClass.getESuperTypes().add(this.getExpression());
+    dateConstantEClass.getESuperTypes().add(this.getExpression());
+    nullEClass.getESuperTypes().add(this.getExpression());
     entityDeleteOptionEClass.getESuperTypes().add(this.getEntityOption());
     inheritanceMappingOptionEClass.getESuperTypes().add(this.getEntityOption());
     stringTypeEClass.getESuperTypes().add(this.getBasicType());
@@ -1207,9 +1228,9 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
 
     initEClass(enumLiteralEClass, EnumLiteral.class, "EnumLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEnumLiteral_Name(), ecorePackage.getEString(), "name", null, 0, 1, EnumLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEnumLiteral_Params(), this.getConstant(), null, "params", null, 0, -1, EnumLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEnumLiteral_Params(), this.getExpression(), null, "params", null, 0, -1, EnumLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(constantEClass, Constant.class, "Constant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(optionEClass, Option.class, "Option", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1219,8 +1240,6 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
     initEAttribute(getInheritanceMappingType_Type(), ecorePackage.getEString(), "type", null, 0, 1, InheritanceMappingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(attributeEClass, Attribute.class, "Attribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAttribute_Type(), this.getAttributeType(), null, "type", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAttribute_Name(), ecorePackage.getEString(), "name", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAttribute_Options(), this.getAttributeOption(), null, "options", null, 0, -1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(attributeTypeEClass, AttributeType.class, "AttributeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1240,6 +1259,10 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
     initEClass(staticFieldSelectionEClass, StaticFieldSelection.class, "StaticFieldSelection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getStaticFieldSelection_Receiver(), this.getEntity(), null, "receiver", null, 0, 1, StaticFieldSelection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStaticFieldSelection_Member(), this.getAttribute(), null, "member", null, 0, 1, StaticFieldSelection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(selectionMemberEClass, SelectionMember.class, "SelectionMember", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSelectionMember_Type(), this.getAttributeType(), null, "type", null, 0, 1, SelectionMember.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSelectionMember_Name(), ecorePackage.getEString(), "name", null, 0, 1, SelectionMember.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(intConstantEClass, IntConstant.class, "IntConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getIntConstant_Value(), ecorePackage.getEInt(), "value", null, 0, 1, IntConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

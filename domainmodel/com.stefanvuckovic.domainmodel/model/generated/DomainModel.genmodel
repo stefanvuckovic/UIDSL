@@ -28,15 +28,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DomainModel.ecore#//EnumLiteral/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DomainModel.ecore#//EnumLiteral/params"/>
     </genClasses>
-    <genClasses ecoreClass="DomainModel.ecore#//Constant"/>
+    <genClasses ecoreClass="DomainModel.ecore#//Expression"/>
     <genClasses ecoreClass="DomainModel.ecore#//Option"/>
     <genClasses ecoreClass="DomainModel.ecore#//EntityOption"/>
     <genClasses ecoreClass="DomainModel.ecore#//InheritanceMappingType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DomainModel.ecore#//InheritanceMappingType/type"/>
     </genClasses>
     <genClasses ecoreClass="DomainModel.ecore#//Attribute">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DomainModel.ecore#//Attribute/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DomainModel.ecore#//Attribute/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DomainModel.ecore#//Attribute/options"/>
     </genClasses>
     <genClasses ecoreClass="DomainModel.ecore#//AttributeType"/>
@@ -52,6 +50,10 @@
     <genClasses ecoreClass="DomainModel.ecore#//StaticFieldSelection">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DomainModel.ecore#//StaticFieldSelection/receiver"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DomainModel.ecore#//StaticFieldSelection/member"/>
+    </genClasses>
+    <genClasses ecoreClass="DomainModel.ecore#//SelectionMember">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DomainModel.ecore#//SelectionMember/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DomainModel.ecore#//SelectionMember/name"/>
     </genClasses>
     <genClasses ecoreClass="DomainModel.ecore#//IntConstant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DomainModel.ecore#//IntConstant/value"/>

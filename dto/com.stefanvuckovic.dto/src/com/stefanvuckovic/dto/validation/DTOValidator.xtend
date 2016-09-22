@@ -3,12 +3,12 @@
  */
 package com.stefanvuckovic.dto.validation
 
+import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage
+import com.stefanvuckovic.dto.dTO.DTOModel
+import com.stefanvuckovic.dto.scoping.CustomIndex
+import javax.inject.Inject
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
-import com.stefanvuckovic.dto.dTO.DTOModel
-import javax.inject.Inject
-import com.stefanvuckovic.dto.scoping.CustomIndex
-import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage
 
 /**
  * This class contains custom validation rules. 
@@ -18,6 +18,7 @@ import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage
 class DTOValidator extends AbstractDTOValidator {
 	
 	@Inject extension CustomIndex
+	
 //	public static val INVALID_NAME = 'invalidName'
 //
 //	@Check

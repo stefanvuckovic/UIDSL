@@ -262,23 +262,23 @@ public interface DomainModelPackage extends EPackage
   int ENUM_LITERAL_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.ConstantImpl <em>Constant</em>}' class.
+   * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.ExpressionImpl <em>Expression</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see com.stefanvuckovic.domainmodel.domainModel.impl.ConstantImpl
-   * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getConstant()
+   * @see com.stefanvuckovic.domainmodel.domainModel.impl.ExpressionImpl
+   * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getExpression()
    * @generated
    */
-  int CONSTANT = 5;
+  int EXPRESSION = 5;
 
   /**
-   * The number of structural features of the '<em>Constant</em>' class.
+   * The number of structural features of the '<em>Expression</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONSTANT_FEATURE_COUNT = 0;
+  int EXPRESSION_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.OptionImpl <em>Option</em>}' class.
@@ -347,6 +347,43 @@ public interface DomainModelPackage extends EPackage
   int INHERITANCE_MAPPING_TYPE_FEATURE_COUNT = 1;
 
   /**
+   * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.SelectionMemberImpl <em>Selection Member</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.domainmodel.domainModel.impl.SelectionMemberImpl
+   * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getSelectionMember()
+   * @generated
+   */
+  int SELECTION_MEMBER = 17;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_MEMBER__TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_MEMBER__NAME = 1;
+
+  /**
+   * The number of structural features of the '<em>Selection Member</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_MEMBER_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.AttributeImpl <em>Attribute</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -363,7 +400,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ATTRIBUTE__TYPE = 0;
+  int ATTRIBUTE__TYPE = SELECTION_MEMBER__TYPE;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -372,7 +409,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ATTRIBUTE__NAME = 1;
+  int ATTRIBUTE__NAME = SELECTION_MEMBER__NAME;
 
   /**
    * The feature id for the '<em><b>Options</b></em>' containment reference list.
@@ -381,7 +418,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ATTRIBUTE__OPTIONS = 2;
+  int ATTRIBUTE__OPTIONS = SELECTION_MEMBER_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Attribute</em>' class.
@@ -390,7 +427,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ATTRIBUTE_FEATURE_COUNT = 3;
+  int ATTRIBUTE_FEATURE_COUNT = SELECTION_MEMBER_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.AttributeTypeImpl <em>Attribute Type</em>}' class.
@@ -569,7 +606,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getIntConstant()
    * @generated
    */
-  int INT_CONSTANT = 17;
+  int INT_CONSTANT = 18;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -578,7 +615,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INT_CONSTANT__VALUE = CONSTANT_FEATURE_COUNT + 0;
+  int INT_CONSTANT__VALUE = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Int Constant</em>' class.
@@ -587,7 +624,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INT_CONSTANT_FEATURE_COUNT = CONSTANT_FEATURE_COUNT + 1;
+  int INT_CONSTANT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.LongConstantImpl <em>Long Constant</em>}' class.
@@ -597,7 +634,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getLongConstant()
    * @generated
    */
-  int LONG_CONSTANT = 18;
+  int LONG_CONSTANT = 19;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -606,7 +643,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int LONG_CONSTANT__VALUE = CONSTANT_FEATURE_COUNT + 0;
+  int LONG_CONSTANT__VALUE = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Long Constant</em>' class.
@@ -615,7 +652,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int LONG_CONSTANT_FEATURE_COUNT = CONSTANT_FEATURE_COUNT + 1;
+  int LONG_CONSTANT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.StringConstantImpl <em>String Constant</em>}' class.
@@ -625,7 +662,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getStringConstant()
    * @generated
    */
-  int STRING_CONSTANT = 19;
+  int STRING_CONSTANT = 20;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -634,7 +671,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STRING_CONSTANT__VALUE = CONSTANT_FEATURE_COUNT + 0;
+  int STRING_CONSTANT__VALUE = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>String Constant</em>' class.
@@ -643,7 +680,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STRING_CONSTANT_FEATURE_COUNT = CONSTANT_FEATURE_COUNT + 1;
+  int STRING_CONSTANT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.BoolConstantImpl <em>Bool Constant</em>}' class.
@@ -653,7 +690,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getBoolConstant()
    * @generated
    */
-  int BOOL_CONSTANT = 20;
+  int BOOL_CONSTANT = 21;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -662,7 +699,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BOOL_CONSTANT__VALUE = CONSTANT_FEATURE_COUNT + 0;
+  int BOOL_CONSTANT__VALUE = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Bool Constant</em>' class.
@@ -671,7 +708,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BOOL_CONSTANT_FEATURE_COUNT = CONSTANT_FEATURE_COUNT + 1;
+  int BOOL_CONSTANT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.DateConstantImpl <em>Date Constant</em>}' class.
@@ -681,7 +718,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getDateConstant()
    * @generated
    */
-  int DATE_CONSTANT = 21;
+  int DATE_CONSTANT = 22;
 
   /**
    * The feature id for the '<em><b>Day</b></em>' attribute.
@@ -690,7 +727,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATE_CONSTANT__DAY = CONSTANT_FEATURE_COUNT + 0;
+  int DATE_CONSTANT__DAY = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Month</b></em>' attribute.
@@ -699,7 +736,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATE_CONSTANT__MONTH = CONSTANT_FEATURE_COUNT + 1;
+  int DATE_CONSTANT__MONTH = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Year</b></em>' attribute.
@@ -708,7 +745,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATE_CONSTANT__YEAR = CONSTANT_FEATURE_COUNT + 2;
+  int DATE_CONSTANT__YEAR = EXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Date Constant</em>' class.
@@ -717,7 +754,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATE_CONSTANT_FEATURE_COUNT = CONSTANT_FEATURE_COUNT + 3;
+  int DATE_CONSTANT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.NullImpl <em>Null</em>}' class.
@@ -727,7 +764,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getNull()
    * @generated
    */
-  int NULL = 22;
+  int NULL = 23;
 
   /**
    * The number of structural features of the '<em>Null</em>' class.
@@ -736,7 +773,7 @@ public interface DomainModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NULL_FEATURE_COUNT = CONSTANT_FEATURE_COUNT + 0;
+  int NULL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.EntityDeleteOptionImpl <em>Entity Delete Option</em>}' class.
@@ -746,7 +783,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getEntityDeleteOption()
    * @generated
    */
-  int ENTITY_DELETE_OPTION = 23;
+  int ENTITY_DELETE_OPTION = 24;
 
   /**
    * The feature id for the '<em><b>Delete By Flag</b></em>' attribute.
@@ -774,7 +811,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getInheritanceMappingOption()
    * @generated
    */
-  int INHERITANCE_MAPPING_OPTION = 24;
+  int INHERITANCE_MAPPING_OPTION = 25;
 
   /**
    * The feature id for the '<em><b>Inheritance Mapping</b></em>' containment reference.
@@ -802,7 +839,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getStringType()
    * @generated
    */
-  int STRING_TYPE = 25;
+  int STRING_TYPE = 26;
 
   /**
    * The number of structural features of the '<em>String Type</em>' class.
@@ -821,7 +858,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getIntType()
    * @generated
    */
-  int INT_TYPE = 26;
+  int INT_TYPE = 27;
 
   /**
    * The number of structural features of the '<em>Int Type</em>' class.
@@ -840,7 +877,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getLongType()
    * @generated
    */
-  int LONG_TYPE = 27;
+  int LONG_TYPE = 28;
 
   /**
    * The number of structural features of the '<em>Long Type</em>' class.
@@ -859,7 +896,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getBoolType()
    * @generated
    */
-  int BOOL_TYPE = 28;
+  int BOOL_TYPE = 29;
 
   /**
    * The number of structural features of the '<em>Bool Type</em>' class.
@@ -878,7 +915,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getDateType()
    * @generated
    */
-  int DATE_TYPE = 29;
+  int DATE_TYPE = 30;
 
   /**
    * The number of structural features of the '<em>Date Type</em>' class.
@@ -897,7 +934,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getRequired()
    * @generated
    */
-  int REQUIRED = 30;
+  int REQUIRED = 31;
 
   /**
    * The feature id for the '<em><b>Required</b></em>' attribute.
@@ -925,7 +962,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getPartOf()
    * @generated
    */
-  int PART_OF = 31;
+  int PART_OF = 32;
 
   /**
    * The feature id for the '<em><b>Part Of</b></em>' attribute.
@@ -953,7 +990,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getRelationshipOwner()
    * @generated
    */
-  int RELATIONSHIP_OWNER = 32;
+  int RELATIONSHIP_OWNER = 33;
 
   /**
    * The feature id for the '<em><b>Relationship Owner</b></em>' containment reference.
@@ -981,7 +1018,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getCardinality()
    * @generated
    */
-  int CARDINALITY = 33;
+  int CARDINALITY = 34;
 
   /**
    * The feature id for the '<em><b>Card</b></em>' attribute.
@@ -1009,7 +1046,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getCardinalityType()
    * @generated
    */
-  int CARDINALITY_TYPE = 34;
+  int CARDINALITY_TYPE = 35;
 
 
   /**
@@ -1151,14 +1188,14 @@ public interface DomainModelPackage extends EPackage
   EReference getEnumLiteral_Params();
 
   /**
-   * Returns the meta object for class '{@link com.stefanvuckovic.domainmodel.domainModel.Constant <em>Constant</em>}'.
+   * Returns the meta object for class '{@link com.stefanvuckovic.domainmodel.domainModel.Expression <em>Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Constant</em>'.
-   * @see com.stefanvuckovic.domainmodel.domainModel.Constant
+   * @return the meta object for class '<em>Expression</em>'.
+   * @see com.stefanvuckovic.domainmodel.domainModel.Expression
    * @generated
    */
-  EClass getConstant();
+  EClass getExpression();
 
   /**
    * Returns the meta object for class '{@link com.stefanvuckovic.domainmodel.domainModel.Option <em>Option</em>}'.
@@ -1210,28 +1247,6 @@ public interface DomainModelPackage extends EPackage
    * @generated
    */
   EClass getAttribute();
-
-  /**
-   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.domainmodel.domainModel.Attribute#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type</em>'.
-   * @see com.stefanvuckovic.domainmodel.domainModel.Attribute#getType()
-   * @see #getAttribute()
-   * @generated
-   */
-  EReference getAttribute_Type();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.stefanvuckovic.domainmodel.domainModel.Attribute#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.stefanvuckovic.domainmodel.domainModel.Attribute#getName()
-   * @see #getAttribute()
-   * @generated
-   */
-  EAttribute getAttribute_Name();
 
   /**
    * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.domainmodel.domainModel.Attribute#getOptions <em>Options</em>}'.
@@ -1357,6 +1372,38 @@ public interface DomainModelPackage extends EPackage
    * @generated
    */
   EReference getStaticFieldSelection_Member();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.domainmodel.domainModel.SelectionMember <em>Selection Member</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Selection Member</em>'.
+   * @see com.stefanvuckovic.domainmodel.domainModel.SelectionMember
+   * @generated
+   */
+  EClass getSelectionMember();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.domainmodel.domainModel.SelectionMember#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see com.stefanvuckovic.domainmodel.domainModel.SelectionMember#getType()
+   * @see #getSelectionMember()
+   * @generated
+   */
+  EReference getSelectionMember_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.stefanvuckovic.domainmodel.domainModel.SelectionMember#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see com.stefanvuckovic.domainmodel.domainModel.SelectionMember#getName()
+   * @see #getSelectionMember()
+   * @generated
+   */
+  EAttribute getSelectionMember_Name();
 
   /**
    * Returns the meta object for class '{@link com.stefanvuckovic.domainmodel.domainModel.IntConstant <em>Int Constant</em>}'.
@@ -1819,14 +1866,14 @@ public interface DomainModelPackage extends EPackage
     EReference ENUM_LITERAL__PARAMS = eINSTANCE.getEnumLiteral_Params();
 
     /**
-     * The meta object literal for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.ConstantImpl <em>Constant</em>}' class.
+     * The meta object literal for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.ExpressionImpl <em>Expression</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see com.stefanvuckovic.domainmodel.domainModel.impl.ConstantImpl
-     * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getConstant()
+     * @see com.stefanvuckovic.domainmodel.domainModel.impl.ExpressionImpl
+     * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getExpression()
      * @generated
      */
-    EClass CONSTANT = eINSTANCE.getConstant();
+    EClass EXPRESSION = eINSTANCE.getExpression();
 
     /**
      * The meta object literal for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.OptionImpl <em>Option</em>}' class.
@@ -1875,22 +1922,6 @@ public interface DomainModelPackage extends EPackage
      * @generated
      */
     EClass ATTRIBUTE = eINSTANCE.getAttribute();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ATTRIBUTE__TYPE = eINSTANCE.getAttribute_Type();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ATTRIBUTE__NAME = eINSTANCE.getAttribute_Name();
 
     /**
      * The meta object literal for the '<em><b>Options</b></em>' containment reference list feature.
@@ -2001,6 +2032,32 @@ public interface DomainModelPackage extends EPackage
      * @generated
      */
     EReference STATIC_FIELD_SELECTION__MEMBER = eINSTANCE.getStaticFieldSelection_Member();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.SelectionMemberImpl <em>Selection Member</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.domainmodel.domainModel.impl.SelectionMemberImpl
+     * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getSelectionMember()
+     * @generated
+     */
+    EClass SELECTION_MEMBER = eINSTANCE.getSelectionMember();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SELECTION_MEMBER__TYPE = eINSTANCE.getSelectionMember_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SELECTION_MEMBER__NAME = eINSTANCE.getSelectionMember_Name();
 
     /**
      * The meta object literal for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.IntConstantImpl <em>Int Constant</em>}' class.

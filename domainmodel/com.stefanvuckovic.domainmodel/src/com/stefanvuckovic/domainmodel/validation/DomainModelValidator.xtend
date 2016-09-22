@@ -9,12 +9,12 @@ import com.stefanvuckovic.domainmodel.domainModel.AttributeOption
 import com.stefanvuckovic.domainmodel.domainModel.BasicType
 import com.stefanvuckovic.domainmodel.domainModel.Cardinality
 import com.stefanvuckovic.domainmodel.domainModel.CardinalityType
-import com.stefanvuckovic.domainmodel.domainModel.Constant
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage
 import com.stefanvuckovic.domainmodel.domainModel.Entity
 import com.stefanvuckovic.domainmodel.domainModel.EntityOption
 import com.stefanvuckovic.domainmodel.domainModel.Enum
 import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral
+import com.stefanvuckovic.domainmodel.domainModel.Expression
 import com.stefanvuckovic.domainmodel.domainModel.Model
 import com.stefanvuckovic.domainmodel.domainModel.Option
 import com.stefanvuckovic.domainmodel.domainModel.Required
@@ -163,7 +163,7 @@ class DomainModelValidator extends AbstractDomainModelValidator {
 	}
 	
 	@Check 
-	def void checkEnumTypes(Constant const) {
+	def void checkEnumTypes(Expression const) {
 		val type = const.type
 		val expectedType = const.expectedType
 		if (expectedType == null || type == null)
@@ -190,7 +190,7 @@ class DomainModelValidator extends AbstractDomainModelValidator {
 		val enum = literal.eContainer as Enum
 		if (literal.params.size != enum.attributes.size) {
 			error("Invalid number of arguments: expected " + enum.attributes.size + " but was " + literal.params.size,
-				DomainModelPackage.eINSTANCE.enumLiteral_Name)
+				DomainModelPackage.eINSTANCE.concept_Name)
 		}
 	}
 	

@@ -82,17 +82,17 @@ public class CustomIndex {
         Iterable<IEObjectDescription> _xifexpression = null;
         URI _uRI = r.getURI();
         String _fileExtension = _uRI.fileExtension();
-        boolean _equals = Objects.equal(_fileExtension, "dto");
+        boolean _equals = Objects.equal(_fileExtension, "domain");
         if (_equals) {
-          _xifexpression = r.getExportedObjectsByType(cl);
+          EClass _enum = DomainModelPackage.eINSTANCE.getEnum();
+          _xifexpression = r.getExportedObjectsByType(_enum);
         } else {
           Iterable<IEObjectDescription> _xifexpression_1 = null;
           URI _uRI_1 = r.getURI();
           String _fileExtension_1 = _uRI_1.fileExtension();
-          boolean _equals_1 = Objects.equal(_fileExtension_1, "domain");
+          boolean _equals_1 = Objects.equal(_fileExtension_1, "dto");
           if (_equals_1) {
-            EClass _enum = DomainModelPackage.eINSTANCE.getEnum();
-            _xifexpression_1 = r.getExportedObjectsByType(_enum);
+            _xifexpression_1 = r.getExportedObjectsByType(cl);
           } else {
             _xifexpression_1 = CollectionLiterals.<IEObjectDescription>newArrayList();
           }

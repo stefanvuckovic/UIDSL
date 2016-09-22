@@ -70,7 +70,7 @@ public class DTOGenerator extends AbstractGenerator {
     boolean _matched = false;
     if (concept instanceof DTOClass) {
       _matched=true;
-      _switchResult = this.compile(((DTOClass)concept));
+      _switchResult = this.compile(((DTOClass) concept));
     }
     if (!_matched) {
       if (concept instanceof com.stefanvuckovic.domainmodel.domainModel.Enum) {

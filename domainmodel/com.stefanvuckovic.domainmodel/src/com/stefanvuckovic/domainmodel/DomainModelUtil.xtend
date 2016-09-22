@@ -149,5 +149,6 @@ class DomainModelUtil {
 			}
 		}
 		relatedAttr
-	} 
+	}
+
 }

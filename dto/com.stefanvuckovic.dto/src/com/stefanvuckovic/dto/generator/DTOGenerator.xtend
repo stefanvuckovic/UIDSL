@@ -43,7 +43,7 @@ class DTOGenerator extends AbstractGenerator {
 	def compile(Concept concept) {
 		switch(concept) {
 			DTOClass:
-				compile(concept)
+				compile(concept as DTOClass)
 			Enum:
 				generator.compile(concept, "dto")
 		}	

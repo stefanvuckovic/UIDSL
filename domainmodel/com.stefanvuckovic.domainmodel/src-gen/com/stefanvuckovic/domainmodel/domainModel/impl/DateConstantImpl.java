@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class DateConstantImpl extends ConstantImpl implements DateConstant
+public class DateConstantImpl extends ExpressionImpl implements DateConstant
 {
   /**
    * The default value of the '{@link #getDay() <em>Day</em>}' attribute.

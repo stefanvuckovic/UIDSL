@@ -3,8 +3,8 @@
  */
 package com.stefanvuckovic.domainmodel.domainModel.impl;
 
-import com.stefanvuckovic.domainmodel.domainModel.Constant;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
+import com.stefanvuckovic.domainmodel.domainModel.Expression;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -12,19 +12,19 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Constant</b></em>'.
+ * An implementation of the model object '<em><b>Expression</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class ConstantImpl extends MinimalEObjectImpl.Container implements Constant
+public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expression
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ConstantImpl()
+  protected ExpressionImpl()
   {
     super();
   }
@@ -37,7 +37,7 @@ public class ConstantImpl extends MinimalEObjectImpl.Container implements Consta
   @Override
   protected EClass eStaticClass()
   {
-    return DomainModelPackage.Literals.CONSTANT;
+    return DomainModelPackage.Literals.EXPRESSION;
   }
 
-} //ConstantImpl
+} //ExpressionImpl

@@ -15,6 +15,7 @@ import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityDeleteOption;
 import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral;
+import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingOption;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingType;
 import com.stefanvuckovic.domainmodel.domainModel.IntConstant;
@@ -27,6 +28,7 @@ import com.stefanvuckovic.domainmodel.domainModel.PartOf;
 import com.stefanvuckovic.domainmodel.domainModel.RefType;
 import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner;
 import com.stefanvuckovic.domainmodel.domainModel.Required;
+import com.stefanvuckovic.domainmodel.domainModel.SelectionMember;
 import com.stefanvuckovic.domainmodel.domainModel.StaticFieldSelection;
 import com.stefanvuckovic.domainmodel.domainModel.StringConstant;
 import com.stefanvuckovic.domainmodel.domainModel.StringType;
@@ -89,6 +91,9 @@ public class DomainModelSemanticSequencer extends AbstractDelegatingSemanticSequ
 			case DomainModelPackage.ENUM_LITERAL:
 				sequence_EnumLiteral(context, (EnumLiteral) semanticObject); 
 				return; 
+			case DomainModelPackage.EXPRESSION:
+				sequence_Expression(context, (Expression) semanticObject); 
+				return; 
 			case DomainModelPackage.INHERITANCE_MAPPING_OPTION:
 				sequence_EntityOption(context, (InheritanceMappingOption) semanticObject); 
 				return; 
@@ -124,6 +129,9 @@ public class DomainModelSemanticSequencer extends AbstractDelegatingSemanticSequ
 				return; 
 			case DomainModelPackage.REQUIRED:
 				sequence_AttributeOption(context, (Required) semanticObject); 
+				return; 
+			case DomainModelPackage.SELECTION_MEMBER:
+				sequence_DumbSelectionMember(context, (SelectionMember) semanticObject); 
 				return; 
 			case DomainModelPackage.STATIC_FIELD_SELECTION:
 				sequence_StaticFieldSelection(context, (StaticFieldSelection) semanticObject); 
@@ -218,6 +226,7 @@ public class DomainModelSemanticSequencer extends AbstractDelegatingSemanticSequ
 	/**
 	 * Contexts:
 	 *     Attribute returns Attribute
+	 *     SelectionMember returns Attribute
 	 *
 	 * Constraint:
 	 *     (type=AttributeType name=ID (options+=AttributeOption options+=AttributeOption*)?)
@@ -420,6 +429,27 @@ public class DomainModelSemanticSequencer extends AbstractDelegatingSemanticSequ
 	
 	/**
 	 * Contexts:
+	 *     DumbSelectionMember returns SelectionMember
+	 *
+	 * Constraint:
+	 *     (type=AttributeType name=ID)
+	 */
+	protected void sequence_DumbSelectionMember(ISerializationContext context, SelectionMember semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DomainModelPackage.Literals.SELECTION_MEMBER__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DomainModelPackage.Literals.SELECTION_MEMBER__TYPE));
+			if (transientValues.isValueTransient(semanticObject, DomainModelPackage.Literals.SELECTION_MEMBER__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DomainModelPackage.Literals.SELECTION_MEMBER__NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getDumbSelectionMemberAccess().getTypeAttributeTypeParserRuleCall_1_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getDumbSelectionMemberAccess().getNameIDTerminalRuleCall_2_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Option returns EntityDeleteOption
 	 *     EntityOption returns EntityDeleteOption
 	 *
@@ -490,6 +520,18 @@ public class DomainModelSemanticSequencer extends AbstractDelegatingSemanticSequ
 	 *     (name=ID attributes+=Attribute* literals+=EnumLiteral+)
 	 */
 	protected void sequence_Enum(ISerializationContext context, com.stefanvuckovic.domainmodel.domainModel.Enum semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Expression returns Expression
+	 *
+	 * Constraint:
+	 *     {Expression}
+	 */
+	protected void sequence_Expression(ISerializationContext context, Expression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

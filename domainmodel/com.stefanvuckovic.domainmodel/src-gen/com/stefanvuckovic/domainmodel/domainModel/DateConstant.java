@@ -22,7 +22,7 @@ package com.stefanvuckovic.domainmodel.domainModel;
  * @model
  * @generated
  */
-public interface DateConstant extends Constant
+public interface DateConstant extends Expression
 {
   /**
    * Returns the value of the '<em><b>Day</b></em>' attribute.

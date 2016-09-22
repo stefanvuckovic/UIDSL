@@ -5,21 +5,16 @@ package com.stefanvuckovic.domainmodel.domainModel.impl;
 
 import com.stefanvuckovic.domainmodel.domainModel.Attribute;
 import com.stefanvuckovic.domainmodel.domainModel.AttributeOption;
-import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -32,45 +27,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.stefanvuckovic.domainmodel.domainModel.impl.AttributeImpl#getType <em>Type</em>}</li>
- *   <li>{@link com.stefanvuckovic.domainmodel.domainModel.impl.AttributeImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.stefanvuckovic.domainmodel.domainModel.impl.AttributeImpl#getOptions <em>Options</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class AttributeImpl extends MinimalEObjectImpl.Container implements Attribute
+public class AttributeImpl extends SelectionMemberImpl implements Attribute
 {
-  /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected AttributeType type;
-
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getOptions() <em>Options</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -107,77 +70,6 @@ public class AttributeImpl extends MinimalEObjectImpl.Container implements Attri
    * <!-- end-user-doc -->
    * @generated
    */
-  public AttributeType getType()
-  {
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetType(AttributeType newType, NotificationChain msgs)
-  {
-    AttributeType oldType = type;
-    type = newType;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DomainModelPackage.ATTRIBUTE__TYPE, oldType, newType);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setType(AttributeType newType)
-  {
-    if (newType != type)
-    {
-      NotificationChain msgs = null;
-      if (type != null)
-        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DomainModelPackage.ATTRIBUTE__TYPE, null, msgs);
-      if (newType != null)
-        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DomainModelPackage.ATTRIBUTE__TYPE, null, msgs);
-      msgs = basicSetType(newType, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DomainModelPackage.ATTRIBUTE__TYPE, newType, newType));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DomainModelPackage.ATTRIBUTE__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<AttributeOption> getOptions()
   {
     if (options == null)
@@ -197,8 +89,6 @@ public class AttributeImpl extends MinimalEObjectImpl.Container implements Attri
   {
     switch (featureID)
     {
-      case DomainModelPackage.ATTRIBUTE__TYPE:
-        return basicSetType(null, msgs);
       case DomainModelPackage.ATTRIBUTE__OPTIONS:
         return ((InternalEList<?>)getOptions()).basicRemove(otherEnd, msgs);
     }
@@ -215,10 +105,6 @@ public class AttributeImpl extends MinimalEObjectImpl.Container implements Attri
   {
     switch (featureID)
     {
-      case DomainModelPackage.ATTRIBUTE__TYPE:
-        return getType();
-      case DomainModelPackage.ATTRIBUTE__NAME:
-        return getName();
       case DomainModelPackage.ATTRIBUTE__OPTIONS:
         return getOptions();
     }
@@ -236,12 +122,6 @@ public class AttributeImpl extends MinimalEObjectImpl.Container implements Attri
   {
     switch (featureID)
     {
-      case DomainModelPackage.ATTRIBUTE__TYPE:
-        setType((AttributeType)newValue);
-        return;
-      case DomainModelPackage.ATTRIBUTE__NAME:
-        setName((String)newValue);
-        return;
       case DomainModelPackage.ATTRIBUTE__OPTIONS:
         getOptions().clear();
         getOptions().addAll((Collection<? extends AttributeOption>)newValue);
@@ -260,12 +140,6 @@ public class AttributeImpl extends MinimalEObjectImpl.Container implements Attri
   {
     switch (featureID)
     {
-      case DomainModelPackage.ATTRIBUTE__TYPE:
-        setType((AttributeType)null);
-        return;
-      case DomainModelPackage.ATTRIBUTE__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case DomainModelPackage.ATTRIBUTE__OPTIONS:
         getOptions().clear();
         return;
@@ -283,31 +157,10 @@ public class AttributeImpl extends MinimalEObjectImpl.Container implements Attri
   {
     switch (featureID)
     {
-      case DomainModelPackage.ATTRIBUTE__TYPE:
-        return type != null;
-      case DomainModelPackage.ATTRIBUTE__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DomainModelPackage.ATTRIBUTE__OPTIONS:
         return options != null && !options.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //AttributeImpl

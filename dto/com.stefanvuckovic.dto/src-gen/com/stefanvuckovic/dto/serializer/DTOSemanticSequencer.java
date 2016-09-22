@@ -15,6 +15,7 @@ import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityDeleteOption;
 import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral;
+import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingOption;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingType;
 import com.stefanvuckovic.domainmodel.domainModel.IntConstant;
@@ -27,6 +28,7 @@ import com.stefanvuckovic.domainmodel.domainModel.PartOf;
 import com.stefanvuckovic.domainmodel.domainModel.RefType;
 import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner;
 import com.stefanvuckovic.domainmodel.domainModel.Required;
+import com.stefanvuckovic.domainmodel.domainModel.SelectionMember;
 import com.stefanvuckovic.domainmodel.domainModel.StaticFieldSelection;
 import com.stefanvuckovic.domainmodel.domainModel.StringConstant;
 import com.stefanvuckovic.domainmodel.domainModel.StringType;
@@ -119,6 +121,9 @@ public class DTOSemanticSequencer extends DomainModelSemanticSequencer {
 			case DomainModelPackage.ENUM_LITERAL:
 				sequence_EnumLiteral(context, (EnumLiteral) semanticObject); 
 				return; 
+			case DomainModelPackage.EXPRESSION:
+				sequence_Expression(context, (Expression) semanticObject); 
+				return; 
 			case DomainModelPackage.INHERITANCE_MAPPING_OPTION:
 				sequence_EntityOption(context, (InheritanceMappingOption) semanticObject); 
 				return; 
@@ -154,6 +159,9 @@ public class DTOSemanticSequencer extends DomainModelSemanticSequencer {
 				return; 
 			case DomainModelPackage.REQUIRED:
 				sequence_AttributeOption(context, (Required) semanticObject); 
+				return; 
+			case DomainModelPackage.SELECTION_MEMBER:
+				sequence_DumbSelectionMember(context, (SelectionMember) semanticObject); 
 				return; 
 			case DomainModelPackage.STATIC_FIELD_SELECTION:
 				sequence_StaticFieldSelection(context, (StaticFieldSelection) semanticObject); 

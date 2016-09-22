@@ -45,10 +45,10 @@ class CustomIndex {
 		//this is my improvisations, I did not find anywhere example like this
 		o.getVisibleContainers.map [c | 
 			c.resourceDescriptions.map[r | 
-				if(r.URI.fileExtension == "dto") {
-					r.getExportedObjectsByType(cl)
-				} else if(r.URI.fileExtension == "domain") {
+				if(r.URI.fileExtension == "domain") {
 					r.getExportedObjectsByType(DomainModelPackage.eINSTANCE.enum)
+				} else if(r.URI.fileExtension == "dto") {
+					r.getExportedObjectsByType(cl)
 				} else {
 					newArrayList()
 				}

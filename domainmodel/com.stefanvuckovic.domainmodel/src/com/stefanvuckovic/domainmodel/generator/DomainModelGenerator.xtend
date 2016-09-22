@@ -4,38 +4,39 @@
 package com.stefanvuckovic.domainmodel.generator
 
 import com.stefanvuckovic.domainmodel.DomainModelUtil
+import com.stefanvuckovic.domainmodel.domainModel.Attribute
 import com.stefanvuckovic.domainmodel.domainModel.AttributeType
 import com.stefanvuckovic.domainmodel.domainModel.BasicType
+import com.stefanvuckovic.domainmodel.domainModel.BoolConstant
+import com.stefanvuckovic.domainmodel.domainModel.BoolType
+import com.stefanvuckovic.domainmodel.domainModel.Cardinality
+import com.stefanvuckovic.domainmodel.domainModel.CardinalityType
 import com.stefanvuckovic.domainmodel.domainModel.CollectionType
+import com.stefanvuckovic.domainmodel.domainModel.Concept
+import com.stefanvuckovic.domainmodel.domainModel.DateConstant
+import com.stefanvuckovic.domainmodel.domainModel.DateType
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelFactory
 import com.stefanvuckovic.domainmodel.domainModel.Entity
+import com.stefanvuckovic.domainmodel.domainModel.Enum
+import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral
+import com.stefanvuckovic.domainmodel.domainModel.Expression
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingOption
+import com.stefanvuckovic.domainmodel.domainModel.IntConstant
+import com.stefanvuckovic.domainmodel.domainModel.IntType
+import com.stefanvuckovic.domainmodel.domainModel.LongConstant
+import com.stefanvuckovic.domainmodel.domainModel.LongType
+import com.stefanvuckovic.domainmodel.domainModel.Model
+import com.stefanvuckovic.domainmodel.domainModel.Null
 import com.stefanvuckovic.domainmodel.domainModel.RefType
+import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner
 import com.stefanvuckovic.domainmodel.domainModel.SingleType
+import com.stefanvuckovic.domainmodel.domainModel.StringConstant
+import com.stefanvuckovic.domainmodel.domainModel.StringType
 import javax.inject.Inject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
-import com.stefanvuckovic.domainmodel.domainModel.Model
-import com.stefanvuckovic.domainmodel.domainModel.Concept
-import com.stefanvuckovic.domainmodel.domainModel.Constant
-import com.stefanvuckovic.domainmodel.domainModel.IntConstant
-import com.stefanvuckovic.domainmodel.domainModel.LongConstant
-import com.stefanvuckovic.domainmodel.domainModel.StringConstant
-import com.stefanvuckovic.domainmodel.domainModel.DateConstant
-import com.stefanvuckovic.domainmodel.domainModel.BoolConstant
-import com.stefanvuckovic.domainmodel.domainModel.Null
-import com.stefanvuckovic.domainmodel.domainModel.Attribute
-import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral
-import com.stefanvuckovic.domainmodel.domainModel.Cardinality
-import com.stefanvuckovic.domainmodel.domainModel.CardinalityType
-import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner
-import com.stefanvuckovic.domainmodel.domainModel.DateType
-import com.stefanvuckovic.domainmodel.domainModel.BoolType
-import com.stefanvuckovic.domainmodel.domainModel.StringType
-import com.stefanvuckovic.domainmodel.domainModel.IntType
-import com.stefanvuckovic.domainmodel.domainModel.LongType
 
 /**
  * Generates code from your model files on save.
@@ -57,12 +58,12 @@ class DomainModelGenerator extends AbstractGenerator {
 		switch(concept) {
 			Entity:
 				compile(concept)
-			com.stefanvuckovic.domainmodel.domainModel.Enum:
+			Enum:
 				compile(concept, "domain")
 		}	
 	}
 	
-	def compile(com.stefanvuckovic.domainmodel.domainModel.Enum en, String packageName) '''
+	def compile(Enum en, String packageName) '''
 		package «packageName»;
 		
 		public enum «en.name» {
@@ -114,7 +115,7 @@ class DomainModelGenerator extends AbstractGenerator {
 		type + " " + attr.name
 	}
 	
-	def compile(Constant const) {
+	def compile(Expression const) {
 		switch(const) {
 			IntConstant:
 				const.value

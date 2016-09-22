@@ -2,11 +2,11 @@ package com.stefanvuckovic.domainmodel.types
 
 import com.stefanvuckovic.domainmodel.domainModel.AttributeType
 import com.stefanvuckovic.domainmodel.domainModel.BoolConstant
-import com.stefanvuckovic.domainmodel.domainModel.Constant
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelFactory
 import com.stefanvuckovic.domainmodel.domainModel.Enum
 import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral
+import com.stefanvuckovic.domainmodel.domainModel.Expression
 import com.stefanvuckovic.domainmodel.domainModel.IntConstant
 import com.stefanvuckovic.domainmodel.domainModel.LongConstant
 import com.stefanvuckovic.domainmodel.domainModel.Null
@@ -21,7 +21,7 @@ class TypeComputing {
 	public static val DATE_TYPE = DomainModelFactory.eINSTANCE.createDateType
 	public static val NULL_TYPE = new NullType
 	
-	def AttributeType getType(Constant c) {
+	def AttributeType getType(Expression c) {
 		switch (c) {
 			StringConstant:
 				STRING_TYPE
@@ -38,14 +38,14 @@ class TypeComputing {
 		}
 	}
 
-	def getExpectedType(Constant c) {
-		val cont = c.eContainer
+	def getExpectedType(Expression e) {
+		val cont = e.eContainer
 		switch (cont) {
 			EnumLiteral:
 				{
 					val enumCont = cont.eContainer as Enum
 					try {
-						return (enumCont.attributes.get((cont as EnumLiteral).params.indexOf(c))).type
+						return (enumCont.attributes.get((cont as EnumLiteral).params.indexOf(e))).type
 					} catch (Throwable t) {
 						return null // otherwise there is no specific expected type
 					}

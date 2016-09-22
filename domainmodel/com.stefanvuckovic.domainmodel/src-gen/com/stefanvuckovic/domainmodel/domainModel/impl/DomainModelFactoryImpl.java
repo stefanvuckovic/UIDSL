@@ -13,7 +13,6 @@ import com.stefanvuckovic.domainmodel.domainModel.Cardinality;
 import com.stefanvuckovic.domainmodel.domainModel.CardinalityType;
 import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
-import com.stefanvuckovic.domainmodel.domainModel.Constant;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelFactory;
@@ -22,6 +21,7 @@ import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityDeleteOption;
 import com.stefanvuckovic.domainmodel.domainModel.EntityOption;
 import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral;
+import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingOption;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingType;
 import com.stefanvuckovic.domainmodel.domainModel.IntConstant;
@@ -35,6 +35,7 @@ import com.stefanvuckovic.domainmodel.domainModel.PartOf;
 import com.stefanvuckovic.domainmodel.domainModel.RefType;
 import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner;
 import com.stefanvuckovic.domainmodel.domainModel.Required;
+import com.stefanvuckovic.domainmodel.domainModel.SelectionMember;
 import com.stefanvuckovic.domainmodel.domainModel.SingleType;
 import com.stefanvuckovic.domainmodel.domainModel.StaticFieldSelection;
 import com.stefanvuckovic.domainmodel.domainModel.StringConstant;
@@ -106,7 +107,7 @@ public class DomainModelFactoryImpl extends EFactoryImpl implements DomainModelF
       case DomainModelPackage.ENTITY: return createEntity();
       case DomainModelPackage.ENUM: return createEnum();
       case DomainModelPackage.ENUM_LITERAL: return createEnumLiteral();
-      case DomainModelPackage.CONSTANT: return createConstant();
+      case DomainModelPackage.EXPRESSION: return createExpression();
       case DomainModelPackage.OPTION: return createOption();
       case DomainModelPackage.ENTITY_OPTION: return createEntityOption();
       case DomainModelPackage.INHERITANCE_MAPPING_TYPE: return createInheritanceMappingType();
@@ -118,6 +119,7 @@ public class DomainModelFactoryImpl extends EFactoryImpl implements DomainModelF
       case DomainModelPackage.COLLECTION_TYPE: return createCollectionType();
       case DomainModelPackage.ATTRIBUTE_OPTION: return createAttributeOption();
       case DomainModelPackage.STATIC_FIELD_SELECTION: return createStaticFieldSelection();
+      case DomainModelPackage.SELECTION_MEMBER: return createSelectionMember();
       case DomainModelPackage.INT_CONSTANT: return createIntConstant();
       case DomainModelPackage.LONG_CONSTANT: return createLongConstant();
       case DomainModelPackage.STRING_CONSTANT: return createStringConstant();
@@ -234,10 +236,10 @@ public class DomainModelFactoryImpl extends EFactoryImpl implements DomainModelF
    * <!-- end-user-doc -->
    * @generated
    */
-  public Constant createConstant()
+  public Expression createExpression()
   {
-    ConstantImpl constant = new ConstantImpl();
-    return constant;
+    ExpressionImpl expression = new ExpressionImpl();
+    return expression;
   }
 
   /**
@@ -359,6 +361,17 @@ public class DomainModelFactoryImpl extends EFactoryImpl implements DomainModelF
   {
     StaticFieldSelectionImpl staticFieldSelection = new StaticFieldSelectionImpl();
     return staticFieldSelection;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SelectionMember createSelectionMember()
+  {
+    SelectionMemberImpl selectionMember = new SelectionMemberImpl();
+    return selectionMember;
   }
 
   /**

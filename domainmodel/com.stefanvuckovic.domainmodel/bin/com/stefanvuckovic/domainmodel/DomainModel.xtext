@@ -27,7 +27,11 @@ EnumLiteral:
 	name = ID ('(' params+=Constant (',' params+=Constant)* ')')?
 ;
 
-Constant:
+Expression:
+	{Expression} 'to_be_implemented'
+;
+
+Constant returns Expression:
 	{IntConstant} value=INT |
 	{LongConstant} value=INT 'L'|
 	{StringConstant} value=STRING |
@@ -91,4 +95,13 @@ enum CardinalityType:
 
 StaticFieldSelection:
 	receiver=[Entity] '.' member=[Attribute]
+;
+
+SelectionMember:
+	Attribute
+;
+
+//this rule should not be used. It just forces creation of feature in base class
+DumbSelectionMember returns SelectionMember:
+	'dumb_selection' type=AttributeType name=ID
 ;

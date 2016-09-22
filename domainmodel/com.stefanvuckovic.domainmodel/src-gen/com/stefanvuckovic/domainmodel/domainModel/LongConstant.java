@@ -20,7 +20,7 @@ package com.stefanvuckovic.domainmodel.domainModel;
  * @model
  * @generated
  */
-public interface LongConstant extends Constant
+public interface LongConstant extends Expression
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.
