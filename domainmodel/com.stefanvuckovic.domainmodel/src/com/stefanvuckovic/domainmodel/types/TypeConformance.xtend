@@ -19,11 +19,11 @@ class TypeConformance {
 	def boolean isConformant(AttributeType type1, AttributeType type2) {
 		type1 === NULL_TYPE && type2.acceptNull ||
 		type1 instanceof BasicType && type1.class.equals(type2.class) ||
-		type1 instanceof RefType && type2 instanceof RefType && (type1 as RefType).isConformant((type2 as RefType)) ||
-		type1 instanceof CollectionType && type2 instanceof CollectionType && (type1 as CollectionType).isConformant((type2 as CollectionType))
+		type1 instanceof RefType && type2 instanceof RefType && (type1 as RefType).isRefTypeConformant((type2 as RefType)) ||
+		type1 instanceof CollectionType && type2 instanceof CollectionType && (type1 as CollectionType).isCollectionTypeConformant((type2 as CollectionType))
 	}
 	
-	def isConformant(RefType type1, RefType type2) {
+	def isRefTypeConformant(RefType type1, RefType type2) {
 		val c = type1.reference
 		switch(c) {
 			Enum:
@@ -35,8 +35,15 @@ class TypeConformance {
 		} 
 	}
 	
-	def isConformant(CollectionType type1, CollectionType type2) {
-		return type1.ofType.isConformant(type2.ofType)
+	def isCollectionTypeConformant(CollectionType type1, CollectionType type2) {
+		val attrType1 = type1.ofType
+		val attrType2 = type2.ofType
+		switch(attrType1) {
+			BasicType:
+				attrType1.class.equals(attrType2.class)
+			RefType:
+				attrType2 instanceof RefType && (attrType2 as RefType).reference === attrType1.reference
+		}
 	}
 	
 	def acceptNull(AttributeType type) {

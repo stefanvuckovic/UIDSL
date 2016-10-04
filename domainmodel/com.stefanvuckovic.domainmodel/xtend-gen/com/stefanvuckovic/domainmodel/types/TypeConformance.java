@@ -22,11 +22,11 @@ public class TypeConformance {
   public boolean isConformant(final AttributeType type1, final AttributeType type2) {
     return (((((type1 == TypeComputing.NULL_TYPE) && this.acceptNull(type2)) || 
       ((type1 instanceof BasicType) && type1.getClass().equals(type2.getClass()))) || 
-      (((type1 instanceof RefType) && (type2 instanceof RefType)) && this.isConformant(((RefType) type1), ((RefType) type2)))) || 
-      (((type1 instanceof CollectionType) && (type2 instanceof CollectionType)) && this.isConformant(((CollectionType) type1), ((CollectionType) type2))));
+      (((type1 instanceof RefType) && (type2 instanceof RefType)) && this.isRefTypeConformant(((RefType) type1), ((RefType) type2)))) || 
+      (((type1 instanceof CollectionType) && (type2 instanceof CollectionType)) && this.isCollectionTypeConformant(((CollectionType) type1), ((CollectionType) type2))));
   }
   
-  public boolean isConformant(final RefType type1, final RefType type2) {
+  public boolean isRefTypeConformant(final RefType type1, final RefType type2) {
     boolean _xblockexpression = false;
     {
       final Concept c = type1.getReference();
@@ -49,10 +49,28 @@ public class TypeConformance {
     return _xblockexpression;
   }
   
-  public boolean isConformant(final CollectionType type1, final CollectionType type2) {
-    SingleType _ofType = type1.getOfType();
-    SingleType _ofType_1 = type2.getOfType();
-    return this.isConformant(_ofType, _ofType_1);
+  public boolean isCollectionTypeConformant(final CollectionType type1, final CollectionType type2) {
+    boolean _xblockexpression = false;
+    {
+      final SingleType attrType1 = type1.getOfType();
+      final SingleType attrType2 = type2.getOfType();
+      boolean _switchResult = false;
+      boolean _matched = false;
+      if (attrType1 instanceof BasicType) {
+        _matched=true;
+        Class<? extends BasicType> _class = ((BasicType)attrType1).getClass();
+        Class<? extends SingleType> _class_1 = attrType2.getClass();
+        _switchResult = _class.equals(_class_1);
+      }
+      if (!_matched) {
+        if (attrType1 instanceof RefType) {
+          _matched=true;
+          _switchResult = ((attrType2 instanceof RefType) && (((RefType) attrType2).getReference() == ((RefType)attrType1).getReference()));
+        }
+      }
+      _xblockexpression = _switchResult;
+    }
+    return _xblockexpression;
   }
   
   public boolean acceptNull(final AttributeType type) {

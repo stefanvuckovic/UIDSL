@@ -25,7 +25,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ServerComponent extends UIConcept, Concept
+public interface ServerComponent extends Concept
 {
   /**
    * Returns the value of the '<em><b>Members</b></em>' containment reference list.

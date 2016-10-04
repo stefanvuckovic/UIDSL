@@ -121,6 +121,25 @@ public class DTOGrammarAccess extends AbstractGrammarElementFinder {
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
 	}
+	public class AttributeOptionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.dto.DTO.AttributeOption");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cObjectRepresentationAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cRepresentationKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//AttributeOption domainModel::AttributeOption:
+		//	{ObjectRepresentation} 'representation'
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{ObjectRepresentation} 'representation'
+		public Group getGroup() { return cGroup; }
+		
+		//{ObjectRepresentation}
+		public Action getObjectRepresentationAction_0() { return cObjectRepresentationAction_0; }
+		
+		//'representation'
+		public Keyword getRepresentationKeyword_1() { return cRepresentationKeyword_1; }
+	}
 	public class BasicTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.dto.DTO.BasicType");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -201,6 +220,7 @@ public class DTOGrammarAccess extends AbstractGrammarElementFinder {
 	private final DTOModelElements pDTOModel;
 	private final ConceptElements pConcept;
 	private final DTOClassElements pDTOClass;
+	private final AttributeOptionElements pAttributeOption;
 	private final BasicTypeElements pBasicType;
 	
 	private final Grammar grammar;
@@ -219,6 +239,7 @@ public class DTOGrammarAccess extends AbstractGrammarElementFinder {
 		this.pDTOModel = new DTOModelElements();
 		this.pConcept = new ConceptElements();
 		this.pDTOClass = new DTOClassElements();
+		this.pAttributeOption = new AttributeOptionElements();
 		this.pBasicType = new BasicTypeElements();
 	}
 	
@@ -283,6 +304,16 @@ public class DTOGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getDTOClassRule() {
 		return getDTOClassAccess().getRule();
+	}
+	
+	//AttributeOption domainModel::AttributeOption:
+	//	{ObjectRepresentation} 'representation'
+	public AttributeOptionElements getAttributeOptionAccess() {
+		return pAttributeOption;
+	}
+	
+	public ParserRule getAttributeOptionRule() {
+		return getAttributeOptionAccess().getRule();
 	}
 	
 	//BasicType domainModel::BasicType:
@@ -363,7 +394,7 @@ public class DTOGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Option:
-	//	EntityOption | AttributeOption;
+	//	EntityOption | super::AttributeOption;
 	public DomainModelGrammarAccess.OptionElements getOptionAccess() {
 		return gaDomainModel.getOptionAccess();
 	}
@@ -394,7 +425,7 @@ public class DTOGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Attribute:
-	//	type=AttributeType name=ID (options+=AttributeOption (',' options+=AttributeOption)*)? ';';
+	//	type=AttributeType name=ID (options+=super::AttributeOption (',' options+=super::AttributeOption)*)? ';';
 	public DomainModelGrammarAccess.AttributeElements getAttributeAccess() {
 		return gaDomainModel.getAttributeAccess();
 	}
@@ -451,17 +482,6 @@ public class DTOGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getCollectionTypeRule() {
 		return getCollectionTypeAccess().getRule();
-	}
-	
-	//AttributeOption:
-	//	{Required} required?='required' | {PartOf} partOf?='partOf' | {RelationshipOwner} 'relationshipOwner' '='
-	//	relationshipOwner=StaticFieldSelection | {Cardinality} 'reverse_cardinality' '=' card=CardinalityType;
-	public DomainModelGrammarAccess.AttributeOptionElements getAttributeOptionAccess() {
-		return gaDomainModel.getAttributeOptionAccess();
-	}
-	
-	public ParserRule getAttributeOptionRule() {
-		return getAttributeOptionAccess().getRule();
 	}
 	
 	//enum CardinalityType:

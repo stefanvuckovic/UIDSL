@@ -2,7 +2,6 @@ package com.stefanvuckovic.dto.scoping
 
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage
 import javax.inject.Inject
-import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.resource.IContainer
 import org.eclipse.xtext.resource.IEObjectDescription
@@ -37,18 +36,14 @@ class CustomIndex {
 	}
 
 	def getVisibleConceptsDescriptions(EObject o) {
-		o.getVisibleEObjectDescriptions(DomainModelPackage.eINSTANCE.concept)
-	}
-
-	def getVisibleEObjectDescriptions(EObject o, EClass cl) {
 		//TODO check if there is a better way of defining which resources should be included
-		//this is my improvisations, I did not find anywhere example like this
+		//this is my improvisation, I did not find example like this anywhere
 		o.getVisibleContainers.map [c | 
 			c.resourceDescriptions.map[r | 
 				if(r.URI.fileExtension == "domain") {
 					r.getExportedObjectsByType(DomainModelPackage.eINSTANCE.enum)
 				} else if(r.URI.fileExtension == "dto") {
-					r.getExportedObjectsByType(cl)
+					r.getExportedObjectsByType(DomainModelPackage.eINSTANCE.concept)
 				} else {
 					newArrayList()
 				}

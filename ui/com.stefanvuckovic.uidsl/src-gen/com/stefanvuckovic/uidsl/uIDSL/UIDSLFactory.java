@@ -33,24 +33,6 @@ public interface UIDSLFactory extends EFactory
   UIModel createUIModel();
 
   /**
-   * Returns a new object of class '<em>UI Concept</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>UI Concept</em>'.
-   * @generated
-   */
-  UIConcept createUIConcept();
-
-  /**
-   * Returns a new object of class '<em>Server Component</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Server Component</em>'.
-   * @generated
-   */
-  ServerComponent createServerComponent();
-
-  /**
    * Returns a new object of class '<em>Member</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -105,6 +87,105 @@ public interface UIDSLFactory extends EFactory
   Page createPage();
 
   /**
+   * Returns a new object of class '<em>UI Element</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>UI Element</em>'.
+   * @generated
+   */
+  UIElement createUIElement();
+
+  /**
+   * Returns a new object of class '<em>UI Component</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>UI Component</em>'.
+   * @generated
+   */
+  UIComponent createUIComponent();
+
+  /**
+   * Returns a new object of class '<em>Nested Component</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Nested Component</em>'.
+   * @generated
+   */
+  NestedComponent createNestedComponent();
+
+  /**
+   * Returns a new object of class '<em>Child UI Component</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Child UI Component</em>'.
+   * @generated
+   */
+  ChildUIComponent createChildUIComponent();
+
+  /**
+   * Returns a new object of class '<em>Allowed Nested Components</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Allowed Nested Components</em>'.
+   * @generated
+   */
+  AllowedNestedComponents createAllowedNestedComponents();
+
+  /**
+   * Returns a new object of class '<em>Property Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Value</em>'.
+   * @generated
+   */
+  PropertyValue createPropertyValue();
+
+  /**
+   * Returns a new object of class '<em>UI Component Instance</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>UI Component Instance</em>'.
+   * @generated
+   */
+  UIComponentInstance createUIComponentInstance();
+
+  /**
+   * Returns a new object of class '<em>Logic Element</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Logic Element</em>'.
+   * @generated
+   */
+  LogicElement createLogicElement();
+
+  /**
+   * Returns a new object of class '<em>IF Statement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>IF Statement</em>'.
+   * @generated
+   */
+  IFStatement createIFStatement();
+
+  /**
+   * Returns a new object of class '<em>Iterator</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Iterator</em>'.
+   * @generated
+   */
+  Iterator createIterator();
+
+  /**
+   * Returns a new object of class '<em>Property Value Instance</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Value Instance</em>'.
+   * @generated
+   */
+  PropertyValueInstance createPropertyValueInstance();
+
+  /**
    * Returns a new object of class '<em>Template</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -123,6 +204,150 @@ public interface UIDSLFactory extends EFactory
   Fragment createFragment();
 
   /**
+   * Returns a new object of class '<em>Iteration Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Iteration Expression</em>'.
+   * @generated
+   */
+  IterationExpression createIterationExpression();
+
+  /**
+   * Returns a new object of class '<em>Fragment Call</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Fragment Call</em>'.
+   * @generated
+   */
+  FragmentCall createFragmentCall();
+
+  /**
+   * Returns a new object of class '<em>Type Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Expression</em>'.
+   * @generated
+   */
+  TypeExpression createTypeExpression();
+
+  /**
+   * Returns a new object of class '<em>Property Runtime Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Runtime Type</em>'.
+   * @generated
+   */
+  PropertyRuntimeType createPropertyRuntimeType();
+
+  /**
+   * Returns a new object of class '<em>Property Single Runtime Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Single Runtime Type</em>'.
+   * @generated
+   */
+  PropertySingleRuntimeType createPropertySingleRuntimeType();
+
+  /**
+   * Returns a new object of class '<em>Default Configurations</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Default Configurations</em>'.
+   * @generated
+   */
+  DefaultConfigurations createDefaultConfigurations();
+
+  /**
+   * Returns a new object of class '<em>Default Component Config</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Default Component Config</em>'.
+   * @generated
+   */
+  DefaultComponentConfig createDefaultComponentConfig();
+
+  /**
+   * Returns a new object of class '<em>Default Component</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Default Component</em>'.
+   * @generated
+   */
+  DefaultComponent createDefaultComponent();
+
+  /**
+   * Returns a new object of class '<em>Component</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Component</em>'.
+   * @generated
+   */
+  Component createComponent();
+
+  /**
+   * Returns a new object of class '<em>Server Component</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Server Component</em>'.
+   * @generated
+   */
+  ServerComponent createServerComponent();
+
+  /**
+   * Returns a new object of class '<em>Inline Variable</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Inline Variable</em>'.
+   * @generated
+   */
+  InlineVariable createInlineVariable();
+
+  /**
+   * Returns a new object of class '<em>Existing Nested Components</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Existing Nested Components</em>'.
+   * @generated
+   */
+  ExistingNestedComponents createExistingNestedComponents();
+
+  /**
+   * Returns a new object of class '<em>All Allowed Components</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>All Allowed Components</em>'.
+   * @generated
+   */
+  AllAllowedComponents createAllAllowedComponents();
+
+  /**
+   * Returns a new object of class '<em>Custom Allowed Components</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Custom Allowed Components</em>'.
+   * @generated
+   */
+  CustomAllowedComponents createCustomAllowedComponents();
+
+  /**
+   * Returns a new object of class '<em>Template Fragment</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Template Fragment</em>'.
+   * @generated
+   */
+  TemplateFragment createTemplateFragment();
+
+  /**
+   * Returns a new object of class '<em>Template Fragment Override</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Template Fragment Override</em>'.
+   * @generated
+   */
+  TemplateFragmentOverride createTemplateFragmentOverride();
+
+  /**
    * Returns a new object of class '<em>Member Selection Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -132,6 +357,15 @@ public interface UIDSLFactory extends EFactory
   MemberSelectionExpression createMemberSelectionExpression();
 
   /**
+   * Returns a new object of class '<em>Page Call</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Page Call</em>'.
+   * @generated
+   */
+  PageCall createPageCall();
+
+  /**
    * Returns a new object of class '<em>Variable Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -139,6 +373,96 @@ public interface UIDSLFactory extends EFactory
    * @generated
    */
   VariableReference createVariableReference();
+
+  /**
+   * Returns a new object of class '<em>Object General Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Object General Type</em>'.
+   * @generated
+   */
+  ObjectGeneralType createObjectGeneralType();
+
+  /**
+   * Returns a new object of class '<em>Enum General Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Enum General Type</em>'.
+   * @generated
+   */
+  EnumGeneralType createEnumGeneralType();
+
+  /**
+   * Returns a new object of class '<em>Collection General Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Collection General Type</em>'.
+   * @generated
+   */
+  CollectionGeneralType createCollectionGeneralType();
+
+  /**
+   * Returns a new object of class '<em>Any Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Any Type</em>'.
+   * @generated
+   */
+  AnyType createAnyType();
+
+  /**
+   * Returns a new object of class '<em>Page Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Page Type</em>'.
+   * @generated
+   */
+  PageType createPageType();
+
+  /**
+   * Returns a new object of class '<em>Void Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Void Type</em>'.
+   * @generated
+   */
+  VoidType createVoidType();
+
+  /**
+   * Returns a new object of class '<em>Alternative Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Alternative Type</em>'.
+   * @generated
+   */
+  AlternativeType createAlternativeType();
+
+  /**
+   * Returns a new object of class '<em>Simple Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Simple Type</em>'.
+   * @generated
+   */
+  SimpleType createSimpleType();
+
+  /**
+   * Returns a new object of class '<em>Input UI Component</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Input UI Component</em>'.
+   * @generated
+   */
+  InputUIComponent createInputUIComponent();
+
+  /**
+   * Returns a new object of class '<em>Output UI Component</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Output UI Component</em>'.
+   * @generated
+   */
+  OutputUIComponent createOutputUIComponent();
 
   /**
    * Returns the package supported by this factory.

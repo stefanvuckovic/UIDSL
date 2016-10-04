@@ -5,12 +5,24 @@ package com.stefanvuckovic.uidsl.uIDSL.impl;
 
 import com.stefanvuckovic.uidsl.uIDSL.UIContainer;
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage;
+import com.stefanvuckovic.uidsl.uIDSL.UIElement;
+import com.stefanvuckovic.uidsl.uIDSL.Variable;
+
+import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,11 +33,13 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.impl.UIContainerImpl#getName <em>Name</em>}</li>
+ *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.impl.UIContainerImpl#getServerComponents <em>Server Components</em>}</li>
+ *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.impl.UIContainerImpl#getElements <em>Elements</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class UIContainerImpl extends UIConceptImpl implements UIContainer
+public class UIContainerImpl extends MinimalEObjectImpl.Container implements UIContainer
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -46,6 +60,26 @@ public class UIContainerImpl extends UIConceptImpl implements UIContainer
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getServerComponents() <em>Server Components</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getServerComponents()
+   * @generated
+   * @ordered
+   */
+  protected EList<Variable> serverComponents;
+
+  /**
+   * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getElements()
+   * @generated
+   * @ordered
+   */
+  protected EList<UIElement> elements;
 
   /**
    * <!-- begin-user-doc -->
@@ -96,6 +130,52 @@ public class UIContainerImpl extends UIConceptImpl implements UIContainer
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Variable> getServerComponents()
+  {
+    if (serverComponents == null)
+    {
+      serverComponents = new EObjectContainmentEList<Variable>(Variable.class, this, UIDSLPackage.UI_CONTAINER__SERVER_COMPONENTS);
+    }
+    return serverComponents;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<UIElement> getElements()
+  {
+    if (elements == null)
+    {
+      elements = new EObjectContainmentEList<UIElement>(UIElement.class, this, UIDSLPackage.UI_CONTAINER__ELEMENTS);
+    }
+    return elements;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case UIDSLPackage.UI_CONTAINER__SERVER_COMPONENTS:
+        return ((InternalEList<?>)getServerComponents()).basicRemove(otherEnd, msgs);
+      case UIDSLPackage.UI_CONTAINER__ELEMENTS:
+        return ((InternalEList<?>)getElements()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -103,6 +183,10 @@ public class UIContainerImpl extends UIConceptImpl implements UIContainer
     {
       case UIDSLPackage.UI_CONTAINER__NAME:
         return getName();
+      case UIDSLPackage.UI_CONTAINER__SERVER_COMPONENTS:
+        return getServerComponents();
+      case UIDSLPackage.UI_CONTAINER__ELEMENTS:
+        return getElements();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -112,6 +196,7 @@ public class UIContainerImpl extends UIConceptImpl implements UIContainer
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -119,6 +204,14 @@ public class UIContainerImpl extends UIConceptImpl implements UIContainer
     {
       case UIDSLPackage.UI_CONTAINER__NAME:
         setName((String)newValue);
+        return;
+      case UIDSLPackage.UI_CONTAINER__SERVER_COMPONENTS:
+        getServerComponents().clear();
+        getServerComponents().addAll((Collection<? extends Variable>)newValue);
+        return;
+      case UIDSLPackage.UI_CONTAINER__ELEMENTS:
+        getElements().clear();
+        getElements().addAll((Collection<? extends UIElement>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -137,6 +230,12 @@ public class UIContainerImpl extends UIConceptImpl implements UIContainer
       case UIDSLPackage.UI_CONTAINER__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case UIDSLPackage.UI_CONTAINER__SERVER_COMPONENTS:
+        getServerComponents().clear();
+        return;
+      case UIDSLPackage.UI_CONTAINER__ELEMENTS:
+        getElements().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -153,6 +252,10 @@ public class UIContainerImpl extends UIConceptImpl implements UIContainer
     {
       case UIDSLPackage.UI_CONTAINER__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case UIDSLPackage.UI_CONTAINER__SERVER_COMPONENTS:
+        return serverComponents != null && !serverComponents.isEmpty();
+      case UIDSLPackage.UI_CONTAINER__ELEMENTS:
+        return elements != null && !elements.isEmpty();
     }
     return super.eIsSet(featureID);
   }

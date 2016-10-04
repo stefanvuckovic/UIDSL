@@ -3,16 +3,13 @@
  */
 package com.stefanvuckovic.dto
 
-import com.google.inject.Binder
-import org.eclipse.xtext.resource.IResourceServiceProvider
-
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 class DTORuntimeModule extends AbstractDTORuntimeModule {
 	
-	override configure(Binder binder) {
-		super.configure(binder)
-		binder.bind(IResourceServiceProvider).to(CustomResourceServiceProvider);
-	}
+//	override configure(Binder binder) {
+//		super.configure(binder)
+//		binder.bind(IResourceServiceProvider).to(CustomResourceServiceProvider);
+//	}
 }

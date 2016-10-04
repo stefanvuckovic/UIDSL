@@ -7,14 +7,14 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>UI Concept</b></em>'.
+ * A representation of the model object '<em><b>UI Element</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage#getUIConcept()
+ * @see com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage#getUIElement()
  * @model
  * @generated
  */
-public interface UIConcept extends EObject
+public interface UIElement extends EObject
 {
-} // UIConcept
+} // UIElement

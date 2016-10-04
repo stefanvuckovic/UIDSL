@@ -27,7 +27,7 @@ public interface UIModel extends EObject
 {
   /**
    * Returns the value of the '<em><b>Concepts</b></em>' containment reference list.
-   * The list contents are of type {@link com.stefanvuckovic.uidsl.uIDSL.UIConcept}.
+   * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Concepts</em>' containment reference list isn't clear,
@@ -39,6 +39,6 @@ public interface UIModel extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<UIConcept> getConcepts();
+  EList<EObject> getConcepts();
 
 } // UIModel

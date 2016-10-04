@@ -1,0 +1,54 @@
+defaults def {
+	default for int {
+		input_component : textfield
+		output_component : textComp
+	}
+	default for long {
+		input_component : textfield
+		output_component : textComp
+	}
+	default for boolean {
+		input_component : boolCheckbox
+		output_component : boolCheckbox
+	}
+	default for email {
+		input_component : textfield
+		output_component : textComp
+	}
+	default for string {
+		input_component : textfield
+		output_component : textComp
+	}
+	default for text {
+		input_component : textarea
+		output_component : textComp
+	}
+	default for password {
+		input_component : passwordField
+		output_component : textComp
+	}
+	default for date {
+		input_component : inputDate
+		output_component : textComp
+	}
+	default for image {
+		input_component : fileUpload
+		output_component : imageComponent
+	}
+	default for file {
+		input_component : fileUpload
+		output_component : externalLink
+	}
+	default for object {
+		input_component : comboBox
+		output_component : textComp
+	}
+	default for collection {
+		input_component : multiSelectCheckbox
+		output_component : list
+	}
+	default for enum {
+		input_component : comboBox
+		output_component : textComp
+	}
+}

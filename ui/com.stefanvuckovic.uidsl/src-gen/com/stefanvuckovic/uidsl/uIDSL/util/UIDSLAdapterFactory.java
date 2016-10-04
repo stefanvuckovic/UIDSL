@@ -3,6 +3,7 @@
  */
 package com.stefanvuckovic.uidsl.uIDSL.util;
 
+import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
 import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.SelectionMember;
@@ -85,16 +86,6 @@ public class UIDSLAdapterFactory extends AdapterFactoryImpl
         return createUIModelAdapter();
       }
       @Override
-      public Adapter caseUIConcept(UIConcept object)
-      {
-        return createUIConceptAdapter();
-      }
-      @Override
-      public Adapter caseServerComponent(ServerComponent object)
-      {
-        return createServerComponentAdapter();
-      }
-      @Override
       public Adapter caseMember(Member object)
       {
         return createMemberAdapter();
@@ -125,6 +116,61 @@ public class UIDSLAdapterFactory extends AdapterFactoryImpl
         return createPageAdapter();
       }
       @Override
+      public Adapter caseUIElement(UIElement object)
+      {
+        return createUIElementAdapter();
+      }
+      @Override
+      public Adapter caseUIComponent(UIComponent object)
+      {
+        return createUIComponentAdapter();
+      }
+      @Override
+      public Adapter caseNestedComponent(NestedComponent object)
+      {
+        return createNestedComponentAdapter();
+      }
+      @Override
+      public Adapter caseChildUIComponent(ChildUIComponent object)
+      {
+        return createChildUIComponentAdapter();
+      }
+      @Override
+      public Adapter caseAllowedNestedComponents(AllowedNestedComponents object)
+      {
+        return createAllowedNestedComponentsAdapter();
+      }
+      @Override
+      public Adapter casePropertyValue(PropertyValue object)
+      {
+        return createPropertyValueAdapter();
+      }
+      @Override
+      public Adapter caseUIComponentInstance(UIComponentInstance object)
+      {
+        return createUIComponentInstanceAdapter();
+      }
+      @Override
+      public Adapter caseLogicElement(LogicElement object)
+      {
+        return createLogicElementAdapter();
+      }
+      @Override
+      public Adapter caseIFStatement(IFStatement object)
+      {
+        return createIFStatementAdapter();
+      }
+      @Override
+      public Adapter caseIterator(Iterator object)
+      {
+        return createIteratorAdapter();
+      }
+      @Override
+      public Adapter casePropertyValueInstance(PropertyValueInstance object)
+      {
+        return createPropertyValueInstanceAdapter();
+      }
+      @Override
       public Adapter caseTemplate(Template object)
       {
         return createTemplateAdapter();
@@ -135,9 +181,94 @@ public class UIDSLAdapterFactory extends AdapterFactoryImpl
         return createFragmentAdapter();
       }
       @Override
+      public Adapter caseIterationExpression(IterationExpression object)
+      {
+        return createIterationExpressionAdapter();
+      }
+      @Override
+      public Adapter caseFragmentCall(FragmentCall object)
+      {
+        return createFragmentCallAdapter();
+      }
+      @Override
+      public Adapter caseTypeExpression(TypeExpression object)
+      {
+        return createTypeExpressionAdapter();
+      }
+      @Override
+      public Adapter casePropertyRuntimeType(PropertyRuntimeType object)
+      {
+        return createPropertyRuntimeTypeAdapter();
+      }
+      @Override
+      public Adapter casePropertySingleRuntimeType(PropertySingleRuntimeType object)
+      {
+        return createPropertySingleRuntimeTypeAdapter();
+      }
+      @Override
+      public Adapter caseDefaultConfigurations(DefaultConfigurations object)
+      {
+        return createDefaultConfigurationsAdapter();
+      }
+      @Override
+      public Adapter caseDefaultComponentConfig(DefaultComponentConfig object)
+      {
+        return createDefaultComponentConfigAdapter();
+      }
+      @Override
+      public Adapter caseDefaultComponent(DefaultComponent object)
+      {
+        return createDefaultComponentAdapter();
+      }
+      @Override
+      public Adapter caseComponent(Component object)
+      {
+        return createComponentAdapter();
+      }
+      @Override
+      public Adapter caseServerComponent(ServerComponent object)
+      {
+        return createServerComponentAdapter();
+      }
+      @Override
+      public Adapter caseInlineVariable(InlineVariable object)
+      {
+        return createInlineVariableAdapter();
+      }
+      @Override
+      public Adapter caseExistingNestedComponents(ExistingNestedComponents object)
+      {
+        return createExistingNestedComponentsAdapter();
+      }
+      @Override
+      public Adapter caseAllAllowedComponents(AllAllowedComponents object)
+      {
+        return createAllAllowedComponentsAdapter();
+      }
+      @Override
+      public Adapter caseCustomAllowedComponents(CustomAllowedComponents object)
+      {
+        return createCustomAllowedComponentsAdapter();
+      }
+      @Override
+      public Adapter caseTemplateFragment(TemplateFragment object)
+      {
+        return createTemplateFragmentAdapter();
+      }
+      @Override
+      public Adapter caseTemplateFragmentOverride(TemplateFragmentOverride object)
+      {
+        return createTemplateFragmentOverrideAdapter();
+      }
+      @Override
       public Adapter caseMemberSelectionExpression(MemberSelectionExpression object)
       {
         return createMemberSelectionExpressionAdapter();
+      }
+      @Override
+      public Adapter casePageCall(PageCall object)
+      {
+        return createPageCallAdapter();
       }
       @Override
       public Adapter caseVariableReference(VariableReference object)
@@ -145,9 +276,54 @@ public class UIDSLAdapterFactory extends AdapterFactoryImpl
         return createVariableReferenceAdapter();
       }
       @Override
-      public Adapter caseConcept(Concept object)
+      public Adapter caseObjectGeneralType(ObjectGeneralType object)
       {
-        return createConceptAdapter();
+        return createObjectGeneralTypeAdapter();
+      }
+      @Override
+      public Adapter caseEnumGeneralType(EnumGeneralType object)
+      {
+        return createEnumGeneralTypeAdapter();
+      }
+      @Override
+      public Adapter caseCollectionGeneralType(CollectionGeneralType object)
+      {
+        return createCollectionGeneralTypeAdapter();
+      }
+      @Override
+      public Adapter caseAnyType(AnyType object)
+      {
+        return createAnyTypeAdapter();
+      }
+      @Override
+      public Adapter casePageType(PageType object)
+      {
+        return createPageTypeAdapter();
+      }
+      @Override
+      public Adapter caseVoidType(VoidType object)
+      {
+        return createVoidTypeAdapter();
+      }
+      @Override
+      public Adapter caseAlternativeType(AlternativeType object)
+      {
+        return createAlternativeTypeAdapter();
+      }
+      @Override
+      public Adapter caseSimpleType(SimpleType object)
+      {
+        return createSimpleTypeAdapter();
+      }
+      @Override
+      public Adapter caseInputUIComponent(InputUIComponent object)
+      {
+        return createInputUIComponentAdapter();
+      }
+      @Override
+      public Adapter caseOutputUIComponent(OutputUIComponent object)
+      {
+        return createOutputUIComponentAdapter();
       }
       @Override
       public Adapter caseSelectionMember(SelectionMember object)
@@ -158,6 +334,16 @@ public class UIDSLAdapterFactory extends AdapterFactoryImpl
       public Adapter caseExpression(Expression object)
       {
         return createExpressionAdapter();
+      }
+      @Override
+      public Adapter caseConcept(Concept object)
+      {
+        return createConceptAdapter();
+      }
+      @Override
+      public Adapter caseAttributeType(AttributeType object)
+      {
+        return createAttributeTypeAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -192,36 +378,6 @@ public class UIDSLAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createUIModelAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.UIConcept <em>UI Concept</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.stefanvuckovic.uidsl.uIDSL.UIConcept
-   * @generated
-   */
-  public Adapter createUIConceptAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.ServerComponent <em>Server Component</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.stefanvuckovic.uidsl.uIDSL.ServerComponent
-   * @generated
-   */
-  public Adapter createServerComponentAdapter()
   {
     return null;
   }
@@ -317,6 +473,171 @@ public class UIDSLAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.UIElement <em>UI Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIElement
+   * @generated
+   */
+  public Adapter createUIElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.UIComponent <em>UI Component</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIComponent
+   * @generated
+   */
+  public Adapter createUIComponentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.NestedComponent <em>Nested Component</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.NestedComponent
+   * @generated
+   */
+  public Adapter createNestedComponentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent <em>Child UI Component</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent
+   * @generated
+   */
+  public Adapter createChildUIComponentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.AllowedNestedComponents <em>Allowed Nested Components</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.AllowedNestedComponents
+   * @generated
+   */
+  public Adapter createAllowedNestedComponentsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.PropertyValue <em>Property Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertyValue
+   * @generated
+   */
+  public Adapter createPropertyValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance <em>UI Component Instance</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance
+   * @generated
+   */
+  public Adapter createUIComponentInstanceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.LogicElement <em>Logic Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.LogicElement
+   * @generated
+   */
+  public Adapter createLogicElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.IFStatement <em>IF Statement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.IFStatement
+   * @generated
+   */
+  public Adapter createIFStatementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.Iterator <em>Iterator</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.Iterator
+   * @generated
+   */
+  public Adapter createIteratorAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance <em>Property Value Instance</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance
+   * @generated
+   */
+  public Adapter createPropertyValueInstanceAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.Template <em>Template</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -347,6 +668,246 @@ public class UIDSLAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.IterationExpression <em>Iteration Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.IterationExpression
+   * @generated
+   */
+  public Adapter createIterationExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.FragmentCall <em>Fragment Call</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.FragmentCall
+   * @generated
+   */
+  public Adapter createFragmentCallAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.TypeExpression <em>Type Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.TypeExpression
+   * @generated
+   */
+  public Adapter createTypeExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.PropertyRuntimeType <em>Property Runtime Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertyRuntimeType
+   * @generated
+   */
+  public Adapter createPropertyRuntimeTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.PropertySingleRuntimeType <em>Property Single Runtime Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertySingleRuntimeType
+   * @generated
+   */
+  public Adapter createPropertySingleRuntimeTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations <em>Default Configurations</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations
+   * @generated
+   */
+  public Adapter createDefaultConfigurationsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig <em>Default Component Config</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig
+   * @generated
+   */
+  public Adapter createDefaultComponentConfigAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.DefaultComponent <em>Default Component</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.DefaultComponent
+   * @generated
+   */
+  public Adapter createDefaultComponentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.Component <em>Component</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.Component
+   * @generated
+   */
+  public Adapter createComponentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.ServerComponent <em>Server Component</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.ServerComponent
+   * @generated
+   */
+  public Adapter createServerComponentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.InlineVariable <em>Inline Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.InlineVariable
+   * @generated
+   */
+  public Adapter createInlineVariableAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents <em>Existing Nested Components</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents
+   * @generated
+   */
+  public Adapter createExistingNestedComponentsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.AllAllowedComponents <em>All Allowed Components</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.AllAllowedComponents
+   * @generated
+   */
+  public Adapter createAllAllowedComponentsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.CustomAllowedComponents <em>Custom Allowed Components</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CustomAllowedComponents
+   * @generated
+   */
+  public Adapter createCustomAllowedComponentsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.TemplateFragment <em>Template Fragment</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.TemplateFragment
+   * @generated
+   */
+  public Adapter createTemplateFragmentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride <em>Template Fragment Override</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride
+   * @generated
+   */
+  public Adapter createTemplateFragmentOverrideAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression <em>Member Selection Expression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -357,6 +918,21 @@ public class UIDSLAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createMemberSelectionExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.PageCall <em>Page Call</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PageCall
+   * @generated
+   */
+  public Adapter createPageCallAdapter()
   {
     return null;
   }
@@ -377,16 +953,151 @@ public class UIDSLAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.domainmodel.domainModel.Concept <em>Concept</em>}'.
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.ObjectGeneralType <em>Object General Type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.stefanvuckovic.domainmodel.domainModel.Concept
+   * @see com.stefanvuckovic.uidsl.uIDSL.ObjectGeneralType
    * @generated
    */
-  public Adapter createConceptAdapter()
+  public Adapter createObjectGeneralTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.EnumGeneralType <em>Enum General Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.EnumGeneralType
+   * @generated
+   */
+  public Adapter createEnumGeneralTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType <em>Collection General Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType
+   * @generated
+   */
+  public Adapter createCollectionGeneralTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.AnyType <em>Any Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.AnyType
+   * @generated
+   */
+  public Adapter createAnyTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.PageType <em>Page Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PageType
+   * @generated
+   */
+  public Adapter createPageTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.VoidType <em>Void Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.VoidType
+   * @generated
+   */
+  public Adapter createVoidTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.AlternativeType <em>Alternative Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.AlternativeType
+   * @generated
+   */
+  public Adapter createAlternativeTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.SimpleType <em>Simple Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.SimpleType
+   * @generated
+   */
+  public Adapter createSimpleTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.InputUIComponent <em>Input UI Component</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.InputUIComponent
+   * @generated
+   */
+  public Adapter createInputUIComponentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.OutputUIComponent <em>Output UI Component</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.OutputUIComponent
+   * @generated
+   */
+  public Adapter createOutputUIComponentAdapter()
   {
     return null;
   }
@@ -417,6 +1128,36 @@ public class UIDSLAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.domainmodel.domainModel.Concept <em>Concept</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.domainmodel.domainModel.Concept
+   * @generated
+   */
+  public Adapter createConceptAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.domainmodel.domainModel.AttributeType <em>Attribute Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.domainmodel.domainModel.AttributeType
+   * @generated
+   */
+  public Adapter createAttributeTypeAdapter()
   {
     return null;
   }

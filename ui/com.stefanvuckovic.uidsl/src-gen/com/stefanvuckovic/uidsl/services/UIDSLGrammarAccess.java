@@ -30,105 +30,90 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	public class UIModelElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.UIModel");
 		private final Assignment cConceptsAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cConceptsUIConceptParserRuleCall_0 = (RuleCall)cConceptsAssignment.eContents().get(0);
+		private final Alternatives cConceptsAlternatives_0 = (Alternatives)cConceptsAssignment.eContents().get(0);
+		private final RuleCall cConceptsServerComponentParserRuleCall_0_0 = (RuleCall)cConceptsAlternatives_0.eContents().get(0);
+		private final RuleCall cConceptsUIContainerParserRuleCall_0_1 = (RuleCall)cConceptsAlternatives_0.eContents().get(1);
+		private final RuleCall cConceptsUIComponentParserRuleCall_0_2 = (RuleCall)cConceptsAlternatives_0.eContents().get(2);
+		private final RuleCall cConceptsDefaultConfigurationsParserRuleCall_0_3 = (RuleCall)cConceptsAlternatives_0.eContents().get(3);
 		
 		//UIModel:
-		//	concepts+=UIConcept*;
+		//	concepts+=(ServerComponent | UIContainer | UIComponent | DefaultConfigurations)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//concepts+=UIConcept*
+		//concepts+=(ServerComponent | UIContainer | UIComponent | DefaultConfigurations)*
 		public Assignment getConceptsAssignment() { return cConceptsAssignment; }
 		
-		//UIConcept
-		public RuleCall getConceptsUIConceptParserRuleCall_0() { return cConceptsUIConceptParserRuleCall_0; }
-	}
-	public class UIConceptElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.UIConcept");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cServerComponentParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cUIContainerParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		
-		//UIConcept:
-		//	ServerComponent | UIContainer;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//ServerComponent | UIContainer
-		public Alternatives getAlternatives() { return cAlternatives; }
+		//(ServerComponent | UIContainer | UIComponent | DefaultConfigurations)
+		public Alternatives getConceptsAlternatives_0() { return cConceptsAlternatives_0; }
 		
 		//ServerComponent
-		public RuleCall getServerComponentParserRuleCall_0() { return cServerComponentParserRuleCall_0; }
+		public RuleCall getConceptsServerComponentParserRuleCall_0_0() { return cConceptsServerComponentParserRuleCall_0_0; }
 		
 		//UIContainer
-		public RuleCall getUIContainerParserRuleCall_1() { return cUIContainerParserRuleCall_1; }
-	}
-	public class ConceptElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.Concept");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cConceptParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cServerComponentParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		public RuleCall getConceptsUIContainerParserRuleCall_0_1() { return cConceptsUIContainerParserRuleCall_0_1; }
 		
-		//Concept domainModel::Concept:
-		//	super | ServerComponent
-		@Override public ParserRule getRule() { return rule; }
+		//UIComponent
+		public RuleCall getConceptsUIComponentParserRuleCall_0_2() { return cConceptsUIComponentParserRuleCall_0_2; }
 		
-		//super | ServerComponent
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//super
-		public RuleCall getConceptParserRuleCall_0() { return cConceptParserRuleCall_0; }
-		
-		//ServerComponent
-		public RuleCall getServerComponentParserRuleCall_1() { return cServerComponentParserRuleCall_1; }
+		//DefaultConfigurations
+		public RuleCall getConceptsDefaultConfigurationsParserRuleCall_0_3() { return cConceptsDefaultConfigurationsParserRuleCall_0_3; }
 	}
 	public class ServerComponentElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.ServerComponent");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cServer_componentKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cMembersAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cMembersMemberParserRuleCall_3_0 = (RuleCall)cMembersAssignment_3.eContents().get(0);
-		private final Assignment cExpressionsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cExpressionsExpressionParserRuleCall_4_0 = (RuleCall)cExpressionsAssignment_4.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Action cServerComponentAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cServer_componentKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cMembersAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cMembersMemberParserRuleCall_4_0 = (RuleCall)cMembersAssignment_4.eContents().get(0);
+		private final Assignment cExpressionsAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cExpressionsExpressionParserRuleCall_5_0 = (RuleCall)cExpressionsAssignment_5.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//ServerComponent:
-		//	'server_component' name=ID '{'
+		////UIConcept:
+		////	ServerComponent | UIContainer | UIComponent
+		////;
+		//ServerComponent domainModel::Concept:
+		//	{ServerComponent} 'server_component' name=ID '{'
 		//	members+=Member*
 		//	expressions+=Expression*
-		//	'}';
+		//	'}'
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'server_component' name=ID '{' members+=Member* expressions+=Expression* '}'
+		//{ServerComponent} 'server_component' name=ID '{' members+=Member* expressions+=Expression* '}'
 		public Group getGroup() { return cGroup; }
 		
+		//{ServerComponent}
+		public Action getServerComponentAction_0() { return cServerComponentAction_0; }
+		
 		//'server_component'
-		public Keyword getServer_componentKeyword_0() { return cServer_componentKeyword_0; }
+		public Keyword getServer_componentKeyword_1() { return cServer_componentKeyword_1; }
 		
 		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 		
 		//'{'
-		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
 		
 		//members+=Member*
-		public Assignment getMembersAssignment_3() { return cMembersAssignment_3; }
+		public Assignment getMembersAssignment_4() { return cMembersAssignment_4; }
 		
 		//Member
-		public RuleCall getMembersMemberParserRuleCall_3_0() { return cMembersMemberParserRuleCall_3_0; }
+		public RuleCall getMembersMemberParserRuleCall_4_0() { return cMembersMemberParserRuleCall_4_0; }
 		
 		//expressions+=Expression*
-		public Assignment getExpressionsAssignment_4() { return cExpressionsAssignment_4; }
+		public Assignment getExpressionsAssignment_5() { return cExpressionsAssignment_5; }
 		
 		//Expression
-		public RuleCall getExpressionsExpressionParserRuleCall_4_0() { return cExpressionsExpressionParserRuleCall_4_0; }
+		public RuleCall getExpressionsExpressionParserRuleCall_5_0() { return cExpressionsExpressionParserRuleCall_5_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
 	}
 	public class MemberElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.Member");
@@ -173,20 +158,21 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cTypedConceptParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cParamsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cParamsVariableParserRuleCall_2_0 = (RuleCall)cParamsAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cCommaKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cParamsAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cParamsVariableParserRuleCall_3_1_0 = (RuleCall)cParamsAssignment_3_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cParamsAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final RuleCall cParamsVariableParserRuleCall_2_0_0 = (RuleCall)cParamsAssignment_2_0.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
+		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Assignment cParamsAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cParamsVariableParserRuleCall_2_1_1_0 = (RuleCall)cParamsAssignment_2_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//Method:
-		//	TypedConcept '(' params+=Variable (',' params+=Variable)* ')' ';';
+		//	TypedConcept '(' (params+=Variable (',' params+=Variable)*)? ')' ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//TypedConcept '(' params+=Variable (',' params+=Variable)* ')' ';'
+		//TypedConcept '(' (params+=Variable (',' params+=Variable)*)? ')' ';'
 		public Group getGroup() { return cGroup; }
 		
 		//TypedConcept
@@ -195,29 +181,32 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		//'('
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
 		
+		//(params+=Variable (',' params+=Variable)*)?
+		public Group getGroup_2() { return cGroup_2; }
+		
 		//params+=Variable
-		public Assignment getParamsAssignment_2() { return cParamsAssignment_2; }
+		public Assignment getParamsAssignment_2_0() { return cParamsAssignment_2_0; }
 		
 		//Variable
-		public RuleCall getParamsVariableParserRuleCall_2_0() { return cParamsVariableParserRuleCall_2_0; }
+		public RuleCall getParamsVariableParserRuleCall_2_0_0() { return cParamsVariableParserRuleCall_2_0_0; }
 		
 		//(',' params+=Variable)*
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_2_1() { return cGroup_2_1; }
 		
 		//','
-		public Keyword getCommaKeyword_3_0() { return cCommaKeyword_3_0; }
+		public Keyword getCommaKeyword_2_1_0() { return cCommaKeyword_2_1_0; }
 		
 		//params+=Variable
-		public Assignment getParamsAssignment_3_1() { return cParamsAssignment_3_1; }
+		public Assignment getParamsAssignment_2_1_1() { return cParamsAssignment_2_1_1; }
 		
 		//Variable
-		public RuleCall getParamsVariableParserRuleCall_3_1_0() { return cParamsVariableParserRuleCall_3_1_0; }
+		public RuleCall getParamsVariableParserRuleCall_2_1_1_0() { return cParamsVariableParserRuleCall_2_1_1_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 	public class VariableElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.Variable");
@@ -229,6 +218,29 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TypedConcept
 		public RuleCall getTypedConceptParserRuleCall() { return cTypedConceptParserRuleCall; }
+	}
+	public class InlineVariableElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.InlineVariable");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cInlineVariableAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		
+		//InlineVariable Variable:
+		//	{InlineVariable} name=ID
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{InlineVariable} name=ID
+		public Group getGroup() { return cGroup; }
+		
+		//{InlineVariable}
+		public Action getInlineVariableAction_0() { return cInlineVariableAction_0; }
+		
+		//name=ID
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 	}
 	public class TypedConceptElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.TypedConcept");
@@ -284,24 +296,641 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.Page");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cPageKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final RuleCall cUIContainerDefinitionParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final RuleCall cServerComponentUsageParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cTemplateKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Keyword cColonKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
+		private final Assignment cTemplateAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
+		private final CrossReference cTemplateTemplateCrossReference_3_2_0 = (CrossReference)cTemplateAssignment_3_2.eContents().get(0);
+		private final RuleCall cTemplateTemplateIDTerminalRuleCall_3_2_0_1 = (RuleCall)cTemplateTemplateCrossReference_3_2_0.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cElementsAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final Alternatives cElementsAlternatives_5_0 = (Alternatives)cElementsAssignment_5.eContents().get(0);
+		private final RuleCall cElementsUIElementParserRuleCall_5_0_0 = (RuleCall)cElementsAlternatives_5_0.eContents().get(0);
+		private final RuleCall cElementsTemplateFragmentOverrideParserRuleCall_5_0_1 = (RuleCall)cElementsAlternatives_5_0.eContents().get(1);
+		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//Page:
-		//	'page' name=ID;
+		//	'page' UIContainerDefinition ServerComponentUsage ('template' ':' template=[Template])?
+		//	'{' elements+=(UIElement | TemplateFragmentOverride)* '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'page' name=ID
+		//'page' UIContainerDefinition ServerComponentUsage ('template' ':' template=[Template])? '{' elements+=(UIElement |
+		//TemplateFragmentOverride)* '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'page'
 		public Keyword getPageKeyword_0() { return cPageKeyword_0; }
+		
+		//UIContainerDefinition
+		public RuleCall getUIContainerDefinitionParserRuleCall_1() { return cUIContainerDefinitionParserRuleCall_1; }
+		
+		//ServerComponentUsage
+		public RuleCall getServerComponentUsageParserRuleCall_2() { return cServerComponentUsageParserRuleCall_2; }
+		
+		//('template' ':' template=[Template])?
+		public Group getGroup_3() { return cGroup_3; }
+		
+		//'template'
+		public Keyword getTemplateKeyword_3_0() { return cTemplateKeyword_3_0; }
+		
+		//':'
+		public Keyword getColonKeyword_3_1() { return cColonKeyword_3_1; }
+		
+		//template=[Template]
+		public Assignment getTemplateAssignment_3_2() { return cTemplateAssignment_3_2; }
+		
+		//[Template]
+		public CrossReference getTemplateTemplateCrossReference_3_2_0() { return cTemplateTemplateCrossReference_3_2_0; }
+		
+		//ID
+		public RuleCall getTemplateTemplateIDTerminalRuleCall_3_2_0_1() { return cTemplateTemplateIDTerminalRuleCall_3_2_0_1; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_4() { return cLeftCurlyBracketKeyword_4; }
+		
+		//elements+=(UIElement | TemplateFragmentOverride)*
+		public Assignment getElementsAssignment_5() { return cElementsAssignment_5; }
+		
+		//(UIElement | TemplateFragmentOverride)
+		public Alternatives getElementsAlternatives_5_0() { return cElementsAlternatives_5_0; }
+		
+		//UIElement
+		public RuleCall getElementsUIElementParserRuleCall_5_0_0() { return cElementsUIElementParserRuleCall_5_0_0; }
+		
+		//TemplateFragmentOverride
+		public RuleCall getElementsTemplateFragmentOverrideParserRuleCall_5_0_1() { return cElementsTemplateFragmentOverrideParserRuleCall_5_0_1; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
+	}
+	public class UIContainerDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.UIContainerDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(0);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cParamsAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final RuleCall cParamsVariableParserRuleCall_2_0_0 = (RuleCall)cParamsAssignment_2_0.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
+		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Assignment cParamsAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cParamsVariableParserRuleCall_2_1_1_0 = (RuleCall)cParamsAssignment_2_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//fragment UIContainerDefinition *:
+		//	name=ID '(' (params+=Variable (',' params+=Variable)*)? ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//name=ID '(' (params+=Variable (',' params+=Variable)*)? ')'
+		public Group getGroup() { return cGroup; }
+		
+		//name=ID
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+		
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//(params+=Variable (',' params+=Variable)*)?
+		public Group getGroup_2() { return cGroup_2; }
+		
+		//params+=Variable
+		public Assignment getParamsAssignment_2_0() { return cParamsAssignment_2_0; }
+		
+		//Variable
+		public RuleCall getParamsVariableParserRuleCall_2_0_0() { return cParamsVariableParserRuleCall_2_0_0; }
+		
+		//(',' params+=Variable)*
+		public Group getGroup_2_1() { return cGroup_2_1; }
+		
+		//','
+		public Keyword getCommaKeyword_2_1_0() { return cCommaKeyword_2_1_0; }
+		
+		//params+=Variable
+		public Assignment getParamsAssignment_2_1_1() { return cParamsAssignment_2_1_1; }
+		
+		//Variable
+		public RuleCall getParamsVariableParserRuleCall_2_1_1_0() { return cParamsVariableParserRuleCall_2_1_1_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+	}
+	public class ServerComponentUsageElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.ServerComponentUsage");
+		private final Group cGroup = (Group)rule.eContents().get(0);
+		private final Keyword cUsesKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cServerComponentsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cServerComponentsVariableParserRuleCall_1_0 = (RuleCall)cServerComponentsAssignment_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cCommaKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cServerComponentsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cServerComponentsVariableParserRuleCall_2_1_0 = (RuleCall)cServerComponentsAssignment_2_1.eContents().get(0);
+		
+		//fragment ServerComponentUsage *:
+		//	('uses' serverComponents+=Variable (',' serverComponents+=Variable)*)?;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//('uses' serverComponents+=Variable (',' serverComponents+=Variable)*)?
+		public Group getGroup() { return cGroup; }
+		
+		//'uses'
+		public Keyword getUsesKeyword_0() { return cUsesKeyword_0; }
+		
+		//serverComponents+=Variable
+		public Assignment getServerComponentsAssignment_1() { return cServerComponentsAssignment_1; }
+		
+		//Variable
+		public RuleCall getServerComponentsVariableParserRuleCall_1_0() { return cServerComponentsVariableParserRuleCall_1_0; }
+		
+		//(',' serverComponents+=Variable)*
+		public Group getGroup_2() { return cGroup_2; }
+		
+		//','
+		public Keyword getCommaKeyword_2_0() { return cCommaKeyword_2_0; }
+		
+		//serverComponents+=Variable
+		public Assignment getServerComponentsAssignment_2_1() { return cServerComponentsAssignment_2_1; }
+		
+		//Variable
+		public RuleCall getServerComponentsVariableParserRuleCall_2_1_0() { return cServerComponentsVariableParserRuleCall_2_1_0; }
+	}
+	public class UIElementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.UIElement");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cComponentParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cLogicElementParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cFragmentCallParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		
+		//UIElement:
+		//	Component | LogicElement | FragmentCall;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//Component | LogicElement | FragmentCall
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//Component
+		public RuleCall getComponentParserRuleCall_0() { return cComponentParserRuleCall_0; }
+		
+		//LogicElement
+		public RuleCall getLogicElementParserRuleCall_1() { return cLogicElementParserRuleCall_1; }
+		
+		//FragmentCall
+		public RuleCall getFragmentCallParserRuleCall_2() { return cFragmentCallParserRuleCall_2; }
+	}
+	public class UIComponentElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.UIComponent");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cComponentKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cPropertiesAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cPropertiesPropertyValueParserRuleCall_3_0 = (RuleCall)cPropertiesAssignment_3.eContents().get(0);
+		private final Assignment cNestedAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cNestedNestedComponentParserRuleCall_4_0 = (RuleCall)cNestedAssignment_4.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//UIComponent:
+		//	'component' name=ID '{'
+		//	properties+=PropertyValue*
+		//	//(child=ChildUIComponent)?
+		//	nested=NestedComponent?
+		//	//('allowed_nested_components' ':' allowedComponents=AllowedNestedComponent)?
+		//	'}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'component' name=ID '{' properties+=PropertyValue* //(child=ChildUIComponent)?
+		//nested=NestedComponent? //('allowed_nested_components' ':' allowedComponents=AllowedNestedComponent)?
+		//'}'
+		public Group getGroup() { return cGroup; }
+		
+		//'component'
+		public Keyword getComponentKeyword_0() { return cComponentKeyword_0; }
 		
 		//name=ID
 		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 		
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		
+		//properties+=PropertyValue*
+		public Assignment getPropertiesAssignment_3() { return cPropertiesAssignment_3; }
+		
+		//PropertyValue
+		public RuleCall getPropertiesPropertyValueParserRuleCall_3_0() { return cPropertiesPropertyValueParserRuleCall_3_0; }
+		
+		////(child=ChildUIComponent)?
+		//nested=NestedComponent?
+		public Assignment getNestedAssignment_4() { return cNestedAssignment_4; }
+		
+		//NestedComponent
+		public RuleCall getNestedNestedComponentParserRuleCall_4_0() { return cNestedNestedComponentParserRuleCall_4_0; }
+		
+		////('allowed_nested_components' ':' allowedComponents=AllowedNestedComponent)?
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+	}
+	public class NestedComponentElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.NestedComponent");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cChildUIComponentParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Action cExistingNestedComponentsAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cAllowed_nested_componentsKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Keyword cColonKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Assignment cNestedComponentsAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
+		private final RuleCall cNestedComponentsAllowedNestedComponentsParserRuleCall_1_3_0 = (RuleCall)cNestedComponentsAssignment_1_3.eContents().get(0);
+		
+		//NestedComponent:
+		//	ChildUIComponent | {ExistingNestedComponents} 'allowed_nested_components' ':'
+		//	nestedComponents=AllowedNestedComponents;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//ChildUIComponent | {ExistingNestedComponents} 'allowed_nested_components' ':' nestedComponents=AllowedNestedComponents
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//ChildUIComponent
+		public RuleCall getChildUIComponentParserRuleCall_0() { return cChildUIComponentParserRuleCall_0; }
+		
+		//{ExistingNestedComponents} 'allowed_nested_components' ':' nestedComponents=AllowedNestedComponents
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//{ExistingNestedComponents}
+		public Action getExistingNestedComponentsAction_1_0() { return cExistingNestedComponentsAction_1_0; }
+		
+		//'allowed_nested_components'
+		public Keyword getAllowed_nested_componentsKeyword_1_1() { return cAllowed_nested_componentsKeyword_1_1; }
+		
+		//':'
+		public Keyword getColonKeyword_1_2() { return cColonKeyword_1_2; }
+		
+		//nestedComponents=AllowedNestedComponents
+		public Assignment getNestedComponentsAssignment_1_3() { return cNestedComponentsAssignment_1_3; }
+		
+		//AllowedNestedComponents
+		public RuleCall getNestedComponentsAllowedNestedComponentsParserRuleCall_1_3_0() { return cNestedComponentsAllowedNestedComponentsParserRuleCall_1_3_0; }
+	}
+	public class ChildUIComponentElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.ChildUIComponent");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cChild_componentKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cCardinalityKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cCardinalityAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cCardinalityCardinalityTypeEnumRuleCall_3_0 = (RuleCall)cCardinalityAssignment_3.eContents().get(0);
+		private final Keyword cColonKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cCompAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cCompUIComponentParserRuleCall_5_0 = (RuleCall)cCompAssignment_5.eContents().get(0);
+		
+		//ChildUIComponent:
+		//	'child_component' 'cardinality' '=' cardinality=CardinalityType ':' comp=UIComponent;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'child_component' 'cardinality' '=' cardinality=CardinalityType ':' comp=UIComponent
+		public Group getGroup() { return cGroup; }
+		
+		//'child_component'
+		public Keyword getChild_componentKeyword_0() { return cChild_componentKeyword_0; }
+		
+		//'cardinality'
+		public Keyword getCardinalityKeyword_1() { return cCardinalityKeyword_1; }
+		
+		//'='
+		public Keyword getEqualsSignKeyword_2() { return cEqualsSignKeyword_2; }
+		
+		//cardinality=CardinalityType
+		public Assignment getCardinalityAssignment_3() { return cCardinalityAssignment_3; }
+		
+		//CardinalityType
+		public RuleCall getCardinalityCardinalityTypeEnumRuleCall_3_0() { return cCardinalityCardinalityTypeEnumRuleCall_3_0; }
+		
+		//':'
+		public Keyword getColonKeyword_4() { return cColonKeyword_4; }
+		
+		//comp=UIComponent
+		public Assignment getCompAssignment_5() { return cCompAssignment_5; }
+		
+		//UIComponent
+		public RuleCall getCompUIComponentParserRuleCall_5_0() { return cCompUIComponentParserRuleCall_5_0; }
+	}
+	public class AllowedNestedComponentsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.AllowedNestedComponents");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Action cAllAllowedComponentsAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Keyword cALLKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Action cCustomAllowedComponentsAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Assignment cComponentsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final CrossReference cComponentsUIComponentCrossReference_1_1_0 = (CrossReference)cComponentsAssignment_1_1.eContents().get(0);
+		private final RuleCall cComponentsUIComponentIDTerminalRuleCall_1_1_0_1 = (RuleCall)cComponentsUIComponentCrossReference_1_1_0.eContents().get(1);
+		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
+		private final Keyword cCommaKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
+		private final Assignment cComponentsAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
+		private final CrossReference cComponentsUIComponentCrossReference_1_2_1_0 = (CrossReference)cComponentsAssignment_1_2_1.eContents().get(0);
+		private final RuleCall cComponentsUIComponentIDTerminalRuleCall_1_2_1_0_1 = (RuleCall)cComponentsUIComponentCrossReference_1_2_1_0.eContents().get(1);
+		
+		//AllowedNestedComponents:
+		//	{AllAllowedComponents} 'ALL' | {CustomAllowedComponents} components+=[UIComponent] (',' components+=[UIComponent])*;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{AllAllowedComponents} 'ALL' | {CustomAllowedComponents} components+=[UIComponent] (',' components+=[UIComponent])*
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//{AllAllowedComponents} 'ALL'
+		public Group getGroup_0() { return cGroup_0; }
+		
+		//{AllAllowedComponents}
+		public Action getAllAllowedComponentsAction_0_0() { return cAllAllowedComponentsAction_0_0; }
+		
+		//'ALL'
+		public Keyword getALLKeyword_0_1() { return cALLKeyword_0_1; }
+		
+		//{CustomAllowedComponents} components+=[UIComponent] (',' components+=[UIComponent])*
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//{CustomAllowedComponents}
+		public Action getCustomAllowedComponentsAction_1_0() { return cCustomAllowedComponentsAction_1_0; }
+		
+		//components+=[UIComponent]
+		public Assignment getComponentsAssignment_1_1() { return cComponentsAssignment_1_1; }
+		
+		//[UIComponent]
+		public CrossReference getComponentsUIComponentCrossReference_1_1_0() { return cComponentsUIComponentCrossReference_1_1_0; }
+		
+		//ID
+		public RuleCall getComponentsUIComponentIDTerminalRuleCall_1_1_0_1() { return cComponentsUIComponentIDTerminalRuleCall_1_1_0_1; }
+		
+		//(',' components+=[UIComponent])*
+		public Group getGroup_1_2() { return cGroup_1_2; }
+		
+		//','
+		public Keyword getCommaKeyword_1_2_0() { return cCommaKeyword_1_2_0; }
+		
+		//components+=[UIComponent]
+		public Assignment getComponentsAssignment_1_2_1() { return cComponentsAssignment_1_2_1; }
+		
+		//[UIComponent]
+		public CrossReference getComponentsUIComponentCrossReference_1_2_1_0() { return cComponentsUIComponentCrossReference_1_2_1_0; }
+		
+		//ID
+		public RuleCall getComponentsUIComponentIDTerminalRuleCall_1_2_1_0_1() { return cComponentsUIComponentIDTerminalRuleCall_1_2_1_0_1; }
+	}
+	public class PropertyValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.PropertyValue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final Assignment cRequiredAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Keyword cRequiredRequiredKeyword_1_0 = (Keyword)cRequiredAssignment_1.eContents().get(0);
+		private final Assignment cValuePropertyAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final Keyword cValuePropertyValuePropertyKeyword_2_0 = (Keyword)cValuePropertyAssignment_2.eContents().get(0);
+		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cTypeAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cTypeTypeExpressionParserRuleCall_4_0 = (RuleCall)cTypeAssignment_4.eContents().get(0);
+		
+		//PropertyValue:
+		//	name=ID required?='required'? valueProperty?='valueProperty'? ':' type=TypeExpression;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//name=ID required?='required'? valueProperty?='valueProperty'? ':' type=TypeExpression
+		public Group getGroup() { return cGroup; }
+		
+		//name=ID
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+		
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+		
+		//required?='required'?
+		public Assignment getRequiredAssignment_1() { return cRequiredAssignment_1; }
+		
+		//'required'
+		public Keyword getRequiredRequiredKeyword_1_0() { return cRequiredRequiredKeyword_1_0; }
+		
+		//valueProperty?='valueProperty'?
+		public Assignment getValuePropertyAssignment_2() { return cValuePropertyAssignment_2; }
+		
+		//'valueProperty'
+		public Keyword getValuePropertyValuePropertyKeyword_2_0() { return cValuePropertyValuePropertyKeyword_2_0; }
+		
+		//':'
+		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
+		
+		//type=TypeExpression
+		public Assignment getTypeAssignment_4() { return cTypeAssignment_4; }
+		
+		//TypeExpression
+		public RuleCall getTypeTypeExpressionParserRuleCall_4_0() { return cTypeTypeExpressionParserRuleCall_4_0; }
+	}
+	public class UIComponentInstanceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.UIComponentInstance");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cUIComponentInstanceAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cNumberSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cComponentAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cComponentUIComponentCrossReference_2_0 = (CrossReference)cComponentAssignment_2.eContents().get(0);
+		private final RuleCall cComponentUIComponentIDTerminalRuleCall_2_0_1 = (RuleCall)cComponentUIComponentCrossReference_2_0.eContents().get(1);
+		private final Assignment cPropertiesAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cPropertiesPropertyValueInstanceParserRuleCall_3_0 = (RuleCall)cPropertiesAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cLeftCurlyBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cChildElementsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cChildElementsComponentParserRuleCall_4_1_0 = (RuleCall)cChildElementsAssignment_4_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		
+		//UIComponentInstance:
+		//	{UIComponentInstance} '#' component=[UIComponent] properties+=PropertyValueInstance* ('{' childElements+=Component*
+		//	'}')?;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{UIComponentInstance} '#' component=[UIComponent] properties+=PropertyValueInstance* ('{' childElements+=Component*
+		//'}')?
+		public Group getGroup() { return cGroup; }
+		
+		//{UIComponentInstance}
+		public Action getUIComponentInstanceAction_0() { return cUIComponentInstanceAction_0; }
+		
+		//'#'
+		public Keyword getNumberSignKeyword_1() { return cNumberSignKeyword_1; }
+		
+		//component=[UIComponent]
+		public Assignment getComponentAssignment_2() { return cComponentAssignment_2; }
+		
+		//[UIComponent]
+		public CrossReference getComponentUIComponentCrossReference_2_0() { return cComponentUIComponentCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getComponentUIComponentIDTerminalRuleCall_2_0_1() { return cComponentUIComponentIDTerminalRuleCall_2_0_1; }
+		
+		//properties+=PropertyValueInstance*
+		public Assignment getPropertiesAssignment_3() { return cPropertiesAssignment_3; }
+		
+		//PropertyValueInstance
+		public RuleCall getPropertiesPropertyValueInstanceParserRuleCall_3_0() { return cPropertiesPropertyValueInstanceParserRuleCall_3_0; }
+		
+		//('{' childElements+=Component* '}')?
+		public Group getGroup_4() { return cGroup_4; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
+		
+		//childElements+=Component*
+		public Assignment getChildElementsAssignment_4_1() { return cChildElementsAssignment_4_1; }
+		
+		//Component
+		public RuleCall getChildElementsComponentParserRuleCall_4_1_0() { return cChildElementsComponentParserRuleCall_4_1_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+	}
+	public class LogicElementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.LogicElement");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cIFStatementParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cIteratorParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//LogicElement:
+		//	IFStatement | Iterator;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//IFStatement | Iterator
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//IFStatement
+		public RuleCall getIFStatementParserRuleCall_0() { return cIFStatementParserRuleCall_0; }
+		
+		//Iterator
+		public RuleCall getIteratorParserRuleCall_1() { return cIteratorParserRuleCall_1; }
+	}
+	public class IFStatementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.IFStatement");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cIfKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cExpressionAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cExpressionExpressionParserRuleCall_1_0 = (RuleCall)cExpressionAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cElementsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cElementsUIElementParserRuleCall_3_0 = (RuleCall)cElementsAssignment_3.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//IFStatement:
+		//	'if' expression=Expression '{'
+		//	elements+=UIElement*
+		//	'}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'if' expression=Expression '{' elements+=UIElement* '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'if'
+		public Keyword getIfKeyword_0() { return cIfKeyword_0; }
+		
+		//expression=Expression
+		public Assignment getExpressionAssignment_1() { return cExpressionAssignment_1; }
+		
+		//Expression
+		public RuleCall getExpressionExpressionParserRuleCall_1_0() { return cExpressionExpressionParserRuleCall_1_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		
+		//elements+=UIElement*
+		public Assignment getElementsAssignment_3() { return cElementsAssignment_3; }
+		
+		//UIElement
+		public RuleCall getElementsUIElementParserRuleCall_3_0() { return cElementsUIElementParserRuleCall_3_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+	}
+	public class IteratorElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.Iterator");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cForKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cExpressionAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cExpressionIterationExpressionParserRuleCall_1_0 = (RuleCall)cExpressionAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cElementsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cElementsUIElementParserRuleCall_3_0 = (RuleCall)cElementsAssignment_3.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//Iterator:
+		//	'for' expression=IterationExpression '{'
+		//	elements+=UIElement*
+		//	'}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'for' expression=IterationExpression '{' elements+=UIElement* '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'for'
+		public Keyword getForKeyword_0() { return cForKeyword_0; }
+		
+		//expression=IterationExpression
+		public Assignment getExpressionAssignment_1() { return cExpressionAssignment_1; }
+		
+		//IterationExpression
+		public RuleCall getExpressionIterationExpressionParserRuleCall_1_0() { return cExpressionIterationExpressionParserRuleCall_1_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		
+		//elements+=UIElement*
+		public Assignment getElementsAssignment_3() { return cElementsAssignment_3; }
+		
+		//UIElement
+		public RuleCall getElementsUIElementParserRuleCall_3_0() { return cElementsUIElementParserRuleCall_3_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+	}
+	public class PropertyValueInstanceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.PropertyValueInstance");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cPropertyValueInstanceAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cPropertyAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cPropertyPropertyValueCrossReference_1_0 = (CrossReference)cPropertyAssignment_1.eContents().get(0);
+		private final RuleCall cPropertyPropertyValueIDTerminalRuleCall_1_0_1 = (RuleCall)cPropertyPropertyValueCrossReference_1_0.eContents().get(1);
+		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cValueAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cValueExpressionParserRuleCall_3_0 = (RuleCall)cValueAssignment_3.eContents().get(0);
+		
+		//PropertyValueInstance:
+		//	{PropertyValueInstance} property=[PropertyValue] ':' value=Expression;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{PropertyValueInstance} property=[PropertyValue] ':' value=Expression
+		public Group getGroup() { return cGroup; }
+		
+		//{PropertyValueInstance}
+		public Action getPropertyValueInstanceAction_0() { return cPropertyValueInstanceAction_0; }
+		
+		//property=[PropertyValue]
+		public Assignment getPropertyAssignment_1() { return cPropertyAssignment_1; }
+		
+		//[PropertyValue]
+		public CrossReference getPropertyPropertyValueCrossReference_1_0() { return cPropertyPropertyValueCrossReference_1_0; }
+		
+		//ID
+		public RuleCall getPropertyPropertyValueIDTerminalRuleCall_1_0_1() { return cPropertyPropertyValueIDTerminalRuleCall_1_0_1; }
+		
+		//':'
+		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
+		
+		//value=Expression
+		public Assignment getValueAssignment_3() { return cValueAssignment_3; }
+		
+		//Expression
+		public RuleCall getValueExpressionParserRuleCall_3_0() { return cValueExpressionParserRuleCall_3_0; }
 	}
 	public class TemplateElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.Template");
@@ -309,12 +938,22 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cTemplateKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final RuleCall cServerComponentUsageParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cElementsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final Alternatives cElementsAlternatives_4_0 = (Alternatives)cElementsAssignment_4.eContents().get(0);
+		private final RuleCall cElementsUIElementParserRuleCall_4_0_0 = (RuleCall)cElementsAlternatives_4_0.eContents().get(0);
+		private final RuleCall cElementsTemplateFragmentParserRuleCall_4_0_1 = (RuleCall)cElementsAlternatives_4_0.eContents().get(1);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//Template:
-		//	'template' name=ID;
+		//	'template' name=ID ServerComponentUsage
+		//	'{'
+		//	elements+=(UIElement | TemplateFragment)*
+		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'template' name=ID
+		//'template' name=ID ServerComponentUsage '{' elements+=(UIElement | TemplateFragment)* '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'template'
@@ -325,41 +964,212 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		
+		//ServerComponentUsage
+		public RuleCall getServerComponentUsageParserRuleCall_2() { return cServerComponentUsageParserRuleCall_2; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
+		
+		//elements+=(UIElement | TemplateFragment)*
+		public Assignment getElementsAssignment_4() { return cElementsAssignment_4; }
+		
+		//(UIElement | TemplateFragment)
+		public Alternatives getElementsAlternatives_4_0() { return cElementsAlternatives_4_0; }
+		
+		//UIElement
+		public RuleCall getElementsUIElementParserRuleCall_4_0_0() { return cElementsUIElementParserRuleCall_4_0_0; }
+		
+		//TemplateFragment
+		public RuleCall getElementsTemplateFragmentParserRuleCall_4_0_1() { return cElementsTemplateFragmentParserRuleCall_4_0_1; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
 	}
-	public class FragmentElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.Fragment");
+	public class TemplateFragmentElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.TemplateFragment");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cFragmentKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Action cTemplateFragmentAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cElementsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cElementsUIElementParserRuleCall_3_0 = (RuleCall)cElementsAssignment_3.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//Fragment:
-		//	'fragment' name=ID;
+		//TemplateFragment UIElement:
+		//	{TemplateFragment} name=ID '{'
+		//	elements+=UIElement*
+		//	'}'
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'fragment' name=ID
+		//{TemplateFragment} name=ID '{' elements+=UIElement* '}'
 		public Group getGroup() { return cGroup; }
 		
-		//'fragment'
-		public Keyword getFragmentKeyword_0() { return cFragmentKeyword_0; }
+		//{TemplateFragment}
+		public Action getTemplateFragmentAction_0() { return cTemplateFragmentAction_0; }
 		
 		//name=ID
 		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 		
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		
+		//elements+=UIElement*
+		public Assignment getElementsAssignment_3() { return cElementsAssignment_3; }
+		
+		//UIElement
+		public RuleCall getElementsUIElementParserRuleCall_3_0() { return cElementsUIElementParserRuleCall_3_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+	}
+	public class TemplateFragmentOverrideElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.TemplateFragmentOverride");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cTemplateFragmentOverrideAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cOverrideKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cOverridenFragmentAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cOverridenFragmentTemplateFragmentCrossReference_2_0 = (CrossReference)cOverridenFragmentAssignment_2.eContents().get(0);
+		private final RuleCall cOverridenFragmentTemplateFragmentIDTerminalRuleCall_2_0_1 = (RuleCall)cOverridenFragmentTemplateFragmentCrossReference_2_0.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cElementsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cElementsUIElementParserRuleCall_4_0 = (RuleCall)cElementsAssignment_4.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//TemplateFragmentOverride UIElement:
+		//	{TemplateFragmentOverride} 'override' overridenFragment=[TemplateFragment] '{'
+		//	elements+=UIElement*
+		//	'}'
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{TemplateFragmentOverride} 'override' overridenFragment=[TemplateFragment] '{' elements+=UIElement* '}'
+		public Group getGroup() { return cGroup; }
+		
+		//{TemplateFragmentOverride}
+		public Action getTemplateFragmentOverrideAction_0() { return cTemplateFragmentOverrideAction_0; }
+		
+		//'override'
+		public Keyword getOverrideKeyword_1() { return cOverrideKeyword_1; }
+		
+		//overridenFragment=[TemplateFragment]
+		public Assignment getOverridenFragmentAssignment_2() { return cOverridenFragmentAssignment_2; }
+		
+		//[TemplateFragment]
+		public CrossReference getOverridenFragmentTemplateFragmentCrossReference_2_0() { return cOverridenFragmentTemplateFragmentCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getOverridenFragmentTemplateFragmentIDTerminalRuleCall_2_0_1() { return cOverridenFragmentTemplateFragmentIDTerminalRuleCall_2_0_1; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
+		
+		//elements+=UIElement*
+		public Assignment getElementsAssignment_4() { return cElementsAssignment_4; }
+		
+		//UIElement
+		public RuleCall getElementsUIElementParserRuleCall_4_0() { return cElementsUIElementParserRuleCall_4_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+	}
+	public class FragmentElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.Fragment");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cFragmentKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final RuleCall cUIContainerDefinitionParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final RuleCall cServerComponentUsageParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cElementsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cElementsUIElementParserRuleCall_4_0 = (RuleCall)cElementsAssignment_4.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//Fragment:
+		//	'fragment' UIContainerDefinition ServerComponentUsage
+		//	'{' elements+=UIElement* '}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'fragment' UIContainerDefinition ServerComponentUsage '{' elements+=UIElement* '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'fragment'
+		public Keyword getFragmentKeyword_0() { return cFragmentKeyword_0; }
+		
+		//UIContainerDefinition
+		public RuleCall getUIContainerDefinitionParserRuleCall_1() { return cUIContainerDefinitionParserRuleCall_1; }
+		
+		//ServerComponentUsage
+		public RuleCall getServerComponentUsageParserRuleCall_2() { return cServerComponentUsageParserRuleCall_2; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
+		
+		//elements+=UIElement*
+		public Assignment getElementsAssignment_4() { return cElementsAssignment_4; }
+		
+		//UIElement
+		public RuleCall getElementsUIElementParserRuleCall_4_0() { return cElementsUIElementParserRuleCall_4_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
 	}
 	public class ExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.Expression");
-		private final RuleCall cMemberSelectionExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cMemberSelectionExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cPageCallParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cIterationExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		////overriding abstract rule from domainModel dsl
 		//Expression domainModel::Expression:
-		//	MemberSelectionExpression
+		//	MemberSelectionExpression | PageCall | IterationExpression
 		@Override public ParserRule getRule() { return rule; }
 		
+		//MemberSelectionExpression | PageCall | IterationExpression
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
 		//MemberSelectionExpression
-		public RuleCall getMemberSelectionExpressionParserRuleCall() { return cMemberSelectionExpressionParserRuleCall; }
+		public RuleCall getMemberSelectionExpressionParserRuleCall_0() { return cMemberSelectionExpressionParserRuleCall_0; }
+		
+		//PageCall
+		public RuleCall getPageCallParserRuleCall_1() { return cPageCallParserRuleCall_1; }
+		
+		//IterationExpression
+		public RuleCall getIterationExpressionParserRuleCall_2() { return cIterationExpressionParserRuleCall_2; }
+	}
+	public class IterationExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.IterationExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cVarAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cVarInlineVariableParserRuleCall_0_0 = (RuleCall)cVarAssignment_0.eContents().get(0);
+		private final Keyword cInKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cExpressionAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cExpressionExpressionParserRuleCall_2_0 = (RuleCall)cExpressionAssignment_2.eContents().get(0);
+		
+		//IterationExpression:
+		//	var=InlineVariable 'in' expression=Expression;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//var=InlineVariable 'in' expression=Expression
+		public Group getGroup() { return cGroup; }
+		
+		//var=InlineVariable
+		public Assignment getVarAssignment_0() { return cVarAssignment_0; }
+		
+		//InlineVariable
+		public RuleCall getVarInlineVariableParserRuleCall_0_0() { return cVarInlineVariableParserRuleCall_0_0; }
+		
+		//'in'
+		public Keyword getInKeyword_1() { return cInKeyword_1; }
+		
+		//expression=Expression
+		public Assignment getExpressionAssignment_2() { return cExpressionAssignment_2; }
+		
+		//Expression
+		public RuleCall getExpressionExpressionParserRuleCall_2_0() { return cExpressionExpressionParserRuleCall_2_0; }
 	}
 	public class MemberSelectionExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.MemberSelectionExpression");
@@ -374,29 +1184,23 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1_3 = (Group)cGroup_1.eContents().get(3);
 		private final Assignment cIsMethodAssignment_1_3_0 = (Assignment)cGroup_1_3.eContents().get(0);
 		private final Keyword cIsMethodLeftParenthesisKeyword_1_3_0_0 = (Keyword)cIsMethodAssignment_1_3_0.eContents().get(0);
-		private final Group cGroup_1_3_1 = (Group)cGroup_1_3.eContents().get(1);
-		private final Assignment cParamsAssignment_1_3_1_0 = (Assignment)cGroup_1_3_1.eContents().get(0);
-		private final RuleCall cParamsExpressionParserRuleCall_1_3_1_0_0 = (RuleCall)cParamsAssignment_1_3_1_0.eContents().get(0);
-		private final Group cGroup_1_3_1_1 = (Group)cGroup_1_3_1.eContents().get(1);
-		private final Keyword cCommaKeyword_1_3_1_1_0 = (Keyword)cGroup_1_3_1_1.eContents().get(0);
-		private final Assignment cParamsAssignment_1_3_1_1_1 = (Assignment)cGroup_1_3_1_1.eContents().get(1);
-		private final RuleCall cParamsExpressionParserRuleCall_1_3_1_1_1_0 = (RuleCall)cParamsAssignment_1_3_1_1_1.eContents().get(0);
+		private final RuleCall cParamsParserRuleCall_1_3_1 = (RuleCall)cGroup_1_3.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_1_3_2 = (Keyword)cGroup_1_3.eContents().get(2);
 		
 		//MemberSelectionExpression domainModel::Expression:
 		//	AtomExpression ({MemberSelectionExpression.receiver=current} '.'
-		//	member=[domainModel::SelectionMember] (isMethod?='(' (params+=Expression (',' params+=Expression)*)? ')')?)*
+		//	member=[domainModel::SelectionMember] (isMethod?='('
+		//	Params? ')')?)*
 		@Override public ParserRule getRule() { return rule; }
 		
 		//AtomExpression ({MemberSelectionExpression.receiver=current} '.' member=[domainModel::SelectionMember] (isMethod?='('
-		//(params+=Expression (',' params+=Expression)*)? ')')?)*
+		//Params? ')')?)*
 		public Group getGroup() { return cGroup; }
 		
 		//AtomExpression
 		public RuleCall getAtomExpressionParserRuleCall_0() { return cAtomExpressionParserRuleCall_0; }
 		
-		//({MemberSelectionExpression.receiver=current} '.' member=[domainModel::SelectionMember] (isMethod?='('
-		//(params+=Expression (',' params+=Expression)*)? ')')?)*
+		//({MemberSelectionExpression.receiver=current} '.' member=[domainModel::SelectionMember] (isMethod?='(' Params? ')')?)*
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//{MemberSelectionExpression.receiver=current}
@@ -414,7 +1218,7 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getMemberSelectionMemberIDTerminalRuleCall_1_2_0_1() { return cMemberSelectionMemberIDTerminalRuleCall_1_2_0_1; }
 		
-		//(isMethod?='(' (params+=Expression (',' params+=Expression)*)? ')')?
+		//(isMethod?='(' Params? ')')?
 		public Group getGroup_1_3() { return cGroup_1_3; }
 		
 		//isMethod?='('
@@ -423,29 +1227,120 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		//'('
 		public Keyword getIsMethodLeftParenthesisKeyword_1_3_0_0() { return cIsMethodLeftParenthesisKeyword_1_3_0_0; }
 		
-		//(params+=Expression (',' params+=Expression)*)?
-		public Group getGroup_1_3_1() { return cGroup_1_3_1; }
-		
-		//params+=Expression
-		public Assignment getParamsAssignment_1_3_1_0() { return cParamsAssignment_1_3_1_0; }
-		
-		//Expression
-		public RuleCall getParamsExpressionParserRuleCall_1_3_1_0_0() { return cParamsExpressionParserRuleCall_1_3_1_0_0; }
-		
-		//(',' params+=Expression)*
-		public Group getGroup_1_3_1_1() { return cGroup_1_3_1_1; }
-		
-		//','
-		public Keyword getCommaKeyword_1_3_1_1_0() { return cCommaKeyword_1_3_1_1_0; }
-		
-		//params+=Expression
-		public Assignment getParamsAssignment_1_3_1_1_1() { return cParamsAssignment_1_3_1_1_1; }
-		
-		//Expression
-		public RuleCall getParamsExpressionParserRuleCall_1_3_1_1_1_0() { return cParamsExpressionParserRuleCall_1_3_1_1_1_0; }
+		//Params?
+		public RuleCall getParamsParserRuleCall_1_3_1() { return cParamsParserRuleCall_1_3_1; }
 		
 		//')'
 		public Keyword getRightParenthesisKeyword_1_3_2() { return cRightParenthesisKeyword_1_3_2; }
+	}
+	public class PageCallElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.PageCall");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cPageCallAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cPageAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cPagePageCrossReference_1_0 = (CrossReference)cPageAssignment_1.eContents().get(0);
+		private final RuleCall cPagePageIDTerminalRuleCall_1_0_1 = (RuleCall)cPagePageCrossReference_1_0.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cParamsParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//PageCall domainModel::Expression:
+		//	{PageCall} page=[Page] '(' Params? ')'
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{PageCall} page=[Page] '(' Params? ')'
+		public Group getGroup() { return cGroup; }
+		
+		//{PageCall}
+		public Action getPageCallAction_0() { return cPageCallAction_0; }
+		
+		//page=[Page]
+		public Assignment getPageAssignment_1() { return cPageAssignment_1; }
+		
+		//[Page]
+		public CrossReference getPagePageCrossReference_1_0() { return cPagePageCrossReference_1_0; }
+		
+		//ID
+		public RuleCall getPagePageIDTerminalRuleCall_1_0_1() { return cPagePageIDTerminalRuleCall_1_0_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+		
+		//Params?
+		public RuleCall getParamsParserRuleCall_3() { return cParamsParserRuleCall_3; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+	}
+	public class FragmentCallElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.FragmentCall");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cFragAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cFragFragmentCrossReference_0_0 = (CrossReference)cFragAssignment_0.eContents().get(0);
+		private final RuleCall cFragFragmentIDTerminalRuleCall_0_0_1 = (RuleCall)cFragFragmentCrossReference_0_0.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cParamsParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//FragmentCall:
+		//	frag=[Fragment] '(' Params? ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//frag=[Fragment] '(' Params? ')'
+		public Group getGroup() { return cGroup; }
+		
+		//frag=[Fragment]
+		public Assignment getFragAssignment_0() { return cFragAssignment_0; }
+		
+		//[Fragment]
+		public CrossReference getFragFragmentCrossReference_0_0() { return cFragFragmentCrossReference_0_0; }
+		
+		//ID
+		public RuleCall getFragFragmentIDTerminalRuleCall_0_0_1() { return cFragFragmentIDTerminalRuleCall_0_0_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//Params?
+		public RuleCall getParamsParserRuleCall_2() { return cParamsParserRuleCall_2; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+	}
+	public class ParamsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.Params");
+		private final Group cGroup = (Group)rule.eContents().get(0);
+		private final Assignment cParamsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cParamsExpressionParserRuleCall_0_0 = (RuleCall)cParamsAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cCommaKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cParamsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cParamsExpressionParserRuleCall_1_1_0 = (RuleCall)cParamsAssignment_1_1.eContents().get(0);
+		
+		//fragment Params *:
+		//	params+=Expression (',' params+=Expression)*;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//params+=Expression (',' params+=Expression)*
+		public Group getGroup() { return cGroup; }
+		
+		//params+=Expression
+		public Assignment getParamsAssignment_0() { return cParamsAssignment_0; }
+		
+		//Expression
+		public RuleCall getParamsExpressionParserRuleCall_0_0() { return cParamsExpressionParserRuleCall_0_0; }
+		
+		//(',' params+=Expression)*
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//','
+		public Keyword getCommaKeyword_1_0() { return cCommaKeyword_1_0; }
+		
+		//params+=Expression
+		public Assignment getParamsAssignment_1_1() { return cParamsAssignment_1_1; }
+		
+		//Expression
+		public RuleCall getParamsExpressionParserRuleCall_1_1_0() { return cParamsExpressionParserRuleCall_1_1_0; }
 	}
 	public class AtomExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.AtomExpression");
@@ -501,25 +1396,609 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		//Member
 		public RuleCall getMemberParserRuleCall_1() { return cMemberParserRuleCall_1; }
 	}
+	public class AttributeTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.AttributeType");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cAttributeTypeParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cVoidTypeParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//AttributeType domainModel::AttributeType:
+		//	super | VoidType
+		@Override public ParserRule getRule() { return rule; }
+		
+		//super | VoidType
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//super
+		public RuleCall getAttributeTypeParserRuleCall_0() { return cAttributeTypeParserRuleCall_0; }
+		
+		//VoidType
+		public RuleCall getVoidTypeParserRuleCall_1() { return cVoidTypeParserRuleCall_1; }
+	}
+	public class GeneralTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.GeneralType");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Action cObjectGeneralTypeAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Keyword cObjectKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Action cEnumGeneralTypeAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cEnumKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
+		private final Action cCollectionGeneralTypeAction_2_0 = (Action)cGroup_2.eContents().get(0);
+		private final Keyword cCollectionKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
+		
+		//GeneralType domainModel::AttributeType:
+		//	{ObjectGeneralType} 'object' | {EnumGeneralType} 'enum' | {CollectionGeneralType} 'collection'
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{ObjectGeneralType} 'object' | {EnumGeneralType} 'enum' | {CollectionGeneralType} 'collection'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//{ObjectGeneralType} 'object'
+		public Group getGroup_0() { return cGroup_0; }
+		
+		//{ObjectGeneralType}
+		public Action getObjectGeneralTypeAction_0_0() { return cObjectGeneralTypeAction_0_0; }
+		
+		//'object'
+		public Keyword getObjectKeyword_0_1() { return cObjectKeyword_0_1; }
+		
+		//{EnumGeneralType} 'enum'
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//{EnumGeneralType}
+		public Action getEnumGeneralTypeAction_1_0() { return cEnumGeneralTypeAction_1_0; }
+		
+		//'enum'
+		public Keyword getEnumKeyword_1_1() { return cEnumKeyword_1_1; }
+		
+		//{CollectionGeneralType} 'collection'
+		public Group getGroup_2() { return cGroup_2; }
+		
+		//{CollectionGeneralType}
+		public Action getCollectionGeneralTypeAction_2_0() { return cCollectionGeneralTypeAction_2_0; }
+		
+		//'collection'
+		public Keyword getCollectionKeyword_2_1() { return cCollectionKeyword_2_1; }
+	}
+	public class AnyTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.AnyType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cAnyTypeAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cAnyKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//AnyType domainModel::AttributeType:
+		//	{AnyType} 'any'
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{AnyType} 'any'
+		public Group getGroup() { return cGroup; }
+		
+		//{AnyType}
+		public Action getAnyTypeAction_0() { return cAnyTypeAction_0; }
+		
+		//'any'
+		public Keyword getAnyKeyword_1() { return cAnyKeyword_1; }
+	}
+	public class PageTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.PageType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cPageTypeAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cPageKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//PageType domainModel::AttributeType:
+		//	{PageType} 'page'
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{PageType} 'page'
+		public Group getGroup() { return cGroup; }
+		
+		//{PageType}
+		public Action getPageTypeAction_0() { return cPageTypeAction_0; }
+		
+		//'page'
+		public Keyword getPageKeyword_1() { return cPageKeyword_1; }
+	}
+	public class VoidTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.VoidType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cVoidTypeAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cVoidKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//VoidType domainModel::AttributeType:
+		//	{VoidType} 'void'
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{VoidType} 'void'
+		public Group getGroup() { return cGroup; }
+		
+		//{VoidType}
+		public Action getVoidTypeAction_0() { return cVoidTypeAction_0; }
+		
+		//'void'
+		public Keyword getVoidKeyword_1() { return cVoidKeyword_1; }
+	}
+	public class AlternativeTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.AlternativeType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cAlternativeTypeAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cTypesAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Alternatives cTypesAlternatives_1_0 = (Alternatives)cTypesAssignment_1.eContents().get(0);
+		private final RuleCall cTypesAttributeTypeParserRuleCall_1_0_0 = (RuleCall)cTypesAlternatives_1_0.eContents().get(0);
+		private final RuleCall cTypesGeneralTypeParserRuleCall_1_0_1 = (RuleCall)cTypesAlternatives_1_0.eContents().get(1);
+		private final RuleCall cTypesPageTypeParserRuleCall_1_0_2 = (RuleCall)cTypesAlternatives_1_0.eContents().get(2);
+		private final Keyword cOrKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypesAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final Alternatives cTypesAlternatives_3_0 = (Alternatives)cTypesAssignment_3.eContents().get(0);
+		private final RuleCall cTypesAttributeTypeParserRuleCall_3_0_0 = (RuleCall)cTypesAlternatives_3_0.eContents().get(0);
+		private final RuleCall cTypesGeneralTypeParserRuleCall_3_0_1 = (RuleCall)cTypesAlternatives_3_0.eContents().get(1);
+		private final RuleCall cTypesPageTypeParserRuleCall_3_0_2 = (RuleCall)cTypesAlternatives_3_0.eContents().get(2);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cOrKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cTypesAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final Alternatives cTypesAlternatives_4_1_0 = (Alternatives)cTypesAssignment_4_1.eContents().get(0);
+		private final RuleCall cTypesAttributeTypeParserRuleCall_4_1_0_0 = (RuleCall)cTypesAlternatives_4_1_0.eContents().get(0);
+		private final RuleCall cTypesGeneralTypeParserRuleCall_4_1_0_1 = (RuleCall)cTypesAlternatives_4_1_0.eContents().get(1);
+		private final RuleCall cTypesPageTypeParserRuleCall_4_1_0_2 = (RuleCall)cTypesAlternatives_4_1_0.eContents().get(2);
+		
+		//AlternativeType domainModel::AttributeType:
+		//	{AlternativeType} types+=(AttributeType | GeneralType | PageType) 'or' types+=(AttributeType | GeneralType | PageType)
+		//	('or' types+=(AttributeType | GeneralType | PageType))*
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{AlternativeType} types+=(AttributeType | GeneralType | PageType) 'or' types+=(AttributeType | GeneralType | PageType)
+		//('or' types+=(AttributeType | GeneralType | PageType))*
+		public Group getGroup() { return cGroup; }
+		
+		//{AlternativeType}
+		public Action getAlternativeTypeAction_0() { return cAlternativeTypeAction_0; }
+		
+		//types+=(AttributeType | GeneralType | PageType)
+		public Assignment getTypesAssignment_1() { return cTypesAssignment_1; }
+		
+		//(AttributeType | GeneralType | PageType)
+		public Alternatives getTypesAlternatives_1_0() { return cTypesAlternatives_1_0; }
+		
+		//AttributeType
+		public RuleCall getTypesAttributeTypeParserRuleCall_1_0_0() { return cTypesAttributeTypeParserRuleCall_1_0_0; }
+		
+		//GeneralType
+		public RuleCall getTypesGeneralTypeParserRuleCall_1_0_1() { return cTypesGeneralTypeParserRuleCall_1_0_1; }
+		
+		//PageType
+		public RuleCall getTypesPageTypeParserRuleCall_1_0_2() { return cTypesPageTypeParserRuleCall_1_0_2; }
+		
+		//'or'
+		public Keyword getOrKeyword_2() { return cOrKeyword_2; }
+		
+		//types+=(AttributeType | GeneralType | PageType)
+		public Assignment getTypesAssignment_3() { return cTypesAssignment_3; }
+		
+		//(AttributeType | GeneralType | PageType)
+		public Alternatives getTypesAlternatives_3_0() { return cTypesAlternatives_3_0; }
+		
+		//AttributeType
+		public RuleCall getTypesAttributeTypeParserRuleCall_3_0_0() { return cTypesAttributeTypeParserRuleCall_3_0_0; }
+		
+		//GeneralType
+		public RuleCall getTypesGeneralTypeParserRuleCall_3_0_1() { return cTypesGeneralTypeParserRuleCall_3_0_1; }
+		
+		//PageType
+		public RuleCall getTypesPageTypeParserRuleCall_3_0_2() { return cTypesPageTypeParserRuleCall_3_0_2; }
+		
+		//('or' types+=(AttributeType | GeneralType | PageType))*
+		public Group getGroup_4() { return cGroup_4; }
+		
+		//'or'
+		public Keyword getOrKeyword_4_0() { return cOrKeyword_4_0; }
+		
+		//types+=(AttributeType | GeneralType | PageType)
+		public Assignment getTypesAssignment_4_1() { return cTypesAssignment_4_1; }
+		
+		//(AttributeType | GeneralType | PageType)
+		public Alternatives getTypesAlternatives_4_1_0() { return cTypesAlternatives_4_1_0; }
+		
+		//AttributeType
+		public RuleCall getTypesAttributeTypeParserRuleCall_4_1_0_0() { return cTypesAttributeTypeParserRuleCall_4_1_0_0; }
+		
+		//GeneralType
+		public RuleCall getTypesGeneralTypeParserRuleCall_4_1_0_1() { return cTypesGeneralTypeParserRuleCall_4_1_0_1; }
+		
+		//PageType
+		public RuleCall getTypesPageTypeParserRuleCall_4_1_0_2() { return cTypesPageTypeParserRuleCall_4_1_0_2; }
+	}
+	public class TypeExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.TypeExpression");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Action cSimpleTypeAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Assignment cTypeAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final Alternatives cTypeAlternatives_0_1_0 = (Alternatives)cTypeAssignment_0_1.eContents().get(0);
+		private final RuleCall cTypeAttributeTypeParserRuleCall_0_1_0_0 = (RuleCall)cTypeAlternatives_0_1_0.eContents().get(0);
+		private final RuleCall cTypeAlternativeTypeParserRuleCall_0_1_0_1 = (RuleCall)cTypeAlternatives_0_1_0.eContents().get(1);
+		private final RuleCall cTypeGeneralTypeParserRuleCall_0_1_0_2 = (RuleCall)cTypeAlternatives_0_1_0.eContents().get(2);
+		private final RuleCall cTypeAnyTypeParserRuleCall_0_1_0_3 = (RuleCall)cTypeAlternatives_0_1_0.eContents().get(3);
+		private final RuleCall cTypePageTypeParserRuleCall_0_1_0_4 = (RuleCall)cTypeAlternatives_0_1_0.eContents().get(4);
+		private final RuleCall cPropertyRuntimeTypeParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cPropertySingleRuntimeTypeParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		
+		//TypeExpression:
+		//	{SimpleType} type=(AttributeType | AlternativeType | GeneralType | AnyType | PageType) | PropertyRuntimeType |
+		//	PropertySingleRuntimeType;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{SimpleType} type=(AttributeType | AlternativeType | GeneralType | AnyType | PageType) | PropertyRuntimeType |
+		//PropertySingleRuntimeType
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//{SimpleType} type=(AttributeType | AlternativeType | GeneralType | AnyType | PageType)
+		public Group getGroup_0() { return cGroup_0; }
+		
+		//{SimpleType}
+		public Action getSimpleTypeAction_0_0() { return cSimpleTypeAction_0_0; }
+		
+		//type=(AttributeType | AlternativeType | GeneralType | AnyType | PageType)
+		public Assignment getTypeAssignment_0_1() { return cTypeAssignment_0_1; }
+		
+		//(AttributeType | AlternativeType | GeneralType | AnyType | PageType)
+		public Alternatives getTypeAlternatives_0_1_0() { return cTypeAlternatives_0_1_0; }
+		
+		//AttributeType
+		public RuleCall getTypeAttributeTypeParserRuleCall_0_1_0_0() { return cTypeAttributeTypeParserRuleCall_0_1_0_0; }
+		
+		//AlternativeType
+		public RuleCall getTypeAlternativeTypeParserRuleCall_0_1_0_1() { return cTypeAlternativeTypeParserRuleCall_0_1_0_1; }
+		
+		//GeneralType
+		public RuleCall getTypeGeneralTypeParserRuleCall_0_1_0_2() { return cTypeGeneralTypeParserRuleCall_0_1_0_2; }
+		
+		//AnyType
+		public RuleCall getTypeAnyTypeParserRuleCall_0_1_0_3() { return cTypeAnyTypeParserRuleCall_0_1_0_3; }
+		
+		//PageType
+		public RuleCall getTypePageTypeParserRuleCall_0_1_0_4() { return cTypePageTypeParserRuleCall_0_1_0_4; }
+		
+		//PropertyRuntimeType
+		public RuleCall getPropertyRuntimeTypeParserRuleCall_1() { return cPropertyRuntimeTypeParserRuleCall_1; }
+		
+		//PropertySingleRuntimeType
+		public RuleCall getPropertySingleRuntimeTypeParserRuleCall_2() { return cPropertySingleRuntimeTypeParserRuleCall_2; }
+	}
+	public class PropertyRuntimeTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.PropertyRuntimeType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cTypeOfKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cPropertyAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cPropertyPropertyValueCrossReference_2_0 = (CrossReference)cPropertyAssignment_2.eContents().get(0);
+		private final RuleCall cPropertyPropertyValueIDTerminalRuleCall_2_0_1 = (RuleCall)cPropertyPropertyValueCrossReference_2_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//PropertyRuntimeType:
+		//	'typeOf' '(' property=[PropertyValue] ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'typeOf' '(' property=[PropertyValue] ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'typeOf'
+		public Keyword getTypeOfKeyword_0() { return cTypeOfKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//property=[PropertyValue]
+		public Assignment getPropertyAssignment_2() { return cPropertyAssignment_2; }
+		
+		//[PropertyValue]
+		public CrossReference getPropertyPropertyValueCrossReference_2_0() { return cPropertyPropertyValueCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getPropertyPropertyValueIDTerminalRuleCall_2_0_1() { return cPropertyPropertyValueIDTerminalRuleCall_2_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+	}
+	public class PropertySingleRuntimeTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.PropertySingleRuntimeType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cSingleTypeOfKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cPropertyTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cPropertyTypePropertyRuntimeTypeParserRuleCall_2_0 = (RuleCall)cPropertyTypeAssignment_2.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		////when property type is collection and we need type of object that collection stores
+		//PropertySingleRuntimeType:
+		//	'singleTypeOf' '(' propertyType=PropertyRuntimeType ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'singleTypeOf' '(' propertyType=PropertyRuntimeType ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'singleTypeOf'
+		public Keyword getSingleTypeOfKeyword_0() { return cSingleTypeOfKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//propertyType=PropertyRuntimeType
+		public Assignment getPropertyTypeAssignment_2() { return cPropertyTypeAssignment_2; }
+		
+		//PropertyRuntimeType
+		public RuleCall getPropertyTypePropertyRuntimeTypeParserRuleCall_2_0() { return cPropertyTypePropertyRuntimeTypeParserRuleCall_2_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+	}
+	public class DefaultConfigurationsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.DefaultConfigurations");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cDefaultsKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cDefaultsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cDefaultsDefaultComponentConfigParserRuleCall_3_0 = (RuleCall)cDefaultsAssignment_3.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		////defaults
+		//DefaultConfigurations:
+		//	'defaults' name=ID '{'
+		//	defaults+=DefaultComponentConfig+
+		//	'}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'defaults' name=ID '{' defaults+=DefaultComponentConfig+ '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'defaults'
+		public Keyword getDefaultsKeyword_0() { return cDefaultsKeyword_0; }
+		
+		//name=ID
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		
+		//defaults+=DefaultComponentConfig+
+		public Assignment getDefaultsAssignment_3() { return cDefaultsAssignment_3; }
+		
+		//DefaultComponentConfig
+		public RuleCall getDefaultsDefaultComponentConfigParserRuleCall_3_0() { return cDefaultsDefaultComponentConfigParserRuleCall_3_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+	}
+	public class DefaultComponentConfigElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.DefaultComponentConfig");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cDefaultKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cForKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final Alternatives cTypeAlternatives_2_0 = (Alternatives)cTypeAssignment_2.eContents().get(0);
+		private final RuleCall cTypeBasicTypeParserRuleCall_2_0_0 = (RuleCall)cTypeAlternatives_2_0.eContents().get(0);
+		private final RuleCall cTypeGeneralTypeParserRuleCall_2_0_1 = (RuleCall)cTypeAlternatives_2_0.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cInput_componentKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cColonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cInputCompAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final CrossReference cInputCompUIComponentCrossReference_6_0 = (CrossReference)cInputCompAssignment_6.eContents().get(0);
+		private final RuleCall cInputCompUIComponentIDTerminalRuleCall_6_0_1 = (RuleCall)cInputCompUIComponentCrossReference_6_0.eContents().get(1);
+		private final Keyword cOutput_componentKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Keyword cColonKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Assignment cOutputCompAssignment_9 = (Assignment)cGroup.eContents().get(9);
+		private final CrossReference cOutputCompUIComponentCrossReference_9_0 = (CrossReference)cOutputCompAssignment_9.eContents().get(0);
+		private final RuleCall cOutputCompUIComponentIDTerminalRuleCall_9_0_1 = (RuleCall)cOutputCompUIComponentCrossReference_9_0.eContents().get(1);
+		private final Keyword cRightCurlyBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
+		
+		//DefaultComponentConfig:
+		//	'default' 'for' type=(BasicType | GeneralType) '{'
+		//	'input_component' ':' inputComp=[UIComponent]
+		//	'output_component' ':' outputComp=[UIComponent]
+		//	'}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'default' 'for' type=(BasicType | GeneralType) '{' 'input_component' ':' inputComp=[UIComponent] 'output_component' ':'
+		//outputComp=[UIComponent] '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'default'
+		public Keyword getDefaultKeyword_0() { return cDefaultKeyword_0; }
+		
+		//'for'
+		public Keyword getForKeyword_1() { return cForKeyword_1; }
+		
+		//type=(BasicType | GeneralType)
+		public Assignment getTypeAssignment_2() { return cTypeAssignment_2; }
+		
+		//(BasicType | GeneralType)
+		public Alternatives getTypeAlternatives_2_0() { return cTypeAlternatives_2_0; }
+		
+		//BasicType
+		public RuleCall getTypeBasicTypeParserRuleCall_2_0_0() { return cTypeBasicTypeParserRuleCall_2_0_0; }
+		
+		//GeneralType
+		public RuleCall getTypeGeneralTypeParserRuleCall_2_0_1() { return cTypeGeneralTypeParserRuleCall_2_0_1; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
+		
+		//'input_component'
+		public Keyword getInput_componentKeyword_4() { return cInput_componentKeyword_4; }
+		
+		//':'
+		public Keyword getColonKeyword_5() { return cColonKeyword_5; }
+		
+		//inputComp=[UIComponent]
+		public Assignment getInputCompAssignment_6() { return cInputCompAssignment_6; }
+		
+		//[UIComponent]
+		public CrossReference getInputCompUIComponentCrossReference_6_0() { return cInputCompUIComponentCrossReference_6_0; }
+		
+		//ID
+		public RuleCall getInputCompUIComponentIDTerminalRuleCall_6_0_1() { return cInputCompUIComponentIDTerminalRuleCall_6_0_1; }
+		
+		//'output_component'
+		public Keyword getOutput_componentKeyword_7() { return cOutput_componentKeyword_7; }
+		
+		//':'
+		public Keyword getColonKeyword_8() { return cColonKeyword_8; }
+		
+		//outputComp=[UIComponent]
+		public Assignment getOutputCompAssignment_9() { return cOutputCompAssignment_9; }
+		
+		//[UIComponent]
+		public CrossReference getOutputCompUIComponentCrossReference_9_0() { return cOutputCompUIComponentCrossReference_9_0; }
+		
+		//ID
+		public RuleCall getOutputCompUIComponentIDTerminalRuleCall_9_0_1() { return cOutputCompUIComponentIDTerminalRuleCall_9_0_1; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_10() { return cRightCurlyBracketKeyword_10; }
+	}
+	public class DefaultUIComponentElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.DefaultUIComponent");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Action cInputUIComponentAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Keyword cInputKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
+		private final Assignment cValueAssignment_0_3 = (Assignment)cGroup_0.eContents().get(3);
+		private final RuleCall cValueMemberSelectionExpressionParserRuleCall_0_3_0 = (RuleCall)cValueAssignment_0_3.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_0_4 = (Keyword)cGroup_0.eContents().get(4);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Action cOutputUIComponentAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cOutputKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Assignment cValueAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
+		private final RuleCall cValueMemberSelectionExpressionParserRuleCall_1_3_0 = (RuleCall)cValueAssignment_1_3.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_1_4 = (Keyword)cGroup_1.eContents().get(4);
+		
+		//DefaultUIComponent DefaultComponent:
+		//	{InputUIComponent} 'input' '(' value=MemberSelectionExpression ')' | {OutputUIComponent} 'output' '('
+		//	value=MemberSelectionExpression ')'
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{InputUIComponent} 'input' '(' value=MemberSelectionExpression ')' | {OutputUIComponent} 'output' '('
+		//value=MemberSelectionExpression ')'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//{InputUIComponent} 'input' '(' value=MemberSelectionExpression ')'
+		public Group getGroup_0() { return cGroup_0; }
+		
+		//{InputUIComponent}
+		public Action getInputUIComponentAction_0_0() { return cInputUIComponentAction_0_0; }
+		
+		//'input'
+		public Keyword getInputKeyword_0_1() { return cInputKeyword_0_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_0_2() { return cLeftParenthesisKeyword_0_2; }
+		
+		//value=MemberSelectionExpression
+		public Assignment getValueAssignment_0_3() { return cValueAssignment_0_3; }
+		
+		//MemberSelectionExpression
+		public RuleCall getValueMemberSelectionExpressionParserRuleCall_0_3_0() { return cValueMemberSelectionExpressionParserRuleCall_0_3_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_0_4() { return cRightParenthesisKeyword_0_4; }
+		
+		//{OutputUIComponent} 'output' '(' value=MemberSelectionExpression ')'
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//{OutputUIComponent}
+		public Action getOutputUIComponentAction_1_0() { return cOutputUIComponentAction_1_0; }
+		
+		//'output'
+		public Keyword getOutputKeyword_1_1() { return cOutputKeyword_1_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1_2() { return cLeftParenthesisKeyword_1_2; }
+		
+		//value=MemberSelectionExpression
+		public Assignment getValueAssignment_1_3() { return cValueAssignment_1_3; }
+		
+		//MemberSelectionExpression
+		public RuleCall getValueMemberSelectionExpressionParserRuleCall_1_3_0() { return cValueMemberSelectionExpressionParserRuleCall_1_3_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_1_4() { return cRightParenthesisKeyword_1_4; }
+	}
+	public class ComponentElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.Component");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cUIComponentInstanceParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cDefaultUIComponentParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//Component:
+		//	UIComponentInstance | DefaultUIComponent;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//UIComponentInstance | DefaultUIComponent
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//UIComponentInstance
+		public RuleCall getUIComponentInstanceParserRuleCall_0() { return cUIComponentInstanceParserRuleCall_0; }
+		
+		//DefaultUIComponent
+		public RuleCall getDefaultUIComponentParserRuleCall_1() { return cDefaultUIComponentParserRuleCall_1; }
+	}
 	
 	
 	private final UIModelElements pUIModel;
-	private final UIConceptElements pUIConcept;
-	private final ConceptElements pConcept;
 	private final ServerComponentElements pServerComponent;
 	private final MemberElements pMember;
 	private final FieldElements pField;
 	private final MethodElements pMethod;
 	private final VariableElements pVariable;
+	private final InlineVariableElements pInlineVariable;
 	private final TypedConceptElements pTypedConcept;
 	private final UIContainerElements pUIContainer;
 	private final PageElements pPage;
+	private final UIContainerDefinitionElements pUIContainerDefinition;
+	private final ServerComponentUsageElements pServerComponentUsage;
+	private final UIElementElements pUIElement;
+	private final UIComponentElements pUIComponent;
+	private final NestedComponentElements pNestedComponent;
+	private final ChildUIComponentElements pChildUIComponent;
+	private final AllowedNestedComponentsElements pAllowedNestedComponents;
+	private final PropertyValueElements pPropertyValue;
+	private final UIComponentInstanceElements pUIComponentInstance;
+	private final LogicElementElements pLogicElement;
+	private final IFStatementElements pIFStatement;
+	private final IteratorElements pIterator;
+	private final PropertyValueInstanceElements pPropertyValueInstance;
 	private final TemplateElements pTemplate;
+	private final TemplateFragmentElements pTemplateFragment;
+	private final TemplateFragmentOverrideElements pTemplateFragmentOverride;
 	private final FragmentElements pFragment;
 	private final ExpressionElements pExpression;
+	private final IterationExpressionElements pIterationExpression;
 	private final MemberSelectionExpressionElements pMemberSelectionExpression;
+	private final PageCallElements pPageCall;
+	private final FragmentCallElements pFragmentCall;
+	private final ParamsElements pParams;
 	private final AtomExpressionElements pAtomExpression;
 	private final SelectionMemberElements pSelectionMember;
+	private final AttributeTypeElements pAttributeType;
+	private final GeneralTypeElements pGeneralType;
+	private final AnyTypeElements pAnyType;
+	private final PageTypeElements pPageType;
+	private final VoidTypeElements pVoidType;
+	private final AlternativeTypeElements pAlternativeType;
+	private final TypeExpressionElements pTypeExpression;
+	private final PropertyRuntimeTypeElements pPropertyRuntimeType;
+	private final PropertySingleRuntimeTypeElements pPropertySingleRuntimeType;
+	private final DefaultConfigurationsElements pDefaultConfigurations;
+	private final DefaultComponentConfigElements pDefaultComponentConfig;
+	private final DefaultUIComponentElements pDefaultUIComponent;
+	private final ComponentElements pComponent;
 	
 	private final Grammar grammar;
 	
@@ -539,22 +2018,53 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		this.gaDomainModel = gaDomainModel;
 		this.gaTerminals = gaTerminals;
 		this.pUIModel = new UIModelElements();
-		this.pUIConcept = new UIConceptElements();
-		this.pConcept = new ConceptElements();
 		this.pServerComponent = new ServerComponentElements();
 		this.pMember = new MemberElements();
 		this.pField = new FieldElements();
 		this.pMethod = new MethodElements();
 		this.pVariable = new VariableElements();
+		this.pInlineVariable = new InlineVariableElements();
 		this.pTypedConcept = new TypedConceptElements();
 		this.pUIContainer = new UIContainerElements();
 		this.pPage = new PageElements();
+		this.pUIContainerDefinition = new UIContainerDefinitionElements();
+		this.pServerComponentUsage = new ServerComponentUsageElements();
+		this.pUIElement = new UIElementElements();
+		this.pUIComponent = new UIComponentElements();
+		this.pNestedComponent = new NestedComponentElements();
+		this.pChildUIComponent = new ChildUIComponentElements();
+		this.pAllowedNestedComponents = new AllowedNestedComponentsElements();
+		this.pPropertyValue = new PropertyValueElements();
+		this.pUIComponentInstance = new UIComponentInstanceElements();
+		this.pLogicElement = new LogicElementElements();
+		this.pIFStatement = new IFStatementElements();
+		this.pIterator = new IteratorElements();
+		this.pPropertyValueInstance = new PropertyValueInstanceElements();
 		this.pTemplate = new TemplateElements();
+		this.pTemplateFragment = new TemplateFragmentElements();
+		this.pTemplateFragmentOverride = new TemplateFragmentOverrideElements();
 		this.pFragment = new FragmentElements();
 		this.pExpression = new ExpressionElements();
+		this.pIterationExpression = new IterationExpressionElements();
 		this.pMemberSelectionExpression = new MemberSelectionExpressionElements();
+		this.pPageCall = new PageCallElements();
+		this.pFragmentCall = new FragmentCallElements();
+		this.pParams = new ParamsElements();
 		this.pAtomExpression = new AtomExpressionElements();
 		this.pSelectionMember = new SelectionMemberElements();
+		this.pAttributeType = new AttributeTypeElements();
+		this.pGeneralType = new GeneralTypeElements();
+		this.pAnyType = new AnyTypeElements();
+		this.pPageType = new PageTypeElements();
+		this.pVoidType = new VoidTypeElements();
+		this.pAlternativeType = new AlternativeTypeElements();
+		this.pTypeExpression = new TypeExpressionElements();
+		this.pPropertyRuntimeType = new PropertyRuntimeTypeElements();
+		this.pPropertySingleRuntimeType = new PropertySingleRuntimeTypeElements();
+		this.pDefaultConfigurations = new DefaultConfigurationsElements();
+		this.pDefaultComponentConfig = new DefaultComponentConfigElements();
+		this.pDefaultUIComponent = new DefaultUIComponentElements();
+		this.pComponent = new ComponentElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -593,7 +2103,7 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//UIModel:
-	//	concepts+=UIConcept*;
+	//	concepts+=(ServerComponent | UIContainer | UIComponent | DefaultConfigurations)*;
 	public UIModelElements getUIModelAccess() {
 		return pUIModel;
 	}
@@ -602,31 +2112,14 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		return getUIModelAccess().getRule();
 	}
 	
-	//UIConcept:
-	//	ServerComponent | UIContainer;
-	public UIConceptElements getUIConceptAccess() {
-		return pUIConcept;
-	}
-	
-	public ParserRule getUIConceptRule() {
-		return getUIConceptAccess().getRule();
-	}
-	
-	//Concept domainModel::Concept:
-	//	super | ServerComponent
-	public ConceptElements getConceptAccess() {
-		return pConcept;
-	}
-	
-	public ParserRule getConceptRule() {
-		return getConceptAccess().getRule();
-	}
-	
-	//ServerComponent:
-	//	'server_component' name=ID '{'
+	////UIConcept:
+	////	ServerComponent | UIContainer | UIComponent
+	////;
+	//ServerComponent domainModel::Concept:
+	//	{ServerComponent} 'server_component' name=ID '{'
 	//	members+=Member*
 	//	expressions+=Expression*
-	//	'}';
+	//	'}'
 	public ServerComponentElements getServerComponentAccess() {
 		return pServerComponent;
 	}
@@ -656,7 +2149,7 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Method:
-	//	TypedConcept '(' params+=Variable (',' params+=Variable)* ')' ';';
+	//	TypedConcept '(' (params+=Variable (',' params+=Variable)*)? ')' ';';
 	public MethodElements getMethodAccess() {
 		return pMethod;
 	}
@@ -673,6 +2166,16 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getVariableRule() {
 		return getVariableAccess().getRule();
+	}
+	
+	//InlineVariable Variable:
+	//	{InlineVariable} name=ID
+	public InlineVariableElements getInlineVariableAccess() {
+		return pInlineVariable;
+	}
+	
+	public ParserRule getInlineVariableRule() {
+		return getInlineVariableAccess().getRule();
 	}
 	
 	//fragment TypedConcept *:
@@ -696,7 +2199,8 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Page:
-	//	'page' name=ID;
+	//	'page' UIContainerDefinition ServerComponentUsage ('template' ':' template=[Template])?
+	//	'{' elements+=(UIElement | TemplateFragmentOverride)* '}';
 	public PageElements getPageAccess() {
 		return pPage;
 	}
@@ -705,8 +2209,152 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		return getPageAccess().getRule();
 	}
 	
+	//fragment UIContainerDefinition *:
+	//	name=ID '(' (params+=Variable (',' params+=Variable)*)? ')';
+	public UIContainerDefinitionElements getUIContainerDefinitionAccess() {
+		return pUIContainerDefinition;
+	}
+	
+	public ParserRule getUIContainerDefinitionRule() {
+		return getUIContainerDefinitionAccess().getRule();
+	}
+	
+	//fragment ServerComponentUsage *:
+	//	('uses' serverComponents+=Variable (',' serverComponents+=Variable)*)?;
+	public ServerComponentUsageElements getServerComponentUsageAccess() {
+		return pServerComponentUsage;
+	}
+	
+	public ParserRule getServerComponentUsageRule() {
+		return getServerComponentUsageAccess().getRule();
+	}
+	
+	//UIElement:
+	//	Component | LogicElement | FragmentCall;
+	public UIElementElements getUIElementAccess() {
+		return pUIElement;
+	}
+	
+	public ParserRule getUIElementRule() {
+		return getUIElementAccess().getRule();
+	}
+	
+	//UIComponent:
+	//	'component' name=ID '{'
+	//	properties+=PropertyValue*
+	//	//(child=ChildUIComponent)?
+	//	nested=NestedComponent?
+	//	//('allowed_nested_components' ':' allowedComponents=AllowedNestedComponent)?
+	//	'}';
+	public UIComponentElements getUIComponentAccess() {
+		return pUIComponent;
+	}
+	
+	public ParserRule getUIComponentRule() {
+		return getUIComponentAccess().getRule();
+	}
+	
+	//NestedComponent:
+	//	ChildUIComponent | {ExistingNestedComponents} 'allowed_nested_components' ':'
+	//	nestedComponents=AllowedNestedComponents;
+	public NestedComponentElements getNestedComponentAccess() {
+		return pNestedComponent;
+	}
+	
+	public ParserRule getNestedComponentRule() {
+		return getNestedComponentAccess().getRule();
+	}
+	
+	//ChildUIComponent:
+	//	'child_component' 'cardinality' '=' cardinality=CardinalityType ':' comp=UIComponent;
+	public ChildUIComponentElements getChildUIComponentAccess() {
+		return pChildUIComponent;
+	}
+	
+	public ParserRule getChildUIComponentRule() {
+		return getChildUIComponentAccess().getRule();
+	}
+	
+	//AllowedNestedComponents:
+	//	{AllAllowedComponents} 'ALL' | {CustomAllowedComponents} components+=[UIComponent] (',' components+=[UIComponent])*;
+	public AllowedNestedComponentsElements getAllowedNestedComponentsAccess() {
+		return pAllowedNestedComponents;
+	}
+	
+	public ParserRule getAllowedNestedComponentsRule() {
+		return getAllowedNestedComponentsAccess().getRule();
+	}
+	
+	//PropertyValue:
+	//	name=ID required?='required'? valueProperty?='valueProperty'? ':' type=TypeExpression;
+	public PropertyValueElements getPropertyValueAccess() {
+		return pPropertyValue;
+	}
+	
+	public ParserRule getPropertyValueRule() {
+		return getPropertyValueAccess().getRule();
+	}
+	
+	//UIComponentInstance:
+	//	{UIComponentInstance} '#' component=[UIComponent] properties+=PropertyValueInstance* ('{' childElements+=Component*
+	//	'}')?;
+	public UIComponentInstanceElements getUIComponentInstanceAccess() {
+		return pUIComponentInstance;
+	}
+	
+	public ParserRule getUIComponentInstanceRule() {
+		return getUIComponentInstanceAccess().getRule();
+	}
+	
+	//LogicElement:
+	//	IFStatement | Iterator;
+	public LogicElementElements getLogicElementAccess() {
+		return pLogicElement;
+	}
+	
+	public ParserRule getLogicElementRule() {
+		return getLogicElementAccess().getRule();
+	}
+	
+	//IFStatement:
+	//	'if' expression=Expression '{'
+	//	elements+=UIElement*
+	//	'}';
+	public IFStatementElements getIFStatementAccess() {
+		return pIFStatement;
+	}
+	
+	public ParserRule getIFStatementRule() {
+		return getIFStatementAccess().getRule();
+	}
+	
+	//Iterator:
+	//	'for' expression=IterationExpression '{'
+	//	elements+=UIElement*
+	//	'}';
+	public IteratorElements getIteratorAccess() {
+		return pIterator;
+	}
+	
+	public ParserRule getIteratorRule() {
+		return getIteratorAccess().getRule();
+	}
+	
+	//PropertyValueInstance:
+	//	{PropertyValueInstance} property=[PropertyValue] ':' value=Expression;
+	public PropertyValueInstanceElements getPropertyValueInstanceAccess() {
+		return pPropertyValueInstance;
+	}
+	
+	public ParserRule getPropertyValueInstanceRule() {
+		return getPropertyValueInstanceAccess().getRule();
+	}
+	
 	//Template:
-	//	'template' name=ID;
+	//	'template' name=ID ServerComponentUsage
+	//	'{'
+	//	elements+=(UIElement | TemplateFragment)*
+	//	'}';
 	public TemplateElements getTemplateAccess() {
 		return pTemplate;
 	}
@@ -715,8 +2363,33 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		return getTemplateAccess().getRule();
 	}
 	
+	//TemplateFragment UIElement:
+	//	{TemplateFragment} name=ID '{'
+	//	elements+=UIElement*
+	//	'}'
+	public TemplateFragmentElements getTemplateFragmentAccess() {
+		return pTemplateFragment;
+	}
+	
+	public ParserRule getTemplateFragmentRule() {
+		return getTemplateFragmentAccess().getRule();
+	}
+	
+	//TemplateFragmentOverride UIElement:
+	//	{TemplateFragmentOverride} 'override' overridenFragment=[TemplateFragment] '{'
+	//	elements+=UIElement*
+	//	'}'
+	public TemplateFragmentOverrideElements getTemplateFragmentOverrideAccess() {
+		return pTemplateFragmentOverride;
+	}
+	
+	public ParserRule getTemplateFragmentOverrideRule() {
+		return getTemplateFragmentOverrideAccess().getRule();
+	}
+	
 	//Fragment:
-	//	'fragment' name=ID;
+	//	'fragment' UIContainerDefinition ServerComponentUsage
+	//	'{' elements+=UIElement* '}';
 	public FragmentElements getFragmentAccess() {
 		return pFragment;
 	}
@@ -727,7 +2400,7 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	////overriding abstract rule from domainModel dsl
 	//Expression domainModel::Expression:
-	//	MemberSelectionExpression
+	//	MemberSelectionExpression | PageCall | IterationExpression
 	public ExpressionElements getExpressionAccess() {
 		return pExpression;
 	}
@@ -736,15 +2409,56 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		return getExpressionAccess().getRule();
 	}
 	
+	//IterationExpression:
+	//	var=InlineVariable 'in' expression=Expression;
+	public IterationExpressionElements getIterationExpressionAccess() {
+		return pIterationExpression;
+	}
+	
+	public ParserRule getIterationExpressionRule() {
+		return getIterationExpressionAccess().getRule();
+	}
+	
 	//MemberSelectionExpression domainModel::Expression:
 	//	AtomExpression ({MemberSelectionExpression.receiver=current} '.'
-	//	member=[domainModel::SelectionMember] (isMethod?='(' (params+=Expression (',' params+=Expression)*)? ')')?)*
+	//	member=[domainModel::SelectionMember] (isMethod?='('
+	//	Params? ')')?)*
 	public MemberSelectionExpressionElements getMemberSelectionExpressionAccess() {
 		return pMemberSelectionExpression;
 	}
 	
 	public ParserRule getMemberSelectionExpressionRule() {
 		return getMemberSelectionExpressionAccess().getRule();
+	}
+	
+	//PageCall domainModel::Expression:
+	//	{PageCall} page=[Page] '(' Params? ')'
+	public PageCallElements getPageCallAccess() {
+		return pPageCall;
+	}
+	
+	public ParserRule getPageCallRule() {
+		return getPageCallAccess().getRule();
+	}
+	
+	//FragmentCall:
+	//	frag=[Fragment] '(' Params? ')';
+	public FragmentCallElements getFragmentCallAccess() {
+		return pFragmentCall;
+	}
+	
+	public ParserRule getFragmentCallRule() {
+		return getFragmentCallAccess().getRule();
+	}
+	
+	//fragment Params *:
+	//	params+=Expression (',' params+=Expression)*;
+	public ParamsElements getParamsAccess() {
+		return pParams;
+	}
+	
+	public ParserRule getParamsRule() {
+		return getParamsAccess().getRule();
 	}
 	
 	//AtomExpression domainModel::Expression:
@@ -767,8 +2481,148 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		return getSelectionMemberAccess().getRule();
 	}
 	
+	//AttributeType domainModel::AttributeType:
+	//	super | VoidType
+	public AttributeTypeElements getAttributeTypeAccess() {
+		return pAttributeType;
+	}
+	
+	public ParserRule getAttributeTypeRule() {
+		return getAttributeTypeAccess().getRule();
+	}
+	
+	//GeneralType domainModel::AttributeType:
+	//	{ObjectGeneralType} 'object' | {EnumGeneralType} 'enum' | {CollectionGeneralType} 'collection'
+	public GeneralTypeElements getGeneralTypeAccess() {
+		return pGeneralType;
+	}
+	
+	public ParserRule getGeneralTypeRule() {
+		return getGeneralTypeAccess().getRule();
+	}
+	
+	//AnyType domainModel::AttributeType:
+	//	{AnyType} 'any'
+	public AnyTypeElements getAnyTypeAccess() {
+		return pAnyType;
+	}
+	
+	public ParserRule getAnyTypeRule() {
+		return getAnyTypeAccess().getRule();
+	}
+	
+	//PageType domainModel::AttributeType:
+	//	{PageType} 'page'
+	public PageTypeElements getPageTypeAccess() {
+		return pPageType;
+	}
+	
+	public ParserRule getPageTypeRule() {
+		return getPageTypeAccess().getRule();
+	}
+	
+	//VoidType domainModel::AttributeType:
+	//	{VoidType} 'void'
+	public VoidTypeElements getVoidTypeAccess() {
+		return pVoidType;
+	}
+	
+	public ParserRule getVoidTypeRule() {
+		return getVoidTypeAccess().getRule();
+	}
+	
+	//AlternativeType domainModel::AttributeType:
+	//	{AlternativeType} types+=(AttributeType | GeneralType | PageType) 'or' types+=(AttributeType | GeneralType | PageType)
+	//	('or' types+=(AttributeType | GeneralType | PageType))*
+	public AlternativeTypeElements getAlternativeTypeAccess() {
+		return pAlternativeType;
+	}
+	
+	public ParserRule getAlternativeTypeRule() {
+		return getAlternativeTypeAccess().getRule();
+	}
+	
+	//TypeExpression:
+	//	{SimpleType} type=(AttributeType | AlternativeType | GeneralType | AnyType | PageType) | PropertyRuntimeType |
+	//	PropertySingleRuntimeType;
+	public TypeExpressionElements getTypeExpressionAccess() {
+		return pTypeExpression;
+	}
+	
+	public ParserRule getTypeExpressionRule() {
+		return getTypeExpressionAccess().getRule();
+	}
+	
+	//PropertyRuntimeType:
+	//	'typeOf' '(' property=[PropertyValue] ')';
+	public PropertyRuntimeTypeElements getPropertyRuntimeTypeAccess() {
+		return pPropertyRuntimeType;
+	}
+	
+	public ParserRule getPropertyRuntimeTypeRule() {
+		return getPropertyRuntimeTypeAccess().getRule();
+	}
+	
+	////when property type is collection and we need type of object that collection stores
+	//PropertySingleRuntimeType:
+	//	'singleTypeOf' '(' propertyType=PropertyRuntimeType ')';
+	public PropertySingleRuntimeTypeElements getPropertySingleRuntimeTypeAccess() {
+		return pPropertySingleRuntimeType;
+	}
+	
+	public ParserRule getPropertySingleRuntimeTypeRule() {
+		return getPropertySingleRuntimeTypeAccess().getRule();
+	}
+	
+	////defaults
+	//DefaultConfigurations:
+	//	'defaults' name=ID '{'
+	//	defaults+=DefaultComponentConfig+
+	//	'}';
+	public DefaultConfigurationsElements getDefaultConfigurationsAccess() {
+		return pDefaultConfigurations;
+	}
+	
+	public ParserRule getDefaultConfigurationsRule() {
+		return getDefaultConfigurationsAccess().getRule();
+	}
+	
+	//DefaultComponentConfig:
+	//	'default' 'for' type=(BasicType | GeneralType) '{'
+	//	'input_component' ':' inputComp=[UIComponent]
+	//	'output_component' ':' outputComp=[UIComponent]
+	//	'}';
+	public DefaultComponentConfigElements getDefaultComponentConfigAccess() {
+		return pDefaultComponentConfig;
+	}
+	
+	public ParserRule getDefaultComponentConfigRule() {
+		return getDefaultComponentConfigAccess().getRule();
+	}
+	
+	//DefaultUIComponent DefaultComponent:
+	//	{InputUIComponent} 'input' '(' value=MemberSelectionExpression ')' | {OutputUIComponent} 'output' '('
+	//	value=MemberSelectionExpression ')'
+	public DefaultUIComponentElements getDefaultUIComponentAccess() {
+		return pDefaultUIComponent;
+	}
+	
+	public ParserRule getDefaultUIComponentRule() {
+		return getDefaultUIComponentAccess().getRule();
+	}
+	
+	//Component:
+	//	UIComponentInstance | DefaultUIComponent;
+	public ComponentElements getComponentAccess() {
+		return pComponent;
+	}
+	
+	public ParserRule getComponentRule() {
+		return getComponentAccess().getRule();
+	}
+	
 	//DTOModel:
-	//	concepts+=super::Concept*;
+	//	concepts+=Concept*;
 	public DTOGrammarAccess.DTOModelElements getDTOModelAccess() {
 		return gaDTO.getDTOModelAccess();
 	}
@@ -779,12 +2633,12 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//Concept domainModel::Concept:
 	//	DTOClass | Enum
-	public DTOGrammarAccess.ConceptElements getDTOConceptAccess() {
+	public DTOGrammarAccess.ConceptElements getConceptAccess() {
 		return gaDTO.getConceptAccess();
 	}
 	
-	public ParserRule getDTOConceptRule() {
-		return getDTOConceptAccess().getRule();
+	public ParserRule getConceptRule() {
+		return getConceptAccess().getRule();
 	}
 	
 	//DTOClass:
@@ -797,6 +2651,16 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getDTOClassRule() {
 		return getDTOClassAccess().getRule();
+	}
+	
+	//AttributeOption domainModel::AttributeOption:
+	//	{ObjectRepresentation} 'representation'
+	public DTOGrammarAccess.AttributeOptionElements getAttributeOptionAccess() {
+		return gaDTO.getAttributeOptionAccess();
+	}
+	
+	public ParserRule getAttributeOptionRule() {
+		return getAttributeOptionAccess().getRule();
 	}
 	
 	//BasicType domainModel::BasicType:
@@ -867,7 +2731,7 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Option:
-	//	EntityOption | AttributeOption;
+	//	EntityOption | super::AttributeOption;
 	public DomainModelGrammarAccess.OptionElements getOptionAccess() {
 		return gaDomainModel.getOptionAccess();
 	}
@@ -898,7 +2762,7 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Attribute:
-	//	type=AttributeType name=ID (options+=AttributeOption (',' options+=AttributeOption)*)? ';';
+	//	type=super::AttributeType name=ID (options+=super::AttributeOption (',' options+=super::AttributeOption)*)? ';';
 	public DomainModelGrammarAccess.AttributeElements getAttributeAccess() {
 		return gaDomainModel.getAttributeAccess();
 	}
@@ -909,12 +2773,12 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//AttributeType:
 	//	SingleType | CollectionType;
-	public DomainModelGrammarAccess.AttributeTypeElements getAttributeTypeAccess() {
+	public DomainModelGrammarAccess.AttributeTypeElements getDomainModelAttributeTypeAccess() {
 		return gaDomainModel.getAttributeTypeAccess();
 	}
 	
-	public ParserRule getAttributeTypeRule() {
-		return getAttributeTypeAccess().getRule();
+	public ParserRule getDomainModelAttributeTypeRule() {
+		return getDomainModelAttributeTypeAccess().getRule();
 	}
 	
 	//SingleType:
@@ -957,17 +2821,6 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		return getCollectionTypeAccess().getRule();
 	}
 	
-	//AttributeOption:
-	//	{Required} required?='required' | {PartOf} partOf?='partOf' | {RelationshipOwner} 'relationshipOwner' '='
-	//	relationshipOwner=StaticFieldSelection | {Cardinality} 'reverse_cardinality' '=' card=CardinalityType;
-	public DomainModelGrammarAccess.AttributeOptionElements getAttributeOptionAccess() {
-		return gaDomainModel.getAttributeOptionAccess();
-	}
-	
-	public ParserRule getAttributeOptionRule() {
-		return getAttributeOptionAccess().getRule();
-	}
-	
 	//enum CardinalityType:
 	//	One='one' |
 	//	Many='many';
@@ -1001,7 +2854,7 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	////this rule should not be used. It just forces creation of feature in base class
 	//DumbSelectionMember SelectionMember:
-	//	'dumb_selection' type=AttributeType name=ID
+	//	'dumb_selection' type=super::AttributeType name=ID
 	public DomainModelGrammarAccess.DumbSelectionMemberElements getDumbSelectionMemberAccess() {
 		return gaDomainModel.getDumbSelectionMemberAccess();
 	}

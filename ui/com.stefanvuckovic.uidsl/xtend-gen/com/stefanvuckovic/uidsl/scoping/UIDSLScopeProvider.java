@@ -6,35 +6,69 @@ package com.stefanvuckovic.uidsl.scoping;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import com.stefanvuckovic.domainmodel.domainModel.Attribute;
+import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.RefType;
 import com.stefanvuckovic.dto.DTOUtil;
 import com.stefanvuckovic.dto.dTO.DTOClass;
-import com.stefanvuckovic.dto.scoping.CustomIndex;
+import com.stefanvuckovic.uidsl.LibraryConstants;
 import com.stefanvuckovic.uidsl.UIDSLUtil;
 import com.stefanvuckovic.uidsl.scoping.AbstractUIDSLScopeProvider;
+import com.stefanvuckovic.uidsl.scoping.CustomIndex;
 import com.stefanvuckovic.uidsl.types.TypeComputing;
+import com.stefanvuckovic.uidsl.types.TypeConformance;
+import com.stefanvuckovic.uidsl.uIDSL.AllAllowedComponents;
+import com.stefanvuckovic.uidsl.uIDSL.AllowedNestedComponents;
+import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent;
+import com.stefanvuckovic.uidsl.uIDSL.CustomAllowedComponents;
+import com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig;
+import com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents;
 import com.stefanvuckovic.uidsl.uIDSL.Field;
+import com.stefanvuckovic.uidsl.uIDSL.Fragment;
+import com.stefanvuckovic.uidsl.uIDSL.IterationExpression;
+import com.stefanvuckovic.uidsl.uIDSL.Iterator;
 import com.stefanvuckovic.uidsl.uIDSL.Member;
 import com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression;
 import com.stefanvuckovic.uidsl.uIDSL.Method;
+import com.stefanvuckovic.uidsl.uIDSL.NestedComponent;
+import com.stefanvuckovic.uidsl.uIDSL.Page;
+import com.stefanvuckovic.uidsl.uIDSL.PropertyRuntimeType;
+import com.stefanvuckovic.uidsl.uIDSL.PropertyValue;
+import com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance;
 import com.stefanvuckovic.uidsl.uIDSL.ServerComponent;
+import com.stefanvuckovic.uidsl.uIDSL.Template;
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragment;
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride;
+import com.stefanvuckovic.uidsl.uIDSL.TypeExpression;
+import com.stefanvuckovic.uidsl.uIDSL.UIComponent;
+import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance;
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage;
+import com.stefanvuckovic.uidsl.uIDSL.UIElement;
 import com.stefanvuckovic.uidsl.uIDSL.UIModel;
 import com.stefanvuckovic.uidsl.uIDSL.Variable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.SimpleScope;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 
 /**
  * This class contains custom scoping description.
@@ -60,6 +94,10 @@ public class UIDSLScopeProvider extends AbstractUIDSLScopeProvider {
   @Extension
   private UIDSLUtil _uIDSLUtil;
   
+  @Inject
+  @Extension
+  private TypeConformance _typeConformance;
+  
   private final UIDSLPackage pack = UIDSLPackage.eINSTANCE;
   
   @Override
@@ -79,7 +117,44 @@ public class UIDSLScopeProvider extends AbstractUIDSLScopeProvider {
         if ((context instanceof MemberSelectionExpression)) {
           return this.scopeForMemberSelectionExpression(((MemberSelectionExpression)context));
         } else {
-          _xifexpression_2 = super.getScope(context, reference);
+          IScope _xifexpression_3 = null;
+          EReference _propertyValueInstance_Property = this.pack.getPropertyValueInstance_Property();
+          boolean _equals_1 = Objects.equal(reference, _propertyValueInstance_Property);
+          if (_equals_1) {
+            return this.scopeForPropertyValue(context);
+          } else {
+            IScope _xifexpression_4 = null;
+            if ((Objects.equal(reference, this.pack.getUIComponentInstance_Component()) && (context.eContainer() instanceof UIComponentInstance))) {
+              return this.scopeForNestedUIComponents(context);
+            } else {
+              IScope _xifexpression_5 = null;
+              EReference _propertyRuntimeType_Property = this.pack.getPropertyRuntimeType_Property();
+              boolean _equals_2 = Objects.equal(reference, _propertyRuntimeType_Property);
+              if (_equals_2) {
+                return this.scopeForRuntimeTypeProperties(((PropertyRuntimeType) context));
+              } else {
+                IScope _xifexpression_6 = null;
+                if ((Objects.equal(reference, this.pack.getDefaultComponentConfig_InputComp()) || 
+                  Objects.equal(reference, this.pack.getDefaultComponentConfig_OutputComp()))) {
+                  return this.scopeForDefaultComponents(((DefaultComponentConfig) context));
+                } else {
+                  IScope _xifexpression_7 = null;
+                  EReference _templateFragmentOverride_OverridenFragment = this.pack.getTemplateFragmentOverride_OverridenFragment();
+                  boolean _equals_3 = Objects.equal(reference, _templateFragmentOverride_OverridenFragment);
+                  if (_equals_3) {
+                    return this.scopeForTemplateFragments(((TemplateFragmentOverride) context));
+                  } else {
+                    _xifexpression_7 = super.getScope(context, reference);
+                  }
+                  _xifexpression_6 = _xifexpression_7;
+                }
+                _xifexpression_5 = _xifexpression_6;
+              }
+              _xifexpression_4 = _xifexpression_5;
+            }
+            _xifexpression_3 = _xifexpression_4;
+          }
+          _xifexpression_2 = _xifexpression_3;
         }
         _xifexpression_1 = _xifexpression_2;
       }
@@ -90,30 +165,94 @@ public class UIDSLScopeProvider extends AbstractUIDSLScopeProvider {
   
   @Override
   public IScope scopeForConcept(final EObject context) {
-    List<IEObjectDescription> _listOfVisibleConceptsDescriptionsFromOtherFiles = this._customIndex.getListOfVisibleConceptsDescriptionsFromOtherFiles(context);
-    return new SimpleScope(_listOfVisibleConceptsDescriptionsFromOtherFiles);
+    IScope _xblockexpression = null;
+    {
+      List<IEObjectDescription> _listOfVisibleConceptsDescriptionsFromOtherFiles = this._customIndex.getListOfVisibleConceptsDescriptionsFromOtherFiles(context);
+      final SimpleScope outerScope = new SimpleScope(_listOfVisibleConceptsDescriptionsFromOtherFiles);
+      EObject _rootContainer = EcoreUtil.getRootContainer(context);
+      EList<EObject> _concepts = ((UIModel) _rootContainer).getConcepts();
+      Iterable<ServerComponent> _filter = Iterables.<ServerComponent>filter(_concepts, ServerComponent.class);
+      _xblockexpression = Scopes.scopeFor(_filter, outerScope);
+    }
+    return _xblockexpression;
   }
   
   public IScope scopeForVariableReference(final EObject context) {
-    final EObject container = context.eContainer();
-    IScope _switchResult = null;
-    boolean _matched = false;
-    if (container instanceof Method) {
-      _matched=true;
-      EList<Variable> _params = ((Method)container).getParams();
-      _switchResult = Scopes.scopeFor(_params);
+    IScope _xblockexpression = null;
+    {
+      final EObject container = context.eContainer();
+      IScope _xifexpression = null;
+      if ((context instanceof PropertyValueInstance)) {
+        _xifexpression = this.scopeForVariableReference(container);
+      } else {
+        IScope _switchResult = null;
+        boolean _matched = false;
+        if (container instanceof Page) {
+          _matched=true;
+          EList<Variable> _params = ((Page)container).getParams();
+          EList<Variable> _serverComponents = ((Page)container).getServerComponents();
+          Iterable<Variable> _plus = Iterables.<Variable>concat(_params, _serverComponents);
+          _switchResult = Scopes.scopeFor(_plus);
+        }
+        if (!_matched) {
+          if (container instanceof Fragment) {
+            _matched=true;
+            EList<Variable> _params = ((Fragment)container).getParams();
+            EList<Variable> _serverComponents = ((Fragment)container).getServerComponents();
+            Iterable<Variable> _plus = Iterables.<Variable>concat(_params, _serverComponents);
+            _switchResult = Scopes.scopeFor(_plus);
+          }
+        }
+        if (!_matched) {
+          if (container instanceof Template) {
+            _matched=true;
+            EList<Variable> _serverComponents = ((Template)container).getServerComponents();
+            _switchResult = Scopes.scopeFor(_serverComponents);
+          }
+        }
+        if (!_matched) {
+          if (container instanceof Iterator) {
+            _matched=true;
+            IterationExpression _expression = ((Iterator)container).getExpression();
+            Variable _var = _expression.getVar();
+            ArrayList<Variable> _newArrayList = CollectionLiterals.<Variable>newArrayList(_var);
+            IScope _scopeForVariableReference = this.scopeForVariableReference(container);
+            _switchResult = Scopes.scopeFor(_newArrayList, _scopeForVariableReference);
+          }
+        }
+        if (!_matched) {
+          if (container instanceof UIComponentInstance) {
+            _matched=true;
+            EList<PropertyValueInstance> _properties = ((UIComponentInstance)container).getProperties();
+            final Function1<PropertyValueInstance, Boolean> _function = (PropertyValueInstance it) -> {
+              Expression _value = it.getValue();
+              return Boolean.valueOf((_value instanceof IterationExpression));
+            };
+            Iterable<PropertyValueInstance> _filter = IterableExtensions.<PropertyValueInstance>filter(_properties, _function);
+            final Function1<PropertyValueInstance, Variable> _function_1 = (PropertyValueInstance it) -> {
+              Expression _value = it.getValue();
+              return ((IterationExpression) _value).getVar();
+            };
+            Iterable<Variable> _map = IterableExtensions.<PropertyValueInstance, Variable>map(_filter, _function_1);
+            IScope _scopeForVariableReference = this.scopeForVariableReference(container);
+            _switchResult = Scopes.scopeFor(_map, _scopeForVariableReference);
+          }
+        }
+        if (!_matched) {
+          _switchResult = this.scopeForVariableReference(container);
+        }
+        return _switchResult;
+      }
+      _xblockexpression = _xifexpression;
     }
-    if (!_matched) {
-      _switchResult = IScope.NULLSCOPE;
-    }
-    return _switchResult;
+    return _xblockexpression;
   }
   
   protected IScope scopeForMemberSelectionExpression(final MemberSelectionExpression sel) {
     IScope _xblockexpression = null;
     {
       Expression _receiver = sel.getReceiver();
-      final EObject type = this._typeComputing.getType(_receiver);
+      final AttributeType type = this._typeComputing.getType(_receiver);
       if ((Objects.equal(type, null) || (!(type instanceof RefType)))) {
         return IScope.NULLSCOPE;
       }
@@ -154,5 +293,130 @@ public class UIDSLScopeProvider extends AbstractUIDSLScopeProvider {
       _xblockexpression = _switchResult;
     }
     return _xblockexpression;
+  }
+  
+  public IScope scopeForPropertyValue(final EObject context) {
+    IScope _xblockexpression = null;
+    {
+      UIComponentInstance _xifexpression = null;
+      if ((context instanceof UIComponentInstance)) {
+        _xifexpression = ((UIComponentInstance)context);
+      } else {
+        EObject _eContainer = context.eContainer();
+        _xifexpression = ((UIComponentInstance) _eContainer);
+      }
+      UIComponentInstance compInstance = _xifexpression;
+      UIComponent _component = compInstance.getComponent();
+      EList<PropertyValue> _properties = _component.getProperties();
+      _xblockexpression = Scopes.scopeFor(_properties);
+    }
+    return _xblockexpression;
+  }
+  
+  public IScope scopeForNestedUIComponents(final EObject context) {
+    IScope _xblockexpression = null;
+    {
+      EObject _eContainer = context.eContainer();
+      final UIComponentInstance compInstance = ((UIComponentInstance) _eContainer);
+      final UIComponent comp = compInstance.getComponent();
+      final NestedComponent nestedComps = comp.getNested();
+      boolean _notEquals = (!Objects.equal(nestedComps, null));
+      if (_notEquals) {
+        boolean _matched = false;
+        if (nestedComps instanceof ChildUIComponent) {
+          _matched=true;
+          UIComponent _comp = ((ChildUIComponent)nestedComps).getComp();
+          ArrayList<UIComponent> _newArrayList = CollectionLiterals.<UIComponent>newArrayList(_comp);
+          return Scopes.scopeFor(_newArrayList);
+        }
+        if (!_matched) {
+          if (nestedComps instanceof ExistingNestedComponents) {
+            _matched=true;
+            final AllowedNestedComponents existingNestedComps = ((ExistingNestedComponents)nestedComps).getNestedComponents();
+            boolean _matched_1 = false;
+            if (existingNestedComps instanceof CustomAllowedComponents) {
+              _matched_1=true;
+              EList<UIComponent> _components = ((CustomAllowedComponents)existingNestedComps).getComponents();
+              return Scopes.scopeFor(_components);
+            }
+            if (!_matched_1) {
+              if (existingNestedComps instanceof AllAllowedComponents) {
+                _matched_1=true;
+                Iterable<IEObjectDescription> _visibleUIComponentsFromLibrary = this._customIndex.getVisibleUIComponentsFromLibrary(comp);
+                return new SimpleScope(_visibleUIComponentsFromLibrary);
+              }
+            }
+          }
+        }
+      }
+      _xblockexpression = IScope.NULLSCOPE;
+    }
+    return _xblockexpression;
+  }
+  
+  public IScope scopeForRuntimeTypeProperties(final PropertyRuntimeType type) {
+    IScope _xblockexpression = null;
+    {
+      final PropertyValue propertyValue = EcoreUtil2.<PropertyValue>getContainerOfType(type, PropertyValue.class);
+      EObject _eContainer = propertyValue.eContainer();
+      EList<PropertyValue> _properties = ((UIComponent) _eContainer).getProperties();
+      final Function1<PropertyValue, Boolean> _function = (PropertyValue it) -> {
+        return Boolean.valueOf((it != propertyValue));
+      };
+      Iterable<PropertyValue> _filter = IterableExtensions.<PropertyValue>filter(_properties, _function);
+      _xblockexpression = Scopes.scopeFor(_filter);
+    }
+    return _xblockexpression;
+  }
+  
+  public IScope scopeForDefaultComponents(final DefaultComponentConfig conf) {
+    final AttributeType type = conf.getType();
+    Resource _eResource = conf.eResource();
+    ResourceSet _resourceSet = _eResource.getResourceSet();
+    URI _createPlatformResourceURI = URI.createPlatformResourceURI(LibraryConstants.DEFAULT_COMPONENTS_LIBRARY_PATH, true);
+    final Resource res = _resourceSet.getResource(_createPlatformResourceURI, true);
+    boolean _notEquals = (!Objects.equal(res, null));
+    if (_notEquals) {
+      TreeIterator<EObject> _allContents = res.getAllContents();
+      Iterable<EObject> _iterable = IteratorExtensions.<EObject>toIterable(_allContents);
+      final Iterable<UIComponent> comps = Iterables.<UIComponent>filter(_iterable, UIComponent.class);
+      final Function1<UIComponent, Boolean> _function = (UIComponent it) -> {
+        return Boolean.valueOf(this.hasValuePropertyWithConformantType(it, type));
+      };
+      final Iterable<UIComponent> validComps = IterableExtensions.<UIComponent>filter(comps, _function);
+      return Scopes.scopeFor(validComps);
+    }
+    return IScope.NULLSCOPE;
+  }
+  
+  public boolean hasValuePropertyWithConformantType(final UIComponent c, final AttributeType type) {
+    boolean _xblockexpression = false;
+    {
+      EList<PropertyValue> _properties = c.getProperties();
+      final Function1<PropertyValue, Boolean> _function = (PropertyValue it) -> {
+        return Boolean.valueOf(it.isValueProperty());
+      };
+      final PropertyValue prop = IterableExtensions.<PropertyValue>findFirst(_properties, _function);
+      if (((!Objects.equal(prop, null)) && (!Objects.equal(prop.getType(), null)))) {
+        TypeExpression _type = prop.getType();
+        final AttributeType attrType = this._typeComputing.calculateTypeExpressionType(_type);
+        return this._typeConformance.isConformant(type, attrType);
+      }
+      _xblockexpression = false;
+    }
+    return _xblockexpression;
+  }
+  
+  public IScope scopeForTemplateFragments(final TemplateFragmentOverride templateFragment) {
+    EObject _eContainer = templateFragment.eContainer();
+    final Page page = ((Page) _eContainer);
+    final Template template = page.getTemplate();
+    boolean _notEquals = (!Objects.equal(template, null));
+    if (_notEquals) {
+      EList<UIElement> _elements = template.getElements();
+      Iterable<TemplateFragment> _filter = Iterables.<TemplateFragment>filter(_elements, TemplateFragment.class);
+      return Scopes.scopeFor(_filter);
+    }
+    return IScope.NULLSCOPE;
   }
 }

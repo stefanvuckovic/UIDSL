@@ -3,28 +3,26 @@
  */
 package com.stefanvuckovic.uidsl.uIDSL.impl;
 
-import com.stefanvuckovic.uidsl.uIDSL.UIConcept;
+import com.stefanvuckovic.uidsl.uIDSL.AllAllowedComponents;
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>UI Concept</b></em>'.
+ * An implementation of the model object '<em><b>All Allowed Components</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class UIConceptImpl extends MinimalEObjectImpl.Container implements UIConcept
+public class AllAllowedComponentsImpl extends AllowedNestedComponentsImpl implements AllAllowedComponents
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected UIConceptImpl()
+  protected AllAllowedComponentsImpl()
   {
     super();
   }
@@ -37,7 +35,7 @@ public class UIConceptImpl extends MinimalEObjectImpl.Container implements UICon
   @Override
   protected EClass eStaticClass()
   {
-    return UIDSLPackage.Literals.UI_CONCEPT;
+    return UIDSLPackage.Literals.ALL_ALLOWED_COMPONENTS;
   }
 
-} //UIConceptImpl
+} //AllAllowedComponentsImpl

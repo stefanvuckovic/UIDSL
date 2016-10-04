@@ -42,6 +42,15 @@ public interface DTOFactory extends EFactory
   DTOClass createDTOClass();
 
   /**
+   * Returns a new object of class '<em>Object Representation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Object Representation</em>'.
+   * @generated
+   */
+  ObjectRepresentation createObjectRepresentation();
+
+  /**
    * Returns a new object of class '<em>Text Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

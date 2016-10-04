@@ -3,18 +3,69 @@
  */
 package com.stefanvuckovic.uidsl.validation;
 
+import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
+import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
+import com.stefanvuckovic.domainmodel.domainModel.CardinalityType;
+import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
+import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Expression;
+import com.stefanvuckovic.domainmodel.domainModel.RefType;
 import com.stefanvuckovic.domainmodel.domainModel.SelectionMember;
+import com.stefanvuckovic.dto.dTO.DTOClass;
+import com.stefanvuckovic.uidsl.LibraryConstants;
+import com.stefanvuckovic.uidsl.UIComponents;
+import com.stefanvuckovic.uidsl.UIDSLUtil;
+import com.stefanvuckovic.uidsl.scoping.CustomIndex;
+import com.stefanvuckovic.uidsl.types.TypeComputing;
+import com.stefanvuckovic.uidsl.types.TypeConformance;
+import com.stefanvuckovic.uidsl.uIDSL.AllAllowedComponents;
+import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent;
+import com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType;
+import com.stefanvuckovic.uidsl.uIDSL.Component;
+import com.stefanvuckovic.uidsl.uIDSL.DefaultComponent;
+import com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig;
+import com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations;
+import com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents;
 import com.stefanvuckovic.uidsl.uIDSL.Field;
+import com.stefanvuckovic.uidsl.uIDSL.InputUIComponent;
 import com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression;
 import com.stefanvuckovic.uidsl.uIDSL.Method;
+import com.stefanvuckovic.uidsl.uIDSL.NestedComponent;
+import com.stefanvuckovic.uidsl.uIDSL.OutputUIComponent;
+import com.stefanvuckovic.uidsl.uIDSL.Page;
+import com.stefanvuckovic.uidsl.uIDSL.PropertyRuntimeType;
+import com.stefanvuckovic.uidsl.uIDSL.PropertySingleRuntimeType;
+import com.stefanvuckovic.uidsl.uIDSL.PropertyValue;
+import com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance;
+import com.stefanvuckovic.uidsl.uIDSL.ServerComponent;
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragment;
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride;
+import com.stefanvuckovic.uidsl.uIDSL.TypeExpression;
+import com.stefanvuckovic.uidsl.uIDSL.UIComponent;
+import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance;
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage;
 import com.stefanvuckovic.uidsl.uIDSL.Variable;
+import com.stefanvuckovic.uidsl.uIDSL.VoidType;
 import com.stefanvuckovic.uidsl.validation.AbstractUIDSLValidator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 /**
  * This class contains custom validation rules.
@@ -23,17 +74,33 @@ import org.eclipse.xtext.validation.Check;
  */
 @SuppressWarnings("all")
 public class UIDSLValidator extends AbstractUIDSLValidator {
+  @Inject
+  @Extension
+  private TypeComputing _typeComputing;
+  
+  @Inject
+  @Extension
+  private TypeConformance _typeConformance;
+  
+  @Inject
+  @Extension
+  private UIDSLUtil _uIDSLUtil;
+  
+  @Inject
+  @Extension
+  private CustomIndex _customIndex;
+  
   @Check
   public void checkNumberOfParametersInMethodCall(final MemberSelectionExpression selection) {
     final SelectionMember member = selection.getMember();
-    if ((member instanceof Method)) {
-      EList<Variable> _params = ((Method)member).getParams();
+    if (((member instanceof Method) && selection.isIsMethod())) {
+      EList<Variable> _params = ((Method) member).getParams();
       int _size = _params.size();
       EList<Expression> _params_1 = selection.getParams();
       int _size_1 = _params_1.size();
       boolean _notEquals = (_size != _size_1);
       if (_notEquals) {
-        EList<Variable> _params_2 = ((Method)member).getParams();
+        EList<Variable> _params_2 = ((Method) member).getParams();
         int _size_2 = _params_2.size();
         String _plus = ("Wrong number of parameters: expected " + Integer.valueOf(_size_2));
         String _plus_1 = (_plus + " but was ");
@@ -59,6 +126,403 @@ public class UIDSLValidator extends AbstractUIDSLValidator {
         this.error(
           "Field selection on a method", _memberSelectionExpression_Member);
       }
+    }
+  }
+  
+  @Check
+  public void checkPropertyValueType(final PropertyValue property) {
+    String msg = null;
+    final TypeExpression type = property.getType();
+    boolean _notEquals = (!Objects.equal(type, null));
+    if (_notEquals) {
+      final AttributeType attrType = this._typeComputing.calculateTypeExpressionType(type);
+      if ((attrType instanceof RefType)) {
+        msg = "You can\'t use specific object as a type, use generic \'object\' instead";
+      } else {
+        if ((attrType instanceof CollectionType)) {
+          msg = "You can\'t use collection of a specific type as a type, use generic \'collection\' instead";
+        }
+      }
+    }
+    boolean _isEmpty = msg.isEmpty();
+    boolean _not = (!_isEmpty);
+    if (_not) {
+      EReference _propertyValue_Type = UIDSLPackage.eINSTANCE.getPropertyValue_Type();
+      this.error(msg, _propertyValue_Type);
+    }
+  }
+  
+  @Check
+  public void checkVariableTypeInSpecificContexts(final Variable variable) {
+    final EObject container = variable.eContainer();
+    final EStructuralFeature feature = variable.eContainingFeature();
+    if ((container instanceof Page)) {
+      final AttributeType type = variable.getType();
+      EReference _page_Params = UIDSLPackage.eINSTANCE.getPage_Params();
+      boolean _equals = Objects.equal(feature, _page_Params);
+      if (_equals) {
+        if (((!(type instanceof RefType)) || (!(((RefType) type).getReference() instanceof DTOClass)))) {
+          EReference _variable_Type = UIDSLPackage.eINSTANCE.getVariable_Type();
+          this.error("Invalid type. Page allows only dto objects as parameters", _variable_Type);
+        }
+      } else {
+        EReference _uIContainer_ServerComponents = UIDSLPackage.eINSTANCE.getUIContainer_ServerComponents();
+        boolean _equals_1 = Objects.equal(feature, _uIContainer_ServerComponents);
+        if (_equals_1) {
+          if (((!(type instanceof RefType)) || (!(((RefType) type).getReference() instanceof ServerComponent)))) {
+            EReference _variable_Type_1 = UIDSLPackage.eINSTANCE.getVariable_Type();
+            this.error("Invalid type. Only server components allowed here.", _variable_Type_1);
+          }
+        }
+      }
+    }
+  }
+  
+  @Check
+  public void checkConformance(final Expression e) {
+    final AttributeType type = this._typeComputing.getType(e);
+    final AttributeType expectedType = this._typeComputing.getExpectedType(e);
+    if ((Objects.equal(expectedType, null) || Objects.equal(type, null))) {
+      return;
+    }
+    boolean _isConformant = this._typeConformance.isConformant(type, expectedType);
+    boolean _not = (!_isConformant);
+    if (_not) {
+      String _typeToString = this._uIDSLUtil.typeToString(expectedType);
+      String _plus = ("Incompatible types. Expected \'" + _typeToString);
+      String _plus_1 = (_plus + "\' but was \'");
+      String _typeToString_1 = this._uIDSLUtil.typeToString(type);
+      String _plus_2 = (_plus_1 + _typeToString_1);
+      String _plus_3 = (_plus_2 + "\'");
+      this.error(_plus_3, 
+        null);
+    }
+  }
+  
+  @Check
+  public void checkVoidType(final Field field) {
+    AttributeType _type = field.getType();
+    if ((_type instanceof VoidType)) {
+      EReference _selectionMember_Type = DomainModelPackage.eINSTANCE.getSelectionMember_Type();
+      this.error("Field cannot have void type", _selectionMember_Type);
+    }
+  }
+  
+  @Check
+  public void checkRequiredPropertyValues(final UIComponentInstance compInstance) {
+    final List<String> missingRequiredProperties = CollectionLiterals.<String>newArrayList();
+    UIComponent _component = compInstance.getComponent();
+    final Iterable<PropertyValue> requiredProperties = this._uIDSLUtil.getRequiredProperties(_component);
+    for (final PropertyValue p : requiredProperties) {
+      EList<PropertyValueInstance> _properties = compInstance.getProperties();
+      final Function1<PropertyValueInstance, PropertyValue> _function = (PropertyValueInstance it) -> {
+        return it.getProperty();
+      };
+      List<PropertyValue> _map = ListExtensions.<PropertyValueInstance, PropertyValue>map(_properties, _function);
+      boolean _contains = _map.contains(p);
+      boolean _not = (!_contains);
+      if (_not) {
+        String _name = p.getName();
+        missingRequiredProperties.add(_name);
+      }
+    }
+    boolean _isEmpty = missingRequiredProperties.isEmpty();
+    boolean _not_1 = (!_isEmpty);
+    if (_not_1) {
+      String _join = IterableExtensions.join(missingRequiredProperties, ", ");
+      final String msg = ("Required properties missing: " + _join);
+      this.error(msg, null);
+    }
+  }
+  
+  @Check
+  public void checkDependendPropertyHierarchyCycles(final PropertyValue p) {
+    LinkedHashSet<PropertyValue> _hierarchyOfTypeDependentProperties = this._uIDSLUtil.getHierarchyOfTypeDependentProperties(p);
+    boolean _contains = _hierarchyOfTypeDependentProperties.contains(p);
+    if (_contains) {
+      String _name = p.getName();
+      String _plus = ("There is a cycle in property type dependency hierarchy of property\'" + _name);
+      String _plus_1 = (_plus + "\'");
+      EReference _propertyValue_Type = UIDSLPackage.eINSTANCE.getPropertyValue_Type();
+      this.error(_plus_1, _propertyValue_Type);
+    }
+  }
+  
+  @Check
+  public void checkPropertySingleRuntimeType(final PropertySingleRuntimeType type) {
+    PropertyRuntimeType _propertyType = type.getPropertyType();
+    PropertyValue _property = _propertyType.getProperty();
+    TypeExpression _type = _property.getType();
+    final AttributeType attrType = this._typeComputing.calculateTypeExpressionType(_type);
+    if ((!((attrType instanceof CollectionType) || (attrType instanceof CollectionGeneralType)))) {
+      this.error("Invalid construct. Expression \'singleTypeOf\' can only be used on collection type", null);
+    }
+  }
+  
+  @Check
+  public void checkChildComponentCardinality(final UIComponentInstance compInstance) {
+    if (((compInstance.getComponent().eContainer() instanceof ChildUIComponent) && 
+      (compInstance.eContainer() instanceof UIComponentInstance))) {
+      EObject _eContainer = compInstance.eContainer();
+      final UIComponentInstance parent = ((UIComponentInstance) _eContainer);
+      final UIComponent comp = parent.getComponent();
+      final EList<Component> childComps = parent.getChildElements();
+      final NestedComponent nestedComps = comp.getNested();
+      if ((((!Objects.equal(nestedComps, null)) && (nestedComps instanceof ChildUIComponent)) && Objects.equal(((ChildUIComponent) nestedComps).getCardinality(), CardinalityType.ONE))) {
+        UIComponent _component = compInstance.getComponent();
+        this.fireErrorIfMoreThanOneComponentInstanceOccurs(childComps, _component);
+      }
+    }
+  }
+  
+  public void fireErrorIfMoreThanOneComponentInstanceOccurs(final Iterable<? extends Component> childComps, final UIComponent comp) {
+    final Function1<Component, Boolean> _function = (Component it) -> {
+      return Boolean.valueOf(((it instanceof UIComponentInstance) && (((UIComponentInstance) it).getComponent() == comp)));
+    };
+    Iterable<? extends Component> _filter = IterableExtensions.filter(childComps, _function);
+    int _size = IterableExtensions.size(_filter);
+    boolean _greaterThan = (_size > 1);
+    if (_greaterThan) {
+      String _name = comp.getName();
+      String _plus = ("Only one instance of \'" + _name);
+      String _plus_1 = (_plus + "\' component allowed");
+      EReference _uIComponentInstance_Component = UIDSLPackage.eINSTANCE.getUIComponentInstance_Component();
+      this.error(_plus_1, _uIComponentInstance_Component);
+    }
+  }
+  
+  @Check
+  public void checkDuplicatePropertyValueInstances(final PropertyValueInstance propValueInstance) {
+    EObject _eContainer = propValueInstance.eContainer();
+    EList<PropertyValueInstance> _properties = ((UIComponentInstance) _eContainer).getProperties();
+    final Function1<PropertyValueInstance, PropertyValue> _function = (PropertyValueInstance it) -> {
+      return it.getProperty();
+    };
+    List<PropertyValue> _map = ListExtensions.<PropertyValueInstance, PropertyValue>map(_properties, _function);
+    final Function1<PropertyValue, Boolean> _function_1 = (PropertyValue it) -> {
+      String _name = it.getName();
+      PropertyValue _property = propValueInstance.getProperty();
+      String _name_1 = _property.getName();
+      return Boolean.valueOf(Objects.equal(_name, _name_1));
+    };
+    Iterable<PropertyValue> _filter = IterableExtensions.<PropertyValue>filter(_map, _function_1);
+    final int size = IterableExtensions.size(_filter);
+    if ((size > 1)) {
+      PropertyValue _property = propValueInstance.getProperty();
+      String _name = _property.getName();
+      String _plus = ("Duplicate property \'" + _name);
+      String _plus_1 = (_plus + "\'");
+      EReference _propertyValueInstance_Property = UIDSLPackage.eINSTANCE.getPropertyValueInstance_Property();
+      this.error(_plus_1, _propertyValueInstance_Property);
+    }
+  }
+  
+  @Check
+  public void checkIfDefaultComponetsAreValidInContext(final DefaultComponent comp) {
+    final EObject cont = comp.eContainer();
+    if ((cont instanceof UIComponentInstance)) {
+      UIComponent _component = ((UIComponentInstance)cont).getComponent();
+      final NestedComponent nestedComps = _component.getNested();
+      boolean _not = (!((nestedComps instanceof ExistingNestedComponents) && 
+        (((ExistingNestedComponents) nestedComps).getNestedComponents() instanceof AllAllowedComponents)));
+      if (_not) {
+        this.error("Default components are not allowed in this context", null);
+      }
+    }
+  }
+  
+  @Check
+  public void checkThatOnlyOneDefaultConfigurationExists(final DefaultConfigurations conf) {
+    Resource _eResource = conf.eResource();
+    URI _uRI = _eResource.getURI();
+    final String res = _uRI.toPlatformString(true);
+    boolean _notEquals = (!Objects.equal(res, LibraryConstants.DEFAULT_CONFIGURATION_LIBRARY_PATH));
+    if (_notEquals) {
+      Iterable<IEObjectDescription> _visibleDefaultConfigurations = this._customIndex.getVisibleDefaultConfigurations(conf);
+      int _size = IterableExtensions.size(_visibleDefaultConfigurations);
+      boolean _greaterThan = (_size > 1);
+      if (_greaterThan) {
+        EAttribute _defaultConfigurations_Name = UIDSLPackage.eINSTANCE.getDefaultConfigurations_Name();
+        this.error("Default configurations can be specified only once", _defaultConfigurations_Name);
+      }
+    }
+  }
+  
+  @Check
+  public void checkTheTypeOfDefaultComponentExpression(final DefaultComponent comp) {
+    final Expression expr = comp.getValue();
+    boolean _notEquals = (!Objects.equal(expr, null));
+    if (_notEquals) {
+      final AttributeType type = this._typeComputing.getType(expr);
+      final Iterable<IEObjectDescription> confs = this._customIndex.getVisibleDefaultConfigurations(comp);
+      int _size = IterableExtensions.size(confs);
+      boolean _equals = (_size == 1);
+      if (_equals) {
+        final IEObjectDescription confDesc = IterableExtensions.<IEObjectDescription>head(confs);
+        EObject conf = confDesc.getEObjectOrProxy();
+        boolean _eIsProxy = conf.eIsProxy();
+        if (_eIsProxy) {
+          Resource _eResource = comp.eResource();
+          ResourceSet _resourceSet = _eResource.getResourceSet();
+          URI _eObjectURI = confDesc.getEObjectURI();
+          EObject _eObject = _resourceSet.getEObject(_eObjectURI, true);
+          conf = _eObject;
+        }
+        final DefaultConfigurations config = ((DefaultConfigurations) conf);
+        boolean _matched = false;
+        if (comp instanceof InputUIComponent) {
+          _matched=true;
+          EList<DefaultComponentConfig> _defaults = config.getDefaults();
+          final Function1<DefaultComponentConfig, Boolean> _function = (DefaultComponentConfig it) -> {
+            return Boolean.valueOf((this._typeConformance.isConformant(type, it.getType()) && (!Objects.equal(it.getInputComp(), null))));
+          };
+          DefaultComponentConfig _findFirst = IterableExtensions.<DefaultComponentConfig>findFirst(_defaults, _function);
+          boolean _equals_1 = Objects.equal(_findFirst, null);
+          if (_equals_1) {
+            String _typeToString = this._uIDSLUtil.typeToString(type);
+            String _plus = ("There is no default component implementation for type " + _typeToString);
+            this.error(_plus, null);
+          }
+        }
+        if (!_matched) {
+          if (comp instanceof OutputUIComponent) {
+            _matched=true;
+            EList<DefaultComponentConfig> _defaults = config.getDefaults();
+            final Function1<DefaultComponentConfig, Boolean> _function = (DefaultComponentConfig it) -> {
+              return Boolean.valueOf((this._typeConformance.isConformant(type, it.getType()) && (!Objects.equal(it.getOutputComp(), null))));
+            };
+            DefaultComponentConfig _findFirst = IterableExtensions.<DefaultComponentConfig>findFirst(_defaults, _function);
+            boolean _equals_1 = Objects.equal(_findFirst, null);
+            if (_equals_1) {
+              String _typeToString = this._uIDSLUtil.typeToString(type);
+              String _plus = ("There is no default component implementation for type " + _typeToString);
+              this.error(_plus, null);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  @Check
+  public void checkPropertyValueInstanceObjectType(final PropertyValueInstance prop) {
+    Expression _value = prop.getValue();
+    final AttributeType type = this._typeComputing.getType(_value);
+    EReference _propertyValueInstance_Value = UIDSLPackage.eINSTANCE.getPropertyValueInstance_Value();
+    this.fireErrorMessageIfServerComponentType(type, _propertyValueInstance_Value);
+  }
+  
+  @Check
+  public void checkDefaultComponentValueType(final DefaultComponent comp) {
+    Expression _value = comp.getValue();
+    AttributeType _type = this._typeComputing.getType(_value);
+    EReference _defaultComponent_Value = UIDSLPackage.eINSTANCE.getDefaultComponent_Value();
+    this.fireErrorMessageIfServerComponentType(_type, _defaultComponent_Value);
+  }
+  
+  public void fireErrorMessageIfServerComponentType(final AttributeType type, final EStructuralFeature feature) {
+    if ((((type instanceof RefType) && (((RefType) type).getReference() instanceof ServerComponent)) || 
+      (((type instanceof CollectionType) && 
+        (((CollectionType) type).getOfType() instanceof RefType)) && 
+        (((RefType) ((CollectionType) type).getOfType()).getReference() instanceof ServerComponent)))) {
+      String _typeToString = this._uIDSLUtil.typeToString(type);
+      String _plus = ("Type " + _typeToString);
+      String _plus_1 = (_plus + " is not valid in this context");
+      this.error(_plus_1, feature);
+    }
+  }
+  
+  @Check
+  public void checkDuplicateDefaultConfigs(final DefaultComponentConfig conf) {
+    final AttributeType type = conf.getType();
+    EObject _eContainer = conf.eContainer();
+    final DefaultConfigurations config = ((DefaultConfigurations) _eContainer);
+    EList<DefaultComponentConfig> _defaults = config.getDefaults();
+    final Function1<DefaultComponentConfig, Boolean> _function = (DefaultComponentConfig it) -> {
+      AttributeType _type = it.getType();
+      return Boolean.valueOf(this._typeConformance.areTypesSame(type, _type));
+    };
+    Iterable<DefaultComponentConfig> _filter = IterableExtensions.<DefaultComponentConfig>filter(_defaults, _function);
+    int _size = IterableExtensions.size(_filter);
+    boolean _greaterThan = (_size > 1);
+    if (_greaterThan) {
+      String _typeToString = this._uIDSLUtil.typeToString(type);
+      String _plus = ("Duplicate default config for type " + _typeToString);
+      EReference _defaultComponentConfig_Type = UIDSLPackage.eINSTANCE.getDefaultComponentConfig_Type();
+      this.error(_plus, _defaultComponentConfig_Type);
+    }
+  }
+  
+  @Check
+  public void checkDuplicateValueProperties(final PropertyValue prop) {
+    final boolean valueProperty = prop.isValueProperty();
+    if ((valueProperty && (IterableExtensions.size(IterableExtensions.<PropertyValue>filter(((UIComponent) prop.eContainer()).getProperties(), ((Function1<PropertyValue, Boolean>) (PropertyValue it) -> {
+      return Boolean.valueOf(it.isValueProperty());
+    }))) > 1))) {
+      this.error("Only one value property per component allowed", null);
+    }
+  }
+  
+  @Check
+  public void checkDuplicateTemplateFragmentOverrides(final TemplateFragmentOverride f) {
+    final TemplateFragment templateFrag = f.getOverridenFragment();
+    if (((!Objects.equal(templateFrag, null)) && 
+      (IterableExtensions.size(IterableExtensions.<TemplateFragmentOverride>filter(Iterables.<TemplateFragmentOverride>filter(((Page) f.eContainer()).getElements(), TemplateFragmentOverride.class), ((Function1<TemplateFragmentOverride, Boolean>) (TemplateFragmentOverride t) -> {
+        TemplateFragment _overridenFragment = t.getOverridenFragment();
+        return Boolean.valueOf(Objects.equal(_overridenFragment, templateFrag));
+      }))) > 1))) {
+      EReference _templateFragmentOverride_OverridenFragment = UIDSLPackage.eINSTANCE.getTemplateFragmentOverride_OverridenFragment();
+      this.error("Template fragment can be overriden only once", _templateFragmentOverride_OverridenFragment);
+    }
+  }
+  
+  @Check
+  public void checkListUIComponentChildComponents(final UIComponentInstance compInstance) {
+    final UIComponent comp = compInstance.getComponent();
+    final EObject parent = compInstance.eContainer();
+    if (((Objects.equal(comp.getName(), UIComponents.LIST_ELEMENT) && 
+      (parent instanceof UIComponentInstance)) && 
+      Objects.equal(((UIComponentInstance) parent).getComponent().getName(), UIComponents.LIST))) {
+      final UIComponentInstance parentComp = ((UIComponentInstance) parent);
+      EList<PropertyValueInstance> _properties = parentComp.getProperties();
+      final Function1<PropertyValueInstance, Boolean> _function = (PropertyValueInstance it) -> {
+        PropertyValue _property = it.getProperty();
+        String _name = _property.getName();
+        return Boolean.valueOf(Objects.equal(_name, UIComponents.LIST_VALUE_PROPERTY));
+      };
+      Iterable<PropertyValueInstance> _filter = IterableExtensions.<PropertyValueInstance>filter(_properties, _function);
+      int _size = IterableExtensions.size(_filter);
+      boolean _greaterThan = (_size > 0);
+      if (_greaterThan) {
+        EList<Component> _childElements = parentComp.getChildElements();
+        UIComponent _component = compInstance.getComponent();
+        this.fireErrorIfMoreThanOneComponentInstanceOccurs(_childElements, _component);
+      }
+    }
+  }
+  
+  @Check
+  public void checkActionPropertyOfActionComponent(final PropertyValueInstance propInstance) {
+    boolean invalid = false;
+    EObject _eContainer = propInstance.eContainer();
+    final UIComponent comp = ((UIComponentInstance) _eContainer).getComponent();
+    if ((Objects.equal(propInstance.getProperty().getName(), UIComponents.ACTION_ACTION_PROPERTY) && 
+      Objects.equal(comp.getName(), UIComponents.ACTION))) {
+      invalid = true;
+      final Expression expr = propInstance.getValue();
+      if ((expr instanceof MemberSelectionExpression)) {
+        Expression _receiver = ((MemberSelectionExpression)expr).getReceiver();
+        final AttributeType receiverType = this._typeComputing.getType(_receiver);
+        if ((((receiverType instanceof RefType) && 
+          (((RefType) receiverType).getReference() instanceof ServerComponent)) && 
+          (((MemberSelectionExpression)expr).getMember() instanceof Method))) {
+          invalid = false;
+        }
+      }
+    }
+    if (invalid) {
+      EReference _propertyValueInstance_Value = UIDSLPackage.eINSTANCE.getPropertyValueInstance_Value();
+      this.error("Only server component method can be specified inside action property", _propertyValueInstance_Value);
     }
   }
 }

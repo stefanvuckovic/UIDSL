@@ -66,18 +66,54 @@ public class UIDSLFactoryImpl extends EFactoryImpl implements UIDSLFactory
     switch (eClass.getClassifierID())
     {
       case UIDSLPackage.UI_MODEL: return createUIModel();
-      case UIDSLPackage.UI_CONCEPT: return createUIConcept();
-      case UIDSLPackage.SERVER_COMPONENT: return createServerComponent();
       case UIDSLPackage.MEMBER: return createMember();
       case UIDSLPackage.FIELD: return createField();
       case UIDSLPackage.METHOD: return createMethod();
       case UIDSLPackage.VARIABLE: return createVariable();
       case UIDSLPackage.UI_CONTAINER: return createUIContainer();
       case UIDSLPackage.PAGE: return createPage();
+      case UIDSLPackage.UI_ELEMENT: return createUIElement();
+      case UIDSLPackage.UI_COMPONENT: return createUIComponent();
+      case UIDSLPackage.NESTED_COMPONENT: return createNestedComponent();
+      case UIDSLPackage.CHILD_UI_COMPONENT: return createChildUIComponent();
+      case UIDSLPackage.ALLOWED_NESTED_COMPONENTS: return createAllowedNestedComponents();
+      case UIDSLPackage.PROPERTY_VALUE: return createPropertyValue();
+      case UIDSLPackage.UI_COMPONENT_INSTANCE: return createUIComponentInstance();
+      case UIDSLPackage.LOGIC_ELEMENT: return createLogicElement();
+      case UIDSLPackage.IF_STATEMENT: return createIFStatement();
+      case UIDSLPackage.ITERATOR: return createIterator();
+      case UIDSLPackage.PROPERTY_VALUE_INSTANCE: return createPropertyValueInstance();
       case UIDSLPackage.TEMPLATE: return createTemplate();
       case UIDSLPackage.FRAGMENT: return createFragment();
+      case UIDSLPackage.ITERATION_EXPRESSION: return createIterationExpression();
+      case UIDSLPackage.FRAGMENT_CALL: return createFragmentCall();
+      case UIDSLPackage.TYPE_EXPRESSION: return createTypeExpression();
+      case UIDSLPackage.PROPERTY_RUNTIME_TYPE: return createPropertyRuntimeType();
+      case UIDSLPackage.PROPERTY_SINGLE_RUNTIME_TYPE: return createPropertySingleRuntimeType();
+      case UIDSLPackage.DEFAULT_CONFIGURATIONS: return createDefaultConfigurations();
+      case UIDSLPackage.DEFAULT_COMPONENT_CONFIG: return createDefaultComponentConfig();
+      case UIDSLPackage.DEFAULT_COMPONENT: return createDefaultComponent();
+      case UIDSLPackage.COMPONENT: return createComponent();
+      case UIDSLPackage.SERVER_COMPONENT: return createServerComponent();
+      case UIDSLPackage.INLINE_VARIABLE: return createInlineVariable();
+      case UIDSLPackage.EXISTING_NESTED_COMPONENTS: return createExistingNestedComponents();
+      case UIDSLPackage.ALL_ALLOWED_COMPONENTS: return createAllAllowedComponents();
+      case UIDSLPackage.CUSTOM_ALLOWED_COMPONENTS: return createCustomAllowedComponents();
+      case UIDSLPackage.TEMPLATE_FRAGMENT: return createTemplateFragment();
+      case UIDSLPackage.TEMPLATE_FRAGMENT_OVERRIDE: return createTemplateFragmentOverride();
       case UIDSLPackage.MEMBER_SELECTION_EXPRESSION: return createMemberSelectionExpression();
+      case UIDSLPackage.PAGE_CALL: return createPageCall();
       case UIDSLPackage.VARIABLE_REFERENCE: return createVariableReference();
+      case UIDSLPackage.OBJECT_GENERAL_TYPE: return createObjectGeneralType();
+      case UIDSLPackage.ENUM_GENERAL_TYPE: return createEnumGeneralType();
+      case UIDSLPackage.COLLECTION_GENERAL_TYPE: return createCollectionGeneralType();
+      case UIDSLPackage.ANY_TYPE: return createAnyType();
+      case UIDSLPackage.PAGE_TYPE: return createPageType();
+      case UIDSLPackage.VOID_TYPE: return createVoidType();
+      case UIDSLPackage.ALTERNATIVE_TYPE: return createAlternativeType();
+      case UIDSLPackage.SIMPLE_TYPE: return createSimpleType();
+      case UIDSLPackage.INPUT_UI_COMPONENT: return createInputUIComponent();
+      case UIDSLPackage.OUTPUT_UI_COMPONENT: return createOutputUIComponent();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -92,28 +128,6 @@ public class UIDSLFactoryImpl extends EFactoryImpl implements UIDSLFactory
   {
     UIModelImpl uiModel = new UIModelImpl();
     return uiModel;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public UIConcept createUIConcept()
-  {
-    UIConceptImpl uiConcept = new UIConceptImpl();
-    return uiConcept;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ServerComponent createServerComponent()
-  {
-    ServerComponentImpl serverComponent = new ServerComponentImpl();
-    return serverComponent;
   }
 
   /**
@@ -187,6 +201,127 @@ public class UIDSLFactoryImpl extends EFactoryImpl implements UIDSLFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public UIElement createUIElement()
+  {
+    UIElementImpl uiElement = new UIElementImpl();
+    return uiElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UIComponent createUIComponent()
+  {
+    UIComponentImpl uiComponent = new UIComponentImpl();
+    return uiComponent;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NestedComponent createNestedComponent()
+  {
+    NestedComponentImpl nestedComponent = new NestedComponentImpl();
+    return nestedComponent;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ChildUIComponent createChildUIComponent()
+  {
+    ChildUIComponentImpl childUIComponent = new ChildUIComponentImpl();
+    return childUIComponent;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AllowedNestedComponents createAllowedNestedComponents()
+  {
+    AllowedNestedComponentsImpl allowedNestedComponents = new AllowedNestedComponentsImpl();
+    return allowedNestedComponents;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyValue createPropertyValue()
+  {
+    PropertyValueImpl propertyValue = new PropertyValueImpl();
+    return propertyValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UIComponentInstance createUIComponentInstance()
+  {
+    UIComponentInstanceImpl uiComponentInstance = new UIComponentInstanceImpl();
+    return uiComponentInstance;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public LogicElement createLogicElement()
+  {
+    LogicElementImpl logicElement = new LogicElementImpl();
+    return logicElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IFStatement createIFStatement()
+  {
+    IFStatementImpl ifStatement = new IFStatementImpl();
+    return ifStatement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Iterator createIterator()
+  {
+    IteratorImpl iterator = new IteratorImpl();
+    return iterator;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyValueInstance createPropertyValueInstance()
+  {
+    PropertyValueInstanceImpl propertyValueInstance = new PropertyValueInstanceImpl();
+    return propertyValueInstance;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Template createTemplate()
   {
     TemplateImpl template = new TemplateImpl();
@@ -209,6 +344,182 @@ public class UIDSLFactoryImpl extends EFactoryImpl implements UIDSLFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public IterationExpression createIterationExpression()
+  {
+    IterationExpressionImpl iterationExpression = new IterationExpressionImpl();
+    return iterationExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FragmentCall createFragmentCall()
+  {
+    FragmentCallImpl fragmentCall = new FragmentCallImpl();
+    return fragmentCall;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeExpression createTypeExpression()
+  {
+    TypeExpressionImpl typeExpression = new TypeExpressionImpl();
+    return typeExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyRuntimeType createPropertyRuntimeType()
+  {
+    PropertyRuntimeTypeImpl propertyRuntimeType = new PropertyRuntimeTypeImpl();
+    return propertyRuntimeType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertySingleRuntimeType createPropertySingleRuntimeType()
+  {
+    PropertySingleRuntimeTypeImpl propertySingleRuntimeType = new PropertySingleRuntimeTypeImpl();
+    return propertySingleRuntimeType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DefaultConfigurations createDefaultConfigurations()
+  {
+    DefaultConfigurationsImpl defaultConfigurations = new DefaultConfigurationsImpl();
+    return defaultConfigurations;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DefaultComponentConfig createDefaultComponentConfig()
+  {
+    DefaultComponentConfigImpl defaultComponentConfig = new DefaultComponentConfigImpl();
+    return defaultComponentConfig;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DefaultComponent createDefaultComponent()
+  {
+    DefaultComponentImpl defaultComponent = new DefaultComponentImpl();
+    return defaultComponent;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Component createComponent()
+  {
+    ComponentImpl component = new ComponentImpl();
+    return component;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ServerComponent createServerComponent()
+  {
+    ServerComponentImpl serverComponent = new ServerComponentImpl();
+    return serverComponent;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public InlineVariable createInlineVariable()
+  {
+    InlineVariableImpl inlineVariable = new InlineVariableImpl();
+    return inlineVariable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ExistingNestedComponents createExistingNestedComponents()
+  {
+    ExistingNestedComponentsImpl existingNestedComponents = new ExistingNestedComponentsImpl();
+    return existingNestedComponents;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AllAllowedComponents createAllAllowedComponents()
+  {
+    AllAllowedComponentsImpl allAllowedComponents = new AllAllowedComponentsImpl();
+    return allAllowedComponents;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CustomAllowedComponents createCustomAllowedComponents()
+  {
+    CustomAllowedComponentsImpl customAllowedComponents = new CustomAllowedComponentsImpl();
+    return customAllowedComponents;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TemplateFragment createTemplateFragment()
+  {
+    TemplateFragmentImpl templateFragment = new TemplateFragmentImpl();
+    return templateFragment;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TemplateFragmentOverride createTemplateFragmentOverride()
+  {
+    TemplateFragmentOverrideImpl templateFragmentOverride = new TemplateFragmentOverrideImpl();
+    return templateFragmentOverride;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public MemberSelectionExpression createMemberSelectionExpression()
   {
     MemberSelectionExpressionImpl memberSelectionExpression = new MemberSelectionExpressionImpl();
@@ -220,10 +531,131 @@ public class UIDSLFactoryImpl extends EFactoryImpl implements UIDSLFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public PageCall createPageCall()
+  {
+    PageCallImpl pageCall = new PageCallImpl();
+    return pageCall;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public VariableReference createVariableReference()
   {
     VariableReferenceImpl variableReference = new VariableReferenceImpl();
     return variableReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ObjectGeneralType createObjectGeneralType()
+  {
+    ObjectGeneralTypeImpl objectGeneralType = new ObjectGeneralTypeImpl();
+    return objectGeneralType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EnumGeneralType createEnumGeneralType()
+  {
+    EnumGeneralTypeImpl enumGeneralType = new EnumGeneralTypeImpl();
+    return enumGeneralType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CollectionGeneralType createCollectionGeneralType()
+  {
+    CollectionGeneralTypeImpl collectionGeneralType = new CollectionGeneralTypeImpl();
+    return collectionGeneralType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AnyType createAnyType()
+  {
+    AnyTypeImpl anyType = new AnyTypeImpl();
+    return anyType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PageType createPageType()
+  {
+    PageTypeImpl pageType = new PageTypeImpl();
+    return pageType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VoidType createVoidType()
+  {
+    VoidTypeImpl voidType = new VoidTypeImpl();
+    return voidType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AlternativeType createAlternativeType()
+  {
+    AlternativeTypeImpl alternativeType = new AlternativeTypeImpl();
+    return alternativeType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SimpleType createSimpleType()
+  {
+    SimpleTypeImpl simpleType = new SimpleTypeImpl();
+    return simpleType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public InputUIComponent createInputUIComponent()
+  {
+    InputUIComponentImpl inputUIComponent = new InputUIComponentImpl();
+    return inputUIComponent;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public OutputUIComponent createOutputUIComponent()
+  {
+    OutputUIComponentImpl outputUIComponent = new OutputUIComponentImpl();
+    return outputUIComponent;
   }
 
   /**

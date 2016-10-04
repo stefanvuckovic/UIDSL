@@ -3,6 +3,9 @@
  */
 package com.stefanvuckovic.uidsl.uIDSL;
 
+import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,13 +17,15 @@ package com.stefanvuckovic.uidsl.uIDSL;
  * </p>
  * <ul>
  *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.UIContainer#getName <em>Name</em>}</li>
+ *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.UIContainer#getServerComponents <em>Server Components</em>}</li>
+ *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.UIContainer#getElements <em>Elements</em>}</li>
  * </ul>
  *
  * @see com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage#getUIContainer()
  * @model
  * @generated
  */
-public interface UIContainer extends UIConcept
+public interface UIContainer extends EObject
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -47,5 +52,37 @@ public interface UIContainer extends UIConcept
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Server Components</b></em>' containment reference list.
+   * The list contents are of type {@link com.stefanvuckovic.uidsl.uIDSL.Variable}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Server Components</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Server Components</em>' containment reference list.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage#getUIContainer_ServerComponents()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Variable> getServerComponents();
+
+  /**
+   * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
+   * The list contents are of type {@link com.stefanvuckovic.uidsl.uIDSL.UIElement}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Elements</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Elements</em>' containment reference list.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage#getUIContainer_Elements()
+   * @model containment="true"
+   * @generated
+   */
+  EList<UIElement> getElements();
 
 } // UIContainer

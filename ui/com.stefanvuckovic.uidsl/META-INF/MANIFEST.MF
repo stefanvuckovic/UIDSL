@@ -28,5 +28,6 @@ Export-Package: com.stefanvuckovic.uidsl,
  com.stefanvuckovic.uidsl.uIDSL,
  com.stefanvuckovic.uidsl.uIDSL.impl,
  com.stefanvuckovic.uidsl.uIDSL.util,
- com.stefanvuckovic.uidsl.validation
+ com.stefanvuckovic.uidsl.validation,
+ uicomponents
 Import-Package: org.apache.log4j

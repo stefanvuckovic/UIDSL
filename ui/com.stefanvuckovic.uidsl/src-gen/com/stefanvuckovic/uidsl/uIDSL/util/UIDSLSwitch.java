@@ -3,6 +3,7 @@
  */
 package com.stefanvuckovic.uidsl.uIDSL.util;
 
+import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
 import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.SelectionMember;
@@ -84,22 +85,6 @@ public class UIDSLSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case UIDSLPackage.UI_CONCEPT:
-      {
-        UIConcept uiConcept = (UIConcept)theEObject;
-        T result = caseUIConcept(uiConcept);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case UIDSLPackage.SERVER_COMPONENT:
-      {
-        ServerComponent serverComponent = (ServerComponent)theEObject;
-        T result = caseServerComponent(serverComponent);
-        if (result == null) result = caseUIConcept(serverComponent);
-        if (result == null) result = caseConcept(serverComponent);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case UIDSLPackage.MEMBER:
       {
         Member member = (Member)theEObject;
@@ -137,7 +122,6 @@ public class UIDSLSwitch<T> extends Switch<T>
       {
         UIContainer uiContainer = (UIContainer)theEObject;
         T result = caseUIContainer(uiContainer);
-        if (result == null) result = caseUIConcept(uiContainer);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -146,7 +130,91 @@ public class UIDSLSwitch<T> extends Switch<T>
         Page page = (Page)theEObject;
         T result = casePage(page);
         if (result == null) result = caseUIContainer(page);
-        if (result == null) result = caseUIConcept(page);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.UI_ELEMENT:
+      {
+        UIElement uiElement = (UIElement)theEObject;
+        T result = caseUIElement(uiElement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.UI_COMPONENT:
+      {
+        UIComponent uiComponent = (UIComponent)theEObject;
+        T result = caseUIComponent(uiComponent);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.NESTED_COMPONENT:
+      {
+        NestedComponent nestedComponent = (NestedComponent)theEObject;
+        T result = caseNestedComponent(nestedComponent);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.CHILD_UI_COMPONENT:
+      {
+        ChildUIComponent childUIComponent = (ChildUIComponent)theEObject;
+        T result = caseChildUIComponent(childUIComponent);
+        if (result == null) result = caseNestedComponent(childUIComponent);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.ALLOWED_NESTED_COMPONENTS:
+      {
+        AllowedNestedComponents allowedNestedComponents = (AllowedNestedComponents)theEObject;
+        T result = caseAllowedNestedComponents(allowedNestedComponents);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.PROPERTY_VALUE:
+      {
+        PropertyValue propertyValue = (PropertyValue)theEObject;
+        T result = casePropertyValue(propertyValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.UI_COMPONENT_INSTANCE:
+      {
+        UIComponentInstance uiComponentInstance = (UIComponentInstance)theEObject;
+        T result = caseUIComponentInstance(uiComponentInstance);
+        if (result == null) result = caseComponent(uiComponentInstance);
+        if (result == null) result = caseUIElement(uiComponentInstance);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.LOGIC_ELEMENT:
+      {
+        LogicElement logicElement = (LogicElement)theEObject;
+        T result = caseLogicElement(logicElement);
+        if (result == null) result = caseUIElement(logicElement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.IF_STATEMENT:
+      {
+        IFStatement ifStatement = (IFStatement)theEObject;
+        T result = caseIFStatement(ifStatement);
+        if (result == null) result = caseLogicElement(ifStatement);
+        if (result == null) result = caseUIElement(ifStatement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.ITERATOR:
+      {
+        Iterator iterator = (Iterator)theEObject;
+        T result = caseIterator(iterator);
+        if (result == null) result = caseLogicElement(iterator);
+        if (result == null) result = caseUIElement(iterator);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.PROPERTY_VALUE_INSTANCE:
+      {
+        PropertyValueInstance propertyValueInstance = (PropertyValueInstance)theEObject;
+        T result = casePropertyValueInstance(propertyValueInstance);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -155,7 +223,6 @@ public class UIDSLSwitch<T> extends Switch<T>
         Template template = (Template)theEObject;
         T result = caseTemplate(template);
         if (result == null) result = caseUIContainer(template);
-        if (result == null) result = caseUIConcept(template);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -164,7 +231,132 @@ public class UIDSLSwitch<T> extends Switch<T>
         Fragment fragment = (Fragment)theEObject;
         T result = caseFragment(fragment);
         if (result == null) result = caseUIContainer(fragment);
-        if (result == null) result = caseUIConcept(fragment);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.ITERATION_EXPRESSION:
+      {
+        IterationExpression iterationExpression = (IterationExpression)theEObject;
+        T result = caseIterationExpression(iterationExpression);
+        if (result == null) result = caseExpression(iterationExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.FRAGMENT_CALL:
+      {
+        FragmentCall fragmentCall = (FragmentCall)theEObject;
+        T result = caseFragmentCall(fragmentCall);
+        if (result == null) result = caseUIElement(fragmentCall);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.TYPE_EXPRESSION:
+      {
+        TypeExpression typeExpression = (TypeExpression)theEObject;
+        T result = caseTypeExpression(typeExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.PROPERTY_RUNTIME_TYPE:
+      {
+        PropertyRuntimeType propertyRuntimeType = (PropertyRuntimeType)theEObject;
+        T result = casePropertyRuntimeType(propertyRuntimeType);
+        if (result == null) result = caseTypeExpression(propertyRuntimeType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.PROPERTY_SINGLE_RUNTIME_TYPE:
+      {
+        PropertySingleRuntimeType propertySingleRuntimeType = (PropertySingleRuntimeType)theEObject;
+        T result = casePropertySingleRuntimeType(propertySingleRuntimeType);
+        if (result == null) result = caseTypeExpression(propertySingleRuntimeType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.DEFAULT_CONFIGURATIONS:
+      {
+        DefaultConfigurations defaultConfigurations = (DefaultConfigurations)theEObject;
+        T result = caseDefaultConfigurations(defaultConfigurations);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.DEFAULT_COMPONENT_CONFIG:
+      {
+        DefaultComponentConfig defaultComponentConfig = (DefaultComponentConfig)theEObject;
+        T result = caseDefaultComponentConfig(defaultComponentConfig);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.DEFAULT_COMPONENT:
+      {
+        DefaultComponent defaultComponent = (DefaultComponent)theEObject;
+        T result = caseDefaultComponent(defaultComponent);
+        if (result == null) result = caseComponent(defaultComponent);
+        if (result == null) result = caseUIElement(defaultComponent);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.COMPONENT:
+      {
+        Component component = (Component)theEObject;
+        T result = caseComponent(component);
+        if (result == null) result = caseUIElement(component);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.SERVER_COMPONENT:
+      {
+        ServerComponent serverComponent = (ServerComponent)theEObject;
+        T result = caseServerComponent(serverComponent);
+        if (result == null) result = caseConcept(serverComponent);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.INLINE_VARIABLE:
+      {
+        InlineVariable inlineVariable = (InlineVariable)theEObject;
+        T result = caseInlineVariable(inlineVariable);
+        if (result == null) result = caseVariable(inlineVariable);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.EXISTING_NESTED_COMPONENTS:
+      {
+        ExistingNestedComponents existingNestedComponents = (ExistingNestedComponents)theEObject;
+        T result = caseExistingNestedComponents(existingNestedComponents);
+        if (result == null) result = caseNestedComponent(existingNestedComponents);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.ALL_ALLOWED_COMPONENTS:
+      {
+        AllAllowedComponents allAllowedComponents = (AllAllowedComponents)theEObject;
+        T result = caseAllAllowedComponents(allAllowedComponents);
+        if (result == null) result = caseAllowedNestedComponents(allAllowedComponents);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.CUSTOM_ALLOWED_COMPONENTS:
+      {
+        CustomAllowedComponents customAllowedComponents = (CustomAllowedComponents)theEObject;
+        T result = caseCustomAllowedComponents(customAllowedComponents);
+        if (result == null) result = caseAllowedNestedComponents(customAllowedComponents);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.TEMPLATE_FRAGMENT:
+      {
+        TemplateFragment templateFragment = (TemplateFragment)theEObject;
+        T result = caseTemplateFragment(templateFragment);
+        if (result == null) result = caseUIElement(templateFragment);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.TEMPLATE_FRAGMENT_OVERRIDE:
+      {
+        TemplateFragmentOverride templateFragmentOverride = (TemplateFragmentOverride)theEObject;
+        T result = caseTemplateFragmentOverride(templateFragmentOverride);
+        if (result == null) result = caseUIElement(templateFragmentOverride);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -176,11 +368,103 @@ public class UIDSLSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case UIDSLPackage.PAGE_CALL:
+      {
+        PageCall pageCall = (PageCall)theEObject;
+        T result = casePageCall(pageCall);
+        if (result == null) result = caseExpression(pageCall);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case UIDSLPackage.VARIABLE_REFERENCE:
       {
         VariableReference variableReference = (VariableReference)theEObject;
         T result = caseVariableReference(variableReference);
         if (result == null) result = caseExpression(variableReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.OBJECT_GENERAL_TYPE:
+      {
+        ObjectGeneralType objectGeneralType = (ObjectGeneralType)theEObject;
+        T result = caseObjectGeneralType(objectGeneralType);
+        if (result == null) result = caseAttributeType(objectGeneralType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.ENUM_GENERAL_TYPE:
+      {
+        EnumGeneralType enumGeneralType = (EnumGeneralType)theEObject;
+        T result = caseEnumGeneralType(enumGeneralType);
+        if (result == null) result = caseAttributeType(enumGeneralType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.COLLECTION_GENERAL_TYPE:
+      {
+        CollectionGeneralType collectionGeneralType = (CollectionGeneralType)theEObject;
+        T result = caseCollectionGeneralType(collectionGeneralType);
+        if (result == null) result = caseAttributeType(collectionGeneralType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.ANY_TYPE:
+      {
+        AnyType anyType = (AnyType)theEObject;
+        T result = caseAnyType(anyType);
+        if (result == null) result = caseAttributeType(anyType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.PAGE_TYPE:
+      {
+        PageType pageType = (PageType)theEObject;
+        T result = casePageType(pageType);
+        if (result == null) result = caseAttributeType(pageType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.VOID_TYPE:
+      {
+        VoidType voidType = (VoidType)theEObject;
+        T result = caseVoidType(voidType);
+        if (result == null) result = caseAttributeType(voidType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.ALTERNATIVE_TYPE:
+      {
+        AlternativeType alternativeType = (AlternativeType)theEObject;
+        T result = caseAlternativeType(alternativeType);
+        if (result == null) result = caseAttributeType(alternativeType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.SIMPLE_TYPE:
+      {
+        SimpleType simpleType = (SimpleType)theEObject;
+        T result = caseSimpleType(simpleType);
+        if (result == null) result = caseTypeExpression(simpleType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.INPUT_UI_COMPONENT:
+      {
+        InputUIComponent inputUIComponent = (InputUIComponent)theEObject;
+        T result = caseInputUIComponent(inputUIComponent);
+        if (result == null) result = caseDefaultComponent(inputUIComponent);
+        if (result == null) result = caseComponent(inputUIComponent);
+        if (result == null) result = caseUIElement(inputUIComponent);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.OUTPUT_UI_COMPONENT:
+      {
+        OutputUIComponent outputUIComponent = (OutputUIComponent)theEObject;
+        T result = caseOutputUIComponent(outputUIComponent);
+        if (result == null) result = caseDefaultComponent(outputUIComponent);
+        if (result == null) result = caseComponent(outputUIComponent);
+        if (result == null) result = caseUIElement(outputUIComponent);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -200,38 +484,6 @@ public class UIDSLSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseUIModel(UIModel object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>UI Concept</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>UI Concept</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseUIConcept(UIConcept object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Server Component</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Server Component</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseServerComponent(ServerComponent object)
   {
     return null;
   }
@@ -333,6 +585,182 @@ public class UIDSLSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>UI Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>UI Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUIElement(UIElement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>UI Component</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>UI Component</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUIComponent(UIComponent object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Nested Component</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Nested Component</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNestedComponent(NestedComponent object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Child UI Component</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Child UI Component</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseChildUIComponent(ChildUIComponent object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Allowed Nested Components</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Allowed Nested Components</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAllowedNestedComponents(AllowedNestedComponents object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyValue(PropertyValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>UI Component Instance</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>UI Component Instance</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUIComponentInstance(UIComponentInstance object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Logic Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Logic Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseLogicElement(LogicElement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>IF Statement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>IF Statement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIFStatement(IFStatement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Iterator</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Iterator</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIterator(Iterator object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Value Instance</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Value Instance</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyValueInstance(PropertyValueInstance object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Template</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -365,6 +793,262 @@ public class UIDSLSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Iteration Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Iteration Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIterationExpression(IterationExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Fragment Call</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Fragment Call</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFragmentCall(FragmentCall object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Type Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypeExpression(TypeExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Runtime Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Runtime Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyRuntimeType(PropertyRuntimeType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Single Runtime Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Single Runtime Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertySingleRuntimeType(PropertySingleRuntimeType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Default Configurations</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Default Configurations</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDefaultConfigurations(DefaultConfigurations object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Default Component Config</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Default Component Config</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDefaultComponentConfig(DefaultComponentConfig object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Default Component</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Default Component</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDefaultComponent(DefaultComponent object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Component</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Component</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseComponent(Component object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Server Component</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Server Component</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseServerComponent(ServerComponent object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Inline Variable</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Inline Variable</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseInlineVariable(InlineVariable object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Existing Nested Components</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Existing Nested Components</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseExistingNestedComponents(ExistingNestedComponents object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>All Allowed Components</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>All Allowed Components</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAllAllowedComponents(AllAllowedComponents object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Custom Allowed Components</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Custom Allowed Components</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCustomAllowedComponents(CustomAllowedComponents object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Template Fragment</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Template Fragment</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTemplateFragment(TemplateFragment object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Template Fragment Override</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Template Fragment Override</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTemplateFragmentOverride(TemplateFragmentOverride object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Member Selection Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -376,6 +1060,22 @@ public class UIDSLSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseMemberSelectionExpression(MemberSelectionExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Page Call</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Page Call</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePageCall(PageCall object)
   {
     return null;
   }
@@ -397,17 +1097,161 @@ public class UIDSLSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Concept</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Object General Type</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Concept</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Object General Type</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseConcept(Concept object)
+  public T caseObjectGeneralType(ObjectGeneralType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Enum General Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Enum General Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEnumGeneralType(EnumGeneralType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Collection General Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Collection General Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCollectionGeneralType(CollectionGeneralType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Any Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Any Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAnyType(AnyType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Page Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Page Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePageType(PageType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Void Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Void Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVoidType(VoidType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Alternative Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Alternative Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAlternativeType(AlternativeType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Simple Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Simple Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSimpleType(SimpleType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Input UI Component</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Input UI Component</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseInputUIComponent(InputUIComponent object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Output UI Component</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Output UI Component</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseOutputUIComponent(OutputUIComponent object)
   {
     return null;
   }
@@ -440,6 +1284,38 @@ public class UIDSLSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseExpression(Expression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Concept</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Concept</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseConcept(Concept object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Attribute Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Attribute Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAttributeType(AttributeType object)
   {
     return null;
   }

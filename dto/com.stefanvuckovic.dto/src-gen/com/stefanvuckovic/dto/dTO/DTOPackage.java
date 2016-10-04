@@ -133,6 +133,25 @@ public interface DTOPackage extends EPackage
   int DTO_CLASS_FEATURE_COUNT = DomainModelPackage.CONCEPT_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link com.stefanvuckovic.dto.dTO.impl.ObjectRepresentationImpl <em>Object Representation</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.dto.dTO.impl.ObjectRepresentationImpl
+   * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getObjectRepresentation()
+   * @generated
+   */
+  int OBJECT_REPRESENTATION = 2;
+
+  /**
+   * The number of structural features of the '<em>Object Representation</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_REPRESENTATION_FEATURE_COUNT = DomainModelPackage.ATTRIBUTE_OPTION_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link com.stefanvuckovic.dto.dTO.impl.TextTypeImpl <em>Text Type</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -140,7 +159,7 @@ public interface DTOPackage extends EPackage
    * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getTextType()
    * @generated
    */
-  int TEXT_TYPE = 2;
+  int TEXT_TYPE = 3;
 
   /**
    * The number of structural features of the '<em>Text Type</em>' class.
@@ -159,7 +178,7 @@ public interface DTOPackage extends EPackage
    * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getEmailType()
    * @generated
    */
-  int EMAIL_TYPE = 3;
+  int EMAIL_TYPE = 4;
 
   /**
    * The number of structural features of the '<em>Email Type</em>' class.
@@ -178,7 +197,7 @@ public interface DTOPackage extends EPackage
    * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getPasswordType()
    * @generated
    */
-  int PASSWORD_TYPE = 4;
+  int PASSWORD_TYPE = 5;
 
   /**
    * The number of structural features of the '<em>Password Type</em>' class.
@@ -197,7 +216,7 @@ public interface DTOPackage extends EPackage
    * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getFileType()
    * @generated
    */
-  int FILE_TYPE = 5;
+  int FILE_TYPE = 6;
 
   /**
    * The number of structural features of the '<em>File Type</em>' class.
@@ -216,7 +235,7 @@ public interface DTOPackage extends EPackage
    * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getImageType()
    * @generated
    */
-  int IMAGE_TYPE = 6;
+  int IMAGE_TYPE = 7;
 
   /**
    * The number of structural features of the '<em>Image Type</em>' class.
@@ -269,6 +288,16 @@ public interface DTOPackage extends EPackage
    * @generated
    */
   EReference getDTOClass_SuperType();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.dto.dTO.ObjectRepresentation <em>Object Representation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Object Representation</em>'.
+   * @see com.stefanvuckovic.dto.dTO.ObjectRepresentation
+   * @generated
+   */
+  EClass getObjectRepresentation();
 
   /**
    * Returns the meta object for class '{@link com.stefanvuckovic.dto.dTO.TextType <em>Text Type</em>}'.
@@ -378,6 +407,16 @@ public interface DTOPackage extends EPackage
      * @generated
      */
     EReference DTO_CLASS__SUPER_TYPE = eINSTANCE.getDTOClass_SuperType();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.dto.dTO.impl.ObjectRepresentationImpl <em>Object Representation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.dto.dTO.impl.ObjectRepresentationImpl
+     * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getObjectRepresentation()
+     * @generated
+     */
+    EClass OBJECT_REPRESENTATION = eINSTANCE.getObjectRepresentation();
 
     /**
      * The meta object literal for the '{@link com.stefanvuckovic.dto.dTO.impl.TextTypeImpl <em>Text Type</em>}' class.

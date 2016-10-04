@@ -7,7 +7,6 @@ import com.google.inject.Inject;
 import com.stefanvuckovic.domainmodel.domainModel.Attribute;
 import com.stefanvuckovic.domainmodel.domainModel.BoolConstant;
 import com.stefanvuckovic.domainmodel.domainModel.BoolType;
-import com.stefanvuckovic.domainmodel.domainModel.Cardinality;
 import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
@@ -24,10 +23,7 @@ import com.stefanvuckovic.domainmodel.domainModel.LongConstant;
 import com.stefanvuckovic.domainmodel.domainModel.LongType;
 import com.stefanvuckovic.domainmodel.domainModel.Model;
 import com.stefanvuckovic.domainmodel.domainModel.Null;
-import com.stefanvuckovic.domainmodel.domainModel.PartOf;
 import com.stefanvuckovic.domainmodel.domainModel.RefType;
-import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner;
-import com.stefanvuckovic.domainmodel.domainModel.Required;
 import com.stefanvuckovic.domainmodel.domainModel.SelectionMember;
 import com.stefanvuckovic.domainmodel.domainModel.StaticFieldSelection;
 import com.stefanvuckovic.domainmodel.domainModel.StringConstant;
@@ -39,6 +35,7 @@ import com.stefanvuckovic.dto.dTO.DTOPackage;
 import com.stefanvuckovic.dto.dTO.EmailType;
 import com.stefanvuckovic.dto.dTO.FileType;
 import com.stefanvuckovic.dto.dTO.ImageType;
+import com.stefanvuckovic.dto.dTO.ObjectRepresentation;
 import com.stefanvuckovic.dto.dTO.PasswordType;
 import com.stefanvuckovic.dto.dTO.TextType;
 import com.stefanvuckovic.dto.services.DTOGrammarAccess;
@@ -79,6 +76,9 @@ public class DTOSemanticSequencer extends DomainModelSemanticSequencer {
 			case DTOPackage.IMAGE_TYPE:
 				sequence_BasicType(context, (ImageType) semanticObject); 
 				return; 
+			case DTOPackage.OBJECT_REPRESENTATION:
+				sequence_AttributeOption(context, (ObjectRepresentation) semanticObject); 
+				return; 
 			case DTOPackage.PASSWORD_TYPE:
 				sequence_BasicType(context, (PasswordType) semanticObject); 
 				return; 
@@ -96,9 +96,6 @@ public class DTOSemanticSequencer extends DomainModelSemanticSequencer {
 				return; 
 			case DomainModelPackage.BOOL_TYPE:
 				sequence_BasicType(context, (BoolType) semanticObject); 
-				return; 
-			case DomainModelPackage.CARDINALITY:
-				sequence_AttributeOption(context, (Cardinality) semanticObject); 
 				return; 
 			case DomainModelPackage.COLLECTION_TYPE:
 				sequence_CollectionType(context, (CollectionType) semanticObject); 
@@ -148,17 +145,8 @@ public class DTOSemanticSequencer extends DomainModelSemanticSequencer {
 			case DomainModelPackage.NULL:
 				sequence_Constant(context, (Null) semanticObject); 
 				return; 
-			case DomainModelPackage.PART_OF:
-				sequence_AttributeOption(context, (PartOf) semanticObject); 
-				return; 
 			case DomainModelPackage.REF_TYPE:
 				sequence_RefType(context, (RefType) semanticObject); 
-				return; 
-			case DomainModelPackage.RELATIONSHIP_OWNER:
-				sequence_AttributeOption(context, (RelationshipOwner) semanticObject); 
-				return; 
-			case DomainModelPackage.REQUIRED:
-				sequence_AttributeOption(context, (Required) semanticObject); 
 				return; 
 			case DomainModelPackage.SELECTION_MEMBER:
 				sequence_DumbSelectionMember(context, (SelectionMember) semanticObject); 
@@ -176,6 +164,19 @@ public class DTOSemanticSequencer extends DomainModelSemanticSequencer {
 		if (errorAcceptor != null)
 			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
+	
+	/**
+	 * Contexts:
+	 *     AttributeOption returns ObjectRepresentation
+	 *     Option returns ObjectRepresentation
+	 *
+	 * Constraint:
+	 *     {ObjectRepresentation}
+	 */
+	protected void sequence_AttributeOption(ISerializationContext context, ObjectRepresentation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
 	
 	/**
 	 * Contexts:

@@ -17,6 +17,10 @@ DTOClass:
 	'}'
 ;
 
+AttributeOption returns domainModel::AttributeOption:
+	{ObjectRepresentation} 'representation'
+;
+
 BasicType returns domainModel::BasicType:
 	super |
 	{TextType} 'text' |

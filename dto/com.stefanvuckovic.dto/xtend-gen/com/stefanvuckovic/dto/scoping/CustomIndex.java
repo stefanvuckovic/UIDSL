@@ -70,11 +70,6 @@ public class CustomIndex {
   }
   
   public Iterable<IEObjectDescription> getVisibleConceptsDescriptions(final EObject o) {
-    EClass _concept = DomainModelPackage.eINSTANCE.getConcept();
-    return this.getVisibleEObjectDescriptions(o, _concept);
-  }
-  
-  public Iterable<IEObjectDescription> getVisibleEObjectDescriptions(final EObject o, final EClass cl) {
     List<IContainer> _visibleContainers = this.getVisibleContainers(o);
     final Function1<IContainer, Iterable<IEObjectDescription>> _function = (IContainer c) -> {
       Iterable<IResourceDescription> _resourceDescriptions = c.getResourceDescriptions();
@@ -92,7 +87,8 @@ public class CustomIndex {
           String _fileExtension_1 = _uRI_1.fileExtension();
           boolean _equals_1 = Objects.equal(_fileExtension_1, "dto");
           if (_equals_1) {
-            _xifexpression_1 = r.getExportedObjectsByType(cl);
+            EClass _concept = DomainModelPackage.eINSTANCE.getConcept();
+            _xifexpression_1 = r.getExportedObjectsByType(_concept);
           } else {
             _xifexpression_1 = CollectionLiterals.<IEObjectDescription>newArrayList();
           }

@@ -9,6 +9,12 @@ import com.stefanvuckovic.dto.scoping.CustomIndex
 import javax.inject.Inject
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
+import com.stefanvuckovic.domainmodel.domainModel.Attribute
+import com.stefanvuckovic.domainmodel.domainModel.RefType
+import com.stefanvuckovic.dto.dTO.DTOClass
+import com.stefanvuckovic.domainmodel.domainModel.CollectionType
+import com.stefanvuckovic.dto.dTO.ObjectRepresentation
+import com.stefanvuckovic.dto.DTOUtil
 
 /**
  * This class contains custom validation rules. 
@@ -18,6 +24,7 @@ import org.eclipse.xtext.validation.CheckType
 class DTOValidator extends AbstractDTOValidator {
 	
 	@Inject extension CustomIndex
+	@Inject extension DTOUtil 
 	
 //	public static val INVALID_NAME = 'invalidName'
 //
@@ -39,6 +46,35 @@ class DTOValidator extends AbstractDTOValidator {
 			if (otherFilesConcepts.containsKey(conceptName)) {
 				error("Concept with name " + c.name + " is already defined",
 					c, DomainModelPackage.eINSTANCE.concept_Name)
+			}
+		}
+	}
+	
+	@Check
+	override checkAttributeOptionsBasedOnAttributeType(Attribute a) {
+		if(a.type == null) {
+			return;
+		}
+		val options = a.options
+		if(options != null) {
+			if(options.size == 1) {
+				if(options.head instanceof ObjectRepresentation && 
+					a.type instanceof RefType && 
+					(a.type as RefType).reference instanceof DTOClass ||
+					a.type instanceof CollectionType) {
+						error("Specified option is not valid for this attribute", DomainModelPackage.Literals.ATTRIBUTE__OPTIONS, 0)
+				}
+			}
+		}
+	}
+	
+	@Check
+	def void checkOnlyOneRepresentationOptionPerClass(ObjectRepresentation repr) {
+		val attr = repr.eContainer as Attribute
+		if(attr.eContainer instanceof DTOClass) {
+			val cl = attr.eContainer as DTOClass
+			if(cl.attributes.filter[isObjectRepresentation].size > 1) {
+				error("Only one attribute can be specified as object representation", null)
 			}
 		}
 	}

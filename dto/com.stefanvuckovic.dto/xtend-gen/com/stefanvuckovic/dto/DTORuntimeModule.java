@@ -3,21 +3,11 @@
  */
 package com.stefanvuckovic.dto;
 
-import com.google.inject.Binder;
-import com.google.inject.binder.AnnotatedBindingBuilder;
 import com.stefanvuckovic.dto.AbstractDTORuntimeModule;
-import com.stefanvuckovic.dto.CustomResourceServiceProvider;
-import org.eclipse.xtext.resource.IResourceServiceProvider;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 @SuppressWarnings("all")
 public class DTORuntimeModule extends AbstractDTORuntimeModule {
-  @Override
-  public void configure(final Binder binder) {
-    super.configure(binder);
-    AnnotatedBindingBuilder<IResourceServiceProvider> _bind = binder.<IResourceServiceProvider>bind(IResourceServiceProvider.class);
-    _bind.to(CustomResourceServiceProvider.class);
-  }
 }

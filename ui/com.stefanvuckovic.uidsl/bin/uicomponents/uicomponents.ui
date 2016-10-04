@@ -1,0 +1,137 @@
+component textComp {
+	value valueProperty : string or text or email or password or int or long or date or object or enum
+	escape : boolean
+}
+
+component section {
+	allowed_nested_components : ALL
+}
+
+component textfield {
+	value valueProperty : string or int or long or text or email or password
+	watermark : string
+	enabled : boolean
+}
+
+component textarea {
+	value valueProperty : string or text
+	watermark : string
+	rows : int
+	enabled : boolean
+}
+
+component slider {
+	value valueProperty : int or long
+	min : int
+	max : int
+}
+
+component spinner {
+	value valueProperty : int or long
+	min : int
+	max : int
+	step : int
+}
+
+component passwordField {
+	value valueProperty : password
+	watermark : string
+}
+
+component comboBox {
+	value valueProperty : singleTypeOf(typeOf(selectFrom))
+	selectFrom : collection
+	child_component cardinality=one:
+		component label {
+			value : string or enum
+		}
+}
+
+component radioSelection {
+	value valueProperty : singleTypeOf(typeOf(selectFrom))
+	selectFrom : collection
+	child_component cardinality=one:
+		component label {
+			value : string or enum
+		}
+}
+
+component boolCheckbox {
+	value valueProperty : boolean
+	label : string
+	enabled : boolean
+}
+
+component multiSelectCheckbox {
+	value valueProperty : typeOf(selectFrom)
+	selectFrom : collection
+	child_component cardinality=one:
+		component label {
+			value : string or enum
+		}
+}
+
+component label {
+	value valueProperty : string
+}
+
+component externalLink {
+	value valueProperty : string or file
+	openInNewWindow : boolean
+	allowed_nested_components : imageComponent, section, label, textComp
+}
+
+component internalLink {
+	value valueProperty : page
+	openInNewWindow : boolean
+	allowed_nested_components : imageComponent, section, label, textComp
+}
+
+component table {
+	value required valueProperty : collection
+	child_component cardinality=many : 
+		component col { 
+			header : string
+			value : string
+			allowed_nested_components : externalLink, internalLink, action, textComp
+		}	
+}
+
+component list {
+	value valueProperty : collection
+	ordered : boolean
+	child_component cardinality=many:
+		component element {
+			value : string
+			allowed_nested_components : externalLink, internalLink, action, list, textComp, label
+		}
+}
+
+component inputDate {
+	value valueProperty : date
+}
+
+component fileUpload {
+	value valueProperty : file or image
+}
+
+component imageComponent {
+	value valueProperty : image
+}
+
+component form {
+	allowed_nested_components : ALL
+}
+
+component action {
+	action : any
+	allowed_nested_components : imageComponent, section, label, textComp
+}
+
+//component input {
+//	value : any
+//}
+//
+//component output {
+//	value : any
+//}

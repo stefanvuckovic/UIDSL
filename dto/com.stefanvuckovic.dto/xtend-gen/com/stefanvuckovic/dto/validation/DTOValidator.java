@@ -3,19 +3,31 @@
  */
 package com.stefanvuckovic.dto.validation;
 
+import com.google.common.base.Objects;
+import com.stefanvuckovic.domainmodel.domainModel.Attribute;
+import com.stefanvuckovic.domainmodel.domainModel.AttributeOption;
+import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
+import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
+import com.stefanvuckovic.domainmodel.domainModel.RefType;
+import com.stefanvuckovic.dto.DTOUtil;
+import com.stefanvuckovic.dto.dTO.DTOClass;
 import com.stefanvuckovic.dto.dTO.DTOModel;
+import com.stefanvuckovic.dto.dTO.ObjectRepresentation;
 import com.stefanvuckovic.dto.scoping.CustomIndex;
 import com.stefanvuckovic.dto.validation.AbstractDTOValidator;
 import java.util.Map;
 import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 /**
  * This class contains custom validation rules.
@@ -27,6 +39,10 @@ public class DTOValidator extends AbstractDTOValidator {
   @Inject
   @Extension
   private CustomIndex _customIndex;
+  
+  @Inject
+  @Extension
+  private DTOUtil _dTOUtil;
   
   @Check(CheckType.NORMAL)
   public void checUniqueConceptNameInDifferentFiles(final DTOModel model) {
@@ -43,6 +59,51 @@ public class DTOValidator extends AbstractDTOValidator {
           EAttribute _concept_Name = DomainModelPackage.eINSTANCE.getConcept_Name();
           this.error(_plus_1, c, _concept_Name);
         }
+      }
+    }
+  }
+  
+  @Check
+  @Override
+  public void checkAttributeOptionsBasedOnAttributeType(final Attribute a) {
+    AttributeType _type = a.getType();
+    boolean _equals = Objects.equal(_type, null);
+    if (_equals) {
+      return;
+    }
+    final EList<AttributeOption> options = a.getOptions();
+    boolean _notEquals = (!Objects.equal(options, null));
+    if (_notEquals) {
+      int _size = options.size();
+      boolean _equals_1 = (_size == 1);
+      if (_equals_1) {
+        if (((((IterableExtensions.<AttributeOption>head(options) instanceof ObjectRepresentation) && 
+          (a.getType() instanceof RefType)) && 
+          (((RefType) a.getType()).getReference() instanceof DTOClass)) || 
+          (a.getType() instanceof CollectionType))) {
+          this.error("Specified option is not valid for this attribute", DomainModelPackage.Literals.ATTRIBUTE__OPTIONS, 0);
+        }
+      }
+    }
+  }
+  
+  @Check
+  public void checkOnlyOneRepresentationOptionPerClass(final ObjectRepresentation repr) {
+    EObject _eContainer = repr.eContainer();
+    final Attribute attr = ((Attribute) _eContainer);
+    EObject _eContainer_1 = attr.eContainer();
+    if ((_eContainer_1 instanceof DTOClass)) {
+      EObject _eContainer_2 = attr.eContainer();
+      final DTOClass cl = ((DTOClass) _eContainer_2);
+      EList<Attribute> _attributes = cl.getAttributes();
+      final Function1<Attribute, Boolean> _function = (Attribute it) -> {
+        return Boolean.valueOf(this._dTOUtil.isObjectRepresentation(it));
+      };
+      Iterable<Attribute> _filter = IterableExtensions.<Attribute>filter(_attributes, _function);
+      int _size = IterableExtensions.size(_filter);
+      boolean _greaterThan = (_size > 1);
+      if (_greaterThan) {
+        this.error("Only one attribute can be specified as object representation", null);
       }
     }
   }

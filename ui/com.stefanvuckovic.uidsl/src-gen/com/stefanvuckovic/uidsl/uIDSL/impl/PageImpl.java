@@ -4,19 +4,61 @@
 package com.stefanvuckovic.uidsl.uIDSL.impl;
 
 import com.stefanvuckovic.uidsl.uIDSL.Page;
+import com.stefanvuckovic.uidsl.uIDSL.Template;
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage;
+import com.stefanvuckovic.uidsl.uIDSL.Variable;
+
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Page</b></em>'.
  * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * </p>
+ * <ul>
+ *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.impl.PageImpl#getParams <em>Params</em>}</li>
+ *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.impl.PageImpl#getTemplate <em>Template</em>}</li>
+ * </ul>
  *
  * @generated
  */
 public class PageImpl extends UIContainerImpl implements Page
 {
+  /**
+   * The cached value of the '{@link #getParams() <em>Params</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getParams()
+   * @generated
+   * @ordered
+   */
+  protected EList<Variable> params;
+
+  /**
+   * The cached value of the '{@link #getTemplate() <em>Template</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTemplate()
+   * @generated
+   * @ordered
+   */
+  protected Template template;
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -36,6 +78,158 @@ public class PageImpl extends UIContainerImpl implements Page
   protected EClass eStaticClass()
   {
     return UIDSLPackage.Literals.PAGE;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Variable> getParams()
+  {
+    if (params == null)
+    {
+      params = new EObjectContainmentEList<Variable>(Variable.class, this, UIDSLPackage.PAGE__PARAMS);
+    }
+    return params;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Template getTemplate()
+  {
+    if (template != null && template.eIsProxy())
+    {
+      InternalEObject oldTemplate = (InternalEObject)template;
+      template = (Template)eResolveProxy(oldTemplate);
+      if (template != oldTemplate)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, UIDSLPackage.PAGE__TEMPLATE, oldTemplate, template));
+      }
+    }
+    return template;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Template basicGetTemplate()
+  {
+    return template;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTemplate(Template newTemplate)
+  {
+    Template oldTemplate = template;
+    template = newTemplate;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, UIDSLPackage.PAGE__TEMPLATE, oldTemplate, template));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case UIDSLPackage.PAGE__PARAMS:
+        return ((InternalEList<?>)getParams()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case UIDSLPackage.PAGE__PARAMS:
+        return getParams();
+      case UIDSLPackage.PAGE__TEMPLATE:
+        if (resolve) return getTemplate();
+        return basicGetTemplate();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case UIDSLPackage.PAGE__PARAMS:
+        getParams().clear();
+        getParams().addAll((Collection<? extends Variable>)newValue);
+        return;
+      case UIDSLPackage.PAGE__TEMPLATE:
+        setTemplate((Template)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case UIDSLPackage.PAGE__PARAMS:
+        getParams().clear();
+        return;
+      case UIDSLPackage.PAGE__TEMPLATE:
+        setTemplate((Template)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case UIDSLPackage.PAGE__PARAMS:
+        return params != null && !params.isEmpty();
+      case UIDSLPackage.PAGE__TEMPLATE:
+        return template != null;
+    }
+    return super.eIsSet(featureID);
   }
 
 } //PageImpl

@@ -220,6 +220,36 @@ ruleDTOClass returns [EObject current=null]
 	)
 ;
 
+// Entry rule entryRuleAttributeOption
+entryRuleAttributeOption returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getAttributeOptionRule()); }
+	iv_ruleAttributeOption=ruleAttributeOption
+	{ $current=$iv_ruleAttributeOption.current; }
+	EOF;
+
+// Rule AttributeOption
+ruleAttributeOption returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getAttributeOptionAccess().getObjectRepresentationAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='representation'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getAttributeOptionAccess().getRepresentationKeyword_1());
+		}
+	)
+;
+
 // Entry rule entryRuleBasicType
 entryRuleBasicType returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getBasicTypeRule()); }
@@ -926,7 +956,7 @@ ruleAttribute returns [EObject current=null]
 							$current,
 							"options",
 							lv_options_2_0,
-							"com.stefanvuckovic.domainmodel.DomainModel.AttributeOption");
+							"com.stefanvuckovic.dto.DTO.AttributeOption");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -950,7 +980,7 @@ ruleAttribute returns [EObject current=null]
 								$current,
 								"options",
 								lv_options_4_0,
-								"com.stefanvuckovic.domainmodel.DomainModel.AttributeOption");
+								"com.stefanvuckovic.dto.DTO.AttributeOption");
 							afterParserOrEnumRuleCall();
 						}
 					)
@@ -1201,222 +1231,6 @@ ruleCollectionType returns [EObject current=null]
 		{
 			newLeafNode(otherlv_3, grammarAccess.getCollectionTypeAccess().getGreaterThanSignKeyword_3());
 		}
-	)
-;
-
-// Entry rule entryRuleAttributeOption
-entryRuleAttributeOption returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getAttributeOptionRule()); }
-	iv_ruleAttributeOption=ruleAttributeOption
-	{ $current=$iv_ruleAttributeOption.current; }
-	EOF;
-
-// Rule AttributeOption
-ruleAttributeOption returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			(
-				{
-					$current = forceCreateModelElement(
-						grammarAccess.getAttributeOptionAccess().getRequiredAction_0_0(),
-						$current);
-				}
-			)
-			(
-				(
-					lv_required_1_0='required'
-					{
-						newLeafNode(lv_required_1_0, grammarAccess.getAttributeOptionAccess().getRequiredRequiredKeyword_0_1_0());
-					}
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getAttributeOptionRule());
-						}
-						setWithLastConsumed($current, "required", true, "required");
-					}
-				)
-			)
-		)
-		    |
-		(
-			(
-				{
-					$current = forceCreateModelElement(
-						grammarAccess.getAttributeOptionAccess().getPartOfAction_1_0(),
-						$current);
-				}
-			)
-			(
-				(
-					lv_partOf_3_0='partOf'
-					{
-						newLeafNode(lv_partOf_3_0, grammarAccess.getAttributeOptionAccess().getPartOfPartOfKeyword_1_1_0());
-					}
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getAttributeOptionRule());
-						}
-						setWithLastConsumed($current, "partOf", true, "partOf");
-					}
-				)
-			)
-		)
-		    |
-		(
-			(
-				{
-					$current = forceCreateModelElement(
-						grammarAccess.getAttributeOptionAccess().getRelationshipOwnerAction_2_0(),
-						$current);
-				}
-			)
-			otherlv_5='relationshipOwner'
-			{
-				newLeafNode(otherlv_5, grammarAccess.getAttributeOptionAccess().getRelationshipOwnerKeyword_2_1());
-			}
-			otherlv_6='='
-			{
-				newLeafNode(otherlv_6, grammarAccess.getAttributeOptionAccess().getEqualsSignKeyword_2_2());
-			}
-			(
-				(
-					{
-						newCompositeNode(grammarAccess.getAttributeOptionAccess().getRelationshipOwnerStaticFieldSelectionParserRuleCall_2_3_0());
-					}
-					lv_relationshipOwner_7_0=ruleStaticFieldSelection
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getAttributeOptionRule());
-						}
-						set(
-							$current,
-							"relationshipOwner",
-							lv_relationshipOwner_7_0,
-							"com.stefanvuckovic.domainmodel.DomainModel.StaticFieldSelection");
-						afterParserOrEnumRuleCall();
-					}
-				)
-			)
-		)
-		    |
-		(
-			(
-				{
-					$current = forceCreateModelElement(
-						grammarAccess.getAttributeOptionAccess().getCardinalityAction_3_0(),
-						$current);
-				}
-			)
-			otherlv_9='reverse_cardinality'
-			{
-				newLeafNode(otherlv_9, grammarAccess.getAttributeOptionAccess().getReverse_cardinalityKeyword_3_1());
-			}
-			otherlv_10='='
-			{
-				newLeafNode(otherlv_10, grammarAccess.getAttributeOptionAccess().getEqualsSignKeyword_3_2());
-			}
-			(
-				(
-					{
-						newCompositeNode(grammarAccess.getAttributeOptionAccess().getCardCardinalityTypeEnumRuleCall_3_3_0());
-					}
-					lv_card_11_0=ruleCardinalityType
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getAttributeOptionRule());
-						}
-						set(
-							$current,
-							"card",
-							lv_card_11_0,
-							"com.stefanvuckovic.domainmodel.DomainModel.CardinalityType");
-						afterParserOrEnumRuleCall();
-					}
-				)
-			)
-		)
-	)
-;
-
-// Entry rule entryRuleStaticFieldSelection
-entryRuleStaticFieldSelection returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getStaticFieldSelectionRule()); }
-	iv_ruleStaticFieldSelection=ruleStaticFieldSelection
-	{ $current=$iv_ruleStaticFieldSelection.current; }
-	EOF;
-
-// Rule StaticFieldSelection
-ruleStaticFieldSelection returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getStaticFieldSelectionRule());
-					}
-				}
-				otherlv_0=RULE_ID
-				{
-					newLeafNode(otherlv_0, grammarAccess.getStaticFieldSelectionAccess().getReceiverEntityCrossReference_0_0());
-				}
-			)
-		)
-		otherlv_1='.'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getStaticFieldSelectionAccess().getFullStopKeyword_1());
-		}
-		(
-			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getStaticFieldSelectionRule());
-					}
-				}
-				otherlv_2=RULE_ID
-				{
-					newLeafNode(otherlv_2, grammarAccess.getStaticFieldSelectionAccess().getMemberAttributeCrossReference_2_0());
-				}
-			)
-		)
-	)
-;
-
-// Rule CardinalityType
-ruleCardinalityType returns [Enumerator current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			enumLiteral_0='one'
-			{
-				$current = grammarAccess.getCardinalityTypeAccess().getOneEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_0, grammarAccess.getCardinalityTypeAccess().getOneEnumLiteralDeclaration_0());
-			}
-		)
-		    |
-		(
-			enumLiteral_1='many'
-			{
-				$current = grammarAccess.getCardinalityTypeAccess().getManyEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_1, grammarAccess.getCardinalityTypeAccess().getManyEnumLiteralDeclaration_1());
-			}
-		)
 	)
 ;
 

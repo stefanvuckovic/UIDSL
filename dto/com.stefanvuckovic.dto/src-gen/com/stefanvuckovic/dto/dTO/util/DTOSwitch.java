@@ -3,9 +3,11 @@
  */
 package com.stefanvuckovic.dto.dTO.util;
 
+import com.stefanvuckovic.domainmodel.domainModel.AttributeOption;
 import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
 import com.stefanvuckovic.domainmodel.domainModel.BasicType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
+import com.stefanvuckovic.domainmodel.domainModel.Option;
 import com.stefanvuckovic.domainmodel.domainModel.SingleType;
 
 import com.stefanvuckovic.dto.dTO.*;
@@ -93,6 +95,15 @@ public class DTOSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DTOPackage.OBJECT_REPRESENTATION:
+      {
+        ObjectRepresentation objectRepresentation = (ObjectRepresentation)theEObject;
+        T result = caseObjectRepresentation(objectRepresentation);
+        if (result == null) result = caseAttributeOption(objectRepresentation);
+        if (result == null) result = caseOption(objectRepresentation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DTOPackage.TEXT_TYPE:
       {
         TextType textType = (TextType)theEObject;
@@ -175,6 +186,22 @@ public class DTOSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseDTOClass(DTOClass object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Object Representation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Object Representation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseObjectRepresentation(ObjectRepresentation object)
   {
     return null;
   }
@@ -271,6 +298,38 @@ public class DTOSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseConcept(Concept object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Option</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Option</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseOption(Option object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Attribute Option</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Attribute Option</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAttributeOption(AttributeOption object)
   {
     return null;
   }

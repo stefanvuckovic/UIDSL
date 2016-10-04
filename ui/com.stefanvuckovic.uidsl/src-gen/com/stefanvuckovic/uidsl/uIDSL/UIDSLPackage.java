@@ -88,80 +88,6 @@ public interface UIDSLPackage extends EPackage
   int UI_MODEL_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.UIConceptImpl <em>UI Concept</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIConceptImpl
-   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getUIConcept()
-   * @generated
-   */
-  int UI_CONCEPT = 1;
-
-  /**
-   * The number of structural features of the '<em>UI Concept</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UI_CONCEPT_FEATURE_COUNT = 0;
-
-  /**
-   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl <em>Server Component</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl
-   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getServerComponent()
-   * @generated
-   */
-  int SERVER_COMPONENT = 2;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SERVER_COMPONENT__NAME = UI_CONCEPT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SERVER_COMPONENT__ATTRIBUTES = UI_CONCEPT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Members</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SERVER_COMPONENT__MEMBERS = UI_CONCEPT_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SERVER_COMPONENT__EXPRESSIONS = UI_CONCEPT_FEATURE_COUNT + 3;
-
-  /**
-   * The number of structural features of the '<em>Server Component</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SERVER_COMPONENT_FEATURE_COUNT = UI_CONCEPT_FEATURE_COUNT + 4;
-
-  /**
    * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.MemberImpl <em>Member</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -169,7 +95,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getMember()
    * @generated
    */
-  int MEMBER = 3;
+  int MEMBER = 1;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -206,7 +132,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getField()
    * @generated
    */
-  int FIELD = 4;
+  int FIELD = 2;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -243,7 +169,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getMethod()
    * @generated
    */
-  int METHOD = 5;
+  int METHOD = 3;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -289,7 +215,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 6;
+  int VARIABLE = 4;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -326,7 +252,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getUIContainer()
    * @generated
    */
-  int UI_CONTAINER = 7;
+  int UI_CONTAINER = 5;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -335,7 +261,25 @@ public interface UIDSLPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UI_CONTAINER__NAME = UI_CONCEPT_FEATURE_COUNT + 0;
+  int UI_CONTAINER__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Server Components</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UI_CONTAINER__SERVER_COMPONENTS = 1;
+
+  /**
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UI_CONTAINER__ELEMENTS = 2;
 
   /**
    * The number of structural features of the '<em>UI Container</em>' class.
@@ -344,7 +288,7 @@ public interface UIDSLPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UI_CONTAINER_FEATURE_COUNT = UI_CONCEPT_FEATURE_COUNT + 1;
+  int UI_CONTAINER_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PageImpl <em>Page</em>}' class.
@@ -354,7 +298,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPage()
    * @generated
    */
-  int PAGE = 8;
+  int PAGE = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -366,13 +310,448 @@ public interface UIDSLPackage extends EPackage
   int PAGE__NAME = UI_CONTAINER__NAME;
 
   /**
+   * The feature id for the '<em><b>Server Components</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PAGE__SERVER_COMPONENTS = UI_CONTAINER__SERVER_COMPONENTS;
+
+  /**
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PAGE__ELEMENTS = UI_CONTAINER__ELEMENTS;
+
+  /**
+   * The feature id for the '<em><b>Params</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PAGE__PARAMS = UI_CONTAINER_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Template</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PAGE__TEMPLATE = UI_CONTAINER_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Page</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PAGE_FEATURE_COUNT = UI_CONTAINER_FEATURE_COUNT + 0;
+  int PAGE_FEATURE_COUNT = UI_CONTAINER_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.UIElementImpl <em>UI Element</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIElementImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getUIElement()
+   * @generated
+   */
+  int UI_ELEMENT = 7;
+
+  /**
+   * The number of structural features of the '<em>UI Element</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UI_ELEMENT_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.UIComponentImpl <em>UI Component</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIComponentImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getUIComponent()
+   * @generated
+   */
+  int UI_COMPONENT = 8;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UI_COMPONENT__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UI_COMPONENT__PROPERTIES = 1;
+
+  /**
+   * The feature id for the '<em><b>Nested</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UI_COMPONENT__NESTED = 2;
+
+  /**
+   * The number of structural features of the '<em>UI Component</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UI_COMPONENT_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.NestedComponentImpl <em>Nested Component</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.NestedComponentImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getNestedComponent()
+   * @generated
+   */
+  int NESTED_COMPONENT = 9;
+
+  /**
+   * The number of structural features of the '<em>Nested Component</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NESTED_COMPONENT_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ChildUIComponentImpl <em>Child UI Component</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.ChildUIComponentImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getChildUIComponent()
+   * @generated
+   */
+  int CHILD_UI_COMPONENT = 10;
+
+  /**
+   * The feature id for the '<em><b>Cardinality</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CHILD_UI_COMPONENT__CARDINALITY = NESTED_COMPONENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Comp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CHILD_UI_COMPONENT__COMP = NESTED_COMPONENT_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Child UI Component</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CHILD_UI_COMPONENT_FEATURE_COUNT = NESTED_COMPONENT_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.AllowedNestedComponentsImpl <em>Allowed Nested Components</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.AllowedNestedComponentsImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getAllowedNestedComponents()
+   * @generated
+   */
+  int ALLOWED_NESTED_COMPONENTS = 11;
+
+  /**
+   * The number of structural features of the '<em>Allowed Nested Components</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALLOWED_NESTED_COMPONENTS_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PropertyValueImpl <em>Property Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.PropertyValueImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPropertyValue()
+   * @generated
+   */
+  int PROPERTY_VALUE = 12;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_VALUE__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Required</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_VALUE__REQUIRED = 1;
+
+  /**
+   * The feature id for the '<em><b>Value Property</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_VALUE__VALUE_PROPERTY = 2;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_VALUE__TYPE = 3;
+
+  /**
+   * The number of structural features of the '<em>Property Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_VALUE_FEATURE_COUNT = 4;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ComponentImpl <em>Component</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.ComponentImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getComponent()
+   * @generated
+   */
+  int COMPONENT = 28;
+
+  /**
+   * The number of structural features of the '<em>Component</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPONENT_FEATURE_COUNT = UI_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.UIComponentInstanceImpl <em>UI Component Instance</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIComponentInstanceImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getUIComponentInstance()
+   * @generated
+   */
+  int UI_COMPONENT_INSTANCE = 13;
+
+  /**
+   * The feature id for the '<em><b>Component</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UI_COMPONENT_INSTANCE__COMPONENT = COMPONENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UI_COMPONENT_INSTANCE__PROPERTIES = COMPONENT_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Child Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UI_COMPONENT_INSTANCE__CHILD_ELEMENTS = COMPONENT_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>UI Component Instance</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UI_COMPONENT_INSTANCE_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.LogicElementImpl <em>Logic Element</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.LogicElementImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getLogicElement()
+   * @generated
+   */
+  int LOGIC_ELEMENT = 14;
+
+  /**
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LOGIC_ELEMENT__ELEMENTS = UI_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Logic Element</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LOGIC_ELEMENT_FEATURE_COUNT = UI_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.IFStatementImpl <em>IF Statement</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.IFStatementImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getIFStatement()
+   * @generated
+   */
+  int IF_STATEMENT = 15;
+
+  /**
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_STATEMENT__ELEMENTS = LOGIC_ELEMENT__ELEMENTS;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_STATEMENT__EXPRESSION = LOGIC_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>IF Statement</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_STATEMENT_FEATURE_COUNT = LOGIC_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.IteratorImpl <em>Iterator</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.IteratorImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getIterator()
+   * @generated
+   */
+  int ITERATOR = 16;
+
+  /**
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ITERATOR__ELEMENTS = LOGIC_ELEMENT__ELEMENTS;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ITERATOR__EXPRESSION = LOGIC_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Iterator</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ITERATOR_FEATURE_COUNT = LOGIC_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PropertyValueInstanceImpl <em>Property Value Instance</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.PropertyValueInstanceImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPropertyValueInstance()
+   * @generated
+   */
+  int PROPERTY_VALUE_INSTANCE = 17;
+
+  /**
+   * The feature id for the '<em><b>Property</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_VALUE_INSTANCE__PROPERTY = 0;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_VALUE_INSTANCE__VALUE = 1;
+
+  /**
+   * The number of structural features of the '<em>Property Value Instance</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_VALUE_INSTANCE_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.TemplateImpl <em>Template</em>}' class.
@@ -382,7 +761,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getTemplate()
    * @generated
    */
-  int TEMPLATE = 9;
+  int TEMPLATE = 18;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -392,6 +771,24 @@ public interface UIDSLPackage extends EPackage
    * @ordered
    */
   int TEMPLATE__NAME = UI_CONTAINER__NAME;
+
+  /**
+   * The feature id for the '<em><b>Server Components</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEMPLATE__SERVER_COMPONENTS = UI_CONTAINER__SERVER_COMPONENTS;
+
+  /**
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEMPLATE__ELEMENTS = UI_CONTAINER__ELEMENTS;
 
   /**
    * The number of structural features of the '<em>Template</em>' class.
@@ -410,7 +807,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getFragment()
    * @generated
    */
-  int FRAGMENT = 10;
+  int FRAGMENT = 19;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -422,13 +819,541 @@ public interface UIDSLPackage extends EPackage
   int FRAGMENT__NAME = UI_CONTAINER__NAME;
 
   /**
+   * The feature id for the '<em><b>Server Components</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FRAGMENT__SERVER_COMPONENTS = UI_CONTAINER__SERVER_COMPONENTS;
+
+  /**
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FRAGMENT__ELEMENTS = UI_CONTAINER__ELEMENTS;
+
+  /**
+   * The feature id for the '<em><b>Params</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FRAGMENT__PARAMS = UI_CONTAINER_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>Fragment</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FRAGMENT_FEATURE_COUNT = UI_CONTAINER_FEATURE_COUNT + 0;
+  int FRAGMENT_FEATURE_COUNT = UI_CONTAINER_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.IterationExpressionImpl <em>Iteration Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.IterationExpressionImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getIterationExpression()
+   * @generated
+   */
+  int ITERATION_EXPRESSION = 20;
+
+  /**
+   * The feature id for the '<em><b>Var</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ITERATION_EXPRESSION__VAR = DomainModelPackage.EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ITERATION_EXPRESSION__EXPRESSION = DomainModelPackage.EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Iteration Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ITERATION_EXPRESSION_FEATURE_COUNT = DomainModelPackage.EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.FragmentCallImpl <em>Fragment Call</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.FragmentCallImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getFragmentCall()
+   * @generated
+   */
+  int FRAGMENT_CALL = 21;
+
+  /**
+   * The feature id for the '<em><b>Frag</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FRAGMENT_CALL__FRAG = UI_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Params</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FRAGMENT_CALL__PARAMS = UI_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Fragment Call</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FRAGMENT_CALL_FEATURE_COUNT = UI_ELEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.TypeExpressionImpl <em>Type Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.TypeExpressionImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getTypeExpression()
+   * @generated
+   */
+  int TYPE_EXPRESSION = 22;
+
+  /**
+   * The number of structural features of the '<em>Type Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_EXPRESSION_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PropertyRuntimeTypeImpl <em>Property Runtime Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.PropertyRuntimeTypeImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPropertyRuntimeType()
+   * @generated
+   */
+  int PROPERTY_RUNTIME_TYPE = 23;
+
+  /**
+   * The feature id for the '<em><b>Property</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_RUNTIME_TYPE__PROPERTY = TYPE_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Property Runtime Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_RUNTIME_TYPE_FEATURE_COUNT = TYPE_EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PropertySingleRuntimeTypeImpl <em>Property Single Runtime Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.PropertySingleRuntimeTypeImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPropertySingleRuntimeType()
+   * @generated
+   */
+  int PROPERTY_SINGLE_RUNTIME_TYPE = 24;
+
+  /**
+   * The feature id for the '<em><b>Property Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_SINGLE_RUNTIME_TYPE__PROPERTY_TYPE = TYPE_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Property Single Runtime Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_SINGLE_RUNTIME_TYPE_FEATURE_COUNT = TYPE_EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.DefaultConfigurationsImpl <em>Default Configurations</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.DefaultConfigurationsImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getDefaultConfigurations()
+   * @generated
+   */
+  int DEFAULT_CONFIGURATIONS = 25;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEFAULT_CONFIGURATIONS__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Defaults</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEFAULT_CONFIGURATIONS__DEFAULTS = 1;
+
+  /**
+   * The number of structural features of the '<em>Default Configurations</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEFAULT_CONFIGURATIONS_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.DefaultComponentConfigImpl <em>Default Component Config</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.DefaultComponentConfigImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getDefaultComponentConfig()
+   * @generated
+   */
+  int DEFAULT_COMPONENT_CONFIG = 26;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEFAULT_COMPONENT_CONFIG__TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Input Comp</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEFAULT_COMPONENT_CONFIG__INPUT_COMP = 1;
+
+  /**
+   * The feature id for the '<em><b>Output Comp</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEFAULT_COMPONENT_CONFIG__OUTPUT_COMP = 2;
+
+  /**
+   * The number of structural features of the '<em>Default Component Config</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEFAULT_COMPONENT_CONFIG_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.DefaultComponentImpl <em>Default Component</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.DefaultComponentImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getDefaultComponent()
+   * @generated
+   */
+  int DEFAULT_COMPONENT = 27;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEFAULT_COMPONENT__VALUE = COMPONENT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Default Component</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEFAULT_COMPONENT_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl <em>Server Component</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getServerComponent()
+   * @generated
+   */
+  int SERVER_COMPONENT = 29;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SERVER_COMPONENT__NAME = DomainModelPackage.CONCEPT__NAME;
+
+  /**
+   * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SERVER_COMPONENT__ATTRIBUTES = DomainModelPackage.CONCEPT__ATTRIBUTES;
+
+  /**
+   * The feature id for the '<em><b>Members</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SERVER_COMPONENT__MEMBERS = DomainModelPackage.CONCEPT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SERVER_COMPONENT__EXPRESSIONS = DomainModelPackage.CONCEPT_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Server Component</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SERVER_COMPONENT_FEATURE_COUNT = DomainModelPackage.CONCEPT_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.InlineVariableImpl <em>Inline Variable</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.InlineVariableImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getInlineVariable()
+   * @generated
+   */
+  int INLINE_VARIABLE = 30;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INLINE_VARIABLE__TYPE = VARIABLE__TYPE;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INLINE_VARIABLE__NAME = VARIABLE__NAME;
+
+  /**
+   * The number of structural features of the '<em>Inline Variable</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INLINE_VARIABLE_FEATURE_COUNT = VARIABLE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ExistingNestedComponentsImpl <em>Existing Nested Components</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.ExistingNestedComponentsImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getExistingNestedComponents()
+   * @generated
+   */
+  int EXISTING_NESTED_COMPONENTS = 31;
+
+  /**
+   * The feature id for the '<em><b>Nested Components</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXISTING_NESTED_COMPONENTS__NESTED_COMPONENTS = NESTED_COMPONENT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Existing Nested Components</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXISTING_NESTED_COMPONENTS_FEATURE_COUNT = NESTED_COMPONENT_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.AllAllowedComponentsImpl <em>All Allowed Components</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.AllAllowedComponentsImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getAllAllowedComponents()
+   * @generated
+   */
+  int ALL_ALLOWED_COMPONENTS = 32;
+
+  /**
+   * The number of structural features of the '<em>All Allowed Components</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALL_ALLOWED_COMPONENTS_FEATURE_COUNT = ALLOWED_NESTED_COMPONENTS_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.CustomAllowedComponentsImpl <em>Custom Allowed Components</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.CustomAllowedComponentsImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getCustomAllowedComponents()
+   * @generated
+   */
+  int CUSTOM_ALLOWED_COMPONENTS = 33;
+
+  /**
+   * The feature id for the '<em><b>Components</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_ALLOWED_COMPONENTS__COMPONENTS = ALLOWED_NESTED_COMPONENTS_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Custom Allowed Components</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_ALLOWED_COMPONENTS_FEATURE_COUNT = ALLOWED_NESTED_COMPONENTS_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.TemplateFragmentImpl <em>Template Fragment</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.TemplateFragmentImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getTemplateFragment()
+   * @generated
+   */
+  int TEMPLATE_FRAGMENT = 34;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEMPLATE_FRAGMENT__NAME = UI_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEMPLATE_FRAGMENT__ELEMENTS = UI_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Template Fragment</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEMPLATE_FRAGMENT_FEATURE_COUNT = UI_ELEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.TemplateFragmentOverrideImpl <em>Template Fragment Override</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.TemplateFragmentOverrideImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getTemplateFragmentOverride()
+   * @generated
+   */
+  int TEMPLATE_FRAGMENT_OVERRIDE = 35;
+
+  /**
+   * The feature id for the '<em><b>Overriden Fragment</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEMPLATE_FRAGMENT_OVERRIDE__OVERRIDEN_FRAGMENT = UI_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEMPLATE_FRAGMENT_OVERRIDE__ELEMENTS = UI_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Template Fragment Override</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEMPLATE_FRAGMENT_OVERRIDE_FEATURE_COUNT = UI_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.MemberSelectionExpressionImpl <em>Member Selection Expression</em>}' class.
@@ -438,7 +1363,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getMemberSelectionExpression()
    * @generated
    */
-  int MEMBER_SELECTION_EXPRESSION = 11;
+  int MEMBER_SELECTION_EXPRESSION = 36;
 
   /**
    * The feature id for the '<em><b>Receiver</b></em>' containment reference.
@@ -486,6 +1411,43 @@ public interface UIDSLPackage extends EPackage
   int MEMBER_SELECTION_EXPRESSION_FEATURE_COUNT = DomainModelPackage.EXPRESSION_FEATURE_COUNT + 4;
 
   /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PageCallImpl <em>Page Call</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.PageCallImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPageCall()
+   * @generated
+   */
+  int PAGE_CALL = 37;
+
+  /**
+   * The feature id for the '<em><b>Page</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PAGE_CALL__PAGE = DomainModelPackage.EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Params</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PAGE_CALL__PARAMS = DomainModelPackage.EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Page Call</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PAGE_CALL_FEATURE_COUNT = DomainModelPackage.EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
    * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.VariableReferenceImpl <em>Variable Reference</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -493,7 +1455,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getVariableReference()
    * @generated
    */
-  int VARIABLE_REFERENCE = 12;
+  int VARIABLE_REFERENCE = 38;
 
   /**
    * The feature id for the '<em><b>Ref</b></em>' reference.
@@ -512,6 +1474,232 @@ public interface UIDSLPackage extends EPackage
    * @ordered
    */
   int VARIABLE_REFERENCE_FEATURE_COUNT = DomainModelPackage.EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ObjectGeneralTypeImpl <em>Object General Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.ObjectGeneralTypeImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getObjectGeneralType()
+   * @generated
+   */
+  int OBJECT_GENERAL_TYPE = 39;
+
+  /**
+   * The number of structural features of the '<em>Object General Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_GENERAL_TYPE_FEATURE_COUNT = DomainModelPackage.ATTRIBUTE_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.EnumGeneralTypeImpl <em>Enum General Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.EnumGeneralTypeImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getEnumGeneralType()
+   * @generated
+   */
+  int ENUM_GENERAL_TYPE = 40;
+
+  /**
+   * The number of structural features of the '<em>Enum General Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM_GENERAL_TYPE_FEATURE_COUNT = DomainModelPackage.ATTRIBUTE_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.CollectionGeneralTypeImpl <em>Collection General Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.CollectionGeneralTypeImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getCollectionGeneralType()
+   * @generated
+   */
+  int COLLECTION_GENERAL_TYPE = 41;
+
+  /**
+   * The number of structural features of the '<em>Collection General Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COLLECTION_GENERAL_TYPE_FEATURE_COUNT = DomainModelPackage.ATTRIBUTE_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.AnyTypeImpl <em>Any Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.AnyTypeImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getAnyType()
+   * @generated
+   */
+  int ANY_TYPE = 42;
+
+  /**
+   * The number of structural features of the '<em>Any Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ANY_TYPE_FEATURE_COUNT = DomainModelPackage.ATTRIBUTE_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PageTypeImpl <em>Page Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.PageTypeImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPageType()
+   * @generated
+   */
+  int PAGE_TYPE = 43;
+
+  /**
+   * The number of structural features of the '<em>Page Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PAGE_TYPE_FEATURE_COUNT = DomainModelPackage.ATTRIBUTE_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.VoidTypeImpl <em>Void Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.VoidTypeImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getVoidType()
+   * @generated
+   */
+  int VOID_TYPE = 44;
+
+  /**
+   * The number of structural features of the '<em>Void Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VOID_TYPE_FEATURE_COUNT = DomainModelPackage.ATTRIBUTE_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.AlternativeTypeImpl <em>Alternative Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.AlternativeTypeImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getAlternativeType()
+   * @generated
+   */
+  int ALTERNATIVE_TYPE = 45;
+
+  /**
+   * The feature id for the '<em><b>Types</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALTERNATIVE_TYPE__TYPES = DomainModelPackage.ATTRIBUTE_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Alternative Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALTERNATIVE_TYPE_FEATURE_COUNT = DomainModelPackage.ATTRIBUTE_TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.SimpleTypeImpl <em>Simple Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.SimpleTypeImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getSimpleType()
+   * @generated
+   */
+  int SIMPLE_TYPE = 46;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SIMPLE_TYPE__TYPE = TYPE_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Simple Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SIMPLE_TYPE_FEATURE_COUNT = TYPE_EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.InputUIComponentImpl <em>Input UI Component</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.InputUIComponentImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getInputUIComponent()
+   * @generated
+   */
+  int INPUT_UI_COMPONENT = 47;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INPUT_UI_COMPONENT__VALUE = DEFAULT_COMPONENT__VALUE;
+
+  /**
+   * The number of structural features of the '<em>Input UI Component</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INPUT_UI_COMPONENT_FEATURE_COUNT = DEFAULT_COMPONENT_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.OutputUIComponentImpl <em>Output UI Component</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.OutputUIComponentImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getOutputUIComponent()
+   * @generated
+   */
+  int OUTPUT_UI_COMPONENT = 48;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OUTPUT_UI_COMPONENT__VALUE = DEFAULT_COMPONENT__VALUE;
+
+  /**
+   * The number of structural features of the '<em>Output UI Component</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OUTPUT_UI_COMPONENT_FEATURE_COUNT = DEFAULT_COMPONENT_FEATURE_COUNT + 0;
 
 
   /**
@@ -534,48 +1722,6 @@ public interface UIDSLPackage extends EPackage
    * @generated
    */
   EReference getUIModel_Concepts();
-
-  /**
-   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.UIConcept <em>UI Concept</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>UI Concept</em>'.
-   * @see com.stefanvuckovic.uidsl.uIDSL.UIConcept
-   * @generated
-   */
-  EClass getUIConcept();
-
-  /**
-   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.ServerComponent <em>Server Component</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Server Component</em>'.
-   * @see com.stefanvuckovic.uidsl.uIDSL.ServerComponent
-   * @generated
-   */
-  EClass getServerComponent();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.ServerComponent#getMembers <em>Members</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Members</em>'.
-   * @see com.stefanvuckovic.uidsl.uIDSL.ServerComponent#getMembers()
-   * @see #getServerComponent()
-   * @generated
-   */
-  EReference getServerComponent_Members();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.ServerComponent#getExpressions <em>Expressions</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Expressions</em>'.
-   * @see com.stefanvuckovic.uidsl.uIDSL.ServerComponent#getExpressions()
-   * @see #getServerComponent()
-   * @generated
-   */
-  EReference getServerComponent_Expressions();
 
   /**
    * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.Member <em>Member</em>}'.
@@ -672,6 +1818,28 @@ public interface UIDSLPackage extends EPackage
   EAttribute getUIContainer_Name();
 
   /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.UIContainer#getServerComponents <em>Server Components</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Server Components</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIContainer#getServerComponents()
+   * @see #getUIContainer()
+   * @generated
+   */
+  EReference getUIContainer_ServerComponents();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.UIContainer#getElements <em>Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Elements</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIContainer#getElements()
+   * @see #getUIContainer()
+   * @generated
+   */
+  EReference getUIContainer_Elements();
+
+  /**
    * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.Page <em>Page</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -680,6 +1848,325 @@ public interface UIDSLPackage extends EPackage
    * @generated
    */
   EClass getPage();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.Page#getParams <em>Params</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Params</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.Page#getParams()
+   * @see #getPage()
+   * @generated
+   */
+  EReference getPage_Params();
+
+  /**
+   * Returns the meta object for the reference '{@link com.stefanvuckovic.uidsl.uIDSL.Page#getTemplate <em>Template</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Template</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.Page#getTemplate()
+   * @see #getPage()
+   * @generated
+   */
+  EReference getPage_Template();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.UIElement <em>UI Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>UI Element</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIElement
+   * @generated
+   */
+  EClass getUIElement();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.UIComponent <em>UI Component</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>UI Component</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIComponent
+   * @generated
+   */
+  EClass getUIComponent();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.stefanvuckovic.uidsl.uIDSL.UIComponent#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIComponent#getName()
+   * @see #getUIComponent()
+   * @generated
+   */
+  EAttribute getUIComponent_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.UIComponent#getProperties <em>Properties</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Properties</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIComponent#getProperties()
+   * @see #getUIComponent()
+   * @generated
+   */
+  EReference getUIComponent_Properties();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.UIComponent#getNested <em>Nested</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Nested</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIComponent#getNested()
+   * @see #getUIComponent()
+   * @generated
+   */
+  EReference getUIComponent_Nested();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.NestedComponent <em>Nested Component</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Nested Component</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.NestedComponent
+   * @generated
+   */
+  EClass getNestedComponent();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent <em>Child UI Component</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Child UI Component</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent
+   * @generated
+   */
+  EClass getChildUIComponent();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent#getCardinality <em>Cardinality</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Cardinality</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent#getCardinality()
+   * @see #getChildUIComponent()
+   * @generated
+   */
+  EAttribute getChildUIComponent_Cardinality();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent#getComp <em>Comp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Comp</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent#getComp()
+   * @see #getChildUIComponent()
+   * @generated
+   */
+  EReference getChildUIComponent_Comp();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.AllowedNestedComponents <em>Allowed Nested Components</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Allowed Nested Components</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.AllowedNestedComponents
+   * @generated
+   */
+  EClass getAllowedNestedComponents();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.PropertyValue <em>Property Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Property Value</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertyValue
+   * @generated
+   */
+  EClass getPropertyValue();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.stefanvuckovic.uidsl.uIDSL.PropertyValue#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertyValue#getName()
+   * @see #getPropertyValue()
+   * @generated
+   */
+  EAttribute getPropertyValue_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.stefanvuckovic.uidsl.uIDSL.PropertyValue#isRequired <em>Required</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Required</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertyValue#isRequired()
+   * @see #getPropertyValue()
+   * @generated
+   */
+  EAttribute getPropertyValue_Required();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.stefanvuckovic.uidsl.uIDSL.PropertyValue#isValueProperty <em>Value Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value Property</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertyValue#isValueProperty()
+   * @see #getPropertyValue()
+   * @generated
+   */
+  EAttribute getPropertyValue_ValueProperty();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.PropertyValue#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertyValue#getType()
+   * @see #getPropertyValue()
+   * @generated
+   */
+  EReference getPropertyValue_Type();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance <em>UI Component Instance</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>UI Component Instance</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance
+   * @generated
+   */
+  EClass getUIComponentInstance();
+
+  /**
+   * Returns the meta object for the reference '{@link com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance#getComponent <em>Component</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Component</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance#getComponent()
+   * @see #getUIComponentInstance()
+   * @generated
+   */
+  EReference getUIComponentInstance_Component();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance#getProperties <em>Properties</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Properties</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance#getProperties()
+   * @see #getUIComponentInstance()
+   * @generated
+   */
+  EReference getUIComponentInstance_Properties();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance#getChildElements <em>Child Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Child Elements</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance#getChildElements()
+   * @see #getUIComponentInstance()
+   * @generated
+   */
+  EReference getUIComponentInstance_ChildElements();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.LogicElement <em>Logic Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Logic Element</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.LogicElement
+   * @generated
+   */
+  EClass getLogicElement();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.LogicElement#getElements <em>Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Elements</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.LogicElement#getElements()
+   * @see #getLogicElement()
+   * @generated
+   */
+  EReference getLogicElement_Elements();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.IFStatement <em>IF Statement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>IF Statement</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.IFStatement
+   * @generated
+   */
+  EClass getIFStatement();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.IFStatement#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.IFStatement#getExpression()
+   * @see #getIFStatement()
+   * @generated
+   */
+  EReference getIFStatement_Expression();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.Iterator <em>Iterator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Iterator</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.Iterator
+   * @generated
+   */
+  EClass getIterator();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.Iterator#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.Iterator#getExpression()
+   * @see #getIterator()
+   * @generated
+   */
+  EReference getIterator_Expression();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance <em>Property Value Instance</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Property Value Instance</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance
+   * @generated
+   */
+  EClass getPropertyValueInstance();
+
+  /**
+   * Returns the meta object for the reference '{@link com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance#getProperty <em>Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Property</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance#getProperty()
+   * @see #getPropertyValueInstance()
+   * @generated
+   */
+  EReference getPropertyValueInstance_Property();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Value</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance#getValue()
+   * @see #getPropertyValueInstance()
+   * @generated
+   */
+  EReference getPropertyValueInstance_Value();
 
   /**
    * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.Template <em>Template</em>}'.
@@ -700,6 +2187,397 @@ public interface UIDSLPackage extends EPackage
    * @generated
    */
   EClass getFragment();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.Fragment#getParams <em>Params</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Params</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.Fragment#getParams()
+   * @see #getFragment()
+   * @generated
+   */
+  EReference getFragment_Params();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.IterationExpression <em>Iteration Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Iteration Expression</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.IterationExpression
+   * @generated
+   */
+  EClass getIterationExpression();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.IterationExpression#getVar <em>Var</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Var</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.IterationExpression#getVar()
+   * @see #getIterationExpression()
+   * @generated
+   */
+  EReference getIterationExpression_Var();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.IterationExpression#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.IterationExpression#getExpression()
+   * @see #getIterationExpression()
+   * @generated
+   */
+  EReference getIterationExpression_Expression();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.FragmentCall <em>Fragment Call</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Fragment Call</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.FragmentCall
+   * @generated
+   */
+  EClass getFragmentCall();
+
+  /**
+   * Returns the meta object for the reference '{@link com.stefanvuckovic.uidsl.uIDSL.FragmentCall#getFrag <em>Frag</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Frag</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.FragmentCall#getFrag()
+   * @see #getFragmentCall()
+   * @generated
+   */
+  EReference getFragmentCall_Frag();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.FragmentCall#getParams <em>Params</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Params</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.FragmentCall#getParams()
+   * @see #getFragmentCall()
+   * @generated
+   */
+  EReference getFragmentCall_Params();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.TypeExpression <em>Type Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Expression</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.TypeExpression
+   * @generated
+   */
+  EClass getTypeExpression();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.PropertyRuntimeType <em>Property Runtime Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Property Runtime Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertyRuntimeType
+   * @generated
+   */
+  EClass getPropertyRuntimeType();
+
+  /**
+   * Returns the meta object for the reference '{@link com.stefanvuckovic.uidsl.uIDSL.PropertyRuntimeType#getProperty <em>Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Property</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertyRuntimeType#getProperty()
+   * @see #getPropertyRuntimeType()
+   * @generated
+   */
+  EReference getPropertyRuntimeType_Property();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.PropertySingleRuntimeType <em>Property Single Runtime Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Property Single Runtime Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertySingleRuntimeType
+   * @generated
+   */
+  EClass getPropertySingleRuntimeType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.PropertySingleRuntimeType#getPropertyType <em>Property Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Property Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PropertySingleRuntimeType#getPropertyType()
+   * @see #getPropertySingleRuntimeType()
+   * @generated
+   */
+  EReference getPropertySingleRuntimeType_PropertyType();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations <em>Default Configurations</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Default Configurations</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations
+   * @generated
+   */
+  EClass getDefaultConfigurations();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations#getName()
+   * @see #getDefaultConfigurations()
+   * @generated
+   */
+  EAttribute getDefaultConfigurations_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations#getDefaults <em>Defaults</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Defaults</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations#getDefaults()
+   * @see #getDefaultConfigurations()
+   * @generated
+   */
+  EReference getDefaultConfigurations_Defaults();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig <em>Default Component Config</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Default Component Config</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig
+   * @generated
+   */
+  EClass getDefaultComponentConfig();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig#getType()
+   * @see #getDefaultComponentConfig()
+   * @generated
+   */
+  EReference getDefaultComponentConfig_Type();
+
+  /**
+   * Returns the meta object for the reference '{@link com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig#getInputComp <em>Input Comp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Input Comp</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig#getInputComp()
+   * @see #getDefaultComponentConfig()
+   * @generated
+   */
+  EReference getDefaultComponentConfig_InputComp();
+
+  /**
+   * Returns the meta object for the reference '{@link com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig#getOutputComp <em>Output Comp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Output Comp</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig#getOutputComp()
+   * @see #getDefaultComponentConfig()
+   * @generated
+   */
+  EReference getDefaultComponentConfig_OutputComp();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.DefaultComponent <em>Default Component</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Default Component</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.DefaultComponent
+   * @generated
+   */
+  EClass getDefaultComponent();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.DefaultComponent#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Value</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.DefaultComponent#getValue()
+   * @see #getDefaultComponent()
+   * @generated
+   */
+  EReference getDefaultComponent_Value();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.Component <em>Component</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Component</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.Component
+   * @generated
+   */
+  EClass getComponent();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.ServerComponent <em>Server Component</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Server Component</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.ServerComponent
+   * @generated
+   */
+  EClass getServerComponent();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.ServerComponent#getMembers <em>Members</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Members</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.ServerComponent#getMembers()
+   * @see #getServerComponent()
+   * @generated
+   */
+  EReference getServerComponent_Members();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.ServerComponent#getExpressions <em>Expressions</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Expressions</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.ServerComponent#getExpressions()
+   * @see #getServerComponent()
+   * @generated
+   */
+  EReference getServerComponent_Expressions();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.InlineVariable <em>Inline Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Inline Variable</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.InlineVariable
+   * @generated
+   */
+  EClass getInlineVariable();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents <em>Existing Nested Components</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Existing Nested Components</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents
+   * @generated
+   */
+  EClass getExistingNestedComponents();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents#getNestedComponents <em>Nested Components</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Nested Components</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents#getNestedComponents()
+   * @see #getExistingNestedComponents()
+   * @generated
+   */
+  EReference getExistingNestedComponents_NestedComponents();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.AllAllowedComponents <em>All Allowed Components</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>All Allowed Components</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.AllAllowedComponents
+   * @generated
+   */
+  EClass getAllAllowedComponents();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.CustomAllowedComponents <em>Custom Allowed Components</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Custom Allowed Components</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CustomAllowedComponents
+   * @generated
+   */
+  EClass getCustomAllowedComponents();
+
+  /**
+   * Returns the meta object for the reference list '{@link com.stefanvuckovic.uidsl.uIDSL.CustomAllowedComponents#getComponents <em>Components</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Components</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CustomAllowedComponents#getComponents()
+   * @see #getCustomAllowedComponents()
+   * @generated
+   */
+  EReference getCustomAllowedComponents_Components();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.TemplateFragment <em>Template Fragment</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Template Fragment</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.TemplateFragment
+   * @generated
+   */
+  EClass getTemplateFragment();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.stefanvuckovic.uidsl.uIDSL.TemplateFragment#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.TemplateFragment#getName()
+   * @see #getTemplateFragment()
+   * @generated
+   */
+  EAttribute getTemplateFragment_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.TemplateFragment#getElements <em>Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Elements</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.TemplateFragment#getElements()
+   * @see #getTemplateFragment()
+   * @generated
+   */
+  EReference getTemplateFragment_Elements();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride <em>Template Fragment Override</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Template Fragment Override</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride
+   * @generated
+   */
+  EClass getTemplateFragmentOverride();
+
+  /**
+   * Returns the meta object for the reference '{@link com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride#getOverridenFragment <em>Overriden Fragment</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Overriden Fragment</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride#getOverridenFragment()
+   * @see #getTemplateFragmentOverride()
+   * @generated
+   */
+  EReference getTemplateFragmentOverride_OverridenFragment();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride#getElements <em>Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Elements</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride#getElements()
+   * @see #getTemplateFragmentOverride()
+   * @generated
+   */
+  EReference getTemplateFragmentOverride_Elements();
 
   /**
    * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression <em>Member Selection Expression</em>}'.
@@ -756,6 +2634,38 @@ public interface UIDSLPackage extends EPackage
   EReference getMemberSelectionExpression_Params();
 
   /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.PageCall <em>Page Call</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Page Call</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PageCall
+   * @generated
+   */
+  EClass getPageCall();
+
+  /**
+   * Returns the meta object for the reference '{@link com.stefanvuckovic.uidsl.uIDSL.PageCall#getPage <em>Page</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Page</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PageCall#getPage()
+   * @see #getPageCall()
+   * @generated
+   */
+  EReference getPageCall_Page();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.PageCall#getParams <em>Params</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Params</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PageCall#getParams()
+   * @see #getPageCall()
+   * @generated
+   */
+  EReference getPageCall_Params();
+
+  /**
    * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.VariableReference <em>Variable Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -775,6 +2685,128 @@ public interface UIDSLPackage extends EPackage
    * @generated
    */
   EReference getVariableReference_Ref();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.ObjectGeneralType <em>Object General Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Object General Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.ObjectGeneralType
+   * @generated
+   */
+  EClass getObjectGeneralType();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.EnumGeneralType <em>Enum General Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Enum General Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.EnumGeneralType
+   * @generated
+   */
+  EClass getEnumGeneralType();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType <em>Collection General Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Collection General Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType
+   * @generated
+   */
+  EClass getCollectionGeneralType();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.AnyType <em>Any Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Any Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.AnyType
+   * @generated
+   */
+  EClass getAnyType();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.PageType <em>Page Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Page Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.PageType
+   * @generated
+   */
+  EClass getPageType();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.VoidType <em>Void Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Void Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.VoidType
+   * @generated
+   */
+  EClass getVoidType();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.AlternativeType <em>Alternative Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Alternative Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.AlternativeType
+   * @generated
+   */
+  EClass getAlternativeType();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.AlternativeType#getTypes <em>Types</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Types</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.AlternativeType#getTypes()
+   * @see #getAlternativeType()
+   * @generated
+   */
+  EReference getAlternativeType_Types();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.SimpleType <em>Simple Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Simple Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.SimpleType
+   * @generated
+   */
+  EClass getSimpleType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.SimpleType#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.SimpleType#getType()
+   * @see #getSimpleType()
+   * @generated
+   */
+  EReference getSimpleType_Type();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.InputUIComponent <em>Input UI Component</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Input UI Component</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.InputUIComponent
+   * @generated
+   */
+  EClass getInputUIComponent();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.OutputUIComponent <em>Output UI Component</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Output UI Component</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.OutputUIComponent
+   * @generated
+   */
+  EClass getOutputUIComponent();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -816,42 +2848,6 @@ public interface UIDSLPackage extends EPackage
      * @generated
      */
     EReference UI_MODEL__CONCEPTS = eINSTANCE.getUIModel_Concepts();
-
-    /**
-     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.UIConceptImpl <em>UI Concept</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIConceptImpl
-     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getUIConcept()
-     * @generated
-     */
-    EClass UI_CONCEPT = eINSTANCE.getUIConcept();
-
-    /**
-     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl <em>Server Component</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl
-     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getServerComponent()
-     * @generated
-     */
-    EClass SERVER_COMPONENT = eINSTANCE.getServerComponent();
-
-    /**
-     * The meta object literal for the '<em><b>Members</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference SERVER_COMPONENT__MEMBERS = eINSTANCE.getServerComponent_Members();
-
-    /**
-     * The meta object literal for the '<em><b>Expressions</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference SERVER_COMPONENT__EXPRESSIONS = eINSTANCE.getServerComponent_Expressions();
 
     /**
      * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.MemberImpl <em>Member</em>}' class.
@@ -936,6 +2932,22 @@ public interface UIDSLPackage extends EPackage
     EAttribute UI_CONTAINER__NAME = eINSTANCE.getUIContainer_Name();
 
     /**
+     * The meta object literal for the '<em><b>Server Components</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UI_CONTAINER__SERVER_COMPONENTS = eINSTANCE.getUIContainer_ServerComponents();
+
+    /**
+     * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UI_CONTAINER__ELEMENTS = eINSTANCE.getUIContainer_Elements();
+
+    /**
      * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PageImpl <em>Page</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -944,6 +2956,268 @@ public interface UIDSLPackage extends EPackage
      * @generated
      */
     EClass PAGE = eINSTANCE.getPage();
+
+    /**
+     * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PAGE__PARAMS = eINSTANCE.getPage_Params();
+
+    /**
+     * The meta object literal for the '<em><b>Template</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PAGE__TEMPLATE = eINSTANCE.getPage_Template();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.UIElementImpl <em>UI Element</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIElementImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getUIElement()
+     * @generated
+     */
+    EClass UI_ELEMENT = eINSTANCE.getUIElement();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.UIComponentImpl <em>UI Component</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIComponentImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getUIComponent()
+     * @generated
+     */
+    EClass UI_COMPONENT = eINSTANCE.getUIComponent();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UI_COMPONENT__NAME = eINSTANCE.getUIComponent_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UI_COMPONENT__PROPERTIES = eINSTANCE.getUIComponent_Properties();
+
+    /**
+     * The meta object literal for the '<em><b>Nested</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UI_COMPONENT__NESTED = eINSTANCE.getUIComponent_Nested();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.NestedComponentImpl <em>Nested Component</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.NestedComponentImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getNestedComponent()
+     * @generated
+     */
+    EClass NESTED_COMPONENT = eINSTANCE.getNestedComponent();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ChildUIComponentImpl <em>Child UI Component</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.ChildUIComponentImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getChildUIComponent()
+     * @generated
+     */
+    EClass CHILD_UI_COMPONENT = eINSTANCE.getChildUIComponent();
+
+    /**
+     * The meta object literal for the '<em><b>Cardinality</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CHILD_UI_COMPONENT__CARDINALITY = eINSTANCE.getChildUIComponent_Cardinality();
+
+    /**
+     * The meta object literal for the '<em><b>Comp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CHILD_UI_COMPONENT__COMP = eINSTANCE.getChildUIComponent_Comp();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.AllowedNestedComponentsImpl <em>Allowed Nested Components</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.AllowedNestedComponentsImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getAllowedNestedComponents()
+     * @generated
+     */
+    EClass ALLOWED_NESTED_COMPONENTS = eINSTANCE.getAllowedNestedComponents();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PropertyValueImpl <em>Property Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.PropertyValueImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPropertyValue()
+     * @generated
+     */
+    EClass PROPERTY_VALUE = eINSTANCE.getPropertyValue();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PROPERTY_VALUE__NAME = eINSTANCE.getPropertyValue_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Required</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PROPERTY_VALUE__REQUIRED = eINSTANCE.getPropertyValue_Required();
+
+    /**
+     * The meta object literal for the '<em><b>Value Property</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PROPERTY_VALUE__VALUE_PROPERTY = eINSTANCE.getPropertyValue_ValueProperty();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROPERTY_VALUE__TYPE = eINSTANCE.getPropertyValue_Type();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.UIComponentInstanceImpl <em>UI Component Instance</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIComponentInstanceImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getUIComponentInstance()
+     * @generated
+     */
+    EClass UI_COMPONENT_INSTANCE = eINSTANCE.getUIComponentInstance();
+
+    /**
+     * The meta object literal for the '<em><b>Component</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UI_COMPONENT_INSTANCE__COMPONENT = eINSTANCE.getUIComponentInstance_Component();
+
+    /**
+     * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UI_COMPONENT_INSTANCE__PROPERTIES = eINSTANCE.getUIComponentInstance_Properties();
+
+    /**
+     * The meta object literal for the '<em><b>Child Elements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UI_COMPONENT_INSTANCE__CHILD_ELEMENTS = eINSTANCE.getUIComponentInstance_ChildElements();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.LogicElementImpl <em>Logic Element</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.LogicElementImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getLogicElement()
+     * @generated
+     */
+    EClass LOGIC_ELEMENT = eINSTANCE.getLogicElement();
+
+    /**
+     * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference LOGIC_ELEMENT__ELEMENTS = eINSTANCE.getLogicElement_Elements();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.IFStatementImpl <em>IF Statement</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.IFStatementImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getIFStatement()
+     * @generated
+     */
+    EClass IF_STATEMENT = eINSTANCE.getIFStatement();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference IF_STATEMENT__EXPRESSION = eINSTANCE.getIFStatement_Expression();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.IteratorImpl <em>Iterator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.IteratorImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getIterator()
+     * @generated
+     */
+    EClass ITERATOR = eINSTANCE.getIterator();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ITERATOR__EXPRESSION = eINSTANCE.getIterator_Expression();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PropertyValueInstanceImpl <em>Property Value Instance</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.PropertyValueInstanceImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPropertyValueInstance()
+     * @generated
+     */
+    EClass PROPERTY_VALUE_INSTANCE = eINSTANCE.getPropertyValueInstance();
+
+    /**
+     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROPERTY_VALUE_INSTANCE__PROPERTY = eINSTANCE.getPropertyValueInstance_Property();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROPERTY_VALUE_INSTANCE__VALUE = eINSTANCE.getPropertyValueInstance_Value();
 
     /**
      * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.TemplateImpl <em>Template</em>}' class.
@@ -964,6 +3238,334 @@ public interface UIDSLPackage extends EPackage
      * @generated
      */
     EClass FRAGMENT = eINSTANCE.getFragment();
+
+    /**
+     * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FRAGMENT__PARAMS = eINSTANCE.getFragment_Params();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.IterationExpressionImpl <em>Iteration Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.IterationExpressionImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getIterationExpression()
+     * @generated
+     */
+    EClass ITERATION_EXPRESSION = eINSTANCE.getIterationExpression();
+
+    /**
+     * The meta object literal for the '<em><b>Var</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ITERATION_EXPRESSION__VAR = eINSTANCE.getIterationExpression_Var();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ITERATION_EXPRESSION__EXPRESSION = eINSTANCE.getIterationExpression_Expression();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.FragmentCallImpl <em>Fragment Call</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.FragmentCallImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getFragmentCall()
+     * @generated
+     */
+    EClass FRAGMENT_CALL = eINSTANCE.getFragmentCall();
+
+    /**
+     * The meta object literal for the '<em><b>Frag</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FRAGMENT_CALL__FRAG = eINSTANCE.getFragmentCall_Frag();
+
+    /**
+     * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FRAGMENT_CALL__PARAMS = eINSTANCE.getFragmentCall_Params();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.TypeExpressionImpl <em>Type Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.TypeExpressionImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getTypeExpression()
+     * @generated
+     */
+    EClass TYPE_EXPRESSION = eINSTANCE.getTypeExpression();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PropertyRuntimeTypeImpl <em>Property Runtime Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.PropertyRuntimeTypeImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPropertyRuntimeType()
+     * @generated
+     */
+    EClass PROPERTY_RUNTIME_TYPE = eINSTANCE.getPropertyRuntimeType();
+
+    /**
+     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROPERTY_RUNTIME_TYPE__PROPERTY = eINSTANCE.getPropertyRuntimeType_Property();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PropertySingleRuntimeTypeImpl <em>Property Single Runtime Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.PropertySingleRuntimeTypeImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPropertySingleRuntimeType()
+     * @generated
+     */
+    EClass PROPERTY_SINGLE_RUNTIME_TYPE = eINSTANCE.getPropertySingleRuntimeType();
+
+    /**
+     * The meta object literal for the '<em><b>Property Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROPERTY_SINGLE_RUNTIME_TYPE__PROPERTY_TYPE = eINSTANCE.getPropertySingleRuntimeType_PropertyType();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.DefaultConfigurationsImpl <em>Default Configurations</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.DefaultConfigurationsImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getDefaultConfigurations()
+     * @generated
+     */
+    EClass DEFAULT_CONFIGURATIONS = eINSTANCE.getDefaultConfigurations();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DEFAULT_CONFIGURATIONS__NAME = eINSTANCE.getDefaultConfigurations_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Defaults</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DEFAULT_CONFIGURATIONS__DEFAULTS = eINSTANCE.getDefaultConfigurations_Defaults();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.DefaultComponentConfigImpl <em>Default Component Config</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.DefaultComponentConfigImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getDefaultComponentConfig()
+     * @generated
+     */
+    EClass DEFAULT_COMPONENT_CONFIG = eINSTANCE.getDefaultComponentConfig();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DEFAULT_COMPONENT_CONFIG__TYPE = eINSTANCE.getDefaultComponentConfig_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Input Comp</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DEFAULT_COMPONENT_CONFIG__INPUT_COMP = eINSTANCE.getDefaultComponentConfig_InputComp();
+
+    /**
+     * The meta object literal for the '<em><b>Output Comp</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DEFAULT_COMPONENT_CONFIG__OUTPUT_COMP = eINSTANCE.getDefaultComponentConfig_OutputComp();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.DefaultComponentImpl <em>Default Component</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.DefaultComponentImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getDefaultComponent()
+     * @generated
+     */
+    EClass DEFAULT_COMPONENT = eINSTANCE.getDefaultComponent();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DEFAULT_COMPONENT__VALUE = eINSTANCE.getDefaultComponent_Value();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ComponentImpl <em>Component</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.ComponentImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getComponent()
+     * @generated
+     */
+    EClass COMPONENT = eINSTANCE.getComponent();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl <em>Server Component</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getServerComponent()
+     * @generated
+     */
+    EClass SERVER_COMPONENT = eINSTANCE.getServerComponent();
+
+    /**
+     * The meta object literal for the '<em><b>Members</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SERVER_COMPONENT__MEMBERS = eINSTANCE.getServerComponent_Members();
+
+    /**
+     * The meta object literal for the '<em><b>Expressions</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SERVER_COMPONENT__EXPRESSIONS = eINSTANCE.getServerComponent_Expressions();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.InlineVariableImpl <em>Inline Variable</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.InlineVariableImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getInlineVariable()
+     * @generated
+     */
+    EClass INLINE_VARIABLE = eINSTANCE.getInlineVariable();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ExistingNestedComponentsImpl <em>Existing Nested Components</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.ExistingNestedComponentsImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getExistingNestedComponents()
+     * @generated
+     */
+    EClass EXISTING_NESTED_COMPONENTS = eINSTANCE.getExistingNestedComponents();
+
+    /**
+     * The meta object literal for the '<em><b>Nested Components</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EXISTING_NESTED_COMPONENTS__NESTED_COMPONENTS = eINSTANCE.getExistingNestedComponents_NestedComponents();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.AllAllowedComponentsImpl <em>All Allowed Components</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.AllAllowedComponentsImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getAllAllowedComponents()
+     * @generated
+     */
+    EClass ALL_ALLOWED_COMPONENTS = eINSTANCE.getAllAllowedComponents();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.CustomAllowedComponentsImpl <em>Custom Allowed Components</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.CustomAllowedComponentsImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getCustomAllowedComponents()
+     * @generated
+     */
+    EClass CUSTOM_ALLOWED_COMPONENTS = eINSTANCE.getCustomAllowedComponents();
+
+    /**
+     * The meta object literal for the '<em><b>Components</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CUSTOM_ALLOWED_COMPONENTS__COMPONENTS = eINSTANCE.getCustomAllowedComponents_Components();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.TemplateFragmentImpl <em>Template Fragment</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.TemplateFragmentImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getTemplateFragment()
+     * @generated
+     */
+    EClass TEMPLATE_FRAGMENT = eINSTANCE.getTemplateFragment();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TEMPLATE_FRAGMENT__NAME = eINSTANCE.getTemplateFragment_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TEMPLATE_FRAGMENT__ELEMENTS = eINSTANCE.getTemplateFragment_Elements();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.TemplateFragmentOverrideImpl <em>Template Fragment Override</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.TemplateFragmentOverrideImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getTemplateFragmentOverride()
+     * @generated
+     */
+    EClass TEMPLATE_FRAGMENT_OVERRIDE = eINSTANCE.getTemplateFragmentOverride();
+
+    /**
+     * The meta object literal for the '<em><b>Overriden Fragment</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TEMPLATE_FRAGMENT_OVERRIDE__OVERRIDEN_FRAGMENT = eINSTANCE.getTemplateFragmentOverride_OverridenFragment();
+
+    /**
+     * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TEMPLATE_FRAGMENT_OVERRIDE__ELEMENTS = eINSTANCE.getTemplateFragmentOverride_Elements();
 
     /**
      * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.MemberSelectionExpressionImpl <em>Member Selection Expression</em>}' class.
@@ -1008,6 +3610,32 @@ public interface UIDSLPackage extends EPackage
     EReference MEMBER_SELECTION_EXPRESSION__PARAMS = eINSTANCE.getMemberSelectionExpression_Params();
 
     /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PageCallImpl <em>Page Call</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.PageCallImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPageCall()
+     * @generated
+     */
+    EClass PAGE_CALL = eINSTANCE.getPageCall();
+
+    /**
+     * The meta object literal for the '<em><b>Page</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PAGE_CALL__PAGE = eINSTANCE.getPageCall_Page();
+
+    /**
+     * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PAGE_CALL__PARAMS = eINSTANCE.getPageCall_Params();
+
+    /**
      * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.VariableReferenceImpl <em>Variable Reference</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1024,6 +3652,122 @@ public interface UIDSLPackage extends EPackage
      * @generated
      */
     EReference VARIABLE_REFERENCE__REF = eINSTANCE.getVariableReference_Ref();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ObjectGeneralTypeImpl <em>Object General Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.ObjectGeneralTypeImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getObjectGeneralType()
+     * @generated
+     */
+    EClass OBJECT_GENERAL_TYPE = eINSTANCE.getObjectGeneralType();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.EnumGeneralTypeImpl <em>Enum General Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.EnumGeneralTypeImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getEnumGeneralType()
+     * @generated
+     */
+    EClass ENUM_GENERAL_TYPE = eINSTANCE.getEnumGeneralType();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.CollectionGeneralTypeImpl <em>Collection General Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.CollectionGeneralTypeImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getCollectionGeneralType()
+     * @generated
+     */
+    EClass COLLECTION_GENERAL_TYPE = eINSTANCE.getCollectionGeneralType();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.AnyTypeImpl <em>Any Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.AnyTypeImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getAnyType()
+     * @generated
+     */
+    EClass ANY_TYPE = eINSTANCE.getAnyType();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.PageTypeImpl <em>Page Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.PageTypeImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPageType()
+     * @generated
+     */
+    EClass PAGE_TYPE = eINSTANCE.getPageType();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.VoidTypeImpl <em>Void Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.VoidTypeImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getVoidType()
+     * @generated
+     */
+    EClass VOID_TYPE = eINSTANCE.getVoidType();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.AlternativeTypeImpl <em>Alternative Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.AlternativeTypeImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getAlternativeType()
+     * @generated
+     */
+    EClass ALTERNATIVE_TYPE = eINSTANCE.getAlternativeType();
+
+    /**
+     * The meta object literal for the '<em><b>Types</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ALTERNATIVE_TYPE__TYPES = eINSTANCE.getAlternativeType_Types();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.SimpleTypeImpl <em>Simple Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.SimpleTypeImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getSimpleType()
+     * @generated
+     */
+    EClass SIMPLE_TYPE = eINSTANCE.getSimpleType();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SIMPLE_TYPE__TYPE = eINSTANCE.getSimpleType_Type();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.InputUIComponentImpl <em>Input UI Component</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.InputUIComponentImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getInputUIComponent()
+     * @generated
+     */
+    EClass INPUT_UI_COMPONENT = eINSTANCE.getInputUIComponent();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.OutputUIComponentImpl <em>Output UI Component</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.OutputUIComponentImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getOutputUIComponent()
+     * @generated
+     */
+    EClass OUTPUT_UI_COMPONENT = eINSTANCE.getOutputUIComponent();
 
   }
 

@@ -9,11 +9,6 @@
     <genClasses ecoreClass="UIDSL.ecore#//UIModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//UIModel/concepts"/>
     </genClasses>
-    <genClasses ecoreClass="UIDSL.ecore#//UIConcept"/>
-    <genClasses ecoreClass="UIDSL.ecore#//ServerComponent">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//ServerComponent/members"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//ServerComponent/expressions"/>
-    </genClasses>
     <genClasses ecoreClass="UIDSL.ecore#//Member"/>
     <genClasses ecoreClass="UIDSL.ecore#//Field"/>
     <genClasses ecoreClass="UIDSL.ecore#//Method">
@@ -25,18 +20,127 @@
     </genClasses>
     <genClasses ecoreClass="UIDSL.ecore#//UIContainer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UIDSL.ecore#//UIContainer/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//UIContainer/serverComponents"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//UIContainer/elements"/>
     </genClasses>
-    <genClasses ecoreClass="UIDSL.ecore#//Page"/>
+    <genClasses ecoreClass="UIDSL.ecore#//Page">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//Page/params"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UIDSL.ecore#//Page/template"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//UIElement"/>
+    <genClasses ecoreClass="UIDSL.ecore#//UIComponent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UIDSL.ecore#//UIComponent/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//UIComponent/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//UIComponent/nested"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//NestedComponent"/>
+    <genClasses ecoreClass="UIDSL.ecore#//ChildUIComponent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UIDSL.ecore#//ChildUIComponent/cardinality"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//ChildUIComponent/comp"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//AllowedNestedComponents"/>
+    <genClasses ecoreClass="UIDSL.ecore#//PropertyValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UIDSL.ecore#//PropertyValue/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UIDSL.ecore#//PropertyValue/required"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UIDSL.ecore#//PropertyValue/valueProperty"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//PropertyValue/type"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//UIComponentInstance">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UIDSL.ecore#//UIComponentInstance/component"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//UIComponentInstance/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//UIComponentInstance/childElements"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//LogicElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//LogicElement/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//IFStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//IFStatement/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//Iterator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//Iterator/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//PropertyValueInstance">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UIDSL.ecore#//PropertyValueInstance/property"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//PropertyValueInstance/value"/>
+    </genClasses>
     <genClasses ecoreClass="UIDSL.ecore#//Template"/>
-    <genClasses ecoreClass="UIDSL.ecore#//Fragment"/>
+    <genClasses ecoreClass="UIDSL.ecore#//Fragment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//Fragment/params"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//IterationExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//IterationExpression/var"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//IterationExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//FragmentCall">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UIDSL.ecore#//FragmentCall/frag"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//FragmentCall/params"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//TypeExpression"/>
+    <genClasses ecoreClass="UIDSL.ecore#//PropertyRuntimeType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UIDSL.ecore#//PropertyRuntimeType/property"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//PropertySingleRuntimeType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//PropertySingleRuntimeType/propertyType"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//DefaultConfigurations">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UIDSL.ecore#//DefaultConfigurations/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//DefaultConfigurations/defaults"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//DefaultComponentConfig">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//DefaultComponentConfig/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UIDSL.ecore#//DefaultComponentConfig/inputComp"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UIDSL.ecore#//DefaultComponentConfig/outputComp"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//DefaultComponent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//DefaultComponent/value"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//Component"/>
+    <genClasses ecoreClass="UIDSL.ecore#//ServerComponent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//ServerComponent/members"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//ServerComponent/expressions"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//InlineVariable"/>
+    <genClasses ecoreClass="UIDSL.ecore#//ExistingNestedComponents">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//ExistingNestedComponents/nestedComponents"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//AllAllowedComponents"/>
+    <genClasses ecoreClass="UIDSL.ecore#//CustomAllowedComponents">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UIDSL.ecore#//CustomAllowedComponents/components"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//TemplateFragment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UIDSL.ecore#//TemplateFragment/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//TemplateFragment/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//TemplateFragmentOverride">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UIDSL.ecore#//TemplateFragmentOverride/overridenFragment"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//TemplateFragmentOverride/elements"/>
+    </genClasses>
     <genClasses ecoreClass="UIDSL.ecore#//MemberSelectionExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//MemberSelectionExpression/receiver"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UIDSL.ecore#//MemberSelectionExpression/member"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UIDSL.ecore#//MemberSelectionExpression/isMethod"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//MemberSelectionExpression/params"/>
     </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//PageCall">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UIDSL.ecore#//PageCall/page"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//PageCall/params"/>
+    </genClasses>
     <genClasses ecoreClass="UIDSL.ecore#//VariableReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UIDSL.ecore#//VariableReference/ref"/>
     </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//ObjectGeneralType"/>
+    <genClasses ecoreClass="UIDSL.ecore#//EnumGeneralType"/>
+    <genClasses ecoreClass="UIDSL.ecore#//CollectionGeneralType"/>
+    <genClasses ecoreClass="UIDSL.ecore#//AnyType"/>
+    <genClasses ecoreClass="UIDSL.ecore#//PageType"/>
+    <genClasses ecoreClass="UIDSL.ecore#//VoidType"/>
+    <genClasses ecoreClass="UIDSL.ecore#//AlternativeType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//AlternativeType/types"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//SimpleType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//SimpleType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//InputUIComponent"/>
+    <genClasses ecoreClass="UIDSL.ecore#//OutputUIComponent"/>
   </genPackages>
 </genmodel:GenModel>

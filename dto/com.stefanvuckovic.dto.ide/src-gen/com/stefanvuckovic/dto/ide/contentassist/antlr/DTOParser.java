@@ -45,10 +45,10 @@ public class DTOParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAttributeTypeAccess().getAlternatives(), "rule__AttributeType__Alternatives");
 					put(grammarAccess.getSingleTypeAccess().getAlternatives(), "rule__SingleType__Alternatives");
 					put(grammarAccess.getDomainModelBasicTypeAccess().getAlternatives(), "superBasicType__Alternatives");
-					put(grammarAccess.getAttributeOptionAccess().getAlternatives(), "rule__AttributeOption__Alternatives");
 					put(grammarAccess.getCardinalityTypeAccess().getAlternatives(), "rule__CardinalityType__Alternatives");
 					put(grammarAccess.getDTOClassAccess().getGroup(), "rule__DTOClass__Group__0");
 					put(grammarAccess.getDTOClassAccess().getGroup_2(), "rule__DTOClass__Group_2__0");
+					put(grammarAccess.getAttributeOptionAccess().getGroup(), "rule__AttributeOption__Group__0");
 					put(grammarAccess.getBasicTypeAccess().getGroup_1(), "rule__BasicType__Group_1__0");
 					put(grammarAccess.getBasicTypeAccess().getGroup_2(), "rule__BasicType__Group_2__0");
 					put(grammarAccess.getBasicTypeAccess().getGroup_3(), "rule__BasicType__Group_3__0");
@@ -80,10 +80,6 @@ public class DTOParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDomainModelBasicTypeAccess().getGroup_3(), "superBasicType__Group_3__0");
 					put(grammarAccess.getDomainModelBasicTypeAccess().getGroup_4(), "superBasicType__Group_4__0");
 					put(grammarAccess.getCollectionTypeAccess().getGroup(), "rule__CollectionType__Group__0");
-					put(grammarAccess.getAttributeOptionAccess().getGroup_0(), "rule__AttributeOption__Group_0__0");
-					put(grammarAccess.getAttributeOptionAccess().getGroup_1(), "rule__AttributeOption__Group_1__0");
-					put(grammarAccess.getAttributeOptionAccess().getGroup_2(), "rule__AttributeOption__Group_2__0");
-					put(grammarAccess.getAttributeOptionAccess().getGroup_3(), "rule__AttributeOption__Group_3__0");
 					put(grammarAccess.getStaticFieldSelectionAccess().getGroup(), "rule__StaticFieldSelection__Group__0");
 					put(grammarAccess.getDumbSelectionMemberAccess().getGroup(), "rule__DumbSelectionMember__Group__0");
 					put(grammarAccess.getDTOModelAccess().getConceptsAssignment(), "rule__DTOModel__ConceptsAssignment");
@@ -118,10 +114,6 @@ public class DTOParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAttributeAccess().getOptionsAssignment_2_1_1(), "rule__Attribute__OptionsAssignment_2_1_1");
 					put(grammarAccess.getRefTypeAccess().getReferenceAssignment(), "rule__RefType__ReferenceAssignment");
 					put(grammarAccess.getCollectionTypeAccess().getOfTypeAssignment_2(), "rule__CollectionType__OfTypeAssignment_2");
-					put(grammarAccess.getAttributeOptionAccess().getRequiredAssignment_0_1(), "rule__AttributeOption__RequiredAssignment_0_1");
-					put(grammarAccess.getAttributeOptionAccess().getPartOfAssignment_1_1(), "rule__AttributeOption__PartOfAssignment_1_1");
-					put(grammarAccess.getAttributeOptionAccess().getRelationshipOwnerAssignment_2_3(), "rule__AttributeOption__RelationshipOwnerAssignment_2_3");
-					put(grammarAccess.getAttributeOptionAccess().getCardAssignment_3_3(), "rule__AttributeOption__CardAssignment_3_3");
 					put(grammarAccess.getStaticFieldSelectionAccess().getReceiverAssignment_0(), "rule__StaticFieldSelection__ReceiverAssignment_0");
 					put(grammarAccess.getStaticFieldSelectionAccess().getMemberAssignment_2(), "rule__StaticFieldSelection__MemberAssignment_2");
 					put(grammarAccess.getDumbSelectionMemberAccess().getTypeAssignment_1(), "rule__DumbSelectionMember__TypeAssignment_1");

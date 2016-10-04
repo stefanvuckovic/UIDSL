@@ -5,21 +5,57 @@ package com.stefanvuckovic.uidsl.uIDSL.impl;
 
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 
+import com.stefanvuckovic.uidsl.uIDSL.AllAllowedComponents;
+import com.stefanvuckovic.uidsl.uIDSL.AllowedNestedComponents;
+import com.stefanvuckovic.uidsl.uIDSL.AlternativeType;
+import com.stefanvuckovic.uidsl.uIDSL.AnyType;
+import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent;
+import com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType;
+import com.stefanvuckovic.uidsl.uIDSL.Component;
+import com.stefanvuckovic.uidsl.uIDSL.CustomAllowedComponents;
+import com.stefanvuckovic.uidsl.uIDSL.DefaultComponent;
+import com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig;
+import com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations;
+import com.stefanvuckovic.uidsl.uIDSL.EnumGeneralType;
+import com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents;
 import com.stefanvuckovic.uidsl.uIDSL.Field;
 import com.stefanvuckovic.uidsl.uIDSL.Fragment;
+import com.stefanvuckovic.uidsl.uIDSL.FragmentCall;
+import com.stefanvuckovic.uidsl.uIDSL.IFStatement;
+import com.stefanvuckovic.uidsl.uIDSL.InlineVariable;
+import com.stefanvuckovic.uidsl.uIDSL.InputUIComponent;
+import com.stefanvuckovic.uidsl.uIDSL.IterationExpression;
+import com.stefanvuckovic.uidsl.uIDSL.Iterator;
+import com.stefanvuckovic.uidsl.uIDSL.LogicElement;
 import com.stefanvuckovic.uidsl.uIDSL.Member;
 import com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression;
 import com.stefanvuckovic.uidsl.uIDSL.Method;
+import com.stefanvuckovic.uidsl.uIDSL.NestedComponent;
+import com.stefanvuckovic.uidsl.uIDSL.ObjectGeneralType;
+import com.stefanvuckovic.uidsl.uIDSL.OutputUIComponent;
 import com.stefanvuckovic.uidsl.uIDSL.Page;
+import com.stefanvuckovic.uidsl.uIDSL.PageCall;
+import com.stefanvuckovic.uidsl.uIDSL.PageType;
+import com.stefanvuckovic.uidsl.uIDSL.PropertyRuntimeType;
+import com.stefanvuckovic.uidsl.uIDSL.PropertySingleRuntimeType;
+import com.stefanvuckovic.uidsl.uIDSL.PropertyValue;
+import com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance;
 import com.stefanvuckovic.uidsl.uIDSL.ServerComponent;
+import com.stefanvuckovic.uidsl.uIDSL.SimpleType;
 import com.stefanvuckovic.uidsl.uIDSL.Template;
-import com.stefanvuckovic.uidsl.uIDSL.UIConcept;
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragment;
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride;
+import com.stefanvuckovic.uidsl.uIDSL.TypeExpression;
+import com.stefanvuckovic.uidsl.uIDSL.UIComponent;
+import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance;
 import com.stefanvuckovic.uidsl.uIDSL.UIContainer;
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLFactory;
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage;
+import com.stefanvuckovic.uidsl.uIDSL.UIElement;
 import com.stefanvuckovic.uidsl.uIDSL.UIModel;
 import com.stefanvuckovic.uidsl.uIDSL.Variable;
 import com.stefanvuckovic.uidsl.uIDSL.VariableReference;
+import com.stefanvuckovic.uidsl.uIDSL.VoidType;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -42,20 +78,6 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
    * @generated
    */
   private EClass uiModelEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass uiConceptEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass serverComponentEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -104,6 +126,83 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass uiElementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass uiComponentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass nestedComponentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass childUIComponentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass allowedNestedComponentsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass propertyValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass uiComponentInstanceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass logicElementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass ifStatementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass iteratorEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass propertyValueInstanceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass templateEClass = null;
 
   /**
@@ -118,6 +217,118 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass iterationExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass fragmentCallEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass propertyRuntimeTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass propertySingleRuntimeTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass defaultConfigurationsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass defaultComponentConfigEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass defaultComponentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass componentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass serverComponentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass inlineVariableEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass existingNestedComponentsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass allAllowedComponentsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass customAllowedComponentsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass templateFragmentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass templateFragmentOverrideEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass memberSelectionExpressionEClass = null;
 
   /**
@@ -125,7 +336,84 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass pageCallEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass variableReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass objectGeneralTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass enumGeneralTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass collectionGeneralTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass anyTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pageTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass voidTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass alternativeTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass simpleTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass inputUIComponentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass outputUIComponentEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -211,46 +499,6 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
   public EReference getUIModel_Concepts()
   {
     return (EReference)uiModelEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getUIConcept()
-  {
-    return uiConceptEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getServerComponent()
-  {
-    return serverComponentEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getServerComponent_Members()
-  {
-    return (EReference)serverComponentEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getServerComponent_Expressions()
-  {
-    return (EReference)serverComponentEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -348,9 +596,329 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getUIContainer_ServerComponents()
+  {
+    return (EReference)uiContainerEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUIContainer_Elements()
+  {
+    return (EReference)uiContainerEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getPage()
   {
     return pageEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPage_Params()
+  {
+    return (EReference)pageEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPage_Template()
+  {
+    return (EReference)pageEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUIElement()
+  {
+    return uiElementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUIComponent()
+  {
+    return uiComponentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getUIComponent_Name()
+  {
+    return (EAttribute)uiComponentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUIComponent_Properties()
+  {
+    return (EReference)uiComponentEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUIComponent_Nested()
+  {
+    return (EReference)uiComponentEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getNestedComponent()
+  {
+    return nestedComponentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getChildUIComponent()
+  {
+    return childUIComponentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getChildUIComponent_Cardinality()
+  {
+    return (EAttribute)childUIComponentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getChildUIComponent_Comp()
+  {
+    return (EReference)childUIComponentEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAllowedNestedComponents()
+  {
+    return allowedNestedComponentsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPropertyValue()
+  {
+    return propertyValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPropertyValue_Name()
+  {
+    return (EAttribute)propertyValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPropertyValue_Required()
+  {
+    return (EAttribute)propertyValueEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPropertyValue_ValueProperty()
+  {
+    return (EAttribute)propertyValueEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertyValue_Type()
+  {
+    return (EReference)propertyValueEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUIComponentInstance()
+  {
+    return uiComponentInstanceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUIComponentInstance_Component()
+  {
+    return (EReference)uiComponentInstanceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUIComponentInstance_Properties()
+  {
+    return (EReference)uiComponentInstanceEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUIComponentInstance_ChildElements()
+  {
+    return (EReference)uiComponentInstanceEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getLogicElement()
+  {
+    return logicElementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getLogicElement_Elements()
+  {
+    return (EReference)logicElementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIFStatement()
+  {
+    return ifStatementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIFStatement_Expression()
+  {
+    return (EReference)ifStatementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIterator()
+  {
+    return iteratorEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIterator_Expression()
+  {
+    return (EReference)iteratorEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPropertyValueInstance()
+  {
+    return propertyValueInstanceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertyValueInstance_Property()
+  {
+    return (EReference)propertyValueInstanceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertyValueInstance_Value()
+  {
+    return (EReference)propertyValueInstanceEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -371,6 +939,376 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
   public EClass getFragment()
   {
     return fragmentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFragment_Params()
+  {
+    return (EReference)fragmentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIterationExpression()
+  {
+    return iterationExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIterationExpression_Var()
+  {
+    return (EReference)iterationExpressionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIterationExpression_Expression()
+  {
+    return (EReference)iterationExpressionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getFragmentCall()
+  {
+    return fragmentCallEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFragmentCall_Frag()
+  {
+    return (EReference)fragmentCallEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFragmentCall_Params()
+  {
+    return (EReference)fragmentCallEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypeExpression()
+  {
+    return typeExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPropertyRuntimeType()
+  {
+    return propertyRuntimeTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertyRuntimeType_Property()
+  {
+    return (EReference)propertyRuntimeTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPropertySingleRuntimeType()
+  {
+    return propertySingleRuntimeTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertySingleRuntimeType_PropertyType()
+  {
+    return (EReference)propertySingleRuntimeTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDefaultConfigurations()
+  {
+    return defaultConfigurationsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDefaultConfigurations_Name()
+  {
+    return (EAttribute)defaultConfigurationsEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDefaultConfigurations_Defaults()
+  {
+    return (EReference)defaultConfigurationsEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDefaultComponentConfig()
+  {
+    return defaultComponentConfigEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDefaultComponentConfig_Type()
+  {
+    return (EReference)defaultComponentConfigEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDefaultComponentConfig_InputComp()
+  {
+    return (EReference)defaultComponentConfigEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDefaultComponentConfig_OutputComp()
+  {
+    return (EReference)defaultComponentConfigEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDefaultComponent()
+  {
+    return defaultComponentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDefaultComponent_Value()
+  {
+    return (EReference)defaultComponentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getComponent()
+  {
+    return componentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getServerComponent()
+  {
+    return serverComponentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getServerComponent_Members()
+  {
+    return (EReference)serverComponentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getServerComponent_Expressions()
+  {
+    return (EReference)serverComponentEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getInlineVariable()
+  {
+    return inlineVariableEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getExistingNestedComponents()
+  {
+    return existingNestedComponentsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExistingNestedComponents_NestedComponents()
+  {
+    return (EReference)existingNestedComponentsEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAllAllowedComponents()
+  {
+    return allAllowedComponentsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCustomAllowedComponents()
+  {
+    return customAllowedComponentsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCustomAllowedComponents_Components()
+  {
+    return (EReference)customAllowedComponentsEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTemplateFragment()
+  {
+    return templateFragmentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTemplateFragment_Name()
+  {
+    return (EAttribute)templateFragmentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTemplateFragment_Elements()
+  {
+    return (EReference)templateFragmentEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTemplateFragmentOverride()
+  {
+    return templateFragmentOverrideEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTemplateFragmentOverride_OverridenFragment()
+  {
+    return (EReference)templateFragmentOverrideEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTemplateFragmentOverride_Elements()
+  {
+    return (EReference)templateFragmentOverrideEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -428,6 +1366,36 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getPageCall()
+  {
+    return pageCallEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPageCall_Page()
+  {
+    return (EReference)pageCallEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPageCall_Params()
+  {
+    return (EReference)pageCallEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getVariableReference()
   {
     return variableReferenceEClass;
@@ -441,6 +1409,126 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
   public EReference getVariableReference_Ref()
   {
     return (EReference)variableReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getObjectGeneralType()
+  {
+    return objectGeneralTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEnumGeneralType()
+  {
+    return enumGeneralTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCollectionGeneralType()
+  {
+    return collectionGeneralTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAnyType()
+  {
+    return anyTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPageType()
+  {
+    return pageTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getVoidType()
+  {
+    return voidTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAlternativeType()
+  {
+    return alternativeTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAlternativeType_Types()
+  {
+    return (EReference)alternativeTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSimpleType()
+  {
+    return simpleTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSimpleType_Type()
+  {
+    return (EReference)simpleTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getInputUIComponent()
+  {
+    return inputUIComponentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getOutputUIComponent()
+  {
+    return outputUIComponentEClass;
   }
 
   /**
@@ -476,12 +1564,6 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
     uiModelEClass = createEClass(UI_MODEL);
     createEReference(uiModelEClass, UI_MODEL__CONCEPTS);
 
-    uiConceptEClass = createEClass(UI_CONCEPT);
-
-    serverComponentEClass = createEClass(SERVER_COMPONENT);
-    createEReference(serverComponentEClass, SERVER_COMPONENT__MEMBERS);
-    createEReference(serverComponentEClass, SERVER_COMPONENT__EXPRESSIONS);
-
     memberEClass = createEClass(MEMBER);
 
     fieldEClass = createEClass(FIELD);
@@ -495,12 +1577,108 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
 
     uiContainerEClass = createEClass(UI_CONTAINER);
     createEAttribute(uiContainerEClass, UI_CONTAINER__NAME);
+    createEReference(uiContainerEClass, UI_CONTAINER__SERVER_COMPONENTS);
+    createEReference(uiContainerEClass, UI_CONTAINER__ELEMENTS);
 
     pageEClass = createEClass(PAGE);
+    createEReference(pageEClass, PAGE__PARAMS);
+    createEReference(pageEClass, PAGE__TEMPLATE);
+
+    uiElementEClass = createEClass(UI_ELEMENT);
+
+    uiComponentEClass = createEClass(UI_COMPONENT);
+    createEAttribute(uiComponentEClass, UI_COMPONENT__NAME);
+    createEReference(uiComponentEClass, UI_COMPONENT__PROPERTIES);
+    createEReference(uiComponentEClass, UI_COMPONENT__NESTED);
+
+    nestedComponentEClass = createEClass(NESTED_COMPONENT);
+
+    childUIComponentEClass = createEClass(CHILD_UI_COMPONENT);
+    createEAttribute(childUIComponentEClass, CHILD_UI_COMPONENT__CARDINALITY);
+    createEReference(childUIComponentEClass, CHILD_UI_COMPONENT__COMP);
+
+    allowedNestedComponentsEClass = createEClass(ALLOWED_NESTED_COMPONENTS);
+
+    propertyValueEClass = createEClass(PROPERTY_VALUE);
+    createEAttribute(propertyValueEClass, PROPERTY_VALUE__NAME);
+    createEAttribute(propertyValueEClass, PROPERTY_VALUE__REQUIRED);
+    createEAttribute(propertyValueEClass, PROPERTY_VALUE__VALUE_PROPERTY);
+    createEReference(propertyValueEClass, PROPERTY_VALUE__TYPE);
+
+    uiComponentInstanceEClass = createEClass(UI_COMPONENT_INSTANCE);
+    createEReference(uiComponentInstanceEClass, UI_COMPONENT_INSTANCE__COMPONENT);
+    createEReference(uiComponentInstanceEClass, UI_COMPONENT_INSTANCE__PROPERTIES);
+    createEReference(uiComponentInstanceEClass, UI_COMPONENT_INSTANCE__CHILD_ELEMENTS);
+
+    logicElementEClass = createEClass(LOGIC_ELEMENT);
+    createEReference(logicElementEClass, LOGIC_ELEMENT__ELEMENTS);
+
+    ifStatementEClass = createEClass(IF_STATEMENT);
+    createEReference(ifStatementEClass, IF_STATEMENT__EXPRESSION);
+
+    iteratorEClass = createEClass(ITERATOR);
+    createEReference(iteratorEClass, ITERATOR__EXPRESSION);
+
+    propertyValueInstanceEClass = createEClass(PROPERTY_VALUE_INSTANCE);
+    createEReference(propertyValueInstanceEClass, PROPERTY_VALUE_INSTANCE__PROPERTY);
+    createEReference(propertyValueInstanceEClass, PROPERTY_VALUE_INSTANCE__VALUE);
 
     templateEClass = createEClass(TEMPLATE);
 
     fragmentEClass = createEClass(FRAGMENT);
+    createEReference(fragmentEClass, FRAGMENT__PARAMS);
+
+    iterationExpressionEClass = createEClass(ITERATION_EXPRESSION);
+    createEReference(iterationExpressionEClass, ITERATION_EXPRESSION__VAR);
+    createEReference(iterationExpressionEClass, ITERATION_EXPRESSION__EXPRESSION);
+
+    fragmentCallEClass = createEClass(FRAGMENT_CALL);
+    createEReference(fragmentCallEClass, FRAGMENT_CALL__FRAG);
+    createEReference(fragmentCallEClass, FRAGMENT_CALL__PARAMS);
+
+    typeExpressionEClass = createEClass(TYPE_EXPRESSION);
+
+    propertyRuntimeTypeEClass = createEClass(PROPERTY_RUNTIME_TYPE);
+    createEReference(propertyRuntimeTypeEClass, PROPERTY_RUNTIME_TYPE__PROPERTY);
+
+    propertySingleRuntimeTypeEClass = createEClass(PROPERTY_SINGLE_RUNTIME_TYPE);
+    createEReference(propertySingleRuntimeTypeEClass, PROPERTY_SINGLE_RUNTIME_TYPE__PROPERTY_TYPE);
+
+    defaultConfigurationsEClass = createEClass(DEFAULT_CONFIGURATIONS);
+    createEAttribute(defaultConfigurationsEClass, DEFAULT_CONFIGURATIONS__NAME);
+    createEReference(defaultConfigurationsEClass, DEFAULT_CONFIGURATIONS__DEFAULTS);
+
+    defaultComponentConfigEClass = createEClass(DEFAULT_COMPONENT_CONFIG);
+    createEReference(defaultComponentConfigEClass, DEFAULT_COMPONENT_CONFIG__TYPE);
+    createEReference(defaultComponentConfigEClass, DEFAULT_COMPONENT_CONFIG__INPUT_COMP);
+    createEReference(defaultComponentConfigEClass, DEFAULT_COMPONENT_CONFIG__OUTPUT_COMP);
+
+    defaultComponentEClass = createEClass(DEFAULT_COMPONENT);
+    createEReference(defaultComponentEClass, DEFAULT_COMPONENT__VALUE);
+
+    componentEClass = createEClass(COMPONENT);
+
+    serverComponentEClass = createEClass(SERVER_COMPONENT);
+    createEReference(serverComponentEClass, SERVER_COMPONENT__MEMBERS);
+    createEReference(serverComponentEClass, SERVER_COMPONENT__EXPRESSIONS);
+
+    inlineVariableEClass = createEClass(INLINE_VARIABLE);
+
+    existingNestedComponentsEClass = createEClass(EXISTING_NESTED_COMPONENTS);
+    createEReference(existingNestedComponentsEClass, EXISTING_NESTED_COMPONENTS__NESTED_COMPONENTS);
+
+    allAllowedComponentsEClass = createEClass(ALL_ALLOWED_COMPONENTS);
+
+    customAllowedComponentsEClass = createEClass(CUSTOM_ALLOWED_COMPONENTS);
+    createEReference(customAllowedComponentsEClass, CUSTOM_ALLOWED_COMPONENTS__COMPONENTS);
+
+    templateFragmentEClass = createEClass(TEMPLATE_FRAGMENT);
+    createEAttribute(templateFragmentEClass, TEMPLATE_FRAGMENT__NAME);
+    createEReference(templateFragmentEClass, TEMPLATE_FRAGMENT__ELEMENTS);
+
+    templateFragmentOverrideEClass = createEClass(TEMPLATE_FRAGMENT_OVERRIDE);
+    createEReference(templateFragmentOverrideEClass, TEMPLATE_FRAGMENT_OVERRIDE__OVERRIDEN_FRAGMENT);
+    createEReference(templateFragmentOverrideEClass, TEMPLATE_FRAGMENT_OVERRIDE__ELEMENTS);
 
     memberSelectionExpressionEClass = createEClass(MEMBER_SELECTION_EXPRESSION);
     createEReference(memberSelectionExpressionEClass, MEMBER_SELECTION_EXPRESSION__RECEIVER);
@@ -508,8 +1686,34 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
     createEAttribute(memberSelectionExpressionEClass, MEMBER_SELECTION_EXPRESSION__IS_METHOD);
     createEReference(memberSelectionExpressionEClass, MEMBER_SELECTION_EXPRESSION__PARAMS);
 
+    pageCallEClass = createEClass(PAGE_CALL);
+    createEReference(pageCallEClass, PAGE_CALL__PAGE);
+    createEReference(pageCallEClass, PAGE_CALL__PARAMS);
+
     variableReferenceEClass = createEClass(VARIABLE_REFERENCE);
     createEReference(variableReferenceEClass, VARIABLE_REFERENCE__REF);
+
+    objectGeneralTypeEClass = createEClass(OBJECT_GENERAL_TYPE);
+
+    enumGeneralTypeEClass = createEClass(ENUM_GENERAL_TYPE);
+
+    collectionGeneralTypeEClass = createEClass(COLLECTION_GENERAL_TYPE);
+
+    anyTypeEClass = createEClass(ANY_TYPE);
+
+    pageTypeEClass = createEClass(PAGE_TYPE);
+
+    voidTypeEClass = createEClass(VOID_TYPE);
+
+    alternativeTypeEClass = createEClass(ALTERNATIVE_TYPE);
+    createEReference(alternativeTypeEClass, ALTERNATIVE_TYPE__TYPES);
+
+    simpleTypeEClass = createEClass(SIMPLE_TYPE);
+    createEReference(simpleTypeEClass, SIMPLE_TYPE__TYPE);
+
+    inputUIComponentEClass = createEClass(INPUT_UI_COMPONENT);
+
+    outputUIComponentEClass = createEClass(OUTPUT_UI_COMPONENT);
   }
 
   /**
@@ -544,27 +1748,47 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    serverComponentEClass.getESuperTypes().add(this.getUIConcept());
-    serverComponentEClass.getESuperTypes().add(theDomainModelPackage.getConcept());
     memberEClass.getESuperTypes().add(theDomainModelPackage.getSelectionMember());
     fieldEClass.getESuperTypes().add(this.getMember());
     methodEClass.getESuperTypes().add(this.getMember());
-    uiContainerEClass.getESuperTypes().add(this.getUIConcept());
     pageEClass.getESuperTypes().add(this.getUIContainer());
+    childUIComponentEClass.getESuperTypes().add(this.getNestedComponent());
+    uiComponentInstanceEClass.getESuperTypes().add(this.getComponent());
+    logicElementEClass.getESuperTypes().add(this.getUIElement());
+    ifStatementEClass.getESuperTypes().add(this.getLogicElement());
+    iteratorEClass.getESuperTypes().add(this.getLogicElement());
     templateEClass.getESuperTypes().add(this.getUIContainer());
     fragmentEClass.getESuperTypes().add(this.getUIContainer());
+    iterationExpressionEClass.getESuperTypes().add(theDomainModelPackage.getExpression());
+    fragmentCallEClass.getESuperTypes().add(this.getUIElement());
+    propertyRuntimeTypeEClass.getESuperTypes().add(this.getTypeExpression());
+    propertySingleRuntimeTypeEClass.getESuperTypes().add(this.getTypeExpression());
+    defaultComponentEClass.getESuperTypes().add(this.getComponent());
+    componentEClass.getESuperTypes().add(this.getUIElement());
+    serverComponentEClass.getESuperTypes().add(theDomainModelPackage.getConcept());
+    inlineVariableEClass.getESuperTypes().add(this.getVariable());
+    existingNestedComponentsEClass.getESuperTypes().add(this.getNestedComponent());
+    allAllowedComponentsEClass.getESuperTypes().add(this.getAllowedNestedComponents());
+    customAllowedComponentsEClass.getESuperTypes().add(this.getAllowedNestedComponents());
+    templateFragmentEClass.getESuperTypes().add(this.getUIElement());
+    templateFragmentOverrideEClass.getESuperTypes().add(this.getUIElement());
     memberSelectionExpressionEClass.getESuperTypes().add(theDomainModelPackage.getExpression());
+    pageCallEClass.getESuperTypes().add(theDomainModelPackage.getExpression());
     variableReferenceEClass.getESuperTypes().add(theDomainModelPackage.getExpression());
+    objectGeneralTypeEClass.getESuperTypes().add(theDomainModelPackage.getAttributeType());
+    enumGeneralTypeEClass.getESuperTypes().add(theDomainModelPackage.getAttributeType());
+    collectionGeneralTypeEClass.getESuperTypes().add(theDomainModelPackage.getAttributeType());
+    anyTypeEClass.getESuperTypes().add(theDomainModelPackage.getAttributeType());
+    pageTypeEClass.getESuperTypes().add(theDomainModelPackage.getAttributeType());
+    voidTypeEClass.getESuperTypes().add(theDomainModelPackage.getAttributeType());
+    alternativeTypeEClass.getESuperTypes().add(theDomainModelPackage.getAttributeType());
+    simpleTypeEClass.getESuperTypes().add(this.getTypeExpression());
+    inputUIComponentEClass.getESuperTypes().add(this.getDefaultComponent());
+    outputUIComponentEClass.getESuperTypes().add(this.getDefaultComponent());
 
     // Initialize classes and features; add operations and parameters
     initEClass(uiModelEClass, UIModel.class, "UIModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getUIModel_Concepts(), this.getUIConcept(), null, "concepts", null, 0, -1, UIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(uiConceptEClass, UIConcept.class, "UIConcept", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(serverComponentEClass, ServerComponent.class, "ServerComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getServerComponent_Members(), this.getMember(), null, "members", null, 0, -1, ServerComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getServerComponent_Expressions(), theDomainModelPackage.getExpression(), null, "expressions", null, 0, -1, ServerComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUIModel_Concepts(), ecorePackage.getEObject(), null, "concepts", null, 0, -1, UIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(memberEClass, Member.class, "Member", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -579,12 +1803,108 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
 
     initEClass(uiContainerEClass, UIContainer.class, "UIContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getUIContainer_Name(), ecorePackage.getEString(), "name", null, 0, 1, UIContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUIContainer_ServerComponents(), this.getVariable(), null, "serverComponents", null, 0, -1, UIContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUIContainer_Elements(), this.getUIElement(), null, "elements", null, 0, -1, UIContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pageEClass, Page.class, "Page", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPage_Params(), this.getVariable(), null, "params", null, 0, -1, Page.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPage_Template(), this.getTemplate(), null, "template", null, 0, 1, Page.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(uiElementEClass, UIElement.class, "UIElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(uiComponentEClass, UIComponent.class, "UIComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getUIComponent_Name(), ecorePackage.getEString(), "name", null, 0, 1, UIComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUIComponent_Properties(), this.getPropertyValue(), null, "properties", null, 0, -1, UIComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUIComponent_Nested(), this.getNestedComponent(), null, "nested", null, 0, 1, UIComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(nestedComponentEClass, NestedComponent.class, "NestedComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(childUIComponentEClass, ChildUIComponent.class, "ChildUIComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getChildUIComponent_Cardinality(), theDomainModelPackage.getCardinalityType(), "cardinality", null, 0, 1, ChildUIComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getChildUIComponent_Comp(), this.getUIComponent(), null, "comp", null, 0, 1, ChildUIComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(allowedNestedComponentsEClass, AllowedNestedComponents.class, "AllowedNestedComponents", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(propertyValueEClass, PropertyValue.class, "PropertyValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getPropertyValue_Name(), ecorePackage.getEString(), "name", null, 0, 1, PropertyValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPropertyValue_Required(), ecorePackage.getEBoolean(), "required", null, 0, 1, PropertyValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPropertyValue_ValueProperty(), ecorePackage.getEBoolean(), "valueProperty", null, 0, 1, PropertyValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPropertyValue_Type(), this.getTypeExpression(), null, "type", null, 0, 1, PropertyValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(uiComponentInstanceEClass, UIComponentInstance.class, "UIComponentInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUIComponentInstance_Component(), this.getUIComponent(), null, "component", null, 0, 1, UIComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUIComponentInstance_Properties(), this.getPropertyValueInstance(), null, "properties", null, 0, -1, UIComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUIComponentInstance_ChildElements(), this.getComponent(), null, "childElements", null, 0, -1, UIComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(logicElementEClass, LogicElement.class, "LogicElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getLogicElement_Elements(), this.getUIElement(), null, "elements", null, 0, -1, LogicElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(ifStatementEClass, IFStatement.class, "IFStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getIFStatement_Expression(), theDomainModelPackage.getExpression(), null, "expression", null, 0, 1, IFStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(iteratorEClass, Iterator.class, "Iterator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getIterator_Expression(), this.getIterationExpression(), null, "expression", null, 0, 1, Iterator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(propertyValueInstanceEClass, PropertyValueInstance.class, "PropertyValueInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPropertyValueInstance_Property(), this.getPropertyValue(), null, "property", null, 0, 1, PropertyValueInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPropertyValueInstance_Value(), theDomainModelPackage.getExpression(), null, "value", null, 0, 1, PropertyValueInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(templateEClass, Template.class, "Template", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(fragmentEClass, Fragment.class, "Fragment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFragment_Params(), this.getVariable(), null, "params", null, 0, -1, Fragment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(iterationExpressionEClass, IterationExpression.class, "IterationExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getIterationExpression_Var(), this.getVariable(), null, "var", null, 0, 1, IterationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIterationExpression_Expression(), theDomainModelPackage.getExpression(), null, "expression", null, 0, 1, IterationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(fragmentCallEClass, FragmentCall.class, "FragmentCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFragmentCall_Frag(), this.getFragment(), null, "frag", null, 0, 1, FragmentCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFragmentCall_Params(), theDomainModelPackage.getExpression(), null, "params", null, 0, -1, FragmentCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typeExpressionEClass, TypeExpression.class, "TypeExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(propertyRuntimeTypeEClass, PropertyRuntimeType.class, "PropertyRuntimeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPropertyRuntimeType_Property(), this.getPropertyValue(), null, "property", null, 0, 1, PropertyRuntimeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(propertySingleRuntimeTypeEClass, PropertySingleRuntimeType.class, "PropertySingleRuntimeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPropertySingleRuntimeType_PropertyType(), this.getPropertyRuntimeType(), null, "propertyType", null, 0, 1, PropertySingleRuntimeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(defaultConfigurationsEClass, DefaultConfigurations.class, "DefaultConfigurations", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getDefaultConfigurations_Name(), ecorePackage.getEString(), "name", null, 0, 1, DefaultConfigurations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDefaultConfigurations_Defaults(), this.getDefaultComponentConfig(), null, "defaults", null, 0, -1, DefaultConfigurations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(defaultComponentConfigEClass, DefaultComponentConfig.class, "DefaultComponentConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getDefaultComponentConfig_Type(), theDomainModelPackage.getAttributeType(), null, "type", null, 0, 1, DefaultComponentConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDefaultComponentConfig_InputComp(), this.getUIComponent(), null, "inputComp", null, 0, 1, DefaultComponentConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDefaultComponentConfig_OutputComp(), this.getUIComponent(), null, "outputComp", null, 0, 1, DefaultComponentConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(defaultComponentEClass, DefaultComponent.class, "DefaultComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getDefaultComponent_Value(), theDomainModelPackage.getExpression(), null, "value", null, 0, 1, DefaultComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(serverComponentEClass, ServerComponent.class, "ServerComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getServerComponent_Members(), this.getMember(), null, "members", null, 0, -1, ServerComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getServerComponent_Expressions(), theDomainModelPackage.getExpression(), null, "expressions", null, 0, -1, ServerComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(inlineVariableEClass, InlineVariable.class, "InlineVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(existingNestedComponentsEClass, ExistingNestedComponents.class, "ExistingNestedComponents", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getExistingNestedComponents_NestedComponents(), this.getAllowedNestedComponents(), null, "nestedComponents", null, 0, 1, ExistingNestedComponents.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(allAllowedComponentsEClass, AllAllowedComponents.class, "AllAllowedComponents", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(customAllowedComponentsEClass, CustomAllowedComponents.class, "CustomAllowedComponents", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCustomAllowedComponents_Components(), this.getUIComponent(), null, "components", null, 0, -1, CustomAllowedComponents.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(templateFragmentEClass, TemplateFragment.class, "TemplateFragment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTemplateFragment_Name(), ecorePackage.getEString(), "name", null, 0, 1, TemplateFragment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTemplateFragment_Elements(), this.getUIElement(), null, "elements", null, 0, -1, TemplateFragment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(templateFragmentOverrideEClass, TemplateFragmentOverride.class, "TemplateFragmentOverride", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTemplateFragmentOverride_OverridenFragment(), this.getTemplateFragment(), null, "overridenFragment", null, 0, 1, TemplateFragmentOverride.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTemplateFragmentOverride_Elements(), this.getUIElement(), null, "elements", null, 0, -1, TemplateFragmentOverride.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(memberSelectionExpressionEClass, MemberSelectionExpression.class, "MemberSelectionExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getMemberSelectionExpression_Receiver(), theDomainModelPackage.getExpression(), null, "receiver", null, 0, 1, MemberSelectionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -592,8 +1912,34 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
     initEAttribute(getMemberSelectionExpression_IsMethod(), ecorePackage.getEBoolean(), "isMethod", null, 0, 1, MemberSelectionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMemberSelectionExpression_Params(), theDomainModelPackage.getExpression(), null, "params", null, 0, -1, MemberSelectionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(pageCallEClass, PageCall.class, "PageCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPageCall_Page(), this.getPage(), null, "page", null, 0, 1, PageCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPageCall_Params(), theDomainModelPackage.getExpression(), null, "params", null, 0, -1, PageCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(variableReferenceEClass, VariableReference.class, "VariableReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVariableReference_Ref(), this.getVariable(), null, "ref", null, 0, 1, VariableReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(objectGeneralTypeEClass, ObjectGeneralType.class, "ObjectGeneralType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(enumGeneralTypeEClass, EnumGeneralType.class, "EnumGeneralType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(collectionGeneralTypeEClass, CollectionGeneralType.class, "CollectionGeneralType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(anyTypeEClass, AnyType.class, "AnyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(pageTypeEClass, PageType.class, "PageType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(voidTypeEClass, VoidType.class, "VoidType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(alternativeTypeEClass, AlternativeType.class, "AlternativeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAlternativeType_Types(), theDomainModelPackage.getAttributeType(), null, "types", null, 0, -1, AlternativeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(simpleTypeEClass, SimpleType.class, "SimpleType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSimpleType_Type(), theDomainModelPackage.getAttributeType(), null, "type", null, 0, 1, SimpleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(inputUIComponentEClass, InputUIComponent.class, "InputUIComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(outputUIComponentEClass, OutputUIComponent.class, "OutputUIComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     // Create resource
     createResource(eNS_URI);

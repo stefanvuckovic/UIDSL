@@ -3,9 +3,11 @@
  */
 package com.stefanvuckovic.dto.dTO.util;
 
+import com.stefanvuckovic.domainmodel.domainModel.AttributeOption;
 import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
 import com.stefanvuckovic.domainmodel.domainModel.BasicType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
+import com.stefanvuckovic.domainmodel.domainModel.Option;
 import com.stefanvuckovic.domainmodel.domainModel.SingleType;
 
 import com.stefanvuckovic.dto.dTO.*;
@@ -91,6 +93,11 @@ public class DTOAdapterFactory extends AdapterFactoryImpl
         return createDTOClassAdapter();
       }
       @Override
+      public Adapter caseObjectRepresentation(ObjectRepresentation object)
+      {
+        return createObjectRepresentationAdapter();
+      }
+      @Override
       public Adapter caseTextType(TextType object)
       {
         return createTextTypeAdapter();
@@ -119,6 +126,16 @@ public class DTOAdapterFactory extends AdapterFactoryImpl
       public Adapter caseConcept(Concept object)
       {
         return createConceptAdapter();
+      }
+      @Override
+      public Adapter caseOption(Option object)
+      {
+        return createOptionAdapter();
+      }
+      @Override
+      public Adapter caseAttributeOption(AttributeOption object)
+      {
+        return createAttributeOptionAdapter();
       }
       @Override
       public Adapter caseAttributeType(AttributeType object)
@@ -183,6 +200,21 @@ public class DTOAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDTOClassAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.dto.dTO.ObjectRepresentation <em>Object Representation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.dto.dTO.ObjectRepresentation
+   * @generated
+   */
+  public Adapter createObjectRepresentationAdapter()
   {
     return null;
   }
@@ -273,6 +305,36 @@ public class DTOAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createConceptAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.domainmodel.domainModel.Option <em>Option</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.domainmodel.domainModel.Option
+   * @generated
+   */
+  public Adapter createOptionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.domainmodel.domainModel.AttributeOption <em>Attribute Option</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.domainmodel.domainModel.AttributeOption
+   * @generated
+   */
+  public Adapter createAttributeOptionAdapter()
   {
     return null;
   }

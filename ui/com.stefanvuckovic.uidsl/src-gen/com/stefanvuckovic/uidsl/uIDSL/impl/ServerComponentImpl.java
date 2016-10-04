@@ -3,10 +3,9 @@
  */
 package com.stefanvuckovic.uidsl.uIDSL.impl;
 
-import com.stefanvuckovic.domainmodel.domainModel.Attribute;
-import com.stefanvuckovic.domainmodel.domainModel.Concept;
-import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Expression;
+
+import com.stefanvuckovic.domainmodel.domainModel.impl.ConceptImpl;
 
 import com.stefanvuckovic.uidsl.uIDSL.Member;
 import com.stefanvuckovic.uidsl.uIDSL.ServerComponent;
@@ -14,15 +13,12 @@ import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -35,46 +31,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl#getName <em>Name</em>}</li>
- *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl#getMembers <em>Members</em>}</li>
  *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl#getExpressions <em>Expressions</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ServerComponentImpl extends UIConceptImpl implements ServerComponent
+public class ServerComponentImpl extends ConceptImpl implements ServerComponent
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAttributes()
-   * @generated
-   * @ordered
-   */
-  protected EList<Attribute> attributes;
-
   /**
    * The cached value of the '{@link #getMembers() <em>Members</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -121,43 +85,6 @@ public class ServerComponentImpl extends UIConceptImpl implements ServerComponen
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, UIDSLPackage.SERVER_COMPONENT__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Attribute> getAttributes()
-  {
-    if (attributes == null)
-    {
-      attributes = new EObjectContainmentEList<Attribute>(Attribute.class, this, UIDSLPackage.SERVER_COMPONENT__ATTRIBUTES);
-    }
-    return attributes;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<Member> getMembers()
   {
     if (members == null)
@@ -191,8 +118,6 @@ public class ServerComponentImpl extends UIConceptImpl implements ServerComponen
   {
     switch (featureID)
     {
-      case UIDSLPackage.SERVER_COMPONENT__ATTRIBUTES:
-        return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
       case UIDSLPackage.SERVER_COMPONENT__MEMBERS:
         return ((InternalEList<?>)getMembers()).basicRemove(otherEnd, msgs);
       case UIDSLPackage.SERVER_COMPONENT__EXPRESSIONS:
@@ -211,10 +136,6 @@ public class ServerComponentImpl extends UIConceptImpl implements ServerComponen
   {
     switch (featureID)
     {
-      case UIDSLPackage.SERVER_COMPONENT__NAME:
-        return getName();
-      case UIDSLPackage.SERVER_COMPONENT__ATTRIBUTES:
-        return getAttributes();
       case UIDSLPackage.SERVER_COMPONENT__MEMBERS:
         return getMembers();
       case UIDSLPackage.SERVER_COMPONENT__EXPRESSIONS:
@@ -234,13 +155,6 @@ public class ServerComponentImpl extends UIConceptImpl implements ServerComponen
   {
     switch (featureID)
     {
-      case UIDSLPackage.SERVER_COMPONENT__NAME:
-        setName((String)newValue);
-        return;
-      case UIDSLPackage.SERVER_COMPONENT__ATTRIBUTES:
-        getAttributes().clear();
-        getAttributes().addAll((Collection<? extends Attribute>)newValue);
-        return;
       case UIDSLPackage.SERVER_COMPONENT__MEMBERS:
         getMembers().clear();
         getMembers().addAll((Collection<? extends Member>)newValue);
@@ -263,12 +177,6 @@ public class ServerComponentImpl extends UIConceptImpl implements ServerComponen
   {
     switch (featureID)
     {
-      case UIDSLPackage.SERVER_COMPONENT__NAME:
-        setName(NAME_EDEFAULT);
-        return;
-      case UIDSLPackage.SERVER_COMPONENT__ATTRIBUTES:
-        getAttributes().clear();
-        return;
       case UIDSLPackage.SERVER_COMPONENT__MEMBERS:
         getMembers().clear();
         return;
@@ -289,73 +197,12 @@ public class ServerComponentImpl extends UIConceptImpl implements ServerComponen
   {
     switch (featureID)
     {
-      case UIDSLPackage.SERVER_COMPONENT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case UIDSLPackage.SERVER_COMPONENT__ATTRIBUTES:
-        return attributes != null && !attributes.isEmpty();
       case UIDSLPackage.SERVER_COMPONENT__MEMBERS:
         return members != null && !members.isEmpty();
       case UIDSLPackage.SERVER_COMPONENT__EXPRESSIONS:
         return expressions != null && !expressions.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
-  {
-    if (baseClass == Concept.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case UIDSLPackage.SERVER_COMPONENT__NAME: return DomainModelPackage.CONCEPT__NAME;
-        case UIDSLPackage.SERVER_COMPONENT__ATTRIBUTES: return DomainModelPackage.CONCEPT__ATTRIBUTES;
-        default: return -1;
-      }
-    }
-    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
-  {
-    if (baseClass == Concept.class)
-    {
-      switch (baseFeatureID)
-      {
-        case DomainModelPackage.CONCEPT__NAME: return UIDSLPackage.SERVER_COMPONENT__NAME;
-        case DomainModelPackage.CONCEPT__ATTRIBUTES: return UIDSLPackage.SERVER_COMPONENT__ATTRIBUTES;
-        default: return -1;
-      }
-    }
-    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //ServerComponentImpl

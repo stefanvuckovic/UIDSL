@@ -12,6 +12,7 @@
     <genClasses ecoreClass="DTO.ecore#//DTOClass">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DTO.ecore#//DTOClass/superType"/>
     </genClasses>
+    <genClasses ecoreClass="DTO.ecore#//ObjectRepresentation"/>
     <genClasses ecoreClass="DTO.ecore#//TextType"/>
     <genClasses ecoreClass="DTO.ecore#//EmailType"/>
     <genClasses ecoreClass="DTO.ecore#//PasswordType"/>

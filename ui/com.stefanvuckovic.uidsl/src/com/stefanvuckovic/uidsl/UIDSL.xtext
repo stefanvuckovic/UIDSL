@@ -5,20 +5,15 @@ import "http://www.stefanvuckovic.com/domainmodel/DomainModel" as domainModel
 
 
 UIModel:
-	concepts+=UIConcept*
+	concepts+=(ServerComponent | UIContainer | UIComponent | DefaultConfigurations)*
 ;
 	
-UIConcept:
-	ServerComponent | UIContainer
-;
+//UIConcept:
+//	ServerComponent | UIContainer | UIComponent
+//;
 
-Concept returns domainModel::Concept:
-	super |
-	ServerComponent
-;
-
-ServerComponent:
-	'server_component' name=ID '{'
+ServerComponent returns domainModel::Concept:
+	{ServerComponent} 'server_component' name=ID '{'
 		members+=Member*
 		expressions+=Expression*
 	'}'
@@ -33,11 +28,15 @@ Field:
 ;
 
 Method:
-	TypedConcept '(' params+=Variable (',' params+=Variable)* ')' ';'
+	TypedConcept '(' (params+=Variable (',' params+=Variable)*)? ')' ';'
 ;
 
 Variable:
 	TypedConcept
+;
+
+InlineVariable returns Variable:
+	{InlineVariable} name = ID
 ;
 
 fragment TypedConcept *:
@@ -49,20 +48,110 @@ UIContainer:
 ;
 
 Page:
-	'page' name=ID
+	'page' UIContainerDefinition ServerComponentUsage ('template' ':' template=[Template])?
+		'{' elements+=(UIElement|TemplateFragmentOverride)* '}'
+;
+
+fragment UIContainerDefinition *:
+	name=ID '(' (params+=Variable (',' params+=Variable)*)? ')'
+;
+
+fragment ServerComponentUsage *:
+	('uses' serverComponents+=Variable (',' serverComponents+=Variable)*)?
+;
+
+UIElement:
+	Component | 
+	LogicElement | 
+	FragmentCall
+;
+
+UIComponent:
+	'component' name=ID '{' 
+		properties+=PropertyValue*
+		//(child=ChildUIComponent)?
+		nested=NestedComponent?
+		//('allowed_nested_components' ':' allowedComponents=AllowedNestedComponent)?
+	'}'
+;
+
+NestedComponent:
+	ChildUIComponent | 
+	{ExistingNestedComponents} 'allowed_nested_components' ':' nestedComponents=AllowedNestedComponents
+;
+
+ChildUIComponent:
+	'child_component' 'cardinality' '=' cardinality=CardinalityType ':' comp=UIComponent
+;
+
+AllowedNestedComponents:
+	{AllAllowedComponents} 'ALL' |
+	//{NoneAllowed} 'NONE' |
+	{CustomAllowedComponents} components+=[UIComponent] (',' components+=[UIComponent])* 
+;
+
+PropertyValue:
+	name=ID required?='required'? valueProperty?='valueProperty'? ':' type=TypeExpression
+;
+
+UIComponentInstance:
+	{UIComponentInstance} '#'component=[UIComponent] properties+=PropertyValueInstance* 
+		('{' childElements+=Component* '}')?
+;
+
+LogicElement:
+	IFStatement | Iterator	
+;
+
+IFStatement:
+	'if' expression=Expression '{'
+		elements+=UIElement*
+	'}'
+; 
+
+Iterator:
+	'for' expression=IterationExpression '{'
+		elements+=UIElement*
+	'}'
+;
+
+PropertyValueInstance:
+	{PropertyValueInstance} property=[PropertyValue] ':' value=Expression
 ;
 
 Template:
-	'template' name=ID
+	'template' name=ID ServerComponentUsage
+		'{' 
+			elements+=(UIElement|TemplateFragment)*		
+		'}'	
+;
+
+TemplateFragment returns UIElement:
+	{TemplateFragment} name=ID '{'
+		elements+=UIElement*
+	'}'
+;
+
+TemplateFragmentOverride returns UIElement:
+	{TemplateFragmentOverride} 'override' overridenFragment=[TemplateFragment] '{'
+		elements+=UIElement*
+	'}'
 ;
 
 Fragment:
-	'fragment' name=ID
+	'fragment' UIContainerDefinition ServerComponentUsage
+		'{' elements+=UIElement* '}'
 ;
 
 //overriding abstract rule from domainModel dsl
 Expression returns domainModel::Expression:
-	MemberSelectionExpression
+	MemberSelectionExpression |
+	PageCall |
+	IterationExpression
+;
+
+IterationExpression:
+	var=InlineVariable 'in' expression=Expression
 ;
 
 MemberSelectionExpression returns domainModel::Expression:
@@ -71,9 +160,21 @@ MemberSelectionExpression returns domainModel::Expression:
 		{MemberSelectionExpression.receiver=current} '.'
 		member=[domainModel::SelectionMember]
 		(isMethod?='('
-			(params+=Expression (',' params+=Expression)*)? ')'
+			(Params)? ')'
 		)?
 	)*
+;
+
+PageCall returns domainModel::Expression:
+	{PageCall} page=[Page] '(' (Params)? ')'
+;
+
+FragmentCall:
+	frag=[Fragment] '(' (Params)? ')'
+;
+
+fragment Params *:
+	params+=Expression (',' params+=Expression)*
 ;
 
 AtomExpression returns domainModel::Expression:
@@ -84,4 +185,72 @@ AtomExpression returns domainModel::Expression:
 SelectionMember returns domainModel::SelectionMember:
 	super |
 	Member
+;
+
+AttributeType returns domainModel::AttributeType :
+	super |
+	VoidType
+;
+
+GeneralType returns domainModel::AttributeType:
+	{ObjectGeneralType} 'object' |
+	{EnumGeneralType} 'enum' |
+	{CollectionGeneralType} 'collection'
+;
+
+AnyType returns domainModel::AttributeType:
+	{AnyType} 'any'
+;
+
+PageType returns domainModel::AttributeType:
+	{PageType} 'page'
+;
+
+VoidType returns domainModel::AttributeType:
+	{VoidType} 'void'
+;
+
+AlternativeType returns domainModel::AttributeType:
+	{AlternativeType} types+=(AttributeType | GeneralType | PageType) 'or' types+=(AttributeType | GeneralType | PageType) ('or' types+=(AttributeType | GeneralType | PageType))*  
+	//(AttributeType | GeneralType | PageType) ({AlternativeType.types+=current} 'or' types+=(AttributeType | GeneralType | PageType))*
+;
+
+TypeExpression:
+	{SimpleType} type = (AttributeType | AlternativeType | GeneralType | AnyType | PageType) |
+	PropertyRuntimeType |
+	PropertySingleRuntimeType
+;
+
+PropertyRuntimeType:
+	'typeOf' '(' property = [PropertyValue] ')'
+;
+
+//when property type is collection and we need type of object that collection stores
+PropertySingleRuntimeType:
+	'singleTypeOf' '(' propertyType = PropertyRuntimeType ')'
+;
+
+//defaults
+
+DefaultConfigurations :
+	'defaults' name=ID '{'
+		defaults+=DefaultComponentConfig+
+	'}'
+;
+
+DefaultComponentConfig:
+	'default' 'for' type = (BasicType | GeneralType) '{'
+		'input_component' ':' inputComp=[UIComponent]
+		'output_component' ':' outputComp=[UIComponent]
+	'}'
+;
+
+DefaultUIComponent returns DefaultComponent:
+	{InputUIComponent} 'input' '(' value = MemberSelectionExpression ')' |
+	{OutputUIComponent} 'output' '(' value = MemberSelectionExpression ')'
+;
+
+Component: 
+	UIComponentInstance |
+	DefaultUIComponent
 ;

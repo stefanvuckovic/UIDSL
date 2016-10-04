@@ -3,11 +3,47 @@
  */
 package com.stefanvuckovic.uidsl.validation
 
-import org.eclipse.xtext.validation.Check
+import com.stefanvuckovic.domainmodel.domainModel.AttributeType
+import com.stefanvuckovic.domainmodel.domainModel.CardinalityType
+import com.stefanvuckovic.domainmodel.domainModel.CollectionType
+import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage
+import com.stefanvuckovic.domainmodel.domainModel.Expression
+import com.stefanvuckovic.domainmodel.domainModel.RefType
+import com.stefanvuckovic.dto.dTO.DTOClass
+import com.stefanvuckovic.uidsl.UIComponents
+import com.stefanvuckovic.uidsl.UIDSLUtil
+import com.stefanvuckovic.uidsl.scoping.CustomIndex
+import com.stefanvuckovic.uidsl.types.TypeComputing
+import com.stefanvuckovic.uidsl.types.TypeConformance
+import com.stefanvuckovic.uidsl.uIDSL.AllAllowedComponents
+import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent
+import com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType
+import com.stefanvuckovic.uidsl.uIDSL.Component
+import com.stefanvuckovic.uidsl.uIDSL.DefaultComponent
+import com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations
+import com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents
+import com.stefanvuckovic.uidsl.uIDSL.Field
+import com.stefanvuckovic.uidsl.uIDSL.InputUIComponent
 import com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression
 import com.stefanvuckovic.uidsl.uIDSL.Method
+import com.stefanvuckovic.uidsl.uIDSL.OutputUIComponent
+import com.stefanvuckovic.uidsl.uIDSL.Page
+import com.stefanvuckovic.uidsl.uIDSL.PropertySingleRuntimeType
+import com.stefanvuckovic.uidsl.uIDSL.PropertyValue
+import com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance
+import com.stefanvuckovic.uidsl.uIDSL.ServerComponent
+import com.stefanvuckovic.uidsl.uIDSL.UIComponent
+import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage
-import com.stefanvuckovic.uidsl.uIDSL.Field
+import com.stefanvuckovic.uidsl.uIDSL.Variable
+import com.stefanvuckovic.uidsl.uIDSL.VoidType
+import java.util.List
+import javax.inject.Inject
+import org.eclipse.emf.ecore.EStructuralFeature
+import org.eclipse.xtext.validation.Check
+import com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig
+import com.stefanvuckovic.uidsl.LibraryConstants
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride
 
 /**
  * This class contains custom validation rules. 
@@ -16,32 +52,312 @@ import com.stefanvuckovic.uidsl.uIDSL.Field
  */
 class UIDSLValidator extends AbstractUIDSLValidator {
 	
-@Check 
-def void checkNumberOfParametersInMethodCall(MemberSelectionExpression selection) {
+	@Inject extension TypeComputing
+	@Inject extension TypeConformance
+	@Inject extension UIDSLUtil
+	@Inject extension CustomIndex
+	
+	@Check 
+	def void checkNumberOfParametersInMethodCall(MemberSelectionExpression selection) {
+			val member = selection.member
+			//if selection.isMethod is false, this constraint should not be applied,
+			//instead checkMemberSelection check will issue appropriate error message
+			if (member instanceof Method && selection.isMethod) {
+				if ((member as Method).params.size != selection.params.size) {
+					error("Wrong number of parameters: expected " + (member as Method).params.size + " but was " + selection.params.size,
+						UIDSLPackage.eINSTANCE.memberSelectionExpression_Member)
+				}
+			}
+	}
+	
+	@Check
+	def void checkMemberSelection(MemberSelectionExpression selection) {
 		val member = selection.member
-		if (member instanceof Method) {
-			if (member.params.size != selection.params.size) {
-				error("Wrong number of parameters: expected " + member.params.size + " but was " + selection.params.size,
-					UIDSLPackage.eINSTANCE.memberSelectionExpression_Member)
+	
+		if (member instanceof Field && selection.isIsMethod) {
+			error(
+				"Method invocation on a field",
+				UIDSLPackage.eINSTANCE.memberSelectionExpression_IsMethod)
+		}
+		else if (member instanceof Method && !selection.isIsMethod) {
+			error(
+				"Field selection on a method",
+				UIDSLPackage.eINSTANCE.memberSelectionExpression_Member
+			)
+		}
+	}
+	
+	@Check
+	def void checkPropertyValueType(PropertyValue property) {
+		var String msg
+		val type = property.type
+		if(type != null) {
+			val attrType = type.calculateTypeExpressionType
+			if(attrType instanceof RefType) {
+				msg = "You can't use specific object as a type, use generic 'object' instead"
+			} else if(attrType instanceof CollectionType) {
+				msg = "You can't use collection of a specific type as a type, use generic 'collection' instead"
 			}
 		}
-}
-
-@Check
-def void checkMemberSelection(MemberSelectionExpression selection) {
-	val member = selection.member
-
-	if (member instanceof Field && selection.isIsMethod) {
-		error(
-			"Method invocation on a field",
-			UIDSLPackage.eINSTANCE.memberSelectionExpression_IsMethod)
+		if(!msg.empty) {
+			error(msg, UIDSLPackage.eINSTANCE.propertyValue_Type)
+		}
 	}
-	else if (member instanceof Method && !selection.isIsMethod) {
-		error(
-			"Field selection on a method",
-			UIDSLPackage.eINSTANCE.memberSelectionExpression_Member
-		)
+	
+	@Check
+	def void checkVariableTypeInSpecificContexts(Variable variable) {
+		val container = variable.eContainer
+		val feature = variable.eContainingFeature
+		if(container instanceof Page) {
+			val type = variable.type
+			if(feature == UIDSLPackage.eINSTANCE.page_Params) {
+				if(!(type instanceof RefType) || !((type as RefType).reference instanceof DTOClass)) {
+					error("Invalid type. Page allows only dto objects as parameters", UIDSLPackage.eINSTANCE.variable_Type)
+				}
+			} else if(feature == UIDSLPackage.eINSTANCE.UIContainer_ServerComponents) {
+				if(!(type instanceof RefType) || !((type as RefType).reference instanceof ServerComponent)) {
+					error("Invalid type. Only server components allowed here.", UIDSLPackage.eINSTANCE.variable_Type)
+				}
+			}
+		}	
 	}
-}
+	
+	@Check 
+	def void checkConformance(Expression e) {
+		val type = e.type
+		val expectedType = e.expectedType
+		if (expectedType == null || type == null)
+			return;
+		if (!type.isConformant(expectedType)) {
+			error("Incompatible types. Expected '" + expectedType.typeToString + "' but was '" + type.typeToString + "'",
+				null);
+		}
+	}
+	
+	@Check
+	def void checkVoidType(Field field) {
+		if(field.type instanceof VoidType) {
+			error("Field cannot have void type", DomainModelPackage.eINSTANCE.selectionMember_Type)
+		}
+	}
+	
+	@Check
+	def void checkRequiredPropertyValues(UIComponentInstance compInstance) {
+		val List<String> missingRequiredProperties = newArrayList()
+		val requiredProperties = compInstance.component.requiredProperties
+		for(p : requiredProperties) {
+			if(!compInstance.properties.map[property].contains(p)) {
+				missingRequiredProperties.add(p.name)
+			}
+		}
+		if(!missingRequiredProperties.empty) {
+			val msg = "Required properties missing: " + missingRequiredProperties.join(", ")
+			error(msg, null)
+		}
+	}
+
+	@Check
+	def checkDependendPropertyHierarchyCycles(PropertyValue p) {
+		if(p.hierarchyOfTypeDependentProperties.contains(p)) {
+			error("There is a cycle in property type dependency hierarchy of property'" + p.name + "'",
+				UIDSLPackage.eINSTANCE.propertyValue_Type)
+		}
+	}
+	
+	@Check
+	def void checkPropertySingleRuntimeType(PropertySingleRuntimeType type) {
+		val attrType = type.propertyType.property.type.calculateTypeExpressionType
+		if(!(attrType instanceof CollectionType || attrType instanceof CollectionGeneralType)) {
+			error("Invalid construct. Expression 'singleTypeOf' can only be used on collection type", null)
+		}
+	}
+	
+	@Check
+	def void checkChildComponentCardinality(UIComponentInstance compInstance) {
+		if(compInstance.component.eContainer instanceof ChildUIComponent && 
+			compInstance.eContainer instanceof UIComponentInstance
+		) {
+			val parent = compInstance.eContainer as UIComponentInstance
+			val comp = parent.component
+			val childComps = parent.childElements
+			val nestedComps = comp.nested
+			if(nestedComps != null && nestedComps instanceof ChildUIComponent
+				&& (nestedComps as ChildUIComponent).cardinality == CardinalityType.ONE
+			) {
+				fireErrorIfMoreThanOneComponentInstanceOccurs(childComps, compInstance.component)
+			}
+		}
+	}
+	
+	def fireErrorIfMoreThanOneComponentInstanceOccurs(
+		Iterable<? extends Component> childComps, UIComponent comp) {
+		if(childComps.filter[it instanceof UIComponentInstance && (it as UIComponentInstance).component === comp].size > 1) {
+			error("Only one instance of '" + comp.name + "' component allowed",
+				UIDSLPackage.eINSTANCE.UIComponentInstance_Component
+			)
+		}
+	}
+	
+	@Check
+	def checkDuplicatePropertyValueInstances(PropertyValueInstance propValueInstance) {
+		val size = (propValueInstance.eContainer as UIComponentInstance).properties.map[property].filter[it.name == propValueInstance.property.name].size
+		if(size > 1) {
+			error("Duplicate property '" + propValueInstance.property.name + "'", 
+				UIDSLPackage.eINSTANCE.propertyValueInstance_Property
+			)
+		}
+	}
+	
+	@Check
+	def void checkIfDefaultComponetsAreValidInContext(DefaultComponent comp) {
+		val cont = comp.eContainer
+		if(cont instanceof UIComponentInstance) {
+			val nestedComps = cont.component.nested
+			if(!(nestedComps instanceof ExistingNestedComponents &&
+				(nestedComps as ExistingNestedComponents).nestedComponents instanceof AllAllowedComponents)) {
+					error("Default components are not allowed in this context", null)
+				}
+		}
+	}
+	
+	@Check
+	def void checkThatOnlyOneDefaultConfigurationExists(DefaultConfigurations conf) {
+		val res = conf.eResource.URI.toPlatformString(true)
+		//TODO try to find a better way
+		//problem is that when concept defined in library is checked, it is marked with error, but error is 
+		//still there even if everything is fixed because library is not aware of changes in application
+		if(res != LibraryConstants.DEFAULT_CONFIGURATION_LIBRARY_PATH) {
+			if(conf.visibleDefaultConfigurations.size > 1) {
+				error("Default configurations can be specified only once", UIDSLPackage.eINSTANCE.defaultConfigurations_Name)
+			}
+		}
+	}
+	
+	@Check
+	def void checkTheTypeOfDefaultComponentExpression(DefaultComponent comp) {
+		val expr = comp.value
+		if(expr != null) {
+			val type = expr.type
+			val confs = comp.visibleDefaultConfigurations
+			if(confs.size == 1) {
+				val confDesc = confs.head
+				var conf = confDesc.EObjectOrProxy
+				if(conf.eIsProxy) {
+					conf = comp.eResource.resourceSet.getEObject(confDesc.EObjectURI, true)
+				}
+				val config = conf as DefaultConfigurations
+				switch(comp) {
+					InputUIComponent: {
+						if(config.defaults.findFirst[type.isConformant(it.type) && it.inputComp != null] == null) {
+							error("There is no default component implementation for type " + type.typeToString, null)
+						}
+					}
+					OutputUIComponent: {
+						if(config.defaults.findFirst[type.isConformant(it.type) && it.outputComp != null] == null) {
+							error("There is no default component implementation for type " + type.typeToString, null)
+						}
+					}
+					
+				}
+				
+			}
+			
+		}
+	}
+	
+	@Check
+	def void checkPropertyValueInstanceObjectType(PropertyValueInstance prop) {
+		val type = prop.value.type
+		fireErrorMessageIfServerComponentType(type, UIDSLPackage.eINSTANCE.propertyValueInstance_Value)
+	}
+	
+	@Check
+	def void checkDefaultComponentValueType(DefaultComponent comp) {
+		fireErrorMessageIfServerComponentType(comp.value.type, UIDSLPackage.eINSTANCE.defaultComponent_Value)
+	}
+	
+	def void fireErrorMessageIfServerComponentType(AttributeType type, EStructuralFeature feature) {
+		if(type instanceof RefType && (type as RefType).reference instanceof ServerComponent ||
+			type instanceof CollectionType && 
+			(type as CollectionType).ofType instanceof RefType &&
+			((type as CollectionType).ofType as RefType).reference instanceof ServerComponent) {
+				error("Type " + type.typeToString + " is not valid in this context", 
+					feature
+				)
+		}
+	}
+	
+	@Check
+	def void checkDuplicateDefaultConfigs(DefaultComponentConfig conf) {
+		val type = conf.type
+		val config = conf.eContainer as DefaultConfigurations
+		if(config.defaults.filter[areTypesSame(type, it.type)].size > 1) {
+			error("Duplicate default config for type " + type.typeToString, 
+				UIDSLPackage.eINSTANCE.defaultComponentConfig_Type
+			)
+		}
+	}
+	
+	@Check
+	def checkDuplicateValueProperties(PropertyValue prop) {
+		val valueProperty = prop.isValueProperty
+		if(valueProperty && (prop.eContainer as UIComponent).properties.filter[isValueProperty].size > 1) {
+			error("Only one value property per component allowed", null)
+		}
+	}
+	
+	@Check
+	def checkDuplicateTemplateFragmentOverrides(TemplateFragmentOverride f) {
+		val templateFrag = f.overridenFragment
+		if(templateFrag != null &&
+			(f.eContainer as Page).elements.filter(TemplateFragmentOverride).filter[t | t.overridenFragment == templateFrag].size > 1) {
+			error("Template fragment can be overriden only once", 
+				UIDSLPackage.eINSTANCE.templateFragmentOverride_OverridenFragment
+			)
+		}
+	} 
+	
+	//component specific checks
+	
+	@Check
+	def void checkListUIComponentChildComponents(UIComponentInstance compInstance) {
+		val comp = compInstance.component
+		val parent = compInstance.eContainer
+		if(comp.name == UIComponents.LIST_ELEMENT && 
+			parent instanceof UIComponentInstance && 
+			(parent as UIComponentInstance).component.name == UIComponents.LIST
+		) {
+			val parentComp = parent as UIComponentInstance
+			if(parentComp.properties.filter[it.property.name == UIComponents.LIST_VALUE_PROPERTY].size > 0) {
+				fireErrorIfMoreThanOneComponentInstanceOccurs(parentComp.childElements, compInstance.component)
+			}
+		}
+	}
+	
+	@Check
+	def void checkActionPropertyOfActionComponent(PropertyValueInstance propInstance) {
+		var invalid = false
+		val comp = (propInstance.eContainer as UIComponentInstance).component
+		if(propInstance.property.name == UIComponents.ACTION_ACTION_PROPERTY && 
+			comp.name == UIComponents.ACTION
+		) {
+			invalid = true
+			val expr = propInstance.value
+			if(expr instanceof MemberSelectionExpression) {
+				val receiverType = expr.receiver.type
+				if(receiverType instanceof RefType && 
+					(receiverType as RefType).reference instanceof ServerComponent &&
+					expr.member instanceof Method
+				) {
+					invalid = false
+				}
+			}
+		}
+		if(invalid) {
+			error("Only server component method can be specified inside action property",
+				UIDSLPackage.eINSTANCE.propertyValueInstance_Value
+			)
+		}
+	}
 	
 }

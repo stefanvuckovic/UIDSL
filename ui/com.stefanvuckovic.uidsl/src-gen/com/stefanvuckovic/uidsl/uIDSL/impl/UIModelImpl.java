@@ -3,7 +3,6 @@
  */
 package com.stefanvuckovic.uidsl.uIDSL.impl;
 
-import com.stefanvuckovic.uidsl.uIDSL.UIConcept;
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage;
 import com.stefanvuckovic.uidsl.uIDSL.UIModel;
 
@@ -14,6 +13,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
@@ -44,7 +44,7 @@ public class UIModelImpl extends MinimalEObjectImpl.Container implements UIModel
    * @generated
    * @ordered
    */
-  protected EList<UIConcept> concepts;
+  protected EList<EObject> concepts;
 
   /**
    * <!-- begin-user-doc -->
@@ -72,11 +72,11 @@ public class UIModelImpl extends MinimalEObjectImpl.Container implements UIModel
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<UIConcept> getConcepts()
+  public EList<EObject> getConcepts()
   {
     if (concepts == null)
     {
-      concepts = new EObjectContainmentEList<UIConcept>(UIConcept.class, this, UIDSLPackage.UI_MODEL__CONCEPTS);
+      concepts = new EObjectContainmentEList<EObject>(EObject.class, this, UIDSLPackage.UI_MODEL__CONCEPTS);
     }
     return concepts;
   }
@@ -126,7 +126,7 @@ public class UIModelImpl extends MinimalEObjectImpl.Container implements UIModel
     {
       case UIDSLPackage.UI_MODEL__CONCEPTS:
         getConcepts().clear();
-        getConcepts().addAll((Collection<? extends UIConcept>)newValue);
+        getConcepts().addAll((Collection<? extends EObject>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
