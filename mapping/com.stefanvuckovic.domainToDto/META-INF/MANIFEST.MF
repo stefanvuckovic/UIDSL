@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.stefanvuckovic.domainToDto
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: com.stefanvuckovic.domainToDto; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ com.stefanvuckovic.domainmodel;bundle-version="1.0.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib,
+ org.antlr.runtime,
+ org.eclipse.xtext.util,
+ org.eclipse.xtend.lib,
+ org.eclipse.emf.common,
+ com.stefanvuckovic.dto;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: com.stefanvuckovic.domainToDto.generator,
+ com.stefanvuckovic.domainToDto.serializer,
+ com.stefanvuckovic.domainToDto.validation,
+ com.stefanvuckovic.domainToDto.domainToDTO.util,
+ com.stefanvuckovic.domainToDto,
+ com.stefanvuckovic.domainToDto.parser.antlr.internal,
+ com.stefanvuckovic.domainToDto.services,
+ com.stefanvuckovic.domainToDto.domainToDTO,
+ com.stefanvuckovic.domainToDto.scoping,
+ com.stefanvuckovic.domainToDto.parser.antlr,
+ com.stefanvuckovic.domainToDto.domainToDTO.impl
+Import-Package: org.apache.log4j

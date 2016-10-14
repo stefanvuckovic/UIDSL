@@ -14,6 +14,7 @@ import com.stefanvuckovic.domainmodel.domainModel.RefType;
 import com.stefanvuckovic.dto.DTOUtil;
 import com.stefanvuckovic.dto.dTO.DTOClass;
 import com.stefanvuckovic.dto.dTO.DTOModel;
+import com.stefanvuckovic.dto.dTO.IDAttribute;
 import com.stefanvuckovic.dto.dTO.ObjectRepresentation;
 import com.stefanvuckovic.dto.scoping.CustomIndex;
 import com.stefanvuckovic.dto.validation.AbstractDTOValidator;
@@ -25,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -74,37 +76,67 @@ public class DTOValidator extends AbstractDTOValidator {
     final EList<AttributeOption> options = a.getOptions();
     boolean _notEquals = (!Objects.equal(options, null));
     if (_notEquals) {
-      int _size = options.size();
-      boolean _equals_1 = (_size == 1);
-      if (_equals_1) {
-        if (((((IterableExtensions.<AttributeOption>head(options) instanceof ObjectRepresentation) && 
-          (a.getType() instanceof RefType)) && 
-          (((RefType) a.getType()).getReference() instanceof DTOClass)) || 
-          (a.getType() instanceof CollectionType))) {
-          this.error("Specified option is not valid for this attribute", DomainModelPackage.Literals.ATTRIBUTE__OPTIONS, 0);
+      for (int i = 0; (i < ((Object[])Conversions.unwrapArray(options, Object.class)).length); i++) {
+        {
+          final AttributeOption opt = options.get(i);
+          if ((((((opt instanceof ObjectRepresentation) || (opt instanceof IDAttribute)) && 
+            (a.getType() instanceof RefType)) && 
+            (((RefType) a.getType()).getReference() instanceof DTOClass)) || 
+            (a.getType() instanceof CollectionType))) {
+            this.error("Specified option is not valid for this attribute", DomainModelPackage.Literals.ATTRIBUTE__OPTIONS, i);
+          } else {
+            if (((opt instanceof IDAttribute) && (a.getType() instanceof RefType))) {
+              this.error("Specified option is not valid for this attribute", DomainModelPackage.Literals.ATTRIBUTE__OPTIONS, i);
+            }
+          }
         }
       }
     }
   }
   
   @Check
-  public void checkOnlyOneRepresentationOptionPerClass(final ObjectRepresentation repr) {
-    EObject _eContainer = repr.eContainer();
+  public void checkOnlyOneAttributeOptionPerClass(final AttributeOption opt) {
+    EObject _eContainer = opt.eContainer();
     final Attribute attr = ((Attribute) _eContainer);
     EObject _eContainer_1 = attr.eContainer();
     if ((_eContainer_1 instanceof DTOClass)) {
       EObject _eContainer_2 = attr.eContainer();
       final DTOClass cl = ((DTOClass) _eContainer_2);
+      final Class<? extends AttributeOption> optClass = opt.getClass();
       EList<Attribute> _attributes = cl.getAttributes();
-      final Function1<Attribute, Boolean> _function = (Attribute it) -> {
-        return Boolean.valueOf(this._dTOUtil.isObjectRepresentation(it));
+      final Function1<Attribute, Boolean> _function = (Attribute a) -> {
+        return Boolean.valueOf(this._dTOUtil.hasAttributeOption(a, optClass));
       };
       Iterable<Attribute> _filter = IterableExtensions.<Attribute>filter(_attributes, _function);
       int _size = IterableExtensions.size(_filter);
       boolean _greaterThan = (_size > 1);
       if (_greaterThan) {
-        this.error("Only one attribute can be specified as object representation", null);
+        final boolean id = (opt instanceof IDAttribute);
+        String _xifexpression = null;
+        if (id) {
+          _xifexpression = "id";
+        } else {
+          _xifexpression = "object representation";
+        }
+        String _plus = ("Only one attribute can be specified as " + _xifexpression);
+        this.error(_plus, null);
       }
+    }
+  }
+  
+  @Check
+  public void checkIfRequiredAttributeOptionExistsForDtoClass(final DTOClass cl) {
+    Attribute _iDAttribute = this._dTOUtil.getIDAttribute(cl);
+    boolean _equals = Objects.equal(_iDAttribute, null);
+    if (_equals) {
+      EAttribute _concept_Name = DomainModelPackage.eINSTANCE.getConcept_Name();
+      this.error("Id attribute missing", _concept_Name);
+    }
+    Attribute _objectRepresentationAttribute = this._dTOUtil.getObjectRepresentationAttribute(cl);
+    boolean _equals_1 = Objects.equal(_objectRepresentationAttribute, null);
+    if (_equals_1) {
+      EAttribute _concept_Name_1 = DomainModelPackage.eINSTANCE.getConcept_Name();
+      this.error("Object representation attribute missing", _concept_Name_1);
     }
   }
 }

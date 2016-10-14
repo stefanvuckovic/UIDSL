@@ -104,6 +104,15 @@ public class DTOSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DTOPackage.ID_ATTRIBUTE:
+      {
+        IDAttribute idAttribute = (IDAttribute)theEObject;
+        T result = caseIDAttribute(idAttribute);
+        if (result == null) result = caseAttributeOption(idAttribute);
+        if (result == null) result = caseOption(idAttribute);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DTOPackage.TEXT_TYPE:
       {
         TextType textType = (TextType)theEObject;
@@ -202,6 +211,22 @@ public class DTOSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseObjectRepresentation(ObjectRepresentation object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>ID Attribute</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ID Attribute</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIDAttribute(IDAttribute object)
   {
     return null;
   }

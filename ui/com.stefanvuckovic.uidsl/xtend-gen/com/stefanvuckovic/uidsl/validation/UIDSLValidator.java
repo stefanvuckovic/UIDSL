@@ -8,6 +8,7 @@ import com.google.common.collect.Iterables;
 import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
 import com.stefanvuckovic.domainmodel.domainModel.CardinalityType;
 import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
+import com.stefanvuckovic.domainmodel.domainModel.Concept;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.RefType;
@@ -28,12 +29,16 @@ import com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig;
 import com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations;
 import com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents;
 import com.stefanvuckovic.uidsl.uIDSL.Field;
+import com.stefanvuckovic.uidsl.uIDSL.Fragment;
+import com.stefanvuckovic.uidsl.uIDSL.FragmentCall;
 import com.stefanvuckovic.uidsl.uIDSL.InputUIComponent;
+import com.stefanvuckovic.uidsl.uIDSL.IterationExpression;
 import com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression;
 import com.stefanvuckovic.uidsl.uIDSL.Method;
 import com.stefanvuckovic.uidsl.uIDSL.NestedComponent;
 import com.stefanvuckovic.uidsl.uIDSL.OutputUIComponent;
 import com.stefanvuckovic.uidsl.uIDSL.Page;
+import com.stefanvuckovic.uidsl.uIDSL.PageCall;
 import com.stefanvuckovic.uidsl.uIDSL.PropertyRuntimeType;
 import com.stefanvuckovic.uidsl.uIDSL.PropertySingleRuntimeType;
 import com.stefanvuckovic.uidsl.uIDSL.PropertyValue;
@@ -45,6 +50,7 @@ import com.stefanvuckovic.uidsl.uIDSL.TypeExpression;
 import com.stefanvuckovic.uidsl.uIDSL.UIComponent;
 import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance;
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage;
+import com.stefanvuckovic.uidsl.uIDSL.UIElement;
 import com.stefanvuckovic.uidsl.uIDSL.Variable;
 import com.stefanvuckovic.uidsl.uIDSL.VoidType;
 import com.stefanvuckovic.uidsl.validation.AbstractUIDSLValidator;
@@ -110,6 +116,32 @@ public class UIDSLValidator extends AbstractUIDSLValidator {
         EReference _memberSelectionExpression_Member = UIDSLPackage.eINSTANCE.getMemberSelectionExpression_Member();
         this.error(_plus_2, _memberSelectionExpression_Member);
       }
+    }
+  }
+  
+  @Check
+  public void checkNumberOfParametersInFragmentCall(final FragmentCall fCall) {
+    EList<Expression> _params = fCall.getParams();
+    final int paramsNo = _params.size();
+    Fragment _frag = fCall.getFrag();
+    EList<Variable> _params_1 = _frag.getParams();
+    final int actualParamsNo = _params_1.size();
+    if ((paramsNo != actualParamsNo)) {
+      this.error(((("Wrong number of parameters: expected " + Integer.valueOf(actualParamsNo)) + " but was ") + Integer.valueOf(paramsNo)), 
+        null);
+    }
+  }
+  
+  @Check
+  public void checkNumberOfParametersInPageCall(final PageCall pCall) {
+    EList<Expression> _params = pCall.getParams();
+    final int paramsNo = _params.size();
+    Page _page = pCall.getPage();
+    EList<Variable> _params_1 = _page.getParams();
+    final int actualParamsNo = _params_1.size();
+    if ((paramsNo != actualParamsNo)) {
+      this.error(((("Wrong number of parameters: expected " + Integer.valueOf(actualParamsNo)) + " but was ") + Integer.valueOf(paramsNo)), 
+        null);
     }
   }
   
@@ -477,6 +509,67 @@ public class UIDSLValidator extends AbstractUIDSLValidator {
   }
   
   @Check
+  public void checkUIElementInstanceOutsideTemplateFragment(final UIElement elInst) {
+    final EObject cont = elInst.eContainer();
+    if (((cont instanceof Page) && (!Objects.equal(((Page) cont).getTemplate(), null)))) {
+      if ((!(elInst instanceof TemplateFragmentOverride))) {
+        this.error("Elements on a page must be declared inside template fragment, because page has specified template", 
+          null);
+      }
+    }
+  }
+  
+  @Check
+  public void checkFieldEndingWithReservedSuffix(final Field f) {
+    if (((!Objects.equal(f.getName(), null)) && f.getName().endsWith("Param"))) {
+      EAttribute _selectionMember_Name = DomainModelPackage.eINSTANCE.getSelectionMember_Name();
+      this.error("Field name cannot end with reserved suffix \'Param\'.", _selectionMember_Name);
+    }
+  }
+  
+  @Check
+  public void checkPageParamEndingWithReservedSuffix(final Variable v) {
+    final EStructuralFeature feature = v.eContainingFeature();
+    if (((Objects.equal(feature, UIDSLPackage.eINSTANCE.getPage_Params()) && (!Objects.equal(v.getName(), null))) && v.getName().endsWith("Param"))) {
+      EAttribute _variable_Name = UIDSLPackage.eINSTANCE.getVariable_Name();
+      this.error("Page parameter name cannot end with reserved suffix \'Param\'", _variable_Name);
+    }
+  }
+  
+  @Check
+  public void checkPageParamNameCollisionWithMainServerComponentFields(final Variable v) {
+    final EStructuralFeature feature = v.eContainingFeature();
+    final EObject cont = v.eContainer();
+    if (((!Objects.equal(v.getName(), null)) && Objects.equal(feature, UIDSLPackage.eINSTANCE.getPage_Params()))) {
+      final Page page = ((Page) cont);
+      final EList<Variable> scs = page.getServerComponents();
+      boolean _isEmpty = scs.isEmpty();
+      boolean _not = (!_isEmpty);
+      if (_not) {
+        final Variable sc = IterableExtensions.<Variable>head(scs);
+        AttributeType _type = sc.getType();
+        Concept _reference = ((RefType) _type).getReference();
+        final ServerComponent serverComp = ((ServerComponent) _reference);
+        Iterable<Field> _fields = this._uIDSLUtil.getFields(serverComp);
+        final Function1<Field, Boolean> _function = (Field f) -> {
+          String _name = f.getName();
+          String _name_1 = v.getName();
+          return Boolean.valueOf(Objects.equal(_name, _name_1));
+        };
+        Field _findFirst = IterableExtensions.<Field>findFirst(_fields, _function);
+        boolean _notEquals = (!Objects.equal(_findFirst, null));
+        if (_notEquals) {
+          String _name = serverComp.getName();
+          String _plus = ("Name collision: Page parameter cannot have the same name as one of the fields in main server component for this page: \'" + _name);
+          String _plus_1 = (_plus + "\'");
+          EAttribute _variable_Name = UIDSLPackage.eINSTANCE.getVariable_Name();
+          this.error(_plus_1, _variable_Name);
+        }
+      }
+    }
+  }
+  
+  @Check
   public void checkListUIComponentChildComponents(final UIComponentInstance compInstance) {
     final UIComponent comp = compInstance.getComponent();
     final EObject parent = compInstance.eContainer();
@@ -488,7 +581,7 @@ public class UIDSLValidator extends AbstractUIDSLValidator {
       final Function1<PropertyValueInstance, Boolean> _function = (PropertyValueInstance it) -> {
         PropertyValue _property = it.getProperty();
         String _name = _property.getName();
-        return Boolean.valueOf(Objects.equal(_name, UIComponents.LIST_VALUE_PROPERTY));
+        return Boolean.valueOf(Objects.equal(_name, UIComponents.VALUE_PROPERTY));
       };
       Iterable<PropertyValueInstance> _filter = IterableExtensions.<PropertyValueInstance>filter(_properties, _function);
       int _size = IterableExtensions.size(_filter);
@@ -523,6 +616,24 @@ public class UIDSLValidator extends AbstractUIDSLValidator {
     if (invalid) {
       EReference _propertyValueInstance_Value = UIDSLPackage.eINSTANCE.getPropertyValueInstance_Value();
       this.error("Only server component method can be specified inside action property", _propertyValueInstance_Value);
+    }
+  }
+  
+  @Check
+  public void checkIterationExpressionForIterationComponents(final PropertyValueInstance propInstance) {
+    final PropertyValue prop = propInstance.getProperty();
+    EObject _eContainer = propInstance.eContainer();
+    final UIComponent comp = ((UIComponentInstance) _eContainer).getComponent();
+    if (((!Objects.equal(prop, null)) && ((Objects.equal(prop.getName(), UIComponents.SELECT_FROM_PROPERTY) && ((Objects.equal(comp.getName(), UIComponents.COMBO_BOX) || Objects.equal(comp.getName(), UIComponents.RADIO_SELECTION)) || 
+      Objects.equal(comp.getName(), UIComponents.MULTI_SELECT_CHECKBOX))) || (Objects.equal(prop.getName(), UIComponents.VALUE_PROPERTY) && (Objects.equal(comp.getName(), UIComponents.TABLE) || Objects.equal(comp.getName(), UIComponents.LIST)))))) {
+      final Expression exp = propInstance.getValue();
+      if ((!(exp instanceof IterationExpression))) {
+        String _name = prop.getName();
+        String _plus = ("Variable must be exposed inside property \'" + _name);
+        String _plus_1 = (_plus + "\'. Example: \'v in collection\'");
+        EReference _propertyValueInstance_Property = UIDSLPackage.eINSTANCE.getPropertyValueInstance_Property();
+        this.error(_plus_1, _propertyValueInstance_Property);
+      }
     }
   }
 }

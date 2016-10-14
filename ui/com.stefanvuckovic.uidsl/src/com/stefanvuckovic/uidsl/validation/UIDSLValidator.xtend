@@ -44,6 +44,10 @@ import org.eclipse.xtext.validation.Check
 import com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig
 import com.stefanvuckovic.uidsl.LibraryConstants
 import com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride
+import com.stefanvuckovic.uidsl.uIDSL.IterationExpression
+import com.stefanvuckovic.uidsl.uIDSL.FragmentCall
+import com.stefanvuckovic.uidsl.uIDSL.PageCall
+import com.stefanvuckovic.uidsl.uIDSL.UIElement
 
 /**
  * This class contains custom validation rules. 
@@ -68,6 +72,26 @@ class UIDSLValidator extends AbstractUIDSLValidator {
 						UIDSLPackage.eINSTANCE.memberSelectionExpression_Member)
 				}
 			}
+	}
+	
+	@Check 
+	def void checkNumberOfParametersInFragmentCall(FragmentCall fCall) {
+		val paramsNo = fCall.params.size
+		val actualParamsNo = fCall.frag.params.size
+		if (paramsNo != actualParamsNo) {
+			error("Wrong number of parameters: expected " + actualParamsNo + " but was " + paramsNo,
+				null)
+		}
+	}
+	
+	@Check 
+	def void checkNumberOfParametersInPageCall(PageCall pCall) {
+		val paramsNo = pCall.params.size
+		val actualParamsNo = pCall.page.params.size
+		if (paramsNo != actualParamsNo) {
+			error("Wrong number of parameters: expected " + actualParamsNo + " but was " + paramsNo,
+				null)
+		}
 	}
 	
 	@Check
@@ -317,6 +341,56 @@ class UIDSLValidator extends AbstractUIDSLValidator {
 		}
 	} 
 	
+	@Check
+	def checkUIElementInstanceOutsideTemplateFragment(UIElement elInst) {
+		val cont = elInst.eContainer
+		if(cont instanceof Page && (cont as Page).template != null) {
+			if(!(elInst instanceof TemplateFragmentOverride)) {
+				error("Elements on a page must be declared inside template fragment, because page has specified template", 
+					null
+				)
+			}
+		}
+	}
+	
+	@Check
+	def checkFieldEndingWithReservedSuffix(Field f) {
+		if(f.name != null && f.name.endsWith("Param")) {
+			error("Field name cannot end with reserved suffix 'Param'.",
+				DomainModelPackage.eINSTANCE.selectionMember_Name
+			)
+		}
+	}
+	
+	@Check
+	def checkPageParamEndingWithReservedSuffix(Variable v) {
+		val feature = v.eContainingFeature
+		if(feature == UIDSLPackage.eINSTANCE.page_Params && v.name != null && v.name.endsWith("Param")) {
+			error("Page parameter name cannot end with reserved suffix 'Param'",
+				UIDSLPackage.eINSTANCE.variable_Name
+			)
+		}
+	}
+	
+	@Check
+	def checkPageParamNameCollisionWithMainServerComponentFields(Variable v) {
+		val feature = v.eContainingFeature
+		val cont = v.eContainer
+		if(v.name != null && feature == UIDSLPackage.eINSTANCE.page_Params) {
+			val page = cont as Page
+			val scs = page.serverComponents
+			if(!scs.empty) {
+				val sc = scs.head
+				val serverComp = (sc.type as RefType).reference as ServerComponent
+				if(serverComp.fields.findFirst[f | f.name == v.name] != null) {
+					error("Name collision: Page parameter cannot have the same name as one of the fields in main server component for this page: '" + serverComp.name + "'",
+						UIDSLPackage.eINSTANCE.variable_Name
+					)
+				}
+			}
+		}
+	}
+	
 	//component specific checks
 	
 	@Check
@@ -328,7 +402,7 @@ class UIDSLValidator extends AbstractUIDSLValidator {
 			(parent as UIComponentInstance).component.name == UIComponents.LIST
 		) {
 			val parentComp = parent as UIComponentInstance
-			if(parentComp.properties.filter[it.property.name == UIComponents.LIST_VALUE_PROPERTY].size > 0) {
+			if(parentComp.properties.filter[it.property.name == UIComponents.VALUE_PROPERTY].size > 0) {
 				fireErrorIfMoreThanOneComponentInstanceOccurs(parentComp.childElements, compInstance.component)
 			}
 		}
@@ -358,6 +432,23 @@ class UIDSLValidator extends AbstractUIDSLValidator {
 				UIDSLPackage.eINSTANCE.propertyValueInstance_Value
 			)
 		}
+	}
+	
+	@Check
+	def checkIterationExpressionForIterationComponents(PropertyValueInstance propInstance) {
+		val prop = propInstance.property
+		val comp = (propInstance.eContainer as UIComponentInstance).component
+		if(prop != null && ((prop.name == UIComponents.SELECT_FROM_PROPERTY &&
+			(comp.name == UIComponents.COMBO_BOX || comp.name == UIComponents.RADIO_SELECTION ||
+			comp.name == UIComponents.MULTI_SELECT_CHECKBOX)) ||
+			(prop.name == UIComponents.VALUE_PROPERTY && (comp.name == UIComponents.TABLE || comp.name == UIComponents.LIST)))) {
+				val exp = propInstance.value
+				if(!(exp instanceof IterationExpression)) {
+					error("Variable must be exposed inside property '" + prop.name + "'. Example: 'v in collection'", 
+						UIDSLPackage.eINSTANCE.propertyValueInstance_Property
+					)
+				}
+			}
 	}
 	
 }

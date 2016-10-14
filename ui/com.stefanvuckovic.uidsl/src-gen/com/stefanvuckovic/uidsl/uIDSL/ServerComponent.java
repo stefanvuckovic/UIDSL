@@ -4,7 +4,6 @@
 package com.stefanvuckovic.uidsl.uIDSL;
 
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
-import com.stefanvuckovic.domainmodel.domainModel.Expression;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -18,7 +17,6 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.ServerComponent#getMembers <em>Members</em>}</li>
- *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.ServerComponent#getExpressions <em>Expressions</em>}</li>
  * </ul>
  *
  * @see com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage#getServerComponent()
@@ -42,21 +40,5 @@ public interface ServerComponent extends Concept
    * @generated
    */
   EList<Member> getMembers();
-
-  /**
-   * Returns the value of the '<em><b>Expressions</b></em>' containment reference list.
-   * The list contents are of type {@link com.stefanvuckovic.domainmodel.domainModel.Expression}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Expressions</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Expressions</em>' containment reference list.
-   * @see com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage#getServerComponent_Expressions()
-   * @model containment="true"
-   * @generated
-   */
-  EList<Expression> getExpressions();
 
 } // ServerComponent

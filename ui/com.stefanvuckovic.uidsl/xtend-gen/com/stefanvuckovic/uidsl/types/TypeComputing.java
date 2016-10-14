@@ -9,11 +9,14 @@ import com.stefanvuckovic.domainmodel.domainModel.SingleType;
 import com.stefanvuckovic.uidsl.UIDSLUtil;
 import com.stefanvuckovic.uidsl.types.SingleAnyType;
 import com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType;
+import com.stefanvuckovic.uidsl.uIDSL.Fragment;
+import com.stefanvuckovic.uidsl.uIDSL.FragmentCall;
 import com.stefanvuckovic.uidsl.uIDSL.IFStatement;
 import com.stefanvuckovic.uidsl.uIDSL.InlineVariable;
 import com.stefanvuckovic.uidsl.uIDSL.IterationExpression;
 import com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression;
 import com.stefanvuckovic.uidsl.uIDSL.Method;
+import com.stefanvuckovic.uidsl.uIDSL.Page;
 import com.stefanvuckovic.uidsl.uIDSL.PageCall;
 import com.stefanvuckovic.uidsl.uIDSL.PageType;
 import com.stefanvuckovic.uidsl.uIDSL.PropertyRuntimeType;
@@ -134,9 +137,7 @@ public class TypeComputing {
             AttributeType _xifexpression = null;
             if (((member instanceof Method) && (((Method) member).getParams().size() > indexOfParam))) {
               EList<Variable> _params_1 = ((Method) member).getParams();
-              EList<Expression> _params_2 = ((MemberSelectionExpression)cont).getParams();
-              int _indexOf = _params_2.indexOf(e);
-              Variable _get = _params_1.get(_indexOf);
+              Variable _get = _params_1.get(indexOfParam);
               _xifexpression = _get.getType();
             } else {
               _xifexpression = null;
@@ -162,6 +163,38 @@ public class TypeComputing {
         if (cont instanceof PropertyValueInstance) {
           _matched=true;
           _switchResult = this.getPropertyValueInstanceType(((PropertyValueInstance)cont));
+        }
+      }
+      if (!_matched) {
+        if (cont instanceof PageCall) {
+          _matched=true;
+          EList<Expression> _params = ((PageCall)cont).getParams();
+          final int ind = _params.indexOf(e);
+          final Page page = ((PageCall)cont).getPage();
+          EList<Variable> _params_1 = page.getParams();
+          int _size = _params_1.size();
+          boolean _greaterThan = (_size > ind);
+          if (_greaterThan) {
+            EList<Variable> _params_2 = page.getParams();
+            Variable _get = _params_2.get(ind);
+            return _get.getType();
+          }
+        }
+      }
+      if (!_matched) {
+        if (cont instanceof FragmentCall) {
+          _matched=true;
+          EList<Expression> _params = ((FragmentCall)cont).getParams();
+          final int ind = _params.indexOf(e);
+          final Fragment frag = ((FragmentCall)cont).getFrag();
+          EList<Variable> _params_1 = frag.getParams();
+          int _size = _params_1.size();
+          boolean _greaterThan = (_size > ind);
+          if (_greaterThan) {
+            EList<Variable> _params_2 = frag.getParams();
+            Variable _get = _params_2.get(ind);
+            return _get.getType();
+          }
         }
       }
       _xblockexpression = _switchResult;

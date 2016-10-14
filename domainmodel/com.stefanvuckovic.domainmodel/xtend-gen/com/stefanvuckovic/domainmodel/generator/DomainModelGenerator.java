@@ -6,6 +6,7 @@ package com.stefanvuckovic.domainmodel.generator;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import com.stefanvuckovic.domainmodel.DomainModelUtil;
+import com.stefanvuckovic.domainmodel.LibraryConstants;
 import com.stefanvuckovic.domainmodel.domainModel.Attribute;
 import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
 import com.stefanvuckovic.domainmodel.domainModel.BasicType;
@@ -43,6 +44,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -72,19 +74,24 @@ public class DomainModelGenerator extends AbstractGenerator {
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
-    TreeIterator<EObject> _allContents = resource.getAllContents();
-    Iterable<EObject> _iterable = IteratorExtensions.<EObject>toIterable(_allContents);
-    Iterable<Model> _filter = Iterables.<Model>filter(_iterable, Model.class);
-    final Model model = IterableExtensions.<Model>head(_filter);
-    EList<Concept> _concepts = model.getConcepts();
-    for (final Concept c : _concepts) {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("domain/");
-      String _name = c.getName();
-      _builder.append(_name, "");
-      _builder.append(".java");
-      CharSequence _compile = this.compile(c);
-      fsa.generateFile(_builder.toString(), _compile);
+    URI _uRI = resource.getURI();
+    final String uri = _uRI.toPlatformString(true);
+    boolean _notEquals = (!Objects.equal(uri, LibraryConstants.COMMON_ENTITY_LIBRARY));
+    if (_notEquals) {
+      TreeIterator<EObject> _allContents = resource.getAllContents();
+      Iterable<EObject> _iterable = IteratorExtensions.<EObject>toIterable(_allContents);
+      Iterable<Model> _filter = Iterables.<Model>filter(_iterable, Model.class);
+      final Model model = IterableExtensions.<Model>head(_filter);
+      EList<Concept> _concepts = model.getConcepts();
+      for (final Concept c : _concepts) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("domain/");
+        String _name = c.getName();
+        _builder.append(_name, "");
+        _builder.append(".java");
+        CharSequence _compile = this.compile(c);
+        fsa.generateFile(_builder.toString(), _compile);
+      }
     }
   }
   

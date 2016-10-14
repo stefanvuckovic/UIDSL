@@ -15,7 +15,6 @@ UIModel:
 ServerComponent returns domainModel::Concept:
 	{ServerComponent} 'server_component' name=ID '{'
 		members+=Member*
-		expressions+=Expression*
 	'}'
 ;
 

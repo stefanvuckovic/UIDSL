@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import com.stefanvuckovic.domainmodel.LibraryConstants
 
 /**
  * Generates code from your model files on save.
@@ -48,9 +49,12 @@ class DomainModelGenerator extends AbstractGenerator {
 	@Inject extension DomainModelUtil
 	 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		val model = resource.allContents.toIterable.filter(Model).head
-		for (c : model.concepts) {
-			fsa.generateFile('''domain/«c.name».java''', c.compile)
+		val uri = resource.URI.toPlatformString(true)
+		if(uri != LibraryConstants.COMMON_ENTITY_LIBRARY) {
+			val model = resource.allContents.toIterable.filter(Model).head
+			for (c : model.concepts) {
+				fsa.generateFile('''domain/«c.name».java''', c.compile)
+			}
 		}
 	}
 	

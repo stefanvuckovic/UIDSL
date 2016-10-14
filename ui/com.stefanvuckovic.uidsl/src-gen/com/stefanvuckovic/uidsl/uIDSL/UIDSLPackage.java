@@ -1152,22 +1152,13 @@ public interface UIDSLPackage extends EPackage
   int SERVER_COMPONENT__MEMBERS = DomainModelPackage.CONCEPT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SERVER_COMPONENT__EXPRESSIONS = DomainModelPackage.CONCEPT_FEATURE_COUNT + 1;
-
-  /**
    * The number of structural features of the '<em>Server Component</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SERVER_COMPONENT_FEATURE_COUNT = DomainModelPackage.CONCEPT_FEATURE_COUNT + 2;
+  int SERVER_COMPONENT_FEATURE_COUNT = DomainModelPackage.CONCEPT_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.InlineVariableImpl <em>Inline Variable</em>}' class.
@@ -2443,17 +2434,6 @@ public interface UIDSLPackage extends EPackage
   EReference getServerComponent_Members();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.ServerComponent#getExpressions <em>Expressions</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Expressions</em>'.
-   * @see com.stefanvuckovic.uidsl.uIDSL.ServerComponent#getExpressions()
-   * @see #getServerComponent()
-   * @generated
-   */
-  EReference getServerComponent_Expressions();
-
-  /**
    * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.InlineVariable <em>Inline Variable</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3450,14 +3430,6 @@ public interface UIDSLPackage extends EPackage
      * @generated
      */
     EReference SERVER_COMPONENT__MEMBERS = eINSTANCE.getServerComponent_Members();
-
-    /**
-     * The meta object literal for the '<em><b>Expressions</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference SERVER_COMPONENT__EXPRESSIONS = eINSTANCE.getServerComponent_Expressions();
 
     /**
      * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.InlineVariableImpl <em>Inline Variable</em>}' class.

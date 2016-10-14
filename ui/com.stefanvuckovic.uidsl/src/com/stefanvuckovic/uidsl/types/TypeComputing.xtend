@@ -23,6 +23,7 @@ import com.stefanvuckovic.uidsl.uIDSL.PropertyValue
 import com.stefanvuckovic.uidsl.UIDSLUtil
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import com.stefanvuckovic.uidsl.uIDSL.FragmentCall
 
 class TypeComputing {
 
@@ -72,7 +73,7 @@ class TypeComputing {
 				val member = cont.member
 				val indexOfParam = cont.params.indexOf(e)
 				if(member instanceof Method && (member as Method).params.size > indexOfParam) {
-					(member as Method).params.get(cont.params.indexOf(e)).type
+					(member as Method).params.get(indexOfParam).type
 				}
 				else {
 					null
@@ -84,6 +85,20 @@ class TypeComputing {
 				com.stefanvuckovic.domainmodel.types.TypeComputing.BOOL_TYPE
 			PropertyValueInstance:
 				cont.propertyValueInstanceType
+			PageCall: {
+				val ind = cont.params.indexOf(e)
+				val page = cont.page
+				if(page.params.size > ind) {
+					return page.params.get(ind).type
+				}
+			}
+			FragmentCall: {
+				val ind = cont.params.indexOf(e)
+				val frag = cont.frag
+				if(frag.params.size > ind) {
+					return frag.params.get(ind).type
+				}
+			}
 		}
 	}
 	

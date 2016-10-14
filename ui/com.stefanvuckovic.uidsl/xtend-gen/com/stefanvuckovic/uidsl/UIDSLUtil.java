@@ -5,7 +5,9 @@ import com.google.common.collect.Iterables;
 import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
 import com.stefanvuckovic.dto.DTOUtil;
 import com.stefanvuckovic.uidsl.uIDSL.AlternativeType;
+import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent;
 import com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType;
+import com.stefanvuckovic.uidsl.uIDSL.Component;
 import com.stefanvuckovic.uidsl.uIDSL.EnumGeneralType;
 import com.stefanvuckovic.uidsl.uIDSL.Field;
 import com.stefanvuckovic.uidsl.uIDSL.Member;
@@ -15,12 +17,15 @@ import com.stefanvuckovic.uidsl.uIDSL.PageType;
 import com.stefanvuckovic.uidsl.uIDSL.PropertyRuntimeType;
 import com.stefanvuckovic.uidsl.uIDSL.PropertySingleRuntimeType;
 import com.stefanvuckovic.uidsl.uIDSL.PropertyValue;
+import com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance;
 import com.stefanvuckovic.uidsl.uIDSL.ServerComponent;
 import com.stefanvuckovic.uidsl.uIDSL.TypeExpression;
 import com.stefanvuckovic.uidsl.uIDSL.UIComponent;
+import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance;
 import java.util.LinkedHashSet;
 import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -129,6 +134,49 @@ public class UIDSLUtil {
         _xifexpression = _switchResult;
       }
       _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  public PropertyValueInstance getProperty(final UIComponentInstance inst, final String propName) {
+    EList<PropertyValueInstance> _properties = inst.getProperties();
+    final Function1<PropertyValueInstance, Boolean> _function = (PropertyValueInstance p) -> {
+      PropertyValue _property = p.getProperty();
+      String _name = _property.getName();
+      return Boolean.valueOf(Objects.equal(_name, propName));
+    };
+    Iterable<PropertyValueInstance> _filter = IterableExtensions.<PropertyValueInstance>filter(_properties, _function);
+    return IterableExtensions.<PropertyValueInstance>head(_filter);
+  }
+  
+  public UIComponentInstance getChildComponent(final UIComponentInstance inst, final String compName) {
+    EList<Component> _childElements = inst.getChildElements();
+    final Function1<Component, Boolean> _function = (Component c) -> {
+      UIComponent _component = ((UIComponentInstance) c).getComponent();
+      String _name = _component.getName();
+      return Boolean.valueOf(Objects.equal(_name, compName));
+    };
+    Iterable<Component> _filter = IterableExtensions.<Component>filter(_childElements, _function);
+    Component _head = null;
+    if (_filter!=null) {
+      _head=IterableExtensions.<Component>head(_filter);
+    }
+    return ((UIComponentInstance) _head);
+  }
+  
+  public boolean isTopLevelComponent(final UIComponentInstance inst) {
+    UIComponent _component = inst.getComponent();
+    EObject _eContainer = _component.eContainer();
+    return (!(_eContainer instanceof UIComponent));
+  }
+  
+  public boolean isChildOfComponent(final UIComponentInstance inst, final String name) {
+    boolean _xblockexpression = false;
+    {
+      UIComponent _component = inst.getComponent();
+      final EObject cont = _component.eContainer();
+      _xblockexpression = (((cont instanceof ChildUIComponent) && (cont.eContainer() instanceof UIComponent)) && 
+        Objects.equal(((UIComponent) cont.eContainer()).getName(), name));
     }
     return _xblockexpression;
   }

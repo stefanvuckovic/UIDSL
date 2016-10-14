@@ -3,10 +3,89 @@
  */
 package com.stefanvuckovic.uidsl.generator;
 
+import com.google.common.base.Objects;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Iterables;
+import com.stefanvuckovic.domainmodel.domainModel.Attribute;
+import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
+import com.stefanvuckovic.domainmodel.domainModel.BasicType;
+import com.stefanvuckovic.domainmodel.domainModel.BoolConstant;
+import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
+import com.stefanvuckovic.domainmodel.domainModel.Concept;
+import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
+import com.stefanvuckovic.domainmodel.domainModel.DomainModelFactory;
+import com.stefanvuckovic.domainmodel.domainModel.Expression;
+import com.stefanvuckovic.domainmodel.domainModel.IntConstant;
+import com.stefanvuckovic.domainmodel.domainModel.LongConstant;
+import com.stefanvuckovic.domainmodel.domainModel.Null;
+import com.stefanvuckovic.domainmodel.domainModel.RefType;
+import com.stefanvuckovic.domainmodel.domainModel.SelectionMember;
+import com.stefanvuckovic.domainmodel.domainModel.SingleType;
+import com.stefanvuckovic.domainmodel.domainModel.StringConstant;
+import com.stefanvuckovic.domainmodel.generator.DomainModelGenerator;
+import com.stefanvuckovic.dto.DTOUtil;
+import com.stefanvuckovic.dto.dTO.DTOClass;
+import com.stefanvuckovic.dto.generator.DTOGenerator;
+import com.stefanvuckovic.uidsl.GeneratorUtil;
+import com.stefanvuckovic.uidsl.UIComponents;
+import com.stefanvuckovic.uidsl.UIDSLUtil;
+import com.stefanvuckovic.uidsl.types.TypeComputing;
+import com.stefanvuckovic.uidsl.uIDSL.Component;
+import com.stefanvuckovic.uidsl.uIDSL.DefaultComponent;
+import com.stefanvuckovic.uidsl.uIDSL.Field;
+import com.stefanvuckovic.uidsl.uIDSL.Fragment;
+import com.stefanvuckovic.uidsl.uIDSL.FragmentCall;
+import com.stefanvuckovic.uidsl.uIDSL.IFStatement;
+import com.stefanvuckovic.uidsl.uIDSL.IterationExpression;
+import com.stefanvuckovic.uidsl.uIDSL.Iterator;
+import com.stefanvuckovic.uidsl.uIDSL.LogicElement;
+import com.stefanvuckovic.uidsl.uIDSL.Member;
+import com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression;
+import com.stefanvuckovic.uidsl.uIDSL.Method;
+import com.stefanvuckovic.uidsl.uIDSL.OutputUIComponent;
+import com.stefanvuckovic.uidsl.uIDSL.Page;
+import com.stefanvuckovic.uidsl.uIDSL.PageCall;
+import com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance;
+import com.stefanvuckovic.uidsl.uIDSL.ServerComponent;
+import com.stefanvuckovic.uidsl.uIDSL.Template;
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragment;
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride;
+import com.stefanvuckovic.uidsl.uIDSL.UIComponent;
+import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance;
+import com.stefanvuckovic.uidsl.uIDSL.UIContainer;
+import com.stefanvuckovic.uidsl.uIDSL.UIDSLFactory;
+import com.stefanvuckovic.uidsl.uIDSL.UIElement;
+import com.stefanvuckovic.uidsl.uIDSL.UIModel;
+import com.stefanvuckovic.uidsl.uIDSL.Variable;
+import com.stefanvuckovic.uidsl.uIDSL.VariableReference;
+import com.stefanvuckovic.uidsl.uIDSL.VoidType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+import javax.inject.Inject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.ObjectExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 /**
  * Generates code from your model files on save.
@@ -15,7 +94,2923 @@ import org.eclipse.xtext.generator.IGeneratorContext;
  */
 @SuppressWarnings("all")
 public class UIDSLGenerator extends AbstractGenerator {
+  @Inject
+  @Extension
+  private UIDSLUtil _uIDSLUtil;
+  
+  @Inject
+  @Extension
+  private TypeComputing _typeComputing;
+  
+  @Inject
+  @Extension
+  private DTOUtil _dTOUtil;
+  
+  @Inject
+  @Extension
+  private DTOGenerator dtoGenerator;
+  
+  @Inject
+  @Extension
+  private DomainModelGenerator dmGenerator;
+  
+  @Inject
+  private GeneratorUtil genUtil;
+  
+  private int counter = 1;
+  
+  private final String componentsFolder = "components";
+  
+  private final String serverComponentsPackage = "beans";
+  
+  private final String componentsFolderAlias = "comp";
+  
+  private final String templatesFolder = "templates";
+  
+  private final String serverCompInitMethodName = "init";
+  
+  private final HashMap<String, ServerComponent> newServerComponentsMap = CollectionLiterals.<String, ServerComponent>newHashMap();
+  
+  private final HashMultimap<String, Field> serverComponentNewFieldsMap = HashMultimap.<String, Field>create();
+  
+  private final HashMultimap<String, String> fileUploadListeners = HashMultimap.<String, String>create();
+  
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
+    TreeIterator<EObject> _allContents = resource.getAllContents();
+    Iterable<EObject> _iterable = IteratorExtensions.<EObject>toIterable(_allContents);
+    Iterable<UIModel> _filter = Iterables.<UIModel>filter(_iterable, UIModel.class);
+    final UIModel model = IterableExtensions.<UIModel>head(_filter);
+    EList<EObject> _concepts = model.getConcepts();
+    Iterable<UIContainer> _filter_1 = Iterables.<UIContainer>filter(_concepts, UIContainer.class);
+    for (final UIContainer c : _filter_1) {
+      if ((c instanceof Page)) {
+        StringConcatenation _builder = new StringConcatenation();
+        String _name = ((Page)c).getName();
+        _builder.append(_name, "");
+        _builder.append(".xhtml");
+        CharSequence _compilePage = this.compilePage(((Page)c));
+        fsa.generateFile(_builder.toString(), _compilePage);
+      } else {
+        if ((c instanceof Fragment)) {
+          StringConcatenation _builder_1 = new StringConcatenation();
+          _builder_1.append(this.componentsFolder, "");
+          _builder_1.append("/");
+          String _name_1 = ((Fragment)c).getName();
+          _builder_1.append(_name_1, "");
+          _builder_1.append(".xhtml");
+          CharSequence _compileFragment = this.compileFragment(((Fragment)c));
+          fsa.generateFile(_builder_1.toString(), _compileFragment);
+        } else {
+          if ((c instanceof Template)) {
+            StringConcatenation _builder_2 = new StringConcatenation();
+            _builder_2.append(this.templatesFolder, "");
+            _builder_2.append("/");
+            String _name_2 = ((Template)c).getName();
+            _builder_2.append(_name_2, "");
+            _builder_2.append(".xhtml");
+            CharSequence _compileTemplate = this.compileTemplate(((Template)c));
+            fsa.generateFile(_builder_2.toString(), _compileTemplate);
+          }
+        }
+      }
+    }
+    EList<EObject> _concepts_1 = model.getConcepts();
+    Iterable<ServerComponent> _filter_2 = Iterables.<ServerComponent>filter(_concepts_1, ServerComponent.class);
+    for (final ServerComponent c_1 : _filter_2) {
+      StringConcatenation _builder_3 = new StringConcatenation();
+      _builder_3.append(this.serverComponentsPackage, "");
+      _builder_3.append("/");
+      String _name_3 = c_1.getName();
+      _builder_3.append(_name_3, "");
+      _builder_3.append(".java");
+      CharSequence _compileServerComponent = this.compileServerComponent(c_1);
+      fsa.generateFile(_builder_3.toString(), _compileServerComponent);
+    }
+    Collection<ServerComponent> _values = this.newServerComponentsMap.values();
+    for (final ServerComponent sc : _values) {
+      StringConcatenation _builder_4 = new StringConcatenation();
+      _builder_4.append(this.serverComponentsPackage, "");
+      _builder_4.append("/");
+      String _name_4 = sc.getName();
+      _builder_4.append(_name_4, "");
+      _builder_4.append(".java");
+      CharSequence _compileServerComponent_1 = this.compileServerComponent(sc);
+      fsa.generateFile(_builder_4.toString(), _compileServerComponent_1);
+    }
+    this.resetData();
+  }
+  
+  public void resetData() {
+    this.counter = 1;
+    this.newServerComponentsMap.clear();
+    this.serverComponentNewFieldsMap.clear();
+    this.fileUploadListeners.clear();
+  }
+  
+  public CharSequence compileServerComponent(final ServerComponent sc) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package ");
+    _builder.append(this.serverComponentsPackage, "");
+    _builder.append(";");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t\t");
+    _builder.newLine();
+    _builder.append("@javax.faces.bean.ManagedBean(name = \"");
+    String _name = sc.getName();
+    String _firstLower = StringExtensions.toFirstLower(_name);
+    _builder.append(_firstLower, "");
+    _builder.append("\")");
+    _builder.newLineIfNotEmpty();
+    _builder.append("@org.springframework.stereotype.Component(\"");
+    String _name_1 = sc.getName();
+    String _firstLower_1 = StringExtensions.toFirstLower(_name_1);
+    _builder.append(_firstLower_1, "");
+    _builder.append("\")");
+    _builder.newLineIfNotEmpty();
+    _builder.append("@org.springframework.context.annotation.Scope(\"view\")");
+    _builder.newLine();
+    _builder.append("public class ");
+    String _name_2 = sc.getName();
+    _builder.append(_name_2, "");
+    _builder.append(" {");
+    _builder.newLineIfNotEmpty();
+    EList<Member> _members = sc.getMembers();
+    final Iterable<Field> fields = Iterables.<Field>filter(_members, Field.class);
+    _builder.newLineIfNotEmpty();
+    EList<Member> _members_1 = sc.getMembers();
+    final Iterable<Method> methods = Iterables.<Method>filter(_members_1, Method.class);
+    _builder.newLineIfNotEmpty();
+    {
+      for(final Field f : fields) {
+        _builder.append("\t");
+        String _compilFieldAnnotations = this.compilFieldAnnotations(f);
+        _builder.append(_compilFieldAnnotations, "\t");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("private ");
+        AttributeType _type = f.getType();
+        String _compile = this.compile(_type);
+        _builder.append(_compile, "\t");
+        _builder.append(" ");
+        String _name_3 = f.getName();
+        _builder.append(_name_3, "\t");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("\t");
+    String _name_4 = sc.getName();
+    final Set<Field> additionalFields = this.serverComponentNewFieldsMap.get(_name_4);
+    _builder.newLineIfNotEmpty();
+    {
+      boolean _notEquals = (!Objects.equal(additionalFields, null));
+      if (_notEquals) {
+        {
+          for(final Field f_1 : additionalFields) {
+            _builder.append("\t");
+            _builder.append("private ");
+            AttributeType _type_1 = f_1.getType();
+            String _compile_1 = this.compile(_type_1);
+            _builder.append(_compile_1, "\t");
+            _builder.append(" ");
+            String _name_5 = f_1.getName();
+            _builder.append(_name_5, "\t");
+            _builder.append(";");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public ");
+    String _name_6 = sc.getName();
+    _builder.append(_name_6, "\t");
+    _builder.append("() {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    CharSequence _compileCollectionFieldsInit = this.compileCollectionFieldsInit(fields);
+    _builder.append(_compileCollectionFieldsInit, "\t\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    CharSequence _compileCollectionFieldsInit_1 = this.compileCollectionFieldsInit(additionalFields);
+    _builder.append(_compileCollectionFieldsInit_1, "\t\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public void ");
+    _builder.append(this.serverCompInitMethodName, "\t");
+    _builder.append("() {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    {
+      for(final Method m : methods) {
+        _builder.append("\t");
+        _builder.append("public ");
+        AttributeType _type_2 = m.getType();
+        String _compile_2 = this.compile(_type_2);
+        _builder.append(_compile_2, "\t");
+        _builder.append(" ");
+        String _name_7 = m.getName();
+        _builder.append(_name_7, "\t");
+        _builder.append("(");
+        EList<Variable> _params = m.getParams();
+        final Function1<Variable, CharSequence> _function = (Variable it) -> {
+          return this.compileVariable(it);
+        };
+        List<CharSequence> _map = ListExtensions.<Variable, CharSequence>map(_params, _function);
+        String _join = IterableExtensions.join(_map, ", ");
+        _builder.append(_join, "\t");
+        _builder.append(") {");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        _builder.append("throw new UnsupportedOperationException();");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("}");
+        _builder.newLine();
+      }
+    }
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    String _name_8 = sc.getName();
+    final Set<String> fileUploadListeners = this.fileUploadListeners.get(_name_8);
+    _builder.newLineIfNotEmpty();
+    {
+      boolean _notEquals_1 = (!Objects.equal(fileUploadListeners, null));
+      if (_notEquals_1) {
+        {
+          for(final String l : fileUploadListeners) {
+            _builder.append("\t");
+            _builder.append("public void ");
+            _builder.append(l, "\t");
+            _builder.append("(org.primefaces.event.FileUploadEvent event) {");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t");
+            _builder.append("     ");
+            _builder.append("//org.primefaces.model.UploadedFile uploadedFile = event.getFile();");
+            _builder.newLine();
+            _builder.append("\t");
+            _builder.append("     ");
+            _builder.append("//TODO");
+            _builder.newLine();
+            _builder.append("\t");
+            _builder.append("}");
+            _builder.newLine();
+          }
+        }
+      }
+    }
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("/*");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("GETTERS AND SETTERS");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("*/");
+    _builder.newLine();
+    {
+      for(final Field f_2 : fields) {
+        _builder.append("\t");
+        String _xifexpression = null;
+        if (((f_2.getName().length() > 1) && Character.isUpperCase(f_2.getName().charAt(1)))) {
+          _xifexpression = f_2.getName();
+        } else {
+          String _name_9 = f_2.getName();
+          _xifexpression = StringExtensions.toFirstUpper(_name_9);
+        }
+        final String preparedName = _xifexpression;
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("public ");
+        AttributeType _type_3 = f_2.getType();
+        String _compile_3 = this.compile(_type_3);
+        _builder.append(_compile_3, "\t");
+        _builder.append(" ");
+        AttributeType _type_4 = f_2.getType();
+        String _ter = this.dmGenerator.getter(_type_4);
+        _builder.append(_ter, "\t");
+        _builder.append(preparedName, "\t");
+        _builder.append("() {");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        _builder.append("return ");
+        String _name_10 = f_2.getName();
+        _builder.append(_name_10, "\t\t");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("}");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("\t\t\t");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("public void set");
+        _builder.append(preparedName, "\t");
+        _builder.append("(");
+        AttributeType _type_5 = f_2.getType();
+        String _compile_4 = this.compile(_type_5);
+        _builder.append(_compile_4, "\t");
+        _builder.append(" ");
+        String _name_11 = f_2.getName();
+        _builder.append(_name_11, "\t");
+        _builder.append(") {");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        _builder.append("this.");
+        String _name_12 = f_2.getName();
+        _builder.append(_name_12, "\t\t");
+        _builder.append(" = ");
+        String _name_13 = f_2.getName();
+        _builder.append(_name_13, "\t\t");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("}\t\t");
+        _builder.newLine();
+      }
+    }
+    {
+      for(final Field f_3 : additionalFields) {
+        _builder.append("\t");
+        String _xifexpression_1 = null;
+        if (((f_3.getName().length() > 1) && Character.isUpperCase(f_3.getName().charAt(1)))) {
+          _xifexpression_1 = f_3.getName();
+        } else {
+          String _name_14 = f_3.getName();
+          _xifexpression_1 = StringExtensions.toFirstUpper(_name_14);
+        }
+        final String preparedName_1 = _xifexpression_1;
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("public ");
+        AttributeType _type_6 = f_3.getType();
+        String _compile_5 = this.compile(_type_6);
+        _builder.append(_compile_5, "\t");
+        _builder.append(" ");
+        AttributeType _type_7 = f_3.getType();
+        String _ter_1 = this.dmGenerator.getter(_type_7);
+        _builder.append(_ter_1, "\t");
+        _builder.append(preparedName_1, "\t");
+        _builder.append("() {");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        _builder.append("return ");
+        String _name_15 = f_3.getName();
+        _builder.append(_name_15, "\t\t");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("}");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("\t\t\t");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("public void set");
+        _builder.append(preparedName_1, "\t");
+        _builder.append("(");
+        AttributeType _type_8 = f_3.getType();
+        String _compile_6 = this.compile(_type_8);
+        _builder.append(_compile_6, "\t");
+        _builder.append(" ");
+        String _name_16 = f_3.getName();
+        _builder.append(_name_16, "\t");
+        _builder.append(") {");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        _builder.append("this.");
+        String _name_17 = f_3.getName();
+        _builder.append(_name_17, "\t\t");
+        _builder.append(" = ");
+        String _name_18 = f_3.getName();
+        _builder.append(_name_18, "\t\t");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("}");
+        _builder.newLine();
+      }
+    }
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileCollectionFieldsInit(final Iterable<? extends Field> fields) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      for(final Field f : fields) {
+        {
+          AttributeType _type = f.getType();
+          if ((_type instanceof CollectionType)) {
+            String _name = f.getName();
+            _builder.append(_name, "");
+            _builder.append(" = new java.util.ArrayList<>();");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    return _builder;
+  }
+  
+  public String compile(final AttributeType type) {
+    if ((type instanceof CollectionType)) {
+      SingleType _ofType = ((CollectionType) type).getOfType();
+      String _typeString = this.typeString(_ofType, false);
+      String _plus = ("java.util.List<" + _typeString);
+      return (_plus + ">");
+    } else {
+      if ((type instanceof SingleType)) {
+        return this.typeString(((SingleType) type), true);
+      } else {
+        if ((type instanceof VoidType)) {
+          return "void";
+        }
+      }
+    }
+    return null;
+  }
+  
+  protected String _typeString(final BasicType type, final boolean primitive) {
+    return this.dtoGenerator.typeString(type, primitive);
+  }
+  
+  protected String _typeString(final RefType type, final boolean primitive) {
+    String _xblockexpression = null;
+    {
+      String prefix = "";
+      Concept _reference = type.getReference();
+      final Resource res = _reference.eResource();
+      URI _uRI = res.getURI();
+      String _fileExtension = _uRI.fileExtension();
+      boolean _equals = Objects.equal(_fileExtension, "domain");
+      if (_equals) {
+        prefix = "domain.";
+      } else {
+        URI _uRI_1 = res.getURI();
+        String _fileExtension_1 = _uRI_1.fileExtension();
+        boolean _equals_1 = Objects.equal(_fileExtension_1, "dto");
+        if (_equals_1) {
+          prefix = "dto.";
+        }
+      }
+      String _typeString = this.dmGenerator.typeString(type, primitive);
+      _xblockexpression = (prefix + _typeString);
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence compileVariable(final Variable v) {
+    StringConcatenation _builder = new StringConcatenation();
+    AttributeType _type = v.getType();
+    String _compile = this.compile(_type);
+    _builder.append(_compile, "");
+    _builder.append(" ");
+    String _name = v.getName();
+    _builder.append(_name, "");
+    return _builder;
+  }
+  
+  public String compilFieldAnnotations(final Field f) {
+    final AttributeType type = f.getType();
+    if (((type instanceof RefType) && (((RefType) type).getReference() instanceof ServerComponent))) {
+      return "@javax.inject.Inject";
+    } else {
+      return "";
+    }
+  }
+  
+  public CharSequence compileTemplate(final Template t) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<html");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns=\"http://www.w3.org/1999/xhtml\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:h=\"http://java.sun.com/jsf/html\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:f=\"http://java.sun.com/jsf/core\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:ui=\"http://java.sun.com/jsf/facelets\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:pt=\"http://xmlns.jcp.org/jsf/passthrough\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:p=\"http://primefaces.org/ui\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:c=\"http://java.sun.com/jsp/jstl/core\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:");
+    _builder.append(this.componentsFolderAlias, "\t");
+    _builder.append("=\"http://java.sun.com/jsf/composite/");
+    _builder.append(this.componentsFolder, "\t");
+    _builder.append("\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    EList<Variable> _serverComponents = t.getServerComponents();
+    CharSequence _createUIParamsForServerComponents = this.createUIParamsForServerComponents(_serverComponents);
+    _builder.append(_createUIParamsForServerComponents, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<ui:insert name=\"metadata\" />");
+    _builder.newLine();
+    _builder.append("\t");
+    CharSequence _pageHead = this.getPageHead();
+    _builder.append(_pageHead, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<h:body>");
+    _builder.newLine();
+    {
+      EList<UIElement> _elements = t.getElements();
+      for(final UIElement el : _elements) {
+        _builder.append("\t\t");
+        CharSequence _compileUIElement = this.compileUIElement(el);
+        _builder.append(_compileUIElement, "\t\t");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("\t");
+    _builder.append("</h:body>");
+    _builder.newLine();
+    _builder.append("</html>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileFragment(final Fragment f) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<ui:component");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:h=\"http://java.sun.com/jsf/html\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:f=\"http://java.sun.com/jsf/core\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:ui=\"http://java.sun.com/jsf/facelets\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:composite=\"http://java.sun.com/jsf/composite\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:p=\"http://primefaces.org/ui\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:");
+    _builder.append(this.componentsFolderAlias, "\t");
+    _builder.append("=\"http://java.sun.com/jsf/composite/");
+    _builder.append(this.componentsFolder, "\t");
+    _builder.append("\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("xmlns:c=\"http://java.sun.com/jsp/jstl/core\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:pt=\"http://xmlns.jcp.org/jsf/passthrough\">");
+    _builder.newLine();
+    _builder.append("\t");
+    EList<Variable> _serverComponents = f.getServerComponents();
+    CharSequence _createUIParamsForServerComponents = this.createUIParamsForServerComponents(_serverComponents);
+    _builder.append(_createUIParamsForServerComponents, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<composite:interface>");
+    _builder.newLine();
+    {
+      EList<Variable> _params = f.getParams();
+      for(final Variable p : _params) {
+        _builder.append("\t\t");
+        _builder.append("<composite:attribute name=\"");
+        String _name = p.getName();
+        _builder.append(_name, "\t\t");
+        _builder.append("\" required=\"true\"/>");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("\t");
+    _builder.append("</composite:interface>");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<composite:implementation>");
+    _builder.newLine();
+    {
+      EList<Variable> _params_1 = f.getParams();
+      for(final Variable p_1 : _params_1) {
+        _builder.append("\t\t");
+        _builder.append("<c:set var=\"");
+        String _name_1 = p_1.getName();
+        _builder.append(_name_1, "\t\t");
+        _builder.append("\" value=\"#{cc.attrs.");
+        String _name_2 = p_1.getName();
+        _builder.append(_name_2, "\t\t");
+        _builder.append("}\"/>");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("\t\t");
+    _builder.newLine();
+    {
+      EList<UIElement> _elements = f.getElements();
+      for(final UIElement el : _elements) {
+        _builder.append("\t    ");
+        CharSequence _compileUIElement = this.compileUIElement(el);
+        _builder.append(_compileUIElement, "\t    ");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("\t");
+    _builder.append("</composite:implementation>");
+    _builder.newLine();
+    _builder.append("</ui:component>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compilePage(final Page page) {
+    StringConcatenation _builder = new StringConcatenation();
+    this.addFieldsToServerComponentForPageParams(page);
+    _builder.newLineIfNotEmpty();
+    Template _template = page.getTemplate();
+    final boolean hasTemplate = (!Objects.equal(_template, null));
+    _builder.newLineIfNotEmpty();
+    {
+      if (hasTemplate) {
+        _builder.append("<ui:composition");
+        _builder.newLine();
+      } else {
+        _builder.append("<html");
+        _builder.newLine();
+      }
+    }
+    _builder.append("\t");
+    _builder.append("xmlns=\"http://www.w3.org/1999/xhtml\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:h=\"http://java.sun.com/jsf/html\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:f=\"http://java.sun.com/jsf/core\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:ui=\"http://java.sun.com/jsf/facelets\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:pt=\"http://xmlns.jcp.org/jsf/passthrough\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:p=\"http://primefaces.org/ui\"");
+    _builder.newLine();
+    {
+      if (hasTemplate) {
+        _builder.append("\t");
+        _builder.append("template=\"");
+        _builder.append(this.templatesFolder, "\t");
+        _builder.append("/");
+        Template _template_1 = page.getTemplate();
+        String _name = _template_1.getName();
+        _builder.append(_name, "\t");
+        _builder.append(".xhtml\"");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("\t");
+    _builder.append("xmlns:c=\"http://java.sun.com/jsp/jstl/core\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("xmlns:");
+    _builder.append(this.componentsFolderAlias, "\t");
+    _builder.append("=\"http://java.sun.com/jsf/composite/");
+    _builder.append(this.componentsFolder, "\t");
+    _builder.append("\">");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    {
+      if ((!hasTemplate)) {
+        _builder.append("\t");
+        EList<Variable> _serverComponents = page.getServerComponents();
+        CharSequence _createUIParamsForServerComponents = this.createUIParamsForServerComponents(_serverComponents);
+        _builder.append(_createUIParamsForServerComponents, "\t");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        EList<Variable> _params = page.getParams();
+        CharSequence _createUIParamsForPageParams = this.createUIParamsForPageParams(_params);
+        _builder.append(_createUIParamsForPageParams, "\t");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        CharSequence _pageParamsAndInitAction = this.getPageParamsAndInitAction(page);
+        _builder.append(_pageParamsAndInitAction, "\t");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        CharSequence _pageHead = this.getPageHead();
+        _builder.append(_pageHead, "\t");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("<h:body>");
+        _builder.newLine();
+      } else {
+        _builder.append("\t");
+        _builder.append("<ui:define name=\"metadata\">");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("\t");
+        EList<Variable> _serverComponents_1 = page.getServerComponents();
+        CharSequence _createUIParamsForServerComponents_1 = this.createUIParamsForServerComponents(_serverComponents_1);
+        _builder.append(_createUIParamsForServerComponents_1, "\t\t");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        EList<Variable> _params_1 = page.getParams();
+        CharSequence _createUIParamsForPageParams_1 = this.createUIParamsForPageParams(_params_1);
+        _builder.append(_createUIParamsForPageParams_1, "\t\t");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        CharSequence _pageParamsAndInitAction_1 = this.getPageParamsAndInitAction(page);
+        _builder.append(_pageParamsAndInitAction_1, "\t\t");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("</ui:define>");
+        _builder.newLine();
+      }
+    }
+    {
+      EList<UIElement> _elements = page.getElements();
+      for(final UIElement el : _elements) {
+        _builder.append("\t");
+        CharSequence _compileUIElement = this.compileUIElement(el);
+        _builder.append(_compileUIElement, "\t");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    {
+      if (hasTemplate) {
+        _builder.append("</ui:composition>");
+        _builder.newLine();
+      } else {
+        _builder.append("</h:body>");
+        _builder.newLine();
+        _builder.append("</html>");
+        _builder.newLine();
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence createUIParamsForServerComponents(final Iterable<? extends Variable> serverComps) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      if (((!Objects.equal(serverComps, null)) && (!IterableExtensions.isEmpty(serverComps)))) {
+        {
+          for(final Variable sc : serverComps) {
+            _builder.append("<c:set var=\"");
+            String _name = sc.getName();
+            _builder.append(_name, "");
+            _builder.append("\" value=\"#{");
+            String _beanNameFromServerCompVariable = this.getBeanNameFromServerCompVariable(sc);
+            _builder.append(_beanNameFromServerCompVariable, "");
+            _builder.append("}\" />");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence createUIParamsForPageParams(final Iterable<? extends Variable> params) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      if (((!Objects.equal(params, null)) && (!IterableExtensions.isEmpty(params)))) {
+        {
+          for(final Variable p : params) {
+            _builder.append("<c:set var=\"");
+            String _name = p.getName();
+            _builder.append(_name, "");
+            _builder.append("\" value=\"#{");
+            UIContainer _containerOfType = EcoreUtil2.<UIContainer>getContainerOfType(p, UIContainer.class);
+            String _mainBeanRefName = this.getMainBeanRefName(_containerOfType);
+            _builder.append(_mainBeanRefName, "");
+            _builder.append(".");
+            String _name_1 = p.getName();
+            _builder.append(_name_1, "");
+            _builder.append("}\" />");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    return _builder;
+  }
+  
+  public String getMainBeanRefName(final UIContainer cont) {
+    String _xblockexpression = null;
+    {
+      final EList<Variable> scs = cont.getServerComponents();
+      String _xifexpression = null;
+      if (((!Objects.equal(scs, null)) && (!scs.isEmpty()))) {
+        Variable _head = IterableExtensions.<Variable>head(scs);
+        return _head.getName();
+      } else {
+        ServerComponent _containerMainServerComponent = this.getContainerMainServerComponent(cont);
+        String _name = _containerMainServerComponent.getName();
+        _xifexpression = StringExtensions.toFirstLower(_name);
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  public String getMainBeanNameForPage(final Page page) {
+    final EList<Variable> scs = page.getServerComponents();
+    if (((!Objects.equal(scs, null)) && (!scs.isEmpty()))) {
+      Variable _head = IterableExtensions.<Variable>head(scs);
+      return this.getBeanNameFromServerCompVariable(_head);
+    } else {
+      ServerComponent _containerMainServerComponent = this.getContainerMainServerComponent(page);
+      String _name = _containerMainServerComponent.getName();
+      return StringExtensions.toFirstLower(_name);
+    }
+  }
+  
+  public String getBeanNameFromServerCompVariable(final Variable v) {
+    AttributeType _type = v.getType();
+    Concept _reference = ((RefType) _type).getReference();
+    String _name = ((ServerComponent) _reference).getName();
+    return StringExtensions.toFirstLower(_name);
+  }
+  
+  public void addFieldsToServerComponentForPageParams(final Page page) {
+    final EList<Variable> params = page.getParams();
+    if (((!Objects.equal(params, null)) && (!params.isEmpty()))) {
+      final UIDSLFactory factory = UIDSLFactory.eINSTANCE;
+      final ServerComponent sc = this.getContainerMainServerComponent(page);
+      for (final Variable v : params) {
+        {
+          AttributeType _type = v.getType();
+          Concept _reference = ((RefType) _type).getReference();
+          final DTOClass dto = ((DTOClass) _reference);
+          Attribute _iDAttribute = this._dTOUtil.getIDAttribute(dto);
+          final AttributeType idAttrType = _iDAttribute.getType();
+          Field _createField = factory.createField();
+          final Procedure1<Field> _function = (Field it) -> {
+            String _name = v.getName();
+            it.setName(_name);
+            AttributeType _type_1 = v.getType();
+            AttributeType _copy = EcoreUtil.<AttributeType>copy(_type_1);
+            it.setType(_copy);
+          };
+          final Field paramField = ObjectExtensions.<Field>operator_doubleArrow(_createField, _function);
+          Field _createField_1 = factory.createField();
+          final Procedure1<Field> _function_1 = (Field it) -> {
+            String _name = v.getName();
+            String _plus = (_name + "Param");
+            it.setName(_plus);
+            AttributeType _copy = EcoreUtil.<AttributeType>copy(idAttrType);
+            it.setType(_copy);
+          };
+          final Field paramDTOField = ObjectExtensions.<Field>operator_doubleArrow(_createField_1, _function_1);
+          Resource _eResource = sc.eResource();
+          boolean _equals = Objects.equal(_eResource, null);
+          if (_equals) {
+            EList<Member> _members = sc.getMembers();
+            _members.add(paramField);
+            EList<Member> _members_1 = sc.getMembers();
+            _members_1.add(paramDTOField);
+          } else {
+            String _name = sc.getName();
+            this.serverComponentNewFieldsMap.put(_name, paramField);
+            String _name_1 = sc.getName();
+            this.serverComponentNewFieldsMap.put(_name_1, paramDTOField);
+          }
+        }
+      }
+    }
+  }
+  
+  public ServerComponent getContainerMainServerComponent(final UIContainer cont) {
+    ServerComponent _xblockexpression = null;
+    {
+      final EList<Variable> scs = cont.getServerComponents();
+      ServerComponent sc = null;
+      if ((Objects.equal(scs, null) || scs.isEmpty())) {
+        String _name = cont.getName();
+        final ServerComponent existingSc = this.newServerComponentsMap.get(_name);
+        boolean _notEquals = (!Objects.equal(existingSc, null));
+        if (_notEquals) {
+          sc = existingSc;
+        } else {
+          ServerComponent _createServerComponent = UIDSLFactory.eINSTANCE.createServerComponent();
+          final Procedure1<ServerComponent> _function = (ServerComponent it) -> {
+            String _name_1 = cont.getName();
+            String _plus = (_name_1 + "Bean");
+            it.setName(_plus);
+          };
+          ServerComponent _doubleArrow = ObjectExtensions.<ServerComponent>operator_doubleArrow(_createServerComponent, _function);
+          sc = _doubleArrow;
+          String _name_1 = cont.getName();
+          this.newServerComponentsMap.put(_name_1, sc);
+        }
+      } else {
+        Variable _get = scs.get(0);
+        AttributeType _type = _get.getType();
+        Concept _reference = ((RefType) _type).getReference();
+        sc = ((ServerComponent) _reference);
+      }
+      _xblockexpression = sc;
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence getPageParamsAndInitAction(final Page page) {
+    StringConcatenation _builder = new StringConcatenation();
+    final EList<Variable> params = page.getParams();
+    _builder.newLineIfNotEmpty();
+    _builder.append("<f:metadata>");
+    _builder.newLine();
+    {
+      for(final Variable p : params) {
+        _builder.append("\t");
+        _builder.append("<f:viewParam name=\"");
+        String _name = p.getName();
+        _builder.append(_name, "\t");
+        _builder.append("\" value=\"#{");
+        String _mainBeanNameForPage = this.getMainBeanNameForPage(page);
+        _builder.append(_mainBeanNameForPage, "\t");
+        _builder.append(".");
+        String _name_1 = p.getName();
+        _builder.append(_name_1, "\t");
+        _builder.append("Param}\" />");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("\t");
+    _builder.append("<f:viewAction action=\"#{");
+    String _mainBeanNameForPage_1 = this.getMainBeanNameForPage(page);
+    _builder.append(_mainBeanNameForPage_1, "\t");
+    _builder.append(".");
+    _builder.append(this.serverCompInitMethodName, "\t");
+    _builder.append("()}\" />");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</f:metadata>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence getPageHead() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<h:head>");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<f:facet name=\"first\">");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("<meta charset=\"utf-8\"></meta>");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"></meta>");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"></meta>");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("</f:facet>");
+    _builder.newLine();
+    _builder.append("</h:head>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileUIElement(final UIElement e) {
+    CharSequence _xifexpression = null;
+    if ((e instanceof Component)) {
+      _xifexpression = this.compileComponent(((Component)e));
+    } else {
+      CharSequence _xifexpression_1 = null;
+      if ((e instanceof LogicElement)) {
+        _xifexpression_1 = this.compileLogicElement(((LogicElement)e));
+      } else {
+        CharSequence _xifexpression_2 = null;
+        if ((e instanceof FragmentCall)) {
+          _xifexpression_2 = this.compileFragmentCall(((FragmentCall)e));
+        } else {
+          CharSequence _xifexpression_3 = null;
+          if ((e instanceof TemplateFragmentOverride)) {
+            _xifexpression_3 = this.compileTemplateFragmentOverride(((TemplateFragmentOverride)e));
+          } else {
+            CharSequence _xifexpression_4 = null;
+            if ((e instanceof TemplateFragment)) {
+              _xifexpression_4 = this.compileTemplateFragment(((TemplateFragment)e));
+            }
+            _xifexpression_3 = _xifexpression_4;
+          }
+          _xifexpression_2 = _xifexpression_3;
+        }
+        _xifexpression_1 = _xifexpression_2;
+      }
+      _xifexpression = _xifexpression_1;
+    }
+    return _xifexpression;
+  }
+  
+  public CharSequence compileTemplateFragment(final TemplateFragment templateFragment) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<ui:insert name=\"");
+    String _name = templateFragment.getName();
+    _builder.append(_name, "");
+    _builder.append("\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    EList<UIElement> _elements = templateFragment.getElements();
+    CharSequence _compileUIElements = this.compileUIElements(_elements);
+    _builder.append(_compileUIElements, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</ui:insert>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileTemplateFragmentOverride(final TemplateFragmentOverride templateFragOverride) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<ui:define name=\"");
+    TemplateFragment _overridenFragment = templateFragOverride.getOverridenFragment();
+    String _name = _overridenFragment.getName();
+    _builder.append(_name, "");
+    _builder.append("\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    EList<UIElement> _elements = templateFragOverride.getElements();
+    CharSequence _compileUIElements = this.compileUIElements(_elements);
+    _builder.append(_compileUIElements, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</ui:define>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileFragmentCall(final FragmentCall f) {
+    StringConcatenation _builder = new StringConcatenation();
+    Fragment fragment = f.getFrag();
+    _builder.newLineIfNotEmpty();
+    _builder.append("<");
+    _builder.append(this.componentsFolderAlias, "");
+    _builder.append(":");
+    String _name = fragment.getName();
+    _builder.append(_name, "");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    int ind = 0;
+    _builder.newLineIfNotEmpty();
+    {
+      EList<Expression> _params = f.getParams();
+      for(final Expression param : _params) {
+        _builder.append("\t");
+        EList<Variable> _params_1 = fragment.getParams();
+        Variable _get = _params_1.get(ind);
+        String _name_1 = _get.getName();
+        _builder.append(_name_1, "\t");
+        _builder.append(" = \"");
+        String _compileExpression = this.compileExpression(param, true, false);
+        _builder.append(_compileExpression, "\t");
+        _builder.append("\"");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        String _xblockexpression = null;
+        {
+          ind++;
+          _xblockexpression = "";
+        }
+        _builder.append(_xblockexpression, "\t");
+        _builder.append("\t");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("/>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileLogicElement(final LogicElement e) {
+    CharSequence _xifexpression = null;
+    if ((e instanceof IFStatement)) {
+      _xifexpression = this.compileIfStatement(((IFStatement)e));
+    } else {
+      CharSequence _xifexpression_1 = null;
+      if ((e instanceof Iterator)) {
+        _xifexpression_1 = this.compileIteratorStatement(((Iterator)e));
+      }
+      _xifexpression = _xifexpression_1;
+    }
+    return _xifexpression;
+  }
+  
+  public CharSequence compileIfStatement(final IFStatement s) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<ui:fragment rendered=\"");
+    Expression _expression = s.getExpression();
+    String _compileExpression = this.compileExpression(_expression, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    EList<UIElement> _elements = s.getElements();
+    CharSequence _compileUIElements = this.compileUIElements(_elements);
+    _builder.append(_compileUIElements, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</ui:fragment>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileIteratorStatement(final Iterator i) {
+    StringConcatenation _builder = new StringConcatenation();
+    IterationExpression _expression = i.getExpression();
+    final IterationExpression iter = ((IterationExpression) _expression);
+    _builder.newLineIfNotEmpty();
+    _builder.append("<ui:repeat value=\"");
+    Expression _expression_1 = iter.getExpression();
+    String _compileExpression = this.compileExpression(_expression_1, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" var=\"");
+    Variable _var = iter.getVar();
+    String _name = _var.getName();
+    _builder.append(_name, "");
+    _builder.append("\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    EList<UIElement> _elements = i.getElements();
+    CharSequence _compileUIElements = this.compileUIElements(_elements);
+    _builder.append(_compileUIElements, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</ui:repeat>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileUIElements(final Iterable<? extends UIElement> elems) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      for(final UIElement e : elems) {
+        CharSequence _compileUIElement = this.compileUIElement(e);
+        _builder.append(_compileUIElement, "");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence compileComponent(final Component comp) {
+    CharSequence _xifexpression = null;
+    if ((comp instanceof UIComponentInstance)) {
+      _xifexpression = this.compileUIComponent(((UIComponentInstance)comp));
+    } else {
+      CharSequence _xifexpression_1 = null;
+      if ((comp instanceof DefaultComponent)) {
+        _xifexpression_1 = this.compileDefaultComponent(((DefaultComponent)comp));
+      }
+      _xifexpression = _xifexpression_1;
+    }
+    return _xifexpression;
+  }
+  
+  public CharSequence compileDefaultComponent(final DefaultComponent c) {
+    CharSequence _xblockexpression = null;
+    {
+      final UIComponent comp = this.genUtil.getUIComponentForDefaultComponent(c);
+      CharSequence _switchResult = null;
+      String _name = comp.getName();
+      switch (_name) {
+        case UIComponents.LIST:
+          _switchResult = this.generateDefaultList(c);
+          break;
+        case UIComponents.TEXT_COMP:
+          _switchResult = this.generateDefaultTextComp(c);
+          break;
+        case UIComponents.TEXT_FIELD:
+          _switchResult = this.generateDefaultTextField(c);
+          break;
+        case UIComponents.TEXT_AREA:
+          _switchResult = this.generateDefaultTextArea(c);
+          break;
+        case UIComponents.PASSWORD_FIELD:
+          _switchResult = this.generateDefaultPasswordField(c);
+          break;
+        case UIComponents.COMBO_BOX:
+          _switchResult = this.generateDefaultComboBox(c);
+          break;
+        case UIComponents.RADIO_SELECTION:
+          _switchResult = this.generateDefaultRadioSelection(c);
+          break;
+        case UIComponents.BOOL_CHECKBOX:
+          _switchResult = this.generateDefaultBoolCheckBox(c);
+          break;
+        case UIComponents.MULTI_SELECT_CHECKBOX:
+          _switchResult = this.generateDefaultMultiSelectCheckbox(c);
+          break;
+        case UIComponents.LINK:
+          _switchResult = this.generateDefaultLink(c);
+          break;
+        case UIComponents.TABLE:
+          _switchResult = this.generateDefaultTable(c);
+          break;
+        case UIComponents.INPUT_DATE:
+          _switchResult = this.generateDefaultInputDate(c);
+          break;
+        case UIComponents.FILE_UPLOAD:
+          _switchResult = this.generateDefaultFileUpload(c);
+          break;
+        case UIComponents.IMAGE_COMPONENT:
+          _switchResult = this.generateDefaultImageComponent(c);
+          break;
+        case UIComponents.LABEL:
+          _switchResult = this.generateDefaultLabel(c);
+          break;
+      }
+      _xblockexpression = _switchResult;
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence compileUIComponent(final UIComponentInstance compInstance) {
+    CharSequence _xblockexpression = null;
+    {
+      UIComponent _component = compInstance.getComponent();
+      final String compName = _component.getName();
+      CharSequence _switchResult = null;
+      switch (compName) {
+        case UIComponents.LIST:
+          _switchResult = this.compileList(compInstance);
+          break;
+        case UIComponents.ACTION:
+          _switchResult = this.compileAction(compInstance);
+          break;
+        case UIComponents.TEXT_COMP:
+          _switchResult = this.compileTextComp(compInstance);
+          break;
+        case UIComponents.SECTION:
+          _switchResult = this.compileSection(compInstance);
+          break;
+        case UIComponents.TEXT_FIELD:
+          _switchResult = this.compileTextField(compInstance);
+          break;
+        case UIComponents.TEXT_AREA:
+          _switchResult = this.compileTextArea(compInstance);
+          break;
+        case UIComponents.PASSWORD_FIELD:
+          _switchResult = this.compilePasswordField(compInstance);
+          break;
+        case UIComponents.COMBO_BOX:
+          _switchResult = this.compileComboBox(compInstance);
+          break;
+        case UIComponents.RADIO_SELECTION:
+          _switchResult = this.compileRadioSelection(compInstance);
+          break;
+        case UIComponents.BOOL_CHECKBOX:
+          _switchResult = this.compileBoolCheckBox(compInstance);
+          break;
+        case UIComponents.MULTI_SELECT_CHECKBOX:
+          _switchResult = this.compileMultiSelectCheckbox(compInstance);
+          break;
+        case UIComponents.LINK:
+          _switchResult = this.compileLink(compInstance);
+          break;
+        case UIComponents.TABLE:
+          _switchResult = this.compileTable(compInstance);
+          break;
+        case UIComponents.INPUT_DATE:
+          _switchResult = this.compileInputDate(compInstance);
+          break;
+        case UIComponents.FILE_UPLOAD:
+          _switchResult = this.compileFileUpload(compInstance);
+          break;
+        case UIComponents.IMAGE_COMPONENT:
+          _switchResult = this.compileImageComponent(compInstance);
+          break;
+        case UIComponents.FORM:
+          _switchResult = this.compileForm(compInstance);
+          break;
+        case UIComponents.NEWLINE_COMPONENT:
+          _switchResult = this.compileNewlineComponent(compInstance);
+          break;
+        default:
+          CharSequence _xifexpression = null;
+          if ((Objects.equal(compName, UIComponents.LABEL) && this._uIDSLUtil.isTopLevelComponent(compInstance))) {
+            _xifexpression = this.compileLabel(compInstance);
+          } else {
+            CharSequence _xifexpression_1 = null;
+            if ((Objects.equal(compName, UIComponents.LIST_ELEMENT) && this._uIDSLUtil.isChildOfComponent(compInstance, UIComponents.LIST))) {
+              _xifexpression_1 = this.compileListElement(compInstance);
+            } else {
+              CharSequence _xifexpression_2 = null;
+              if ((Objects.equal(compName, UIComponents.TABLE_COL) && this._uIDSLUtil.isChildOfComponent(compInstance, UIComponents.TABLE))) {
+                _xifexpression_2 = this.compileTableCol(compInstance);
+              }
+              _xifexpression_1 = _xifexpression_2;
+            }
+            _xifexpression = _xifexpression_1;
+          }
+          _switchResult = _xifexpression;
+          break;
+      }
+      _xblockexpression = _switchResult;
+    }
+    return _xblockexpression;
+  }
+  
+  public String compileNewlineComponent(final UIComponentInstance inst) {
+    return "<br></br>";
+  }
+  
+  public CharSequence compileList(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<ul>");
+    _builder.newLine();
+    _builder.append("\t");
+    final PropertyValueInstance value = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    _builder.newLineIfNotEmpty();
+    {
+      if (((!Objects.equal(value, null)) && (value.getValue() instanceof IterationExpression))) {
+        _builder.append("\t");
+        Expression _value = value.getValue();
+        final IterationExpression iter = ((IterationExpression) _value);
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("<ui:repeat var=\"");
+        Variable _var = iter.getVar();
+        String _name = _var.getName();
+        _builder.append(_name, "\t");
+        _builder.append("\" value=\"");
+        Expression _expression = iter.getExpression();
+        String _compileExpression = this.compileExpression(_expression, true, false);
+        _builder.append(_compileExpression, "\t");
+        _builder.append("\">");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        CharSequence _compileChildComponents = this.compileChildComponents(inst);
+        _builder.append(_compileChildComponents, "\t\t");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("</ui:repeat>");
+        _builder.newLine();
+      } else {
+        _builder.append("\t");
+        CharSequence _compileChildComponents_1 = this.compileChildComponents(inst);
+        _builder.append(_compileChildComponents_1, "\t");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("</ul>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileListElement(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<li>");
+    _builder.newLine();
+    _builder.append("\t");
+    CharSequence _compileChildComponents = this.compileChildComponents(inst);
+    _builder.append(_compileChildComponents, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</li>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileAction(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<p:commandLink");
+    _builder.newLine();
+    _builder.append("\t");
+    final PropertyValueInstance action = this._uIDSLUtil.getProperty(inst, UIComponents.ACTION_ACTION_PROPERTY);
+    _builder.newLineIfNotEmpty();
+    {
+      boolean _notEquals = (!Objects.equal(action, null));
+      if (_notEquals) {
+        _builder.append("\t");
+        _builder.append("action=\"");
+        Expression _value = action.getValue();
+        String _compileExpression = this.compileExpression(_value, true, false);
+        _builder.append(_compileExpression, "\t");
+        _builder.append("\"");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+      }
+    }
+    _builder.append(">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    CharSequence _compileChildComponents = this.compileChildComponents(inst);
+    _builder.append(_compileChildComponents, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</p:commandLink>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileForm(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<h:form>");
+    _builder.newLine();
+    _builder.append("\t");
+    CharSequence _compileChildComponents = this.compileChildComponents(inst);
+    _builder.append(_compileChildComponents, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</h:form>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileImageComponent(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<h:graphicImage ");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("value=\"");
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value = _property.getValue();
+    String _compileExpression = this.compileExpression(_value, true, false);
+    _builder.append(_compileExpression, "\t");
+    _builder.append("\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("width=\"");
+    PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.IMAGE_COMPONENT_WIDTH_PROPERTY);
+    Expression _value_1 = _property_1.getValue();
+    String _compileExpression_1 = this.compileExpression(_value_1, true, false);
+    _builder.append(_compileExpression_1, "\t");
+    _builder.append("\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("height=\"");
+    PropertyValueInstance _property_2 = this._uIDSLUtil.getProperty(inst, UIComponents.IMAGE_COMPONENT_HEIGHT_PROPERTY);
+    Expression _value_2 = _property_2.getValue();
+    String _compileExpression_2 = this.compileExpression(_value_2, true, false);
+    _builder.append(_compileExpression_2, "\t");
+    _builder.append("\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</h:graphicImage>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileFileUpload(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    UIContainer _containerOfType = EcoreUtil2.<UIContainer>getContainerOfType(inst, UIContainer.class);
+    final ServerComponent sc = this.getContainerMainServerComponent(_containerOfType);
+    _builder.newLineIfNotEmpty();
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value = _property.getValue();
+    final String fieldName = this.getVariableOrMemberName(_value);
+    _builder.newLineIfNotEmpty();
+    String _name = sc.getName();
+    final String listenerName = this.addAndReturnFileUploadListener(fieldName, _name);
+    _builder.newLineIfNotEmpty();
+    _builder.append("<div id=\"fileUploadSection");
+    _builder.append(this.counter, "");
+    _builder.append("\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<p:fileUpload id=\"fileUploadFile");
+    _builder.append(this.counter, "\t");
+    _builder.append("\" ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t    ");
+    _builder.append("process=\"@this\"");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("style=\"display: none;\"");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("styleClass=\"fileUploadFile\"");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("fileUploadListener=\"");
+    UIContainer _containerOfType_1 = EcoreUtil2.<UIContainer>getContainerOfType(inst, UIContainer.class);
+    String _mainBeanRefName = this.getMainBeanRefName(_containerOfType_1);
+    _builder.append(_mainBeanRefName, "\t\t");
+    _builder.append(".");
+    _builder.append(listenerName, "\t\t");
+    _builder.append("\"  ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t    ");
+    _builder.append("dragDropSupport=\"true\"");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("fileLimit=\"1\"");
+    _builder.newLine();
+    _builder.append("       \t");
+    _builder.append("auto=\"true\">");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("</p:fileUpload>");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("<a href=\"javascript:void(0);\" id=\"linkTriggerSimpleFileUpload\">");
+    PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.CAPTION_PROPERTY);
+    Expression _value_1 = _property_1.getValue();
+    String _compileExpression = this.compileExpression(_value_1, true, false);
+    _builder.append(_compileExpression, "\t    ");
+    _builder.append("</a>");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</div>");
+    _builder.newLine();
+    _builder.append("<script>");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("$(\'#fileUploadSection");
+    _builder.append(this.counter, "    ");
+    _builder.append(" #linkTriggerSimpleFileUpload\').on(\'click\', function(e) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append(" \t\t");
+    _builder.append("e.stopPropagation();");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("$(\'#fileUploadSection");
+    _builder.append(this.counter, "\t\t");
+    _builder.append(" .fileUploadFile :input\').trigger(\'click\');");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("});");
+    _builder.newLine();
+    _builder.append("</script>");
+    String _xblockexpression = null;
+    {
+      this.counter++;
+      _xblockexpression = "";
+    }
+    _builder.append(_xblockexpression, "");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compileInputDate(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<p:calendar value=\"");
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value = _property.getValue();
+    String _compileExpression = this.compileExpression(_value, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" />");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compileTable(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<table>");
+    _builder.newLine();
+    _builder.append("\t");
+    final PropertyValueInstance value = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    _builder.newLineIfNotEmpty();
+    {
+      Expression _value = value.getValue();
+      if ((_value instanceof IterationExpression)) {
+        _builder.append("\t");
+        Expression _value_1 = value.getValue();
+        final IterationExpression iter = ((IterationExpression) _value_1);
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("<tr>");
+        _builder.newLine();
+        {
+          EList<Component> _childElements = inst.getChildElements();
+          for(final Component child : _childElements) {
+            _builder.append("\t");
+            _builder.append("\t");
+            _builder.append("<th>");
+            PropertyValueInstance _property = this._uIDSLUtil.getProperty(((UIComponentInstance) child), UIComponents.TABLE_COL_HEADER_PROPERTY);
+            Expression _value_2 = _property.getValue();
+            String _compileExpression = this.compileExpression(_value_2, true, false);
+            _builder.append(_compileExpression, "\t\t");
+            _builder.append("</th>");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append("\t");
+        _builder.append("</tr>");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("<ui:repeat var=\"");
+        Variable _var = iter.getVar();
+        String _name = _var.getName();
+        _builder.append(_name, "\t");
+        _builder.append("\" value=\"");
+        Expression _expression = iter.getExpression();
+        String _compileExpression_1 = this.compileExpression(_expression, true, false);
+        _builder.append(_compileExpression_1, "\t");
+        _builder.append("\">");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        _builder.append("<tr>");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("\t\t ");
+        CharSequence _compileChildComponents = this.compileChildComponents(inst);
+        _builder.append(_compileChildComponents, "\t\t\t ");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        _builder.append("</tr>");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("</ui:repeat>");
+        _builder.newLine();
+      }
+    }
+    _builder.append("</table>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileTableCol(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<td>");
+    _builder.newLine();
+    _builder.append("\t");
+    CharSequence _compileChildComponents = this.compileChildComponents(inst);
+    _builder.append(_compileChildComponents, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</td>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileExternalLink(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<a href=\"");
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value = _property.getValue();
+    String _compileExpression = this.compileExpression(_value, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\"");
+    _builder.newLineIfNotEmpty();
+    CharSequence _compileLinkOpenInNewWindowProperty = this.compileLinkOpenInNewWindowProperty(inst);
+    _builder.append(_compileLinkOpenInNewWindowProperty, "");
+    _builder.append(">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    CharSequence _compileChildComponents = this.compileChildComponents(inst);
+    _builder.append(_compileChildComponents, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</a>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileLink(final UIComponentInstance inst) {
+    CharSequence _xblockexpression = null;
+    {
+      final PropertyValueInstance value = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+      CharSequence _xifexpression = null;
+      Expression _value = value.getValue();
+      if ((_value instanceof PageCall)) {
+        _xifexpression = this.compileInternalLink(inst);
+      } else {
+        _xifexpression = this.compileExternalLink(inst);
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence compileInternalLink(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value = _property.getValue();
+    final PageCall pageCall = ((PageCall) _value);
+    _builder.newLineIfNotEmpty();
+    final Page page = pageCall.getPage();
+    _builder.newLineIfNotEmpty();
+    _builder.append("<h:link outcome=\"/");
+    String _name = page.getName();
+    _builder.append(_name, "");
+    _builder.append("\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    CharSequence _compileLinkOpenInNewWindowProperty = this.compileLinkOpenInNewWindowProperty(inst);
+    _builder.append(_compileLinkOpenInNewWindowProperty, "\t");
+    _builder.append(">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    int paramIndex = 0;
+    _builder.newLineIfNotEmpty();
+    {
+      EList<Expression> _params = pageCall.getParams();
+      for(final Expression param : _params) {
+        {
+          if ((!(param instanceof Null))) {
+            _builder.append("\t");
+            _builder.append("<f:param name=\"");
+            EList<Variable> _params_1 = page.getParams();
+            Variable _get = _params_1.get(paramIndex);
+            String _name_1 = _get.getName();
+            _builder.append(_name_1, "\t");
+            _builder.append("\" value=\"");
+            String _compilePageParam = this.compilePageParam(param);
+            _builder.append(_compilePageParam, "\t");
+            _builder.append("\"/>");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append("\t");
+        String _xblockexpression = null;
+        {
+          paramIndex++;
+          _xblockexpression = "";
+        }
+        _builder.append(_xblockexpression, "\t");
+        _builder.append("\t");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("</h:link>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public String compilePageParam(final Expression exp) {
+    String _xblockexpression = null;
+    {
+      AttributeType _type = this._typeComputing.getType(exp);
+      Concept _reference = ((RefType) _type).getReference();
+      final DTOClass dto = ((DTOClass) _reference);
+      String _compileExpression = this.compileExpression(exp, false, false);
+      String _plus = ("#{" + _compileExpression);
+      String _plus_1 = (_plus + ".");
+      Attribute _iDAttribute = this._dTOUtil.getIDAttribute(dto);
+      String _name = _iDAttribute.getName();
+      String _plus_2 = (_plus_1 + _name);
+      _xblockexpression = (_plus_2 + "}");
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence compileLinkOpenInNewWindowProperty(final UIComponentInstance inst) {
+    CharSequence _xblockexpression = null;
+    {
+      final PropertyValueInstance openInNewWindow = this._uIDSLUtil.getProperty(inst, UIComponents.OPEN_IN_NEW_WINDOW_PROPERTY);
+      CharSequence _xifexpression = null;
+      if (((!Objects.equal(openInNewWindow, null)) && Objects.equal(this.compileExpression(openInNewWindow.getValue(), true, false), "true"))) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("target=\"_blank\"");
+        _xifexpression = _builder;
+      } else {
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _xifexpression = _builder_1;
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence compileLabel(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<h:outputLabel value=\"");
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value = _property.getValue();
+    String _compileExpression = this.compileExpression(_value, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\"/>");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compileMultiSelectCheckbox(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.SELECT_FROM_PROPERTY);
+    Expression _value = _property.getValue();
+    final IterationExpression iteration = ((IterationExpression) _value);
+    _builder.newLineIfNotEmpty();
+    final UIComponentInstance childLabel = this._uIDSLUtil.getChildComponent(inst, UIComponents.MULTI_SELECT_CHECKBOX_LABEL);
+    _builder.newLineIfNotEmpty();
+    _builder.append("<h:selectManyCheckbox value=\"");
+    PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value_1 = _property_1.getValue();
+    String _compileExpression = this.compileExpression(_value_1, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    _builder.append("<f:selectItems value=\"");
+    Expression _expression = iteration.getExpression();
+    String _compileExpression_1 = this.compileExpression(_expression, true, false);
+    _builder.append(_compileExpression_1, "    ");
+    _builder.append("\" var=\"");
+    Variable _var = iteration.getVar();
+    String _name = _var.getName();
+    _builder.append(_name, "    ");
+    _builder.append("\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("   \t\t");
+    _builder.append("itemLabel=\"");
+    String _xifexpression = null;
+    boolean _notEquals = (!Objects.equal(childLabel, null));
+    if (_notEquals) {
+      PropertyValueInstance _property_2 = this._uIDSLUtil.getProperty(childLabel, UIComponents.VALUE_PROPERTY);
+      Expression _value_2 = _property_2.getValue();
+      _xifexpression = this.compileExpression(_value_2, true, false);
+    }
+    _builder.append(_xifexpression, "   \t\t");
+    _builder.append("\" itemValue=\"#{");
+    Variable _var_1 = iteration.getVar();
+    String _name_1 = _var_1.getName();
+    _builder.append(_name_1, "   \t\t");
+    _builder.append("}\" />");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</h:selectManyCheckbox>\t\t");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileBoolCheckBox(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<h:selectBooleanCheckbox id=\"boolCheckbox");
+    _builder.append(this.counter, "");
+    _builder.append("\" value=\"");
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value = _property.getValue();
+    String _compileExpression = this.compileExpression(_value, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" disabled=\"");
+    PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.ENABLED_PROPERTY);
+    Expression _value_1 = _property_1.getValue();
+    String _compileExpression_1 = this.compileExpression(_value_1, true, true);
+    _builder.append(_compileExpression_1, "");
+    _builder.append("\" />");
+    _builder.newLineIfNotEmpty();
+    _builder.append("<h:outputLabel for=\"boolCheckbox");
+    _builder.append(this.counter, "");
+    _builder.append("\" value=\"");
+    PropertyValueInstance _property_2 = this._uIDSLUtil.getProperty(inst, UIComponents.CAPTION_PROPERTY);
+    Expression _value_2 = _property_2.getValue();
+    String _compileExpression_2 = this.compileExpression(_value_2, true, false);
+    _builder.append(_compileExpression_2, "");
+    _builder.append("\" />");
+    String _xblockexpression = null;
+    {
+      this.counter++;
+      _xblockexpression = "";
+    }
+    _builder.append(_xblockexpression, "");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compileRadioSelection(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.SELECT_FROM_PROPERTY);
+    Expression _value = _property.getValue();
+    final IterationExpression iteration = ((IterationExpression) _value);
+    _builder.newLineIfNotEmpty();
+    final UIComponentInstance childLabel = this._uIDSLUtil.getChildComponent(inst, UIComponents.RADIO_SELECTION_LABEL);
+    _builder.newLineIfNotEmpty();
+    _builder.append("<h:selectOneRadio value=\"");
+    PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value_1 = _property_1.getValue();
+    String _compileExpression = this.compileExpression(_value_1, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<f:selectItems value=\"");
+    Expression _expression = iteration.getExpression();
+    String _compileExpression_1 = this.compileExpression(_expression, true, false);
+    _builder.append(_compileExpression_1, "\t");
+    _builder.append("\" var=\"");
+    Variable _var = iteration.getVar();
+    String _name = _var.getName();
+    _builder.append(_name, "\t");
+    _builder.append("\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("itemLabel=\"");
+    String _xifexpression = null;
+    boolean _notEquals = (!Objects.equal(childLabel, null));
+    if (_notEquals) {
+      PropertyValueInstance _property_2 = this._uIDSLUtil.getProperty(childLabel, UIComponents.VALUE_PROPERTY);
+      Expression _value_2 = _property_2.getValue();
+      _xifexpression = this.compileExpression(_value_2, true, false);
+    }
+    _builder.append(_xifexpression, "\t\t");
+    _builder.append("\" itemValue=\"#{");
+    Variable _var_1 = iteration.getVar();
+    String _name_1 = _var_1.getName();
+    _builder.append(_name_1, "\t\t");
+    _builder.append("}\" />");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</h:selectOneRadio>\t\t");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compilePasswordField(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<h:inputSecret value=\"");
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value = _property.getValue();
+    String _compileExpression = this.compileExpression(_value, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" placeholder=\"");
+    PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.CAPTION_PROPERTY);
+    Expression _value_1 = _property_1.getValue();
+    String _compileExpression_1 = this.compileExpression(_value_1, true, false);
+    _builder.append(_compileExpression_1, "");
+    _builder.append("\" />");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compileComboBox(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.SELECT_FROM_PROPERTY);
+    Expression _value = _property.getValue();
+    final IterationExpression iteration = ((IterationExpression) _value);
+    _builder.newLineIfNotEmpty();
+    final UIComponentInstance childLabel = this._uIDSLUtil.getChildComponent(inst, UIComponents.COMBO_BOX_LABEL);
+    _builder.newLineIfNotEmpty();
+    _builder.append("<h:selectOneMenu value=\"");
+    PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value_1 = _property_1.getValue();
+    String _compileExpression = this.compileExpression(_value_1, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<f:selectItems value=\"");
+    Expression _expression = iteration.getExpression();
+    String _compileExpression_1 = this.compileExpression(_expression, true, false);
+    _builder.append(_compileExpression_1, "\t");
+    _builder.append("\" var=\"");
+    Variable _var = iteration.getVar();
+    String _name = _var.getName();
+    _builder.append(_name, "\t");
+    _builder.append("\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("itemLabel=\"");
+    String _xifexpression = null;
+    boolean _notEquals = (!Objects.equal(childLabel, null));
+    if (_notEquals) {
+      PropertyValueInstance _property_2 = this._uIDSLUtil.getProperty(childLabel, UIComponents.VALUE_PROPERTY);
+      Expression _value_2 = _property_2.getValue();
+      _xifexpression = this.compileExpression(_value_2, true, false);
+    }
+    _builder.append(_xifexpression, "\t\t");
+    _builder.append("\" itemValue=\"#{");
+    Variable _var_1 = iteration.getVar();
+    String _name_1 = _var_1.getName();
+    _builder.append(_name_1, "\t\t");
+    _builder.append("}\" />");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</h:selectOneMenu>\t\t");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileTextArea(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<h:inputTextarea row=\"");
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.TEXT_AREA_ROWS);
+    Expression _value = _property.getValue();
+    String _compileExpression = this.compileExpression(_value, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" value=\"");
+    PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value_1 = _property_1.getValue();
+    String _compileExpression_1 = this.compileExpression(_value_1, true, false);
+    _builder.append(_compileExpression_1, "");
+    _builder.append("\" ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("   ");
+    _builder.append("disabled=\"");
+    PropertyValueInstance _property_2 = this._uIDSLUtil.getProperty(inst, UIComponents.ENABLED_PROPERTY);
+    Expression _value_2 = _property_2.getValue();
+    String _compileExpression_2 = this.compileExpression(_value_2, true, true);
+    _builder.append(_compileExpression_2, "   ");
+    _builder.append("\" ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("   ");
+    _builder.append("placeholder=\"");
+    PropertyValueInstance _property_3 = this._uIDSLUtil.getProperty(inst, UIComponents.CAPTION_PROPERTY);
+    Expression _value_3 = _property_3.getValue();
+    String _compileExpression_3 = this.compileExpression(_value_3, true, false);
+    _builder.append(_compileExpression_3, "   ");
+    _builder.append("\" />");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compileTextField(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    final PropertyValueInstance enabledProp = this._uIDSLUtil.getProperty(inst, UIComponents.ENABLED_PROPERTY);
+    _builder.newLineIfNotEmpty();
+    String _xifexpression = null;
+    boolean _equals = Objects.equal(enabledProp, null);
+    if (_equals) {
+      _xifexpression = "false";
+    } else {
+      Expression _value = enabledProp.getValue();
+      _xifexpression = this.compileExpression(_value, true, true);
+    }
+    final String enabled = _xifexpression;
+    _builder.newLineIfNotEmpty();
+    _builder.append("<h:inputText value=\"");
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value_1 = _property.getValue();
+    String _compileExpression = this.compileExpression(_value_1, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("disabled=\"");
+    _builder.append(enabled, "\t");
+    _builder.append("\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("placeholder=\"");
+    PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.CAPTION_PROPERTY);
+    Expression _value_2 = _property_1.getValue();
+    String _compileExpression_1 = this.compileExpression(_value_2, true, false);
+    _builder.append(_compileExpression_1, "\t");
+    _builder.append("\" />");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compileSection(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<div>");
+    _builder.newLine();
+    _builder.append("\t");
+    CharSequence _compileChildComponents = this.compileChildComponents(inst);
+    _builder.append(_compileChildComponents, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</div>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileTextComp(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<h:outputText escape=\"");
+    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.TEXT_COMP_ESCAPE_PROPERTY);
+    Expression _value = _property.getValue();
+    String _compileExpression = this.compileExpression(_value, true, true);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" value=\"");
+    PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+    Expression _value_1 = _property_1.getValue();
+    String _compileExpression_1 = this.compileExpression(_value_1, true, false);
+    _builder.append(_compileExpression_1, "");
+    _builder.append("\" />");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compileChildComponents(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      EList<Component> _childElements = inst.getChildElements();
+      for(final Component child : _childElements) {
+        CharSequence _compileComponent = this.compileComponent(child);
+        _builder.append(_compileComponent, "");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    return _builder;
+  }
+  
+  public String compileExpression(final Expression e, final boolean topLevel, final boolean opposite) {
+    String _switchResult = null;
+    boolean _matched = false;
+    if (e instanceof StringConstant) {
+      _matched=true;
+      return ((StringConstant)e).getValue();
+    }
+    if (!_matched) {
+      if (e instanceof IntConstant) {
+        _matched=true;
+        int _value = ((IntConstant)e).getValue();
+        return Integer.valueOf(_value).toString();
+      }
+    }
+    if (!_matched) {
+      if (e instanceof LongConstant) {
+        _matched=true;
+        int _value = ((LongConstant)e).getValue();
+        return Integer.valueOf(_value).toString();
+      }
+    }
+    if (!_matched) {
+      if (e instanceof BoolConstant) {
+        _matched=true;
+        if (opposite) {
+          String _value = ((BoolConstant)e).getValue();
+          boolean _equals = Objects.equal(_value, "true");
+          if (_equals) {
+            return "false";
+          } else {
+            return "true";
+          }
+        } else {
+          return ((BoolConstant)e).getValue();
+        }
+      }
+    }
+    if (!_matched) {
+      if (e instanceof DateConstant) {
+        _matched=true;
+        int _day = ((DateConstant)e).getDay();
+        String _string = Integer.valueOf(_day).toString();
+        String _plus = (_string + "/");
+        int _month = ((DateConstant)e).getMonth();
+        String _string_1 = Integer.valueOf(_month).toString();
+        String _plus_1 = (_plus + _string_1);
+        String _plus_2 = (_plus_1 + "/");
+        int _year = ((DateConstant)e).getYear();
+        String _string_2 = Integer.valueOf(_year).toString();
+        return (_plus_2 + _string_2);
+      }
+    }
+    if (!_matched) {
+      if (e instanceof Null) {
+        _matched=true;
+        return "null";
+      }
+    }
+    if (!_matched) {
+      if (e instanceof VariableReference) {
+        _matched=true;
+        String _xifexpression = null;
+        if (topLevel) {
+          _xifexpression = "#{";
+        } else {
+          _xifexpression = "";
+        }
+        String output = _xifexpression;
+        String _output = output;
+        String _xifexpression_1 = null;
+        if (opposite) {
+          _xifexpression_1 = "!";
+        } else {
+          _xifexpression_1 = "";
+        }
+        output = (_output + _xifexpression_1);
+        String _output_1 = output;
+        Variable _ref = ((VariableReference)e).getRef();
+        String _name = _ref.getName();
+        output = (_output_1 + _name);
+        String _output_2 = output;
+        String _xifexpression_2 = null;
+        if (topLevel) {
+          _xifexpression_2 = "}";
+        } else {
+          _xifexpression_2 = "";
+        }
+        output = (_output_2 + _xifexpression_2);
+        return output;
+      }
+    }
+    if (!_matched) {
+      if (e instanceof IterationExpression) {
+        _matched=true;
+        Variable _var = ((IterationExpression)e).getVar();
+        String _name = _var.getName();
+        String _plus = ("var=\"" + _name);
+        String _plus_1 = (_plus + "\" value=");
+        Expression _expression = ((IterationExpression)e).getExpression();
+        String _compileExpression = this.compileExpression(_expression, true, false);
+        _switchResult = (_plus_1 + _compileExpression);
+      }
+    }
+    if (!_matched) {
+      if (e instanceof MemberSelectionExpression) {
+        _matched=true;
+        String _xifexpression = null;
+        if (topLevel) {
+          _xifexpression = "#{";
+        } else {
+          _xifexpression = "";
+        }
+        String output = _xifexpression;
+        String _output = output;
+        String _xifexpression_1 = null;
+        if (opposite) {
+          _xifexpression_1 = "!";
+        } else {
+          _xifexpression_1 = "";
+        }
+        output = (_output + _xifexpression_1);
+        String _output_1 = output;
+        Expression _receiver = ((MemberSelectionExpression)e).getReceiver();
+        String _compileExpression = this.compileExpression(_receiver, false, false);
+        String _plus = (_compileExpression + ".");
+        SelectionMember _member = ((MemberSelectionExpression)e).getMember();
+        String _name = _member.getName();
+        String _plus_1 = (_plus + _name);
+        String _xifexpression_2 = null;
+        boolean _isIsMethod = ((MemberSelectionExpression)e).isIsMethod();
+        if (_isIsMethod) {
+          EList<Expression> _params = ((MemberSelectionExpression)e).getParams();
+          final Function1<Expression, String> _function = (Expression it) -> {
+            return this.compileExpression(it, false, false);
+          };
+          List<String> _map = ListExtensions.<Expression, String>map(_params, _function);
+          String _join = IterableExtensions.join(_map, ", ");
+          String _plus_2 = ("(" + _join);
+          _xifexpression_2 = (_plus_2 + ")");
+        } else {
+          _xifexpression_2 = "";
+        }
+        String _plus_3 = (_plus_1 + _xifexpression_2);
+        output = (_output_1 + _plus_3);
+        String _output_2 = output;
+        String _xifexpression_3 = null;
+        if (topLevel) {
+          _xifexpression_3 = "}";
+        } else {
+          _xifexpression_3 = "";
+        }
+        output = (_output_2 + _xifexpression_3);
+        return output;
+      }
+    }
+    if (!_matched) {
+      return "";
+    }
+    return _switchResult;
+  }
+  
+  public CharSequence generateDefaultTextField(final DefaultComponent c) {
+    CharSequence _xblockexpression = null;
+    {
+      final boolean output = (c instanceof OutputUIComponent);
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("<h:inputText value=\"");
+      Expression _value = c.getValue();
+      String _compileExpression = this.compileExpression(_value, true, false);
+      _builder.append(_compileExpression, "");
+      _builder.append("\" ");
+      _builder.newLineIfNotEmpty();
+      _builder.append("\t");
+      _builder.append("disabled=\"");
+      _builder.append(output, "\t");
+      _builder.append("\" />");
+      _builder.newLineIfNotEmpty();
+      _xblockexpression = _builder;
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence generateDefaultTextArea(final DefaultComponent c) {
+    CharSequence _xblockexpression = null;
+    {
+      final boolean output = (c instanceof OutputUIComponent);
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("<h:inputTextarea row=\"3\" value=\"");
+      Expression _value = c.getValue();
+      String _compileExpression = this.compileExpression(_value, true, false);
+      _builder.append(_compileExpression, "");
+      _builder.append("\" ");
+      _builder.newLineIfNotEmpty();
+      _builder.append("\t");
+      _builder.append("disabled=\"");
+      _builder.append(output, "\t");
+      _builder.append("\" />");
+      _builder.newLineIfNotEmpty();
+      _xblockexpression = _builder;
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence generateDefaultList(final DefaultComponent c) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<ul>");
+    _builder.newLine();
+    _builder.append("\t");
+    final Expression value = c.getValue();
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    AttributeType _type = this._typeComputing.getType(value);
+    final SingleType type = ((CollectionType) _type).getOfType();
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<ui:repeat var=\"v\" value=\"");
+    String _compileExpression = this.compileExpression(value, true, false);
+    _builder.append(_compileExpression, "\t");
+    _builder.append("\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("<li>#{");
+    String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(type, "v");
+    _builder.append(_defaultRepresentationAttribute, "\t\t");
+    _builder.append("}</li>");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("</ui:repeat>");
+    _builder.newLine();
+    _builder.append("</ul>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence generateDefaultImageComponent(final DefaultComponent c) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<h:graphicImage ");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("value=\"");
+    Expression _value = c.getValue();
+    String _compileExpression = this.compileExpression(_value, true, false);
+    _builder.append(_compileExpression, "\t");
+    _builder.append("\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("width=\"32\"");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("height=\"32\">");
+    _builder.newLine();
+    _builder.append("</h:graphicImage>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence generateDefaultFileUpload(final DefaultComponent c) {
+    StringConcatenation _builder = new StringConcatenation();
+    UIContainer _containerOfType = EcoreUtil2.<UIContainer>getContainerOfType(c, UIContainer.class);
+    final ServerComponent sc = this.getContainerMainServerComponent(_containerOfType);
+    _builder.newLineIfNotEmpty();
+    Expression _value = c.getValue();
+    final String fieldName = this.getVariableOrMemberName(_value);
+    _builder.newLineIfNotEmpty();
+    String _name = sc.getName();
+    final String listenerName = this.addAndReturnFileUploadListener(fieldName, _name);
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("<div id=\"fileUploadSection");
+    _builder.append(this.counter, "");
+    _builder.append("\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<p:fileUpload id=\"fileUploadFile");
+    _builder.append(this.counter, "\t");
+    _builder.append("\" ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("process=\"@this\"");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("style=\"display: none;\"");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("styleClass=\"fileUploadFile\"");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("fileUploadListener=\"#{");
+    UIContainer _containerOfType_1 = EcoreUtil2.<UIContainer>getContainerOfType(c, UIContainer.class);
+    String _mainBeanRefName = this.getMainBeanRefName(_containerOfType_1);
+    _builder.append(_mainBeanRefName, "\t\t");
+    _builder.append(".");
+    _builder.append(listenerName, "\t\t");
+    _builder.append("}\"  ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("dragDropSupport=\"true\"");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("fileLimit=\"1\"");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("auto=\"true\">");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("</p:fileUpload>");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<a href=\"javascript:void(0);\" id=\"linkTriggerSimpleFileUpload\">Upload</a>");
+    _builder.newLine();
+    _builder.append("</div>");
+    _builder.newLine();
+    _builder.append("<script>");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("$(\'#fileUploadSection");
+    _builder.append(this.counter, "\t");
+    _builder.append(" #linkTriggerSimpleFileUpload\').on(\'click\', function(e) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("e.stopPropagation();");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("$(\'#fileUploadSection");
+    _builder.append(this.counter, "\t\t");
+    _builder.append(" .fileUploadFile :input\').trigger(\'click\');");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("});");
+    _builder.newLine();
+    _builder.append("</script>");
+    String _xblockexpression = null;
+    {
+      this.counter++;
+      _xblockexpression = "";
+    }
+    _builder.append(_xblockexpression, "");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence generateDefaultInputDate(final DefaultComponent c) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<p:calendar value=\"");
+    Expression _value = c.getValue();
+    String _compileExpression = this.compileExpression(_value, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" />");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence generateDefaultTable(final DefaultComponent c) {
+    StringConcatenation _builder = new StringConcatenation();
+    final Expression value = c.getValue();
+    _builder.newLineIfNotEmpty();
+    AttributeType _type = this._typeComputing.getType(value);
+    final CollectionType type = ((CollectionType) _type);
+    _builder.newLineIfNotEmpty();
+    _builder.append("<table>");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<ui:repeat var=\"v\" value=\"");
+    String _compileExpression = this.compileExpression(value, true, false);
+    _builder.append(_compileExpression, "\t");
+    _builder.append("\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t \t");
+    _builder.append("<tr>");
+    _builder.newLine();
+    {
+      SingleType _ofType = type.getOfType();
+      ArrayList<String> _defaultColumnsForAttributeType = this.getDefaultColumnsForAttributeType(_ofType, "v");
+      for(final String col : _defaultColumnsForAttributeType) {
+        _builder.append("\t\t\t");
+        _builder.append("<td>#{");
+        _builder.append(col, "\t\t\t");
+        _builder.append("}</td>");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("\t \t");
+    _builder.append("</tr>");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("</ui:repeat>");
+    _builder.newLine();
+    _builder.append("</table>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public ArrayList<String> getDefaultColumnsForAttributeType(final AttributeType type, final String varName) {
+    ArrayList<String> _xblockexpression = null;
+    {
+      final ArrayList<String> cols = CollectionLiterals.<String>newArrayList();
+      if ((type instanceof BasicType)) {
+        cols.add(varName);
+      } else {
+        if ((type instanceof RefType)) {
+          final Concept concept = ((RefType)type).getReference();
+          if ((concept instanceof com.stefanvuckovic.domainmodel.domainModel.Enum)) {
+            cols.add(varName);
+          } else {
+            if ((concept instanceof DTOClass)) {
+              final EList<Attribute> attrs = ((DTOClass)concept).getAttributes();
+              for (final Attribute attr : attrs) {
+                {
+                  final AttributeType attrType = attr.getType();
+                  if ((attrType instanceof BasicType)) {
+                    String _name = attr.getName();
+                    String _plus = ((varName + ".") + _name);
+                    cols.add(_plus);
+                  } else {
+                    if ((attrType instanceof RefType)) {
+                      final Concept fieldConcept = ((RefType)attrType).getReference();
+                      if ((fieldConcept instanceof com.stefanvuckovic.domainmodel.domainModel.Enum)) {
+                        String _name_1 = attr.getName();
+                        String _plus_1 = ((varName + ".") + _name_1);
+                        cols.add(_plus_1);
+                      } else {
+                        if ((fieldConcept instanceof DTOClass)) {
+                          final Attribute reprAttr = this._dTOUtil.getObjectRepresentationAttribute(((DTOClass)fieldConcept));
+                          String _name_2 = attr.getName();
+                          String _plus_2 = ((varName + ".") + _name_2);
+                          String _plus_3 = (_plus_2 + ".");
+                          String _name_3 = reprAttr.getName();
+                          String _plus_4 = (_plus_3 + _name_3);
+                          cols.add(_plus_4);
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      _xblockexpression = cols;
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence generateDefaultLink(final DefaultComponent c) {
+    StringConcatenation _builder = new StringConcatenation();
+    Expression _value = c.getValue();
+    final String expr = this.compileExpression(_value, true, false);
+    _builder.newLineIfNotEmpty();
+    _builder.append("<a href=\"");
+    _builder.append(expr, "");
+    _builder.append("\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append(expr, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</a>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence generateDefaultLabel(final DefaultComponent c) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<h:outputLabel value=\"");
+    Expression _value = c.getValue();
+    String _compileExpression = this.compileExpression(_value, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\"/>");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence generateDefaultMultiSelectCheckbox(final DefaultComponent c) {
+    StringConcatenation _builder = new StringConcatenation();
+    final Expression value = c.getValue();
+    _builder.newLineIfNotEmpty();
+    AttributeType _type = this._typeComputing.getType(value);
+    final CollectionType type = ((CollectionType) _type);
+    _builder.newLineIfNotEmpty();
+    final UIContainer cont = EcoreUtil2.<UIContainer>getContainerOfType(c, UIContainer.class);
+    _builder.newLineIfNotEmpty();
+    Expression _value = c.getValue();
+    String _variableOrMemberName = this.getVariableOrMemberName(_value);
+    final String selectFromName = this.getUniqueFieldNameForCollectionType(cont, _variableOrMemberName);
+    _builder.newLineIfNotEmpty();
+    this.addFieldToServerComponent(cont, selectFromName, type);
+    _builder.newLineIfNotEmpty();
+    final String scRefName = this.getMainBeanRefName(cont);
+    _builder.newLineIfNotEmpty();
+    _builder.append("<h:selectManyCheckbox value=\"");
+    String _compileExpression = this.compileExpression(value, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    _builder.append("<f:selectItems value=\"#{");
+    _builder.append(scRefName, "    ");
+    _builder.append(".");
+    _builder.append(selectFromName, "    ");
+    _builder.append("}\" var=\"v\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("   \t\t");
+    _builder.append("itemLabel=\"#{");
+    SingleType _ofType = type.getOfType();
+    String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(_ofType, "v");
+    _builder.append(_defaultRepresentationAttribute, "   \t\t");
+    _builder.append("}\" itemValue=\"#{v}\" />");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</h:selectManyCheckbox>\t\t");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence generateDefaultBoolCheckBox(final DefaultComponent c) {
+    StringConcatenation _builder = new StringConcatenation();
+    final boolean output = (c instanceof OutputUIComponent);
+    _builder.newLineIfNotEmpty();
+    _builder.append("<h:selectBooleanCheckbox id=\"boolCheckbox");
+    _builder.append(this.counter, "");
+    _builder.append("\" value=\"");
+    Expression _value = c.getValue();
+    String _compileExpression = this.compileExpression(_value, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" disabled=\"");
+    _builder.append(output, "");
+    _builder.append("\" />");
+    _builder.newLineIfNotEmpty();
+    _builder.append("<h:outputLabel for=\"boolCheckbox");
+    _builder.append(this.counter, "");
+    _builder.append("\" value=\"");
+    Expression _value_1 = c.getValue();
+    String _variableOrMemberName = this.getVariableOrMemberName(_value_1);
+    _builder.append(_variableOrMemberName, "");
+    _builder.append("\" />");
+    String _xblockexpression = null;
+    {
+      this.counter++;
+      _xblockexpression = "";
+    }
+    _builder.append(_xblockexpression, "");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence generateDefaultRadioSelection(final DefaultComponent c) {
+    StringConcatenation _builder = new StringConcatenation();
+    final Expression value = c.getValue();
+    _builder.newLineIfNotEmpty();
+    AttributeType _type = this._typeComputing.getType(value);
+    final SingleType type = ((SingleType) _type);
+    _builder.newLineIfNotEmpty();
+    final UIContainer cont = EcoreUtil2.<UIContainer>getContainerOfType(c, UIContainer.class);
+    _builder.newLineIfNotEmpty();
+    Expression _value = c.getValue();
+    String _variableOrMemberName = this.getVariableOrMemberName(_value);
+    final String selectFromName = this.getUniqueFieldNameForCollectionType(cont, _variableOrMemberName);
+    _builder.newLineIfNotEmpty();
+    CollectionType _createCollectionType = DomainModelFactory.eINSTANCE.createCollectionType();
+    final Procedure1<CollectionType> _function = (CollectionType it) -> {
+      SingleType _copy = EcoreUtil.<SingleType>copy(type);
+      it.setOfType(_copy);
+    };
+    final CollectionType selectFromType = ObjectExtensions.<CollectionType>operator_doubleArrow(_createCollectionType, _function);
+    _builder.newLineIfNotEmpty();
+    this.addFieldToServerComponent(cont, selectFromName, selectFromType);
+    _builder.newLineIfNotEmpty();
+    final String scRefName = this.getMainBeanRefName(cont);
+    _builder.newLineIfNotEmpty();
+    _builder.append("<h:selectOneRadio value=\"");
+    String _compileExpression = this.compileExpression(value, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<f:selectItems value=\"");
+    _builder.append(scRefName, "\t");
+    _builder.append(".");
+    _builder.append(selectFromName, "\t");
+    _builder.append("\" var=\"v\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("itemLabel=\"");
+    String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(type, "v");
+    _builder.append(_defaultRepresentationAttribute, "\t\t");
+    _builder.append("\" itemValue=\"#{v}\" />");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</h:selectOneRadio>\t\t");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence generateDefaultPasswordField(final DefaultComponent c) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<h:inputSecret value=\"");
+    Expression _value = c.getValue();
+    String _compileExpression = this.compileExpression(_value, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" placeholder=\"");
+    Expression _value_1 = c.getValue();
+    String _variableOrMemberName = this.getVariableOrMemberName(_value_1);
+    _builder.append(_variableOrMemberName, "");
+    _builder.append("\" />");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence generateDefaultComboBox(final DefaultComponent c) {
+    StringConcatenation _builder = new StringConcatenation();
+    final Expression value = c.getValue();
+    _builder.newLineIfNotEmpty();
+    AttributeType _type = this._typeComputing.getType(value);
+    final SingleType type = ((SingleType) _type);
+    _builder.newLineIfNotEmpty();
+    final UIContainer cont = EcoreUtil2.<UIContainer>getContainerOfType(c, UIContainer.class);
+    _builder.newLineIfNotEmpty();
+    Expression _value = c.getValue();
+    String _variableOrMemberName = this.getVariableOrMemberName(_value);
+    final String selectFromName = this.getUniqueFieldNameForCollectionType(cont, _variableOrMemberName);
+    _builder.newLineIfNotEmpty();
+    CollectionType _createCollectionType = DomainModelFactory.eINSTANCE.createCollectionType();
+    final Procedure1<CollectionType> _function = (CollectionType it) -> {
+      SingleType _copy = EcoreUtil.<SingleType>copy(type);
+      it.setOfType(_copy);
+    };
+    final CollectionType selectFromType = ObjectExtensions.<CollectionType>operator_doubleArrow(_createCollectionType, _function);
+    _builder.newLineIfNotEmpty();
+    this.addFieldToServerComponent(cont, selectFromName, selectFromType);
+    _builder.newLineIfNotEmpty();
+    final String scRefName = this.getMainBeanRefName(cont);
+    _builder.newLineIfNotEmpty();
+    _builder.append("<h:selectOneMenu value=\"");
+    String _compileExpression = this.compileExpression(value, true, false);
+    _builder.append(_compileExpression, "");
+    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<f:selectItems value=\"#{");
+    _builder.append(scRefName, "\t");
+    _builder.append(".");
+    _builder.append(selectFromName, "\t");
+    _builder.append("}\" var=\"v\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("itemLabel=\"#{");
+    String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(type, "v");
+    _builder.append(_defaultRepresentationAttribute, "\t\t");
+    _builder.append("}\" itemValue=\"#{v}\" />");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</h:selectOneMenu>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence generateDefaultTextComp(final DefaultComponent c) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<h:outputText value=\"");
+    Expression _value = c.getValue();
+    String _defaultOutputExpression = this.getDefaultOutputExpression(_value);
+    _builder.append(_defaultOutputExpression, "");
+    _builder.append("\" />");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public void addFieldToServerComponent(final UIContainer cont, final String fieldName, final AttributeType fieldType) {
+    final UIDSLFactory factory = UIDSLFactory.eINSTANCE;
+    final ServerComponent sc = this.getContainerMainServerComponent(cont);
+    Field _createField = factory.createField();
+    final Procedure1<Field> _function = (Field it) -> {
+      it.setName(fieldName);
+      AttributeType _copy = EcoreUtil.<AttributeType>copy(fieldType);
+      it.setType(_copy);
+    };
+    final Field field = ObjectExtensions.<Field>operator_doubleArrow(_createField, _function);
+    Resource _eResource = sc.eResource();
+    boolean _equals = Objects.equal(_eResource, null);
+    if (_equals) {
+      EList<Member> _members = sc.getMembers();
+      _members.add(field);
+    } else {
+      String _name = sc.getName();
+      this.serverComponentNewFieldsMap.put(_name, field);
+    }
+  }
+  
+  public String getUniqueFieldNameForCollectionType(final UIContainer cont, final String base) {
+    String _xblockexpression = null;
+    {
+      final ServerComponent sc = this.getContainerMainServerComponent(cont);
+      final String name = (base + "List");
+      _xblockexpression = this.generateUniqueField(sc, name);
+    }
+    return _xblockexpression;
+  }
+  
+  public String generateUniqueField(final ServerComponent sc, final String name) {
+    return this.generateUniqueField(sc, name, 0);
+  }
+  
+  public String generateUniqueField(final ServerComponent sc, final String name, final int counter) {
+    String _xblockexpression = null;
+    {
+      String _xifexpression = null;
+      if ((counter == 0)) {
+        _xifexpression = name;
+      } else {
+        _xifexpression = (name + Integer.valueOf(counter));
+      }
+      String currName = _xifexpression;
+      Iterable<Field> _fields = this._uIDSLUtil.getFields(sc);
+      for (final Field f : _fields) {
+        String _name = f.getName();
+        boolean _equals = Objects.equal(_name, currName);
+        if (_equals) {
+          int newCounter = (counter + 1);
+          return this.generateUniqueField(sc, name, newCounter);
+        }
+      }
+      _xblockexpression = currName;
+    }
+    return _xblockexpression;
+  }
+  
+  public String getDefaultRepresentationAttribute(final AttributeType type, final String variableName) {
+    if (((type instanceof BasicType) || ((type instanceof RefType) && (((RefType) type).getReference() instanceof com.stefanvuckovic.domainmodel.domainModel.Enum)))) {
+      return variableName;
+    } else {
+      if (((type instanceof RefType) && (((RefType) type).getReference() instanceof DTOClass))) {
+        Concept _reference = ((RefType) type).getReference();
+        final DTOClass dto = ((DTOClass) _reference);
+        Attribute _objectRepresentationAttribute = this._dTOUtil.getObjectRepresentationAttribute(dto);
+        String _name = _objectRepresentationAttribute.getName();
+        return ((variableName + ".") + _name);
+      }
+    }
+    return null;
+  }
+  
+  public String getVariableOrMemberName(final Expression exp) {
+    String _xifexpression = null;
+    if ((exp instanceof VariableReference)) {
+      Variable _ref = ((VariableReference)exp).getRef();
+      return _ref.getName();
+    } else {
+      String _xifexpression_1 = null;
+      if ((exp instanceof MemberSelectionExpression)) {
+        SelectionMember _member = ((MemberSelectionExpression)exp).getMember();
+        _xifexpression_1 = _member.getName();
+      }
+      _xifexpression = _xifexpression_1;
+    }
+    return _xifexpression;
+  }
+  
+  public String addAndReturnFileUploadListener(final String fieldName, final String serverCompName) {
+    String _xblockexpression = null;
+    {
+      final String listenerName = (fieldName + "UploadListener");
+      this.fileUploadListeners.put(serverCompName, listenerName);
+      _xblockexpression = listenerName;
+    }
+    return _xblockexpression;
+  }
+  
+  public String getDefaultOutputExpression(final Expression exp) {
+    final AttributeType type = this._typeComputing.getType(exp);
+    if (((type instanceof BasicType) || ((type instanceof RefType) && (((RefType) type).getReference() instanceof com.stefanvuckovic.domainmodel.domainModel.Enum)))) {
+      return this.compileExpression(exp, true, false);
+    } else {
+      if (((type instanceof RefType) && (((RefType) type).getReference() instanceof DTOClass))) {
+        Concept _reference = ((RefType) type).getReference();
+        final DTOClass dto = ((DTOClass) _reference);
+        String _compileExpression = this.compileExpression(exp, false, false);
+        String _plus = ("#{" + _compileExpression);
+        String _plus_1 = (_plus + ".");
+        Attribute _objectRepresentationAttribute = this._dTOUtil.getObjectRepresentationAttribute(dto);
+        String _name = _objectRepresentationAttribute.getName();
+        String _plus_2 = (_plus_1 + _name);
+        return (_plus_2 + "}");
+      }
+    }
+    return null;
+  }
+  
+  public String typeString(final SingleType type, final boolean primitive) {
+    if (type instanceof BasicType) {
+      return _typeString((BasicType)type, primitive);
+    } else if (type instanceof RefType) {
+      return _typeString((RefType)type, primitive);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(type, primitive).toString());
+    }
   }
 }

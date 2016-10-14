@@ -3,11 +3,11 @@ package com.stefanvuckovic.uidsl.scoping
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage
 import javax.inject.Inject
+import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.resource.IContainer
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
-import java.net.URI
 
 class CustomIndex {
 	@Inject ResourceDescriptionsProvider rdp
@@ -96,7 +96,7 @@ class CustomIndex {
 	}
 	
 	def getResourceByURI(EObject context, String fileUri) {
-		val uri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(fileUri, true)
+		val uri = URI.createPlatformResourceURI(fileUri, true)
 		for(IContainer c : context.visibleContainers) {
 			val res = c.getResourceDescription(uri)
 			if(res != null) {

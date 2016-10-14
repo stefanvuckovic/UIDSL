@@ -237,16 +237,32 @@ ruleAttributeOption returns [EObject current=null]
 }:
 	(
 		(
+			(
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getAttributeOptionAccess().getObjectRepresentationAction_0_0(),
+						$current);
+				}
+			)
+			otherlv_1='representation'
 			{
-				$current = forceCreateModelElement(
-					grammarAccess.getAttributeOptionAccess().getObjectRepresentationAction_0(),
-					$current);
+				newLeafNode(otherlv_1, grammarAccess.getAttributeOptionAccess().getRepresentationKeyword_0_1());
 			}
 		)
-		otherlv_1='representation'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getAttributeOptionAccess().getRepresentationKeyword_1());
-		}
+		    |
+		(
+			(
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getAttributeOptionAccess().getIDAttributeAction_1_0(),
+						$current);
+				}
+			)
+			otherlv_3='@id'
+			{
+				newLeafNode(otherlv_3, grammarAccess.getAttributeOptionAccess().getIdKeyword_1_1());
+			}
+		)
 	)
 ;
 

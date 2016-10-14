@@ -18,7 +18,8 @@ DTOClass:
 ;
 
 AttributeOption returns domainModel::AttributeOption:
-	{ObjectRepresentation} 'representation'
+	{ObjectRepresentation} 'representation' |
+	{IDAttribute} '@id'
 ;
 
 BasicType returns domainModel::BasicType:

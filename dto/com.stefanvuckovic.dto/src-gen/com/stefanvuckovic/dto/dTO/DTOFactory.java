@@ -51,6 +51,15 @@ public interface DTOFactory extends EFactory
   ObjectRepresentation createObjectRepresentation();
 
   /**
+   * Returns a new object of class '<em>ID Attribute</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ID Attribute</em>'.
+   * @generated
+   */
+  IDAttribute createIDAttribute();
+
+  /**
    * Returns a new object of class '<em>Text Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

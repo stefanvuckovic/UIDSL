@@ -68,9 +68,7 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cMembersAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cMembersMemberParserRuleCall_4_0 = (RuleCall)cMembersAssignment_4.eContents().get(0);
-		private final Assignment cExpressionsAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cExpressionsExpressionParserRuleCall_5_0 = (RuleCall)cExpressionsAssignment_5.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		////UIConcept:
 		////	ServerComponent | UIContainer | UIComponent
@@ -78,11 +76,10 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		//ServerComponent domainModel::Concept:
 		//	{ServerComponent} 'server_component' name=ID '{'
 		//	members+=Member*
-		//	expressions+=Expression*
 		//	'}'
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{ServerComponent} 'server_component' name=ID '{' members+=Member* expressions+=Expression* '}'
+		//{ServerComponent} 'server_component' name=ID '{' members+=Member* '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{ServerComponent}
@@ -106,14 +103,8 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		//Member
 		public RuleCall getMembersMemberParserRuleCall_4_0() { return cMembersMemberParserRuleCall_4_0; }
 		
-		//expressions+=Expression*
-		public Assignment getExpressionsAssignment_5() { return cExpressionsAssignment_5; }
-		
-		//Expression
-		public RuleCall getExpressionsExpressionParserRuleCall_5_0() { return cExpressionsExpressionParserRuleCall_5_0; }
-		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
 	}
 	public class MemberElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.Member");
@@ -2118,7 +2109,6 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	//ServerComponent domainModel::Concept:
 	//	{ServerComponent} 'server_component' name=ID '{'
 	//	members+=Member*
-	//	expressions+=Expression*
 	//	'}'
 	public ServerComponentElements getServerComponentAccess() {
 		return pServerComponent;
@@ -2654,7 +2644,7 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AttributeOption domainModel::AttributeOption:
-	//	{ObjectRepresentation} 'representation'
+	//	{ObjectRepresentation} 'representation' | {IDAttribute} '@id'
 	public DTOGrammarAccess.AttributeOptionElements getAttributeOptionAccess() {
 		return gaDTO.getAttributeOptionAccess();
 	}

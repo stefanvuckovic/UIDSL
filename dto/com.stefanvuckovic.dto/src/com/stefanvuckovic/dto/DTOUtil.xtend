@@ -1,16 +1,18 @@
 package com.stefanvuckovic.dto
 
-import com.stefanvuckovic.dto.dTO.DTOClass
-import com.stefanvuckovic.dto.dTO.TextType
-import com.stefanvuckovic.dto.dTO.EmailType
-import com.stefanvuckovic.dto.dTO.PasswordType
-import com.stefanvuckovic.dto.dTO.FileType
-import com.stefanvuckovic.dto.dTO.ImageType
-import com.stefanvuckovic.domainmodel.domainModel.CollectionType
-import com.stefanvuckovic.domainmodel.domainModel.AttributeType
-import javax.inject.Inject
 import com.stefanvuckovic.domainmodel.DomainModelUtil
 import com.stefanvuckovic.domainmodel.domainModel.Attribute
+import com.stefanvuckovic.domainmodel.domainModel.AttributeOption
+import com.stefanvuckovic.domainmodel.domainModel.AttributeType
+import com.stefanvuckovic.domainmodel.domainModel.CollectionType
+import com.stefanvuckovic.dto.dTO.DTOClass
+import com.stefanvuckovic.dto.dTO.EmailType
+import com.stefanvuckovic.dto.dTO.FileType
+import com.stefanvuckovic.dto.dTO.ImageType
+import com.stefanvuckovic.dto.dTO.PasswordType
+import com.stefanvuckovic.dto.dTO.TextType
+import javax.inject.Inject
+import com.stefanvuckovic.dto.dTO.IDAttribute
 import com.stefanvuckovic.dto.dTO.ObjectRepresentation
 
 class DTOUtil {
@@ -51,8 +53,17 @@ class DTOUtil {
 		}
 	}
 	
-	def isObjectRepresentation(Attribute attr) {
-		attr.options != null && attr.options.size == 1 && attr.options.head instanceof ObjectRepresentation
+	def hasAttributeOption(Attribute attr, Class<? extends AttributeOption> optClass) {
+		val options = attr.options
+		options != null && options.filter[o | o.class.equals(optClass)].size > 0
+	}
+	
+	def getIDAttribute(DTOClass c) {
+		c.attributes.findFirst[a | a.options.filter(IDAttribute).size == 1]
+	}
+	
+	def getObjectRepresentationAttribute(DTOClass c) {
+		c.attributes.findFirst[a | a.options.filter(ObjectRepresentation).size == 1]
 	}
 
 }

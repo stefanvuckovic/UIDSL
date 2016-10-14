@@ -152,6 +152,25 @@ public interface DTOPackage extends EPackage
   int OBJECT_REPRESENTATION_FEATURE_COUNT = DomainModelPackage.ATTRIBUTE_OPTION_FEATURE_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link com.stefanvuckovic.dto.dTO.impl.IDAttributeImpl <em>ID Attribute</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.dto.dTO.impl.IDAttributeImpl
+   * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getIDAttribute()
+   * @generated
+   */
+  int ID_ATTRIBUTE = 3;
+
+  /**
+   * The number of structural features of the '<em>ID Attribute</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ID_ATTRIBUTE_FEATURE_COUNT = DomainModelPackage.ATTRIBUTE_OPTION_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link com.stefanvuckovic.dto.dTO.impl.TextTypeImpl <em>Text Type</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -159,7 +178,7 @@ public interface DTOPackage extends EPackage
    * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getTextType()
    * @generated
    */
-  int TEXT_TYPE = 3;
+  int TEXT_TYPE = 4;
 
   /**
    * The number of structural features of the '<em>Text Type</em>' class.
@@ -178,7 +197,7 @@ public interface DTOPackage extends EPackage
    * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getEmailType()
    * @generated
    */
-  int EMAIL_TYPE = 4;
+  int EMAIL_TYPE = 5;
 
   /**
    * The number of structural features of the '<em>Email Type</em>' class.
@@ -197,7 +216,7 @@ public interface DTOPackage extends EPackage
    * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getPasswordType()
    * @generated
    */
-  int PASSWORD_TYPE = 5;
+  int PASSWORD_TYPE = 6;
 
   /**
    * The number of structural features of the '<em>Password Type</em>' class.
@@ -216,7 +235,7 @@ public interface DTOPackage extends EPackage
    * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getFileType()
    * @generated
    */
-  int FILE_TYPE = 6;
+  int FILE_TYPE = 7;
 
   /**
    * The number of structural features of the '<em>File Type</em>' class.
@@ -235,7 +254,7 @@ public interface DTOPackage extends EPackage
    * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getImageType()
    * @generated
    */
-  int IMAGE_TYPE = 7;
+  int IMAGE_TYPE = 8;
 
   /**
    * The number of structural features of the '<em>Image Type</em>' class.
@@ -298,6 +317,16 @@ public interface DTOPackage extends EPackage
    * @generated
    */
   EClass getObjectRepresentation();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.dto.dTO.IDAttribute <em>ID Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ID Attribute</em>'.
+   * @see com.stefanvuckovic.dto.dTO.IDAttribute
+   * @generated
+   */
+  EClass getIDAttribute();
 
   /**
    * Returns the meta object for class '{@link com.stefanvuckovic.dto.dTO.TextType <em>Text Type</em>}'.
@@ -417,6 +446,16 @@ public interface DTOPackage extends EPackage
      * @generated
      */
     EClass OBJECT_REPRESENTATION = eINSTANCE.getObjectRepresentation();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.dto.dTO.impl.IDAttributeImpl <em>ID Attribute</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.dto.dTO.impl.IDAttributeImpl
+     * @see com.stefanvuckovic.dto.dTO.impl.DTOPackageImpl#getIDAttribute()
+     * @generated
+     */
+    EClass ID_ATTRIBUTE = eINSTANCE.getIDAttribute();
 
     /**
      * The meta object literal for the '{@link com.stefanvuckovic.dto.dTO.impl.TextTypeImpl <em>Text Type</em>}' class.

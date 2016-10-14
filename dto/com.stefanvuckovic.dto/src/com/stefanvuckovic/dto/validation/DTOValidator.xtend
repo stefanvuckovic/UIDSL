@@ -3,18 +3,20 @@
  */
 package com.stefanvuckovic.dto.validation
 
+import com.stefanvuckovic.domainmodel.domainModel.Attribute
+import com.stefanvuckovic.domainmodel.domainModel.AttributeOption
+import com.stefanvuckovic.domainmodel.domainModel.CollectionType
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage
+import com.stefanvuckovic.domainmodel.domainModel.RefType
+import com.stefanvuckovic.dto.DTOUtil
+import com.stefanvuckovic.dto.dTO.DTOClass
 import com.stefanvuckovic.dto.dTO.DTOModel
+import com.stefanvuckovic.dto.dTO.IDAttribute
+import com.stefanvuckovic.dto.dTO.ObjectRepresentation
 import com.stefanvuckovic.dto.scoping.CustomIndex
 import javax.inject.Inject
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
-import com.stefanvuckovic.domainmodel.domainModel.Attribute
-import com.stefanvuckovic.domainmodel.domainModel.RefType
-import com.stefanvuckovic.dto.dTO.DTOClass
-import com.stefanvuckovic.domainmodel.domainModel.CollectionType
-import com.stefanvuckovic.dto.dTO.ObjectRepresentation
-import com.stefanvuckovic.dto.DTOUtil
 
 /**
  * This class contains custom validation rules. 
@@ -24,7 +26,7 @@ import com.stefanvuckovic.dto.DTOUtil
 class DTOValidator extends AbstractDTOValidator {
 	
 	@Inject extension CustomIndex
-	@Inject extension DTOUtil 
+	@Inject extension DTOUtil
 	
 //	public static val INVALID_NAME = 'invalidName'
 //
@@ -57,25 +59,41 @@ class DTOValidator extends AbstractDTOValidator {
 		}
 		val options = a.options
 		if(options != null) {
-			if(options.size == 1) {
-				if(options.head instanceof ObjectRepresentation && 
+			for(var i = 0 ; i < options.length ; i++) {
+				val opt = options.get(i)
+				if((opt instanceof ObjectRepresentation || opt instanceof IDAttribute) && 
 					a.type instanceof RefType && 
 					(a.type as RefType).reference instanceof DTOClass ||
 					a.type instanceof CollectionType) {
-						error("Specified option is not valid for this attribute", DomainModelPackage.Literals.ATTRIBUTE__OPTIONS, 0)
+						error("Specified option is not valid for this attribute", DomainModelPackage.Literals.ATTRIBUTE__OPTIONS, i)
+				} else if(opt instanceof IDAttribute && a.type instanceof RefType) {
+					error("Specified option is not valid for this attribute", DomainModelPackage.Literals.ATTRIBUTE__OPTIONS, i)
 				}
+			}
+		}
+
+	}
+	
+	@Check
+	def void checkOnlyOneAttributeOptionPerClass(AttributeOption opt) {
+		val attr = opt.eContainer as Attribute
+		if(attr.eContainer instanceof DTOClass) {
+			val cl = attr.eContainer as DTOClass
+			val optClass = opt.class
+			if(cl.attributes.filter(a | a.hasAttributeOption(optClass)).size > 1) {
+				val id = opt instanceof IDAttribute
+				error("Only one attribute can be specified as " + if(id) "id" else "object representation", null)
 			}
 		}
 	}
 	
 	@Check
-	def void checkOnlyOneRepresentationOptionPerClass(ObjectRepresentation repr) {
-		val attr = repr.eContainer as Attribute
-		if(attr.eContainer instanceof DTOClass) {
-			val cl = attr.eContainer as DTOClass
-			if(cl.attributes.filter[isObjectRepresentation].size > 1) {
-				error("Only one attribute can be specified as object representation", null)
-			}
+	def void checkIfRequiredAttributeOptionExistsForDtoClass(DTOClass cl) {
+		if(cl.IDAttribute == null) {
+			error("Id attribute missing", DomainModelPackage.eINSTANCE.concept_Name)
+		}
+		if(cl.objectRepresentationAttribute == null) {
+			error("Object representation attribute missing", DomainModelPackage.eINSTANCE.concept_Name)
 		}
 	}
 	

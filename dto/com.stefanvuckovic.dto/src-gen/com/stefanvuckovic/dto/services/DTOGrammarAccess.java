@@ -123,22 +123,38 @@ public class DTOGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class AttributeOptionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.dto.DTO.AttributeOption");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cObjectRepresentationAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cRepresentationKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Action cObjectRepresentationAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Keyword cRepresentationKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Action cIDAttributeAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cIdKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		
 		//AttributeOption domainModel::AttributeOption:
-		//	{ObjectRepresentation} 'representation'
+		//	{ObjectRepresentation} 'representation' | {IDAttribute} '@id'
 		@Override public ParserRule getRule() { return rule; }
 		
+		//{ObjectRepresentation} 'representation' | {IDAttribute} '@id'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
 		//{ObjectRepresentation} 'representation'
-		public Group getGroup() { return cGroup; }
+		public Group getGroup_0() { return cGroup_0; }
 		
 		//{ObjectRepresentation}
-		public Action getObjectRepresentationAction_0() { return cObjectRepresentationAction_0; }
+		public Action getObjectRepresentationAction_0_0() { return cObjectRepresentationAction_0_0; }
 		
 		//'representation'
-		public Keyword getRepresentationKeyword_1() { return cRepresentationKeyword_1; }
+		public Keyword getRepresentationKeyword_0_1() { return cRepresentationKeyword_0_1; }
+		
+		//{IDAttribute} '@id'
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//{IDAttribute}
+		public Action getIDAttributeAction_1_0() { return cIDAttributeAction_1_0; }
+		
+		//'@id'
+		public Keyword getIdKeyword_1_1() { return cIdKeyword_1_1; }
 	}
 	public class BasicTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.dto.DTO.BasicType");
@@ -307,7 +323,7 @@ public class DTOGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AttributeOption domainModel::AttributeOption:
-	//	{ObjectRepresentation} 'representation'
+	//	{ObjectRepresentation} 'representation' | {IDAttribute} '@id'
 	public AttributeOptionElements getAttributeOptionAccess() {
 		return pAttributeOption;
 	}

@@ -17,6 +17,7 @@ import com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType;
 import com.stefanvuckovic.uidsl.uIDSL.EnumGeneralType;
 import com.stefanvuckovic.uidsl.uIDSL.ObjectGeneralType;
 import com.stefanvuckovic.uidsl.uIDSL.PageType;
+import com.stefanvuckovic.uidsl.uIDSL.ServerComponent;
 import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.Extension;
@@ -63,8 +64,15 @@ public class TypeConformance {
       if (!_matched) {
         if (c instanceof DTOClass) {
           _matched=true;
-          _switchResult = ((c == type2.getReference()) || 
-            this._dTOUtil.getHierarchyForClass(((DTOClass)c)).contains(((DTOClass) type2.getReference())));
+          _switchResult = ((c == type2.getReference()) || ((type2.getReference() instanceof DTOClass) && 
+            this._dTOUtil.getHierarchyForClass(((DTOClass)c)).contains(((DTOClass) type2.getReference()))));
+        }
+      }
+      if (!_matched) {
+        if (c instanceof ServerComponent) {
+          _matched=true;
+          Concept _reference = type2.getReference();
+          _switchResult = (c == _reference);
         }
       }
       _xblockexpression = _switchResult;
@@ -156,6 +164,15 @@ public class TypeConformance {
               Iterable<EnumGeneralType> _filter_5 = Iterables.<EnumGeneralType>filter(_types_5, EnumGeneralType.class);
               int _size_5 = IterableExtensions.size(_filter_5);
               _xifexpression_5 = (_size_5 > 0);
+            } else {
+              boolean _xifexpression_6 = false;
+              if ((type1 instanceof PageType)) {
+                EList<AttributeType> _types_6 = type2.getTypes();
+                Iterable<PageType> _filter_6 = Iterables.<PageType>filter(_types_6, PageType.class);
+                int _size_6 = IterableExtensions.size(_filter_6);
+                _xifexpression_6 = (_size_6 > 0);
+              }
+              _xifexpression_5 = _xifexpression_6;
             }
             _xifexpression_4 = _xifexpression_5;
           }

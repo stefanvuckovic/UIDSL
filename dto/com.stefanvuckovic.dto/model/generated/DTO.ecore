@@ -10,6 +10,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="superType" eType="#//DTOClass"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ObjectRepresentation" eSuperTypes="platform:/resource/com.stefanvuckovic.domainmodel/model/generated/DomainModel.ecore#//AttributeOption"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IDAttribute" eSuperTypes="platform:/resource/com.stefanvuckovic.domainmodel/model/generated/DomainModel.ecore#//AttributeOption"/>
   <eClassifiers xsi:type="ecore:EClass" name="TextType" eSuperTypes="platform:/resource/com.stefanvuckovic.domainmodel/model/generated/DomainModel.ecore#//BasicType"/>
   <eClassifiers xsi:type="ecore:EClass" name="EmailType" eSuperTypes="platform:/resource/com.stefanvuckovic.domainmodel/model/generated/DomainModel.ecore#//BasicType"/>
   <eClassifiers xsi:type="ecore:EClass" name="PasswordType" eSuperTypes="platform:/resource/com.stefanvuckovic.domainmodel/model/generated/DomainModel.ecore#//BasicType"/>

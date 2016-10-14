@@ -98,6 +98,11 @@ public class DTOAdapterFactory extends AdapterFactoryImpl
         return createObjectRepresentationAdapter();
       }
       @Override
+      public Adapter caseIDAttribute(IDAttribute object)
+      {
+        return createIDAttributeAdapter();
+      }
+      @Override
       public Adapter caseTextType(TextType object)
       {
         return createTextTypeAdapter();
@@ -215,6 +220,21 @@ public class DTOAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createObjectRepresentationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.dto.dTO.IDAttribute <em>ID Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.dto.dTO.IDAttribute
+   * @generated
+   */
+  public Adapter createIDAttributeAdapter()
   {
     return null;
   }

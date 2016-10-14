@@ -3,10 +3,65 @@
  */
 package com.stefanvuckovic.uidsl.generator
 
+import com.google.common.collect.HashMultimap
+import com.stefanvuckovic.domainmodel.domainModel.AttributeType
+import com.stefanvuckovic.domainmodel.domainModel.BasicType
+import com.stefanvuckovic.domainmodel.domainModel.BoolConstant
+import com.stefanvuckovic.domainmodel.domainModel.CollectionType
+import com.stefanvuckovic.domainmodel.domainModel.DateConstant
+import com.stefanvuckovic.domainmodel.domainModel.DomainModelFactory
+import com.stefanvuckovic.domainmodel.domainModel.Enum
+import com.stefanvuckovic.domainmodel.domainModel.Expression
+import com.stefanvuckovic.domainmodel.domainModel.IntConstant
+import com.stefanvuckovic.domainmodel.domainModel.LongConstant
+import com.stefanvuckovic.domainmodel.domainModel.Null
+import com.stefanvuckovic.domainmodel.domainModel.RefType
+import com.stefanvuckovic.domainmodel.domainModel.SingleType
+import com.stefanvuckovic.domainmodel.domainModel.StringConstant
+import com.stefanvuckovic.domainmodel.generator.DomainModelGenerator
+import com.stefanvuckovic.dto.DTOUtil
+import com.stefanvuckovic.dto.dTO.DTOClass
+import com.stefanvuckovic.dto.generator.DTOGenerator
+import com.stefanvuckovic.uidsl.GeneratorUtil
+import com.stefanvuckovic.uidsl.UIDSLUtil
+import com.stefanvuckovic.uidsl.types.TypeComputing
+import com.stefanvuckovic.uidsl.uIDSL.Component
+import com.stefanvuckovic.uidsl.uIDSL.DefaultComponent
+import com.stefanvuckovic.uidsl.uIDSL.Field
+import com.stefanvuckovic.uidsl.uIDSL.Fragment
+import com.stefanvuckovic.uidsl.uIDSL.FragmentCall
+import com.stefanvuckovic.uidsl.uIDSL.IFStatement
+import com.stefanvuckovic.uidsl.uIDSL.IterationExpression
+import com.stefanvuckovic.uidsl.uIDSL.Iterator
+import com.stefanvuckovic.uidsl.uIDSL.LogicElement
+import com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression
+import com.stefanvuckovic.uidsl.uIDSL.Method
+import com.stefanvuckovic.uidsl.uIDSL.OutputUIComponent
+import com.stefanvuckovic.uidsl.uIDSL.Page
+import com.stefanvuckovic.uidsl.uIDSL.PageCall
+import com.stefanvuckovic.uidsl.uIDSL.ServerComponent
+import com.stefanvuckovic.uidsl.uIDSL.Template
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragment
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride
+import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance
+import com.stefanvuckovic.uidsl.uIDSL.UIContainer
+import com.stefanvuckovic.uidsl.uIDSL.UIDSLFactory
+import com.stefanvuckovic.uidsl.uIDSL.UIElement
+import com.stefanvuckovic.uidsl.uIDSL.UIModel
+import com.stefanvuckovic.uidsl.uIDSL.Variable
+import com.stefanvuckovic.uidsl.uIDSL.VariableReference
+import java.util.HashMap
+import javax.inject.Inject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+
+import static com.stefanvuckovic.uidsl.UIComponents.*
+
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
+import static extension org.eclipse.xtext.EcoreUtil2.*
+import com.stefanvuckovic.uidsl.uIDSL.VoidType
 
 /**
  * Generates code from your model files on save.
@@ -15,7 +70,1045 @@ import org.eclipse.xtext.generator.IGeneratorContext
  */
 class UIDSLGenerator extends AbstractGenerator {
 
+	@Inject extension UIDSLUtil 
+	@Inject extension TypeComputing
+	@Inject extension DTOUtil
+	@Inject extension DTOGenerator dtoGenerator
+	@Inject extension DomainModelGenerator dmGenerator
+	@Inject GeneratorUtil genUtil
+	
+	//for unique ids of components where needed
+	var counter = 1
+	val componentsFolder = "components"
+	val serverComponentsPackage = "beans"
+	val componentsFolderAlias = "comp"
+	val templatesFolder = "templates"
+	
+	val serverCompInitMethodName = "init"
+	
+	val HashMap<String, ServerComponent> newServerComponentsMap = newHashMap()
+	val HashMultimap<String, Field> serverComponentNewFieldsMap = HashMultimap.create()
+	val HashMultimap<String, String> fileUploadListeners = HashMultimap.create()
+	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+		val model = resource.allContents.toIterable.filter(UIModel).head
+		//we have to iterate containers first and server components at the end because of the added fields to server components
+		for (c : model.concepts.filter(UIContainer)) {
+			if(c instanceof Page) {
+				fsa.generateFile('''«c.name».xhtml''', c.compilePage)
+			} else if(c instanceof Fragment) {
+				fsa.generateFile('''«componentsFolder»/«c.name».xhtml''', c.compileFragment)
+			} else if(c instanceof Template) {
+				fsa.generateFile('''«templatesFolder»/«c.name».xhtml''', c.compileTemplate)
+			}
+		}
+		for(c : model.concepts.filter(ServerComponent)) {
+			fsa.generateFile('''«serverComponentsPackage»/«c.name».java''', c.compileServerComponent)
+		}
+		for(sc : newServerComponentsMap.values) {
+			fsa.generateFile('''«serverComponentsPackage»/«sc.name».java''', sc.compileServerComponent)
+		}
 		
+		resetData()
 	}
+	
+	def resetData() {
+		counter = 1
+		newServerComponentsMap.clear
+		serverComponentNewFieldsMap.clear
+		fileUploadListeners.clear
+	}
+	
+	def compileServerComponent(ServerComponent sc) '''
+		package «serverComponentsPackage»;
+					
+		@javax.faces.bean.ManagedBean(name = "«sc.name.toFirstLower»")
+		@org.springframework.stereotype.Component("«sc.name.toFirstLower»")
+		@org.springframework.context.annotation.Scope("view")
+		public class «sc.name» {
+		«val fields = sc.members.filter(Field)»
+		«val methods = sc.members.filter(Method)»
+			«FOR f : fields»
+			«f.compilFieldAnnotations»
+			private «f.type.compile» «f.name»;
+			«ENDFOR»
+			«val additionalFields = serverComponentNewFieldsMap.get(sc.name)»
+			«IF additionalFields != null»
+			«FOR f : additionalFields»
+			private «f.type.compile» «f.name»;
+			«ENDFOR»
+			«ENDIF»		
+			
+			public «sc.name»() {
+				«fields.compileCollectionFieldsInit»
+				«additionalFields.compileCollectionFieldsInit»
+			}
+			
+			public void «serverCompInitMethodName»() {
+				
+			}
+		
+			«FOR m : methods»
+			public «m.type.compile» «m.name»(«m.params.map[compileVariable].join(", ")») {
+				throw new UnsupportedOperationException();
+			}
+			«ENDFOR»
+			
+			«val fileUploadListeners = fileUploadListeners.get(sc.name)»
+			«IF fileUploadListeners != null»
+			«FOR l : fileUploadListeners»
+			public void «l»(org.primefaces.event.FileUploadEvent event) {
+			     //org.primefaces.model.UploadedFile uploadedFile = event.getFile();
+			     //TODO
+			}
+			«ENDFOR»
+			«ENDIF»
+		
+			/*
+				GETTERS AND SETTERS
+			*/
+			«FOR f : fields»
+			«val preparedName = if(f.name.length > 1 && Character.isUpperCase(f.name.charAt(1))) f.name else f.name.toFirstUpper»
+			public «f.type.compile» «f.type.getter»«preparedName»() {
+				return «f.name»;
+			}
+						
+			public void set«preparedName»(«f.type.compile» «f.name») {
+				this.«f.name» = «f.name»;
+			}		
+			«ENDFOR»
+			«FOR f : additionalFields»
+			«val preparedName = if(f.name.length > 1 && Character.isUpperCase(f.name.charAt(1))) f.name else f.name.toFirstUpper»
+			public «f.type.compile» «f.type.getter»«preparedName»() {
+				return «f.name»;
+			}
+						
+			public void set«preparedName»(«f.type.compile» «f.name») {
+				this.«f.name» = «f.name»;
+			}
+			«ENDFOR»
+		}
+	'''
+	
+	def compileCollectionFieldsInit(Iterable<? extends Field> fields) '''
+		«FOR f : fields»
+		«IF f.type instanceof CollectionType»
+		«f.name» = new java.util.ArrayList<>();
+		«ENDIF»
+		«ENDFOR»
+	'''
+	
+	def compile(AttributeType type) {
+		if(type instanceof CollectionType) {
+			return "java.util.List<" + (type as CollectionType).ofType.typeString(false) + ">"
+		} else if(type instanceof SingleType) {
+			return (type as SingleType).typeString(true)
+		} else if(type instanceof VoidType) {
+			return "void"
+		}
+	}
+	
+	def dispatch typeString(BasicType type, boolean primitive) {
+		dtoGenerator.typeString(type, primitive)
+	}
+	
+	def dispatch typeString(RefType type, boolean primitive) {
+		var prefix = ""
+		val res = type.reference.eResource
+		if(res.URI.fileExtension == "domain") {
+			prefix = "domain."
+		} else if(res.URI.fileExtension == "dto") {
+			prefix = "dto."
+		}
+		prefix + dmGenerator.typeString(type, primitive)
+	}
+	
+	def compileVariable(Variable v) 
+		'''«v.type.compile» «v.name»'''
+	
+	def compilFieldAnnotations(Field f) {
+		val type = f.type
+		if(type instanceof RefType && (type as RefType).reference instanceof ServerComponent) {
+			return "@javax.inject.Inject"
+		} else {
+			return ""
+		}
+	}
+	
+	def compileTemplate(Template t) '''
+		<html
+			xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:h="http://java.sun.com/jsf/html"
+			xmlns:f="http://java.sun.com/jsf/core"
+			xmlns:ui="http://java.sun.com/jsf/facelets"
+			xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+			xmlns:p="http://primefaces.org/ui"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:«componentsFolderAlias»="http://java.sun.com/jsf/composite/«componentsFolder»">
+			«t.serverComponents.createUIParamsForServerComponents»
+			
+			<ui:insert name="metadata" />
+			«pageHead»
+					
+			<h:body>
+				«FOR el : t.elements»
+				«el.compileUIElement»
+				«ENDFOR»
+			</h:body>
+		</html>
+	'''
+	
+	def compileFragment(Fragment f) '''
+		<ui:component
+			xmlns:h="http://java.sun.com/jsf/html"
+			xmlns:f="http://java.sun.com/jsf/core"
+			xmlns:ui="http://java.sun.com/jsf/facelets"
+			xmlns:composite="http://java.sun.com/jsf/composite"
+			xmlns:p="http://primefaces.org/ui"
+			xmlns:«componentsFolderAlias»="http://java.sun.com/jsf/composite/«componentsFolder»"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+			«f.serverComponents.createUIParamsForServerComponents»
+			<composite:interface>
+				«FOR p : f.params»
+				<composite:attribute name="«p.name»" required="true"/>
+				«ENDFOR»
+			</composite:interface>
+			
+			<composite:implementation>
+				«FOR p : f.params»
+				<c:set var="«p.name»" value="#{cc.attrs.«p.name»}"/>
+				«ENDFOR»
+				
+			    «FOR el : f.elements»
+			    «el.compileUIElement»
+			    «ENDFOR»
+			</composite:implementation>
+		</ui:component>
+	'''
+	
+	def compilePage(Page page) '''
+		«page.addFieldsToServerComponentForPageParams»
+		«val hasTemplate = page.template != null»
+		«IF hasTemplate»
+		<ui:composition
+		«ELSE»
+		<html
+		«ENDIF»
+			xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:h="http://java.sun.com/jsf/html"
+			xmlns:f="http://java.sun.com/jsf/core"
+			xmlns:ui="http://java.sun.com/jsf/facelets"
+			xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+			xmlns:p="http://primefaces.org/ui"
+			«IF hasTemplate»
+			template="«templatesFolder»/«page.template.name».xhtml"
+			«ENDIF»
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:«componentsFolderAlias»="http://java.sun.com/jsf/composite/«componentsFolder»">
+		
+			«IF !hasTemplate»
+			«page.serverComponents.createUIParamsForServerComponents»
+			«page.params.createUIParamsForPageParams»
+			«page.pageParamsAndInitAction»
+			«pageHead»
+			<h:body>
+			«ELSE»
+			<ui:define name="metadata">
+				«page.serverComponents.createUIParamsForServerComponents»
+				«page.params.createUIParamsForPageParams»
+				«page.pageParamsAndInitAction»
+			</ui:define>
+			«ENDIF»
+			«FOR el : page.elements»
+			«el.compileUIElement»
+			«ENDFOR»
+		«IF hasTemplate»
+		</ui:composition>
+		«ELSE»
+		</h:body>
+		</html>
+		«ENDIF»
+	'''
+	
+	def createUIParamsForServerComponents(Iterable<? extends Variable> serverComps) '''
+		«IF serverComps != null && !serverComps.empty»
+		«FOR sc : serverComps»
+		<c:set var="«sc.name»" value="#{«sc.beanNameFromServerCompVariable»}" />
+		«ENDFOR»
+		«ENDIF»
+	'''
+	
+	def createUIParamsForPageParams(Iterable<? extends Variable> params) '''
+		«IF params != null && !params.empty»
+		«FOR p : params»
+		<c:set var="«p.name»" value="#{«p.getContainerOfType(UIContainer).mainBeanRefName».«p.name»}" />
+		«ENDFOR»
+		«ENDIF»
+	'''
+	
+	def getMainBeanRefName(UIContainer cont) {
+		val scs = cont.serverComponents
+		if(scs != null && !scs.empty) {
+			return scs.head.name
+		} else {
+			cont.containerMainServerComponent.name.toFirstLower
+		}
+	}
+	
+	def getMainBeanNameForPage(Page page) {
+		val scs = page.serverComponents
+		if(scs != null && !scs.empty) {
+			return scs.head.beanNameFromServerCompVariable
+		} else {
+			return page.containerMainServerComponent.name.toFirstLower
+		}
+	}
+	
+	def getBeanNameFromServerCompVariable(Variable v) {
+		((v.type as RefType).reference as ServerComponent).name.toFirstLower	
+	}
+	
+	def addFieldsToServerComponentForPageParams(Page page) {
+		val params = page.params
+		if(params != null && !params.empty) {
+			val factory = UIDSLFactory.eINSTANCE
+			val sc = page.containerMainServerComponent
+			for(v : params) {
+				val dto = (v.type as RefType).reference as DTOClass
+				val idAttrType = dto.IDAttribute.type
+		
+				val paramField = factory.createField => [name = v.name type = v.type.copy]
+				val paramDTOField = factory.createField => [name = v.name + "Param" type = idAttrType.copy]
+				if(sc.eResource == null) {
+					sc.members.add(paramField)
+					sc.members.add(paramDTOField)
+				} else {
+					serverComponentNewFieldsMap.put(sc.name, paramField)
+					serverComponentNewFieldsMap.put(sc.name, paramDTOField)
+				}
+			}
+		}
+	}
+	
+	//get first server component, or create new if there is no server comp listed
+	def getContainerMainServerComponent(UIContainer cont) {
+		val scs = cont.serverComponents
+		var ServerComponent sc
+		if(scs == null || scs.empty) {
+			val existingSc = newServerComponentsMap.get(cont.name)
+			if(existingSc != null) {
+				sc = existingSc
+			} else {
+				sc = UIDSLFactory.eINSTANCE.createServerComponent => [name = cont.name + "Bean"]
+				newServerComponentsMap.put(cont.name, sc)
+			}
+		} else {
+			sc = (scs.get(0).type as RefType).reference as ServerComponent
+		}
+		sc
+	}
+	
+	def getPageParamsAndInitAction(Page page) '''
+		«val params = page.params»
+		<f:metadata>
+			«FOR p : params»
+			<f:viewParam name="«p.name»" value="#{«page.getMainBeanNameForPage».«p.name»Param}" />
+			«ENDFOR»		
+			<f:viewAction action="#{«page.getMainBeanNameForPage».«serverCompInitMethodName»()}" />
+		</f:metadata>
+	'''
+	
+	def getPageHead() '''
+		<h:head>
+			<f:facet name="first">
+				<meta charset="utf-8"></meta>
+				<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+				<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+			</f:facet>
+		</h:head>
+	'''
+	
+	def CharSequence compileUIElement(UIElement e) {
+		if(e instanceof Component) {
+			e.compileComponent
+		} else if(e instanceof LogicElement) {
+			e.compileLogicElement
+		} else if(e instanceof FragmentCall) {
+			e.compileFragmentCall
+		} else if(e instanceof TemplateFragmentOverride) {
+			e.compileTemplateFragmentOverride
+		} else if(e instanceof TemplateFragment) {
+			e.compileTemplateFragment
+		}
+	}
+	
+	def compileTemplateFragment(TemplateFragment templateFragment) '''
+		<ui:insert name="«templateFragment.name»">
+			«templateFragment.elements.compileUIElements»
+		</ui:insert>
+	'''
+	
+	def compileTemplateFragmentOverride(TemplateFragmentOverride templateFragOverride) '''
+		<ui:define name="«templateFragOverride.overridenFragment.name»">
+			«templateFragOverride.elements.compileUIElements»
+		</ui:define>
+	'''
+	
+	def compileFragmentCall(FragmentCall f) '''
+		«var fragment = f.frag»
+		<«componentsFolderAlias»:«fragment.name»
+			«var ind = 0»
+			«FOR param : f.params»
+			«fragment.params.get(ind).name» = "«param.compileExpression(true, false)»"
+			«{ ind++; "" }»	
+			«ENDFOR»
+		/>
+	'''
+	
+	def compileLogicElement(LogicElement e) {
+		if(e instanceof IFStatement) {
+			e.compileIfStatement
+		} else if (e instanceof Iterator) {
+			e.compileIteratorStatement
+		}
+	}
+	
+	def compileIfStatement(IFStatement s) '''
+		<ui:fragment rendered="«s.expression.compileExpression(true, false)»">
+			«s.elements.compileUIElements»
+		</ui:fragment>
+	'''
+	
+	def compileIteratorStatement(Iterator i) '''
+		«val iter = i.expression as IterationExpression»
+		<ui:repeat value="«iter.expression.compileExpression(true, false)»" var="«iter.^var.name»">
+			«i.elements.compileUIElements»
+		</ui:repeat>
+	'''
+	
+	def compileUIElements(Iterable<? extends UIElement> elems) '''
+		«FOR e : elems»
+			«compileUIElement(e)»
+		«ENDFOR»
+	'''
+	
+	def CharSequence compileComponent(Component comp) {
+		if(comp instanceof UIComponentInstance) {
+			compileUIComponent(comp)
+		} else if(comp instanceof DefaultComponent) {
+			compileDefaultComponent(comp)
+		}
+	}
+	
+	def compileDefaultComponent(DefaultComponent c) {
+		val comp = genUtil.getUIComponentForDefaultComponent(c)
+		switch(comp.name) {
+			case LIST :
+				generateDefaultList(c)
+			case TEXT_COMP:
+				generateDefaultTextComp(c)
+			case TEXT_FIELD:
+				generateDefaultTextField(c)
+			case TEXT_AREA:
+				generateDefaultTextArea(c)
+			//case SLIDER:
+				//compileSlider(compInstance)
+			//case SPINNER:
+				//compileSpinner(compInstance)
+			case PASSWORD_FIELD:
+				generateDefaultPasswordField(c)
+			case COMBO_BOX:
+				generateDefaultComboBox(c)
+			case RADIO_SELECTION:
+				generateDefaultRadioSelection(c)
+			case BOOL_CHECKBOX:
+				generateDefaultBoolCheckBox(c)
+			case MULTI_SELECT_CHECKBOX:
+				generateDefaultMultiSelectCheckbox(c)
+			case LINK:
+				generateDefaultLink(c)
+			case TABLE:
+				generateDefaultTable(c)
+			case INPUT_DATE:
+				generateDefaultInputDate(c)
+			case FILE_UPLOAD:
+				generateDefaultFileUpload(c)
+			case IMAGE_COMPONENT:
+				generateDefaultImageComponent(c)
+			case LABEL:
+				generateDefaultLabel(c)
+		}	
+	}
+	
+	def compileUIComponent(UIComponentInstance compInstance) {
+		val compName = compInstance.component.name
+		switch(compName) {
+			case LIST :
+				compileList(compInstance)
+			case ACTION:
+				compileAction(compInstance)
+			case TEXT_COMP:
+				compileTextComp(compInstance)
+			case SECTION:
+				compileSection(compInstance)
+			case TEXT_FIELD:
+				compileTextField(compInstance)
+			case TEXT_AREA:
+				compileTextArea(compInstance)
+			//case SLIDER:
+				//compileSlider(compInstance)
+			//case SPINNER:
+				//compileSpinner(compInstance)
+			case PASSWORD_FIELD:
+				compilePasswordField(compInstance)
+			case COMBO_BOX:
+				compileComboBox(compInstance)
+			case RADIO_SELECTION:
+				compileRadioSelection(compInstance)
+			case BOOL_CHECKBOX:
+				compileBoolCheckBox(compInstance)
+			case MULTI_SELECT_CHECKBOX:
+				compileMultiSelectCheckbox(compInstance)
+			case LINK:
+				compileLink(compInstance)
+			case TABLE:
+				compileTable(compInstance)
+			case INPUT_DATE:
+				compileInputDate(compInstance)
+			case FILE_UPLOAD:
+				compileFileUpload(compInstance)
+			case IMAGE_COMPONENT:
+				compileImageComponent(compInstance)
+			case FORM:
+				compileForm(compInstance)
+			case NEWLINE_COMPONENT:
+				compileNewlineComponent(compInstance)
+			default: {
+				if(compName == LABEL && compInstance.topLevelComponent) {
+					compileLabel(compInstance)
+				} else if(compName == LIST_ELEMENT && compInstance.isChildOfComponent(LIST)) {
+					compileListElement(compInstance)
+				} else if(compName == TABLE_COL && compInstance.isChildOfComponent(TABLE)) {
+					compileTableCol(compInstance)
+				}
+			}
+		}
+	}
+	
+	def compileNewlineComponent(UIComponentInstance inst) {
+		return "<br></br>"
+	}
+	
+	def compileList(UIComponentInstance inst) {	
+		'''
+			 <ul>
+			 	«val value = inst.getProperty(VALUE_PROPERTY)»
+			 	«IF value != null && value.value instanceof IterationExpression»
+			 		«val iter = value.value as IterationExpression»
+			 		<ui:repeat var="«iter.^var.name»" value="«iter.expression.compileExpression(true, false)»">
+			 			«inst.compileChildComponents»
+			 		</ui:repeat>
+			 	«ELSE»
+			 		«inst.compileChildComponents»
+			 	«ENDIF»
+			 </ul>
+		'''
+	}
+	
+	def compileListElement(UIComponentInstance inst) '''
+		<li>
+			«inst.compileChildComponents»
+		</li>
+	'''
+	
+	def compileAction(UIComponentInstance inst) '''
+		<p:commandLink
+			«val action = inst.getProperty(ACTION_ACTION_PROPERTY)»
+			«IF action != null» 
+			action="«action.value.compileExpression(true, false)»"
+			«ENDIF»>
+			«inst.compileChildComponents»
+		</p:commandLink>
+	'''
+	
+	def compileForm(UIComponentInstance inst) '''
+		<h:form>
+			«inst.compileChildComponents»
+		</h:form>
+	'''
+	
+	def compileImageComponent(UIComponentInstance inst) '''
+		<h:graphicImage 
+			value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»"
+			width="«inst.getProperty(IMAGE_COMPONENT_WIDTH_PROPERTY).value.compileExpression(true, false)»"
+			height="«inst.getProperty(IMAGE_COMPONENT_HEIGHT_PROPERTY).value.compileExpression(true, false)»">
+		</h:graphicImage>
+	'''
+	
+	def compileFileUpload(UIComponentInstance inst) '''
+		«val sc = inst.getContainerOfType(UIContainer).containerMainServerComponent»
+		«val fieldName = getVariableOrMemberName(inst.getProperty(VALUE_PROPERTY).value)»
+		«val listenerName = addAndReturnFileUploadListener(fieldName, sc.name)»
+		<div id="fileUploadSection«counter»">
+			<p:fileUpload id="fileUploadFile«counter»" 
+			    process="@this"
+				style="display: none;"
+				styleClass="fileUploadFile"
+				fileUploadListener="«inst.getContainerOfType(UIContainer).mainBeanRefName».«listenerName»"  
+			    dragDropSupport="true"
+		        fileLimit="1"
+		       	auto="true">
+			    </p:fileUpload>
+			    <a href="javascript:void(0);" id="linkTriggerSimpleFileUpload">«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»</a>
+		</div>
+		<script>
+		    $('#fileUploadSection«counter» #linkTriggerSimpleFileUpload').on('click', function(e) {
+		 		e.stopPropagation();
+				$('#fileUploadSection«counter» .fileUploadFile :input').trigger('click');
+			});
+		</script>«{ counter++; "" }»
+	'''
+	
+	def compileInputDate(UIComponentInstance inst) '''
+		<p:calendar value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" />
+	'''
+	
+	def compileTable(UIComponentInstance inst) '''
+		<table>
+			«val value = inst.getProperty(VALUE_PROPERTY)»
+			«IF value.value instanceof IterationExpression»
+			«val iter = value.value as IterationExpression»
+			<tr>
+				«FOR child : inst.childElements»
+				<th>«(child as UIComponentInstance).getProperty(TABLE_COL_HEADER_PROPERTY).value.compileExpression(true, false)»</th>
+				«ENDFOR»
+			</tr>
+			<ui:repeat var="«iter.^var.name»" value="«iter.expression.compileExpression(true, false)»">
+				<tr>
+					 «inst.compileChildComponents»
+				</tr>
+			</ui:repeat>
+			«ENDIF»
+		</table>
+	'''
+	
+	def compileTableCol(UIComponentInstance inst) '''
+		<td>
+			«inst.compileChildComponents»
+		</td>
+	'''
+	
+	def compileExternalLink(UIComponentInstance inst) '''
+		<a href="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»"
+		«inst.compileLinkOpenInNewWindowProperty»>
+			«inst.compileChildComponents»
+		</a>
+	'''
+	
+	def compileLink(UIComponentInstance inst) {
+		val value = inst.getProperty(VALUE_PROPERTY)
+		if(value.value instanceof PageCall) {
+			compileInternalLink(inst)
+		} else {
+			compileExternalLink(inst)
+		}
+	}
+	
+	def compileInternalLink(UIComponentInstance inst) '''
+		«val pageCall = inst.getProperty(VALUE_PROPERTY).value as PageCall»
+		«val page = pageCall.page»
+		<h:link outcome="/«page.name»"
+			«inst.compileLinkOpenInNewWindowProperty»>
+			«var paramIndex = 0»
+			«FOR param : pageCall.params»
+			«IF !(param instanceof Null)»
+			<f:param name="«page.params.get(paramIndex).name»" value="«param.compilePageParam»"/>
+			«ENDIF»
+			«{ paramIndex++; "" }»	
+			«ENDFOR»
+		</h:link>
+	'''
+	
+	def compilePageParam(Expression exp) {
+		val dto = (exp.type as RefType).reference as DTOClass
+		"#{" + exp.compileExpression(false, false) + "." +  dto.IDAttribute.name + "}"
+	}
+	
+	def compileLinkOpenInNewWindowProperty(UIComponentInstance inst) {
+		val openInNewWindow = inst.getProperty(OPEN_IN_NEW_WINDOW_PROPERTY)
+		if(openInNewWindow != null && openInNewWindow.value.compileExpression(true, false) == "true") {
+			'''target="_blank"'''
+		} else {
+			''''''
+		}
+	}
+	
+	def compileLabel(UIComponentInstance inst) '''
+		<h:outputLabel value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»"/>
+	'''
+	
+	def compileMultiSelectCheckbox(UIComponentInstance inst) '''
+		«val iteration = inst.getProperty(SELECT_FROM_PROPERTY).value as IterationExpression»
+		«val childLabel = inst.getChildComponent(MULTI_SELECT_CHECKBOX_LABEL)»
+		<h:selectManyCheckbox value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
+		    <f:selectItems value="«iteration.expression.compileExpression(true, false)»" var="«iteration.^var.name»"
+		   		itemLabel="«if(childLabel != null) childLabel.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" itemValue="#{«iteration.^var.name»}" />
+		</h:selectManyCheckbox>		
+	'''
+	
+	def compileBoolCheckBox(UIComponentInstance inst) '''
+		<h:selectBooleanCheckbox id="boolCheckbox«counter»" value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" disabled="«inst.getProperty(ENABLED_PROPERTY).value.compileExpression(true, true)»" />
+		<h:outputLabel for="boolCheckbox«counter»" value="«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»" />«{ counter++; "" }»
+	'''
+	
+	def compileRadioSelection(UIComponentInstance inst) '''
+		«val iteration = inst.getProperty(SELECT_FROM_PROPERTY).value as IterationExpression»
+		«val childLabel = inst.getChildComponent(RADIO_SELECTION_LABEL)»
+		<h:selectOneRadio value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
+			<f:selectItems value="«iteration.expression.compileExpression(true, false)»" var="«iteration.^var.name»"
+				itemLabel="«if(childLabel != null) childLabel.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" itemValue="#{«iteration.^var.name»}" />
+		</h:selectOneRadio>		
+	'''
+	
+	def compilePasswordField(UIComponentInstance inst) '''
+		<h:inputSecret value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" placeholder="«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»" />
+	'''
+	
+	def compileComboBox(UIComponentInstance inst) '''
+		«val iteration = inst.getProperty(SELECT_FROM_PROPERTY).value as IterationExpression»
+		«val childLabel = inst.getChildComponent(COMBO_BOX_LABEL)»
+		<h:selectOneMenu value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
+			<f:selectItems value="«iteration.expression.compileExpression(true, false)»" var="«iteration.^var.name»"
+				itemLabel="«if(childLabel != null) childLabel.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" itemValue="#{«iteration.^var.name»}" />
+		</h:selectOneMenu>		
+	'''
+	
+//	def compileSpinner(UIComponentInstance inst) {
+//		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+//	}
+//	
+//	def compileSlider(UIComponentInstance inst) {
+//		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+//	}
+	
+	def compileTextArea(UIComponentInstance inst) '''
+		<h:inputTextarea row="«inst.getProperty(TEXT_AREA_ROWS).value.compileExpression(true, false)»" value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" 
+		   disabled="«inst.getProperty(ENABLED_PROPERTY).value.compileExpression(true, true)»" 
+		   placeholder="«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»" />
+	'''
+	
+	def compileTextField(UIComponentInstance inst) '''
+		«val enabledProp = inst.getProperty(ENABLED_PROPERTY)»
+		«val enabled = if(enabledProp == null) "false" else enabledProp.value.compileExpression(true, true)»
+		<h:inputText value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" 
+			disabled="«enabled»"
+			placeholder="«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»" />
+	'''
+	
+	def compileSection(UIComponentInstance inst) '''
+		<div>
+			«inst.compileChildComponents»
+		</div>
+	'''
+	
+	def compileTextComp(UIComponentInstance inst) '''
+		<h:outputText escape="«inst.getProperty(TEXT_COMP_ESCAPE_PROPERTY).value.compileExpression(true, true)»" value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" />
+	'''
+	
+	def compileChildComponents(UIComponentInstance inst) '''
+		«FOR child : inst.childElements»
+			«compileComponent(child)»
+		«ENDFOR»
+	'''
+	
+	def String compileExpression(Expression e, boolean topLevel, boolean opposite) {
+		switch (e) {
+			StringConstant:
+				return e.value
+			IntConstant:
+				return e.value.toString
+			LongConstant:
+				return e.value.toString
+			BoolConstant: {
+				if(opposite) {
+					if(e.value == "true") {
+						return "false"
+					} else {
+						return "true"
+					}
+				} else {
+					return e.value
+				}
+			}
+			DateConstant:
+				return e.day.toString + "/" + e.month.toString + "/" + e.year.toString
+			Null:
+				return "null"
+			VariableReference: { 
+				var String output = if(topLevel) "#{"  else ""
+				output += if(opposite) "!" else ""
+				output += e.ref.name
+				output += if(topLevel) {"}"} else ""
+				return output
+			}
+			IterationExpression: 
+				"var=\"" + e.^var.name + "\" value=" + e.expression.compileExpression(true, false)
+			MemberSelectionExpression: {
+				var String output = if(topLevel) "#{"  else ""
+				output += if(opposite) "!" else ""
+				output += e.receiver.compileExpression(false, false) + "." + e.member.name +
+					if (e.isIsMethod) {
+						"(" + e.params.map[compileExpression(false, false)].join(", ") + ")"
+					} else {
+						""
+					}
+				output += if(topLevel) "}" else ""
+				return output
+			}
+			default:
+				return ""
+		}
+	}
+	
+	//default components
+	def generateDefaultTextField(DefaultComponent c) {
+		val output = c instanceof OutputUIComponent
+		'''
+			<h:inputText value="«c.value.compileExpression(true, false)»" 
+				disabled="«output»" />
+		'''
+	}
+	
+	def generateDefaultTextArea(DefaultComponent c) {
+		val output = c instanceof OutputUIComponent
+		'''
+			<h:inputTextarea row="3" value="«c.value.compileExpression(true, false)»" 
+				disabled="«output»" />
+		'''
+	}
+	
+	def generateDefaultList(DefaultComponent c) '''
+		 <ul>
+		 	«val value = c.value»
+		 	«val type = (value.type as CollectionType).ofType»
+		 	<ui:repeat var="v" value="«value.compileExpression(true, false)»">
+		 		<li>#{«type.getDefaultRepresentationAttribute("v")»}</li>
+		 	</ui:repeat>
+		 </ul>
+	'''
+	
+	def generateDefaultImageComponent(DefaultComponent c) '''
+		<h:graphicImage 
+			value="«c.value.compileExpression(true, false)»"
+			width="32"
+			height="32">
+		</h:graphicImage>
+	'''
+	
+	def generateDefaultFileUpload(DefaultComponent c) '''
+		«val sc = c.getContainerOfType(UIContainer).containerMainServerComponent»
+		«val fieldName = getVariableOrMemberName(c.value)»
+		«val listenerName = addAndReturnFileUploadListener(fieldName, sc.name)»
+			
+		<div id="fileUploadSection«counter»">
+			<p:fileUpload id="fileUploadFile«counter»" 
+				process="@this"
+				style="display: none;"
+				styleClass="fileUploadFile"
+				fileUploadListener="#{«c.getContainerOfType(UIContainer).mainBeanRefName».«listenerName»}"  
+				dragDropSupport="true"
+				fileLimit="1"
+				auto="true">
+			</p:fileUpload>
+			<a href="javascript:void(0);" id="linkTriggerSimpleFileUpload">Upload</a>
+		</div>
+		<script>
+			$('#fileUploadSection«counter» #linkTriggerSimpleFileUpload').on('click', function(e) {
+				e.stopPropagation();
+				$('#fileUploadSection«counter» .fileUploadFile :input').trigger('click');
+			});
+		</script>«{ counter++; "" }»
+	'''
+	
+	def generateDefaultInputDate(DefaultComponent c) '''
+		<p:calendar value="«c.value.compileExpression(true, false)»" />
+	'''
+	
+	def generateDefaultTable(DefaultComponent c) '''
+		«val value = c.value»
+		«val type = value.type as CollectionType»
+		<table>
+			<ui:repeat var="v" value="«value.compileExpression(true, false)»">
+			 	<tr>
+					«FOR col : getDefaultColumnsForAttributeType(type.ofType, "v")»		
+					<td>#{«col»}</td>
+	 				«ENDFOR»
+			 	</tr>
+			</ui:repeat>
+		</table>
+	'''
+	
+	def getDefaultColumnsForAttributeType(AttributeType type, String varName) {
+		val cols = newArrayList()
+		if(type instanceof BasicType) {
+			cols.add(varName)
+		} else if(type instanceof RefType) {
+			val concept = type.reference
+			if(concept instanceof Enum) {
+				cols.add(varName)
+			} else if(concept instanceof DTOClass) {
+				val attrs = concept.attributes
+				for(attr : attrs) {
+					val attrType = attr.type
+					if(attrType instanceof BasicType) {
+						cols.add(varName + "." + attr.name)
+					} else if(attrType instanceof RefType) {
+						val fieldConcept = attrType.reference
+						if(fieldConcept instanceof Enum) {
+							cols.add(varName + "." + attr.name)
+						} else if(fieldConcept instanceof DTOClass) {
+							val reprAttr = fieldConcept.objectRepresentationAttribute
+							cols.add(varName + "." + attr.name + "." + reprAttr.name)
+						}
+					}
+				}
+			}
+		}
+		cols 		
+	}
+	
+	def generateDefaultLink(DefaultComponent c) '''
+		«val expr = c.value.compileExpression(true, false)»
+		<a href="«expr»">
+			«expr»
+		</a>
+	'''
+	
+	def generateDefaultLabel(DefaultComponent c) '''
+		<h:outputLabel value="«c.value.compileExpression(true, false)»"/>
+	'''
+	
+	def generateDefaultMultiSelectCheckbox(DefaultComponent c) '''
+		«val value = c.value»
+		«val type = value.type as CollectionType»
+		«val cont = c.getContainerOfType(UIContainer)»
+		«val selectFromName = cont.getUniqueFieldNameForCollectionType(c.value.variableOrMemberName)»
+		«addFieldToServerComponent(cont, selectFromName, type)»
+		«val scRefName = cont.mainBeanRefName»
+		<h:selectManyCheckbox value="«value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
+		    <f:selectItems value="#{«scRefName».«selectFromName»}" var="v"
+		   		itemLabel="#{«type.ofType.getDefaultRepresentationAttribute("v")»}" itemValue="#{v}" />
+		</h:selectManyCheckbox>		
+	'''
+	
+	def generateDefaultBoolCheckBox(DefaultComponent c) '''
+		«val output = c instanceof OutputUIComponent»
+		<h:selectBooleanCheckbox id="boolCheckbox«counter»" value="«c.value.compileExpression(true, false)»" disabled="«output»" />
+		<h:outputLabel for="boolCheckbox«counter»" value="«c.value.variableOrMemberName»" />«{ counter++; "" }»
+	'''
+	
+	def generateDefaultRadioSelection(DefaultComponent c) '''
+		«val value = c.value»
+		«val type = value.type as SingleType»
+		«val cont = c.getContainerOfType(UIContainer)»
+		«val selectFromName = cont.getUniqueFieldNameForCollectionType(c.value.variableOrMemberName)»
+		«val selectFromType = DomainModelFactory.eINSTANCE.createCollectionType => [ofType = type.copy]»
+		«addFieldToServerComponent(cont, selectFromName, selectFromType)»
+		«val scRefName = cont.mainBeanRefName»
+		<h:selectOneRadio value="«value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
+			<f:selectItems value="«scRefName».«selectFromName»" var="v"
+				itemLabel="«type.getDefaultRepresentationAttribute("v")»" itemValue="#{v}" />
+		</h:selectOneRadio>		
+	'''
+	
+	def generateDefaultPasswordField(DefaultComponent c) '''
+		<h:inputSecret value="«c.value.compileExpression(true, false)»" placeholder="«c.value.variableOrMemberName»" />
+	'''
+	
+	def generateDefaultComboBox(DefaultComponent c) '''
+		«val value = c.value»
+		«val type = value.type as SingleType»
+		«val cont = c.getContainerOfType(UIContainer)»
+		«val selectFromName = cont.getUniqueFieldNameForCollectionType(c.value.variableOrMemberName)»
+		«val selectFromType = DomainModelFactory.eINSTANCE.createCollectionType => [ofType = type.copy]»
+		«addFieldToServerComponent(cont, selectFromName, selectFromType)»
+		«val scRefName = cont.mainBeanRefName»
+		<h:selectOneMenu value="«value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
+			<f:selectItems value="#{«scRefName».«selectFromName»}" var="v"
+				itemLabel="#{«type.getDefaultRepresentationAttribute("v")»}" itemValue="#{v}" />
+		</h:selectOneMenu>
+	'''
+	
+	def generateDefaultTextComp(DefaultComponent c) '''
+		<h:outputText value="«c.value.defaultOutputExpression»" />
+	'''
+	
+	def void addFieldToServerComponent(UIContainer cont, String fieldName, AttributeType fieldType) {
+		val factory = UIDSLFactory.eINSTANCE
+		val sc = cont.containerMainServerComponent
+		val field = factory.createField => [name = fieldName type = fieldType.copy]
+		if(sc.eResource == null) {
+			sc.members.add(field)
+		} else {
+			serverComponentNewFieldsMap.put(sc.name, field)
+		}
+	}
+	
+	
+	def getUniqueFieldNameForCollectionType(UIContainer cont, String base) {
+		val sc = cont.containerMainServerComponent
+		val name = base + "List"
+		generateUniqueField(sc, name)
+	}
+	
+	def generateUniqueField(ServerComponent sc, String name) {
+		generateUniqueField(sc, name, 0)
+	}
+	
+	def String generateUniqueField(ServerComponent sc, String name, int counter) {
+		var currName = if(counter == 0) name else name + counter
+		for(f : sc.fields) {
+			if(f.name == currName) {
+				var newCounter = counter + 1
+				return generateUniqueField(sc, name, newCounter)
+			}
+		}
+		currName
+	}
+	
+	def getDefaultRepresentationAttribute(AttributeType type, String variableName) {
+		if(type instanceof BasicType || type instanceof RefType && (type as RefType).reference instanceof Enum) {
+			return variableName
+		} else if(type instanceof RefType && (type as RefType).reference instanceof DTOClass) {
+			val dto = (type as RefType).reference as DTOClass
+			return variableName + "." + dto.objectRepresentationAttribute.name
+		}
+	}
+	
+	def getVariableOrMemberName(Expression exp) {
+		if(exp instanceof VariableReference) {
+			return exp.ref.name
+		} else if(exp instanceof MemberSelectionExpression) {
+			exp.member.name
+		}
+	}
+	
+	def addAndReturnFileUploadListener(String fieldName, String serverCompName) {
+		val listenerName = fieldName + "UploadListener"
+		fileUploadListeners.put(serverCompName, listenerName)
+		listenerName
+	}
+	
+	//when we need output for object, we need to make sure that objectRepresentation attribute is appended
+	def getDefaultOutputExpression(Expression exp) {
+		val type = exp.type
+		if(type instanceof BasicType || type instanceof RefType && (type as RefType).reference instanceof Enum) {
+			return exp.compileExpression(true, false)
+		} else if(type instanceof RefType && (type as RefType).reference instanceof DTOClass) {
+			val dto = (type as RefType).reference as DTOClass
+			return "#{" + exp.compileExpression(false, false) + "." + dto.objectRepresentationAttribute.name + "}"
+		}
+	}
+
 }

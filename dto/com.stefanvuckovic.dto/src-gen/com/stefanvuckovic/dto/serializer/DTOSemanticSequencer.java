@@ -34,6 +34,7 @@ import com.stefanvuckovic.dto.dTO.DTOModel;
 import com.stefanvuckovic.dto.dTO.DTOPackage;
 import com.stefanvuckovic.dto.dTO.EmailType;
 import com.stefanvuckovic.dto.dTO.FileType;
+import com.stefanvuckovic.dto.dTO.IDAttribute;
 import com.stefanvuckovic.dto.dTO.ImageType;
 import com.stefanvuckovic.dto.dTO.ObjectRepresentation;
 import com.stefanvuckovic.dto.dTO.PasswordType;
@@ -72,6 +73,9 @@ public class DTOSemanticSequencer extends DomainModelSemanticSequencer {
 				return; 
 			case DTOPackage.FILE_TYPE:
 				sequence_BasicType(context, (FileType) semanticObject); 
+				return; 
+			case DTOPackage.ID_ATTRIBUTE:
+				sequence_AttributeOption(context, (IDAttribute) semanticObject); 
 				return; 
 			case DTOPackage.IMAGE_TYPE:
 				sequence_BasicType(context, (ImageType) semanticObject); 
@@ -164,6 +168,19 @@ public class DTOSemanticSequencer extends DomainModelSemanticSequencer {
 		if (errorAcceptor != null)
 			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
+	
+	/**
+	 * Contexts:
+	 *     AttributeOption returns IDAttribute
+	 *     Option returns IDAttribute
+	 *
+	 * Constraint:
+	 *     {IDAttribute}
+	 */
+	protected void sequence_AttributeOption(ISerializationContext context, IDAttribute semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
 	
 	/**
 	 * Contexts:

@@ -3,8 +3,6 @@
  */
 package com.stefanvuckovic.uidsl.uIDSL.impl;
 
-import com.stefanvuckovic.domainmodel.domainModel.Expression;
-
 import com.stefanvuckovic.domainmodel.domainModel.impl.ConceptImpl;
 
 import com.stefanvuckovic.uidsl.uIDSL.Member;
@@ -32,7 +30,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl#getMembers <em>Members</em>}</li>
- *   <li>{@link com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl#getExpressions <em>Expressions</em>}</li>
  * </ul>
  *
  * @generated
@@ -48,16 +45,6 @@ public class ServerComponentImpl extends ConceptImpl implements ServerComponent
    * @ordered
    */
   protected EList<Member> members;
-
-  /**
-   * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getExpressions()
-   * @generated
-   * @ordered
-   */
-  protected EList<Expression> expressions;
 
   /**
    * <!-- begin-user-doc -->
@@ -99,20 +86,6 @@ public class ServerComponentImpl extends ConceptImpl implements ServerComponent
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Expression> getExpressions()
-  {
-    if (expressions == null)
-    {
-      expressions = new EObjectContainmentEList<Expression>(Expression.class, this, UIDSLPackage.SERVER_COMPONENT__EXPRESSIONS);
-    }
-    return expressions;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -120,8 +93,6 @@ public class ServerComponentImpl extends ConceptImpl implements ServerComponent
     {
       case UIDSLPackage.SERVER_COMPONENT__MEMBERS:
         return ((InternalEList<?>)getMembers()).basicRemove(otherEnd, msgs);
-      case UIDSLPackage.SERVER_COMPONENT__EXPRESSIONS:
-        return ((InternalEList<?>)getExpressions()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -138,8 +109,6 @@ public class ServerComponentImpl extends ConceptImpl implements ServerComponent
     {
       case UIDSLPackage.SERVER_COMPONENT__MEMBERS:
         return getMembers();
-      case UIDSLPackage.SERVER_COMPONENT__EXPRESSIONS:
-        return getExpressions();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -159,10 +128,6 @@ public class ServerComponentImpl extends ConceptImpl implements ServerComponent
         getMembers().clear();
         getMembers().addAll((Collection<? extends Member>)newValue);
         return;
-      case UIDSLPackage.SERVER_COMPONENT__EXPRESSIONS:
-        getExpressions().clear();
-        getExpressions().addAll((Collection<? extends Expression>)newValue);
-        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -180,9 +145,6 @@ public class ServerComponentImpl extends ConceptImpl implements ServerComponent
       case UIDSLPackage.SERVER_COMPONENT__MEMBERS:
         getMembers().clear();
         return;
-      case UIDSLPackage.SERVER_COMPONENT__EXPRESSIONS:
-        getExpressions().clear();
-        return;
     }
     super.eUnset(featureID);
   }
@@ -199,8 +161,6 @@ public class ServerComponentImpl extends ConceptImpl implements ServerComponent
     {
       case UIDSLPackage.SERVER_COMPONENT__MEMBERS:
         return members != null && !members.isEmpty();
-      case UIDSLPackage.SERVER_COMPONENT__EXPRESSIONS:
-        return expressions != null && !expressions.isEmpty();
     }
     return super.eIsSet(featureID);
   }

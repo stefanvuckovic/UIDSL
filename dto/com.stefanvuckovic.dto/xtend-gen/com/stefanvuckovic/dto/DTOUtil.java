@@ -11,6 +11,7 @@ import com.stefanvuckovic.domainmodel.domainModel.SingleType;
 import com.stefanvuckovic.dto.dTO.DTOClass;
 import com.stefanvuckovic.dto.dTO.EmailType;
 import com.stefanvuckovic.dto.dTO.FileType;
+import com.stefanvuckovic.dto.dTO.IDAttribute;
 import com.stefanvuckovic.dto.dTO.ImageType;
 import com.stefanvuckovic.dto.dTO.ObjectRepresentation;
 import com.stefanvuckovic.dto.dTO.PasswordType;
@@ -99,7 +100,37 @@ public class DTOUtil {
     return _switchResult;
   }
   
-  public boolean isObjectRepresentation(final Attribute attr) {
-    return (((!Objects.equal(attr.getOptions(), null)) && (attr.getOptions().size() == 1)) && (IterableExtensions.<AttributeOption>head(attr.getOptions()) instanceof ObjectRepresentation));
+  public boolean hasAttributeOption(final Attribute attr, final Class<? extends AttributeOption> optClass) {
+    boolean _xblockexpression = false;
+    {
+      final EList<AttributeOption> options = attr.getOptions();
+      _xblockexpression = ((!Objects.equal(options, null)) && (IterableExtensions.size(IterableExtensions.<AttributeOption>filter(options, ((Function1<AttributeOption, Boolean>) (AttributeOption o) -> {
+        Class<? extends AttributeOption> _class = o.getClass();
+        return Boolean.valueOf(_class.equals(optClass));
+      }))) > 0));
+    }
+    return _xblockexpression;
+  }
+  
+  public Attribute getIDAttribute(final DTOClass c) {
+    EList<Attribute> _attributes = c.getAttributes();
+    final Function1<Attribute, Boolean> _function = (Attribute a) -> {
+      EList<AttributeOption> _options = a.getOptions();
+      Iterable<IDAttribute> _filter = Iterables.<IDAttribute>filter(_options, IDAttribute.class);
+      int _size = IterableExtensions.size(_filter);
+      return Boolean.valueOf((_size == 1));
+    };
+    return IterableExtensions.<Attribute>findFirst(_attributes, _function);
+  }
+  
+  public Attribute getObjectRepresentationAttribute(final DTOClass c) {
+    EList<Attribute> _attributes = c.getAttributes();
+    final Function1<Attribute, Boolean> _function = (Attribute a) -> {
+      EList<AttributeOption> _options = a.getOptions();
+      Iterable<ObjectRepresentation> _filter = Iterables.<ObjectRepresentation>filter(_options, ObjectRepresentation.class);
+      int _size = IterableExtensions.size(_filter);
+      return Boolean.valueOf((_size == 1));
+    };
+    return IterableExtensions.<Attribute>findFirst(_attributes, _function);
   }
 }

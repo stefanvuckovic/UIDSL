@@ -32,6 +32,7 @@ import com.stefanvuckovic.dto.dTO.DTOModel;
 import com.stefanvuckovic.dto.dTO.DTOPackage;
 import com.stefanvuckovic.dto.dTO.EmailType;
 import com.stefanvuckovic.dto.dTO.FileType;
+import com.stefanvuckovic.dto.dTO.IDAttribute;
 import com.stefanvuckovic.dto.dTO.ImageType;
 import com.stefanvuckovic.dto.dTO.ObjectRepresentation;
 import com.stefanvuckovic.dto.dTO.PasswordType;
@@ -114,6 +115,9 @@ public class UIDSLSemanticSequencer extends DTOSemanticSequencer {
 				return; 
 			case DTOPackage.FILE_TYPE:
 				sequence_BasicType(context, (FileType) semanticObject); 
+				return; 
+			case DTOPackage.ID_ATTRIBUTE:
+				sequence_AttributeOption(context, (IDAttribute) semanticObject); 
 				return; 
 			case DTOPackage.IMAGE_TYPE:
 				sequence_BasicType(context, (ImageType) semanticObject); 
@@ -799,7 +803,7 @@ public class UIDSLSemanticSequencer extends DTOSemanticSequencer {
 	 *     ServerComponent returns ServerComponent
 	 *
 	 * Constraint:
-	 *     (name=ID members+=Member* expressions+=Expression*)
+	 *     (name=ID members+=Member*)
 	 */
 	protected void sequence_ServerComponent(ISerializationContext context, ServerComponent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

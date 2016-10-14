@@ -32,12 +32,14 @@ import org.eclipse.xtext.generator.IGeneratorContext
 class DTOGenerator extends AbstractGenerator {
 
 	@Inject extension DomainModelGenerator generator
+	@Inject extension DTOUIGenerator dtoUIGenerator
 	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val model = resource.allContents.toIterable.filter(DTOModel).head
 		for (c : model.concepts) {
 			fsa.generateFile('''dto/«c.name».java''', c.compile)
 		}
+		dtoUIGenerator.doGenerate(resource, fsa, context)
 	}
 	
 	def compile(Concept concept) {
@@ -96,6 +98,37 @@ class DTOGenerator extends AbstractGenerator {
 		val res = type.reference.eResource
 		if(res.URI.fileExtension == "domain") {
 			prefix = "domain."
+		}
+		prefix + generator.typeString(type, primitive)
+	}
+	
+	def compileWithPackageIncluded(AttributeType type) {
+		if(type instanceof CollectionType) {
+			return "java.util.List<" + (type as CollectionType).ofType.typeStringWithPackage(false) + ">"
+		} else if(type instanceof SingleType) {
+			return (type as SingleType).typeStringWithPackage(true)
+		}
+	}
+	
+	def dispatch typeStringWithPackage(BasicType type, boolean primitive) {
+		if(type instanceof TextType ||
+		   type instanceof EmailType ||
+		   type instanceof PasswordType ||
+		   type instanceof ImageType ||
+		   type instanceof FileType) {
+		   return "String"
+		} else {
+			generator.typeString(type, primitive)
+		}
+	}
+	
+	def dispatch typeStringWithPackage(RefType type, boolean primitive) {
+		var prefix = ""
+		val res = type.reference.eResource
+		if(res.URI.fileExtension == "domain") {
+			prefix = "domain."
+		} else {
+			prefix = "dto."
 		}
 		prefix + generator.typeString(type, primitive)
 	}

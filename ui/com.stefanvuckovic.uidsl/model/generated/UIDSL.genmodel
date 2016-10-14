@@ -97,7 +97,6 @@
     <genClasses ecoreClass="UIDSL.ecore#//Component"/>
     <genClasses ecoreClass="UIDSL.ecore#//ServerComponent">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//ServerComponent/members"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//ServerComponent/expressions"/>
     </genClasses>
     <genClasses ecoreClass="UIDSL.ecore#//InlineVariable"/>
     <genClasses ecoreClass="UIDSL.ecore#//ExistingNestedComponents">

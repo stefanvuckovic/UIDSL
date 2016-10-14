@@ -25,6 +25,11 @@ import com.stefanvuckovic.domainmodel.types.TypeConformance
 import javax.inject.Inject
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
+import com.stefanvuckovic.domainmodel.domainModel.StaticFieldSelection
+import com.stefanvuckovic.domainmodel.LibraryConstants
+import com.stefanvuckovic.domainmodel.domainModel.RefType
+import com.stefanvuckovic.domainmodel.domainModel.AttributeType
+import com.stefanvuckovic.domainmodel.domainModel.CollectionType
 
 /**
  * This class contains custom validation rules. 
@@ -217,6 +222,39 @@ class DomainModelValidator extends AbstractDomainModelValidator {
 					c, DomainModelPackage.eINSTANCE.concept_Name)
 			}
 		}
+	}
+	
+	@Check
+	def checkReferenceToGeneralEntity(StaticFieldSelection sel) {
+		val ent = sel.receiver
+		if(ent.generalEntity) {
+			error("General entity '" + LibraryConstants.COMMON_ENTITY_NAME + "' cannot be used in this context",
+				DomainModelPackage.eINSTANCE.staticFieldSelection_Receiver
+			)
+		}
+	}
+	
+	@Check
+	def checkReferenceToGeneralEntity(AttributeType at) {
+		var singleType = at
+		if(at instanceof CollectionType) {
+			singleType = at.ofType
+		}
+		if(singleType instanceof RefType && (singleType as RefType).reference instanceof Entity) {
+			val ent = (singleType as RefType).reference as Entity
+			if(ent.generalEntity) {
+				error("General entity '" + LibraryConstants.COMMON_ENTITY_NAME + "' cannot be used in this context",
+					null
+				)
+			}
+		}
+	}
+	
+	def isGeneralEntity(Entity ent) {
+		if(ent != null && ent.name == LibraryConstants.COMMON_ENTITY_NAME) {
+			return true
+		}
+		false
 	}
 	
 }

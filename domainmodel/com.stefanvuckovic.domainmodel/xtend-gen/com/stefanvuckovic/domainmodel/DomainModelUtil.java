@@ -2,6 +2,7 @@ package com.stefanvuckovic.domainmodel;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
+import com.stefanvuckovic.domainmodel.LibraryConstants;
 import com.stefanvuckovic.domainmodel.domainModel.Attribute;
 import com.stefanvuckovic.domainmodel.domainModel.AttributeOption;
 import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
@@ -16,6 +17,7 @@ import com.stefanvuckovic.domainmodel.domainModel.EntityOption;
 import com.stefanvuckovic.domainmodel.domainModel.InheritanceMappingOption;
 import com.stefanvuckovic.domainmodel.domainModel.IntType;
 import com.stefanvuckovic.domainmodel.domainModel.LongType;
+import com.stefanvuckovic.domainmodel.domainModel.Model;
 import com.stefanvuckovic.domainmodel.domainModel.PartOf;
 import com.stefanvuckovic.domainmodel.domainModel.RefType;
 import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner;
@@ -23,12 +25,18 @@ import com.stefanvuckovic.domainmodel.domainModel.Required;
 import com.stefanvuckovic.domainmodel.domainModel.SingleType;
 import com.stefanvuckovic.domainmodel.domainModel.StaticFieldSelection;
 import com.stefanvuckovic.domainmodel.domainModel.StringType;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 
 @SuppressWarnings("all")
 public class DomainModelUtil {
@@ -49,12 +57,74 @@ public class DomainModelUtil {
     return _xblockexpression;
   }
   
+  public Iterable<Entity> getHierarchyForEntityWithCommonEntityIncluded(final Entity entity) {
+    final Entity obj = this.getObjectFromLibrary(entity);
+    final LinkedHashSet<Entity> hierarchy = this.getHierarchyForEntity(entity);
+    boolean _notEquals = (!Objects.equal(obj, null));
+    if (_notEquals) {
+      ArrayList<Entity> _newArrayList = CollectionLiterals.<Entity>newArrayList(obj);
+      return Iterables.<Entity>concat(hierarchy, _newArrayList);
+    } else {
+      return hierarchy;
+    }
+  }
+  
+  public Entity getObjectFromLibrary(final EObject ctx) {
+    Entity _xblockexpression = null;
+    {
+      Resource _eResource = null;
+      if (ctx!=null) {
+        _eResource=ctx.eResource();
+      }
+      ResourceSet _resourceSet = null;
+      if (_eResource!=null) {
+        _resourceSet=_eResource.getResourceSet();
+      }
+      Resource _resource = null;
+      if (_resourceSet!=null) {
+        URI _createPlatformResourceURI = URI.createPlatformResourceURI(LibraryConstants.COMMON_ENTITY_LIBRARY, true);
+        _resource=_resourceSet.getResource(_createPlatformResourceURI, true);
+      }
+      final Resource res = _resource;
+      Entity _xifexpression = null;
+      boolean _notEquals = (!Objects.equal(res, null));
+      if (_notEquals) {
+        Entity _xblockexpression_1 = null;
+        {
+          TreeIterator<EObject> _allContents = res.getAllContents();
+          Iterable<EObject> _iterable = IteratorExtensions.<EObject>toIterable(_allContents);
+          EObject _head = IterableExtensions.<EObject>head(_iterable);
+          final Model model = ((Model) _head);
+          EList<Concept> _concepts = model.getConcepts();
+          final Function1<Concept, Boolean> _function = (Concept c) -> {
+            return Boolean.valueOf(((c instanceof Entity) && Objects.equal(((Entity) c).getName(), LibraryConstants.COMMON_ENTITY_NAME)));
+          };
+          Iterable<Concept> _filter = IterableExtensions.<Concept>filter(_concepts, _function);
+          Concept _head_1 = IterableExtensions.<Concept>head(_filter);
+          _xblockexpression_1 = ((Entity) _head_1);
+        }
+        _xifexpression = _xblockexpression_1;
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
   public Iterable<Attribute> getEntityHierarchyAttributes(final Entity e) {
     LinkedHashSet<Entity> _hierarchyForEntity = this.getHierarchyForEntity(e);
     final Function1<Entity, EList<Attribute>> _function = (Entity it) -> {
       return it.getAttributes();
     };
     Iterable<EList<Attribute>> _map = IterableExtensions.<Entity, EList<Attribute>>map(_hierarchyForEntity, _function);
+    return Iterables.<Attribute>concat(_map);
+  }
+  
+  public Iterable<Attribute> getEntityHierarchyAttributesWithCommonAttributesIncluded(final Entity e) {
+    Iterable<Entity> _hierarchyForEntityWithCommonEntityIncluded = this.getHierarchyForEntityWithCommonEntityIncluded(e);
+    final Function1<Entity, EList<Attribute>> _function = (Entity it) -> {
+      return it.getAttributes();
+    };
+    Iterable<EList<Attribute>> _map = IterableExtensions.<Entity, EList<Attribute>>map(_hierarchyForEntityWithCommonEntityIncluded, _function);
     return Iterables.<Attribute>concat(_map);
   }
   

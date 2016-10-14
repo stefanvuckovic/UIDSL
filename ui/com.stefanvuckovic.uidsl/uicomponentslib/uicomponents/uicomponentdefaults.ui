@@ -37,7 +37,7 @@ defaults def {
 	}
 	default for file {
 		input_component : fileUpload
-		output_component : externalLink
+		output_component : link
 	}
 	default for object {
 		input_component : comboBox
@@ -45,7 +45,7 @@ defaults def {
 	}
 	default for collection {
 		input_component : multiSelectCheckbox
-		output_component : list
+		output_component : table
 	}
 	default for enum {
 		input_component : comboBox

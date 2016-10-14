@@ -118,9 +118,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="ServerComponent" eSuperTypes="platform:/resource/com.stefanvuckovic.domainmodel/model/generated/DomainModel.ecore#//Concept">
     <eStructuralFeatures xsi:type="ecore:EReference" name="members" upperBound="-1"
         eType="#//Member" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
-        eType="ecore:EClass platform:/resource/com.stefanvuckovic.domainmodel/model/generated/DomainModel.ecore#//Expression"
-        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InlineVariable" eSuperTypes="#//Variable"/>
   <eClassifiers xsi:type="ecore:EClass" name="ExistingNestedComponents" eSuperTypes="#//NestedComponent">

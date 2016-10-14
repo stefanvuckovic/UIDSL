@@ -19,6 +19,9 @@ import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner
 import com.stefanvuckovic.domainmodel.domainModel.Required
 import com.stefanvuckovic.domainmodel.domainModel.SingleType
 import com.stefanvuckovic.domainmodel.domainModel.StringType
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.common.util.URI
+import com.stefanvuckovic.domainmodel.domainModel.Model
 
 class DomainModelUtil {
 	
@@ -32,9 +35,31 @@ class DomainModelUtil {
 		}
 		hierarchy
 	}
+	
+	def getHierarchyForEntityWithCommonEntityIncluded(Entity entity) {
+		val obj = entity.objectFromLibrary
+		val hierarchy = entity.hierarchyForEntity
+		if(obj != null) {
+			return hierarchy + newArrayList(obj)
+		} else {
+			return hierarchy
+		}
+	}
+	
+	def getObjectFromLibrary(EObject ctx) {
+		val res = ctx?.eResource?.resourceSet?.getResource(URI.createPlatformResourceURI(LibraryConstants.COMMON_ENTITY_LIBRARY, true), true)
+		if(res != null) {
+			val model = res.allContents.toIterable.head as Model
+			model.concepts.filter[c | c instanceof Entity && (c as Entity).name == LibraryConstants.COMMON_ENTITY_NAME].head as Entity
+		}		
+	}
 
 	def getEntityHierarchyAttributes(Entity e) {
 		e.hierarchyForEntity.map[attributes].flatten
+	}
+	
+	def getEntityHierarchyAttributesWithCommonAttributesIncluded(Entity e) {
+		e.hierarchyForEntityWithCommonEntityIncluded.map[attributes].flatten
 	}
 	
 	def getAttributeEntityRefTypeIfExists(AttributeType attrType) {

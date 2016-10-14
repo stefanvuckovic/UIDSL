@@ -68,6 +68,7 @@ public class DTOFactoryImpl extends EFactoryImpl implements DTOFactory
       case DTOPackage.DTO_MODEL: return createDTOModel();
       case DTOPackage.DTO_CLASS: return createDTOClass();
       case DTOPackage.OBJECT_REPRESENTATION: return createObjectRepresentation();
+      case DTOPackage.ID_ATTRIBUTE: return createIDAttribute();
       case DTOPackage.TEXT_TYPE: return createTextType();
       case DTOPackage.EMAIL_TYPE: return createEmailType();
       case DTOPackage.PASSWORD_TYPE: return createPasswordType();
@@ -109,6 +110,17 @@ public class DTOFactoryImpl extends EFactoryImpl implements DTOFactory
   {
     ObjectRepresentationImpl objectRepresentation = new ObjectRepresentationImpl();
     return objectRepresentation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IDAttribute createIDAttribute()
+  {
+    IDAttributeImpl idAttribute = new IDAttributeImpl();
+    return idAttribute;
   }
 
   /**

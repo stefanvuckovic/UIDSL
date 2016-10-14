@@ -11,6 +11,7 @@ import com.stefanvuckovic.dto.dTO.DTOModel;
 import com.stefanvuckovic.dto.dTO.DTOPackage;
 import com.stefanvuckovic.dto.dTO.EmailType;
 import com.stefanvuckovic.dto.dTO.FileType;
+import com.stefanvuckovic.dto.dTO.IDAttribute;
 import com.stefanvuckovic.dto.dTO.ImageType;
 import com.stefanvuckovic.dto.dTO.ObjectRepresentation;
 import com.stefanvuckovic.dto.dTO.PasswordType;
@@ -50,6 +51,13 @@ public class DTOPackageImpl extends EPackageImpl implements DTOPackage
    * @generated
    */
   private EClass objectRepresentationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass idAttributeEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -207,6 +215,16 @@ public class DTOPackageImpl extends EPackageImpl implements DTOPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getIDAttribute()
+  {
+    return idAttributeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getTextType()
   {
     return textTypeEClass;
@@ -290,6 +308,8 @@ public class DTOPackageImpl extends EPackageImpl implements DTOPackage
 
     objectRepresentationEClass = createEClass(OBJECT_REPRESENTATION);
 
+    idAttributeEClass = createEClass(ID_ATTRIBUTE);
+
     textTypeEClass = createEClass(TEXT_TYPE);
 
     emailTypeEClass = createEClass(EMAIL_TYPE);
@@ -335,6 +355,7 @@ public class DTOPackageImpl extends EPackageImpl implements DTOPackage
     // Add supertypes to classes
     dtoClassEClass.getESuperTypes().add(theDomainModelPackage.getConcept());
     objectRepresentationEClass.getESuperTypes().add(theDomainModelPackage.getAttributeOption());
+    idAttributeEClass.getESuperTypes().add(theDomainModelPackage.getAttributeOption());
     textTypeEClass.getESuperTypes().add(theDomainModelPackage.getBasicType());
     emailTypeEClass.getESuperTypes().add(theDomainModelPackage.getBasicType());
     passwordTypeEClass.getESuperTypes().add(theDomainModelPackage.getBasicType());
@@ -349,6 +370,8 @@ public class DTOPackageImpl extends EPackageImpl implements DTOPackage
     initEReference(getDTOClass_SuperType(), this.getDTOClass(), null, "superType", null, 0, 1, DTOClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(objectRepresentationEClass, ObjectRepresentation.class, "ObjectRepresentation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(idAttributeEClass, IDAttribute.class, "IDAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(textTypeEClass, TextType.class, "TextType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

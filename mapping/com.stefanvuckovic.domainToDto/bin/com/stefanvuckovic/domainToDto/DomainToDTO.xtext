@@ -1,0 +1,41 @@
+grammar com.stefanvuckovic.domainToDto.DomainToDTO with org.eclipse.xtext.common.Terminals
+
+generate domainToDTO "http://www.stefanvuckovic.com/domainToDto/DomainToDTO"
+
+import "http://www.stefanvuckovic.com/domainmodel/DomainModel" as dm
+import "http://www.stefanvuckovic.com/dto/DTO" as dto
+
+MappingModel:
+	mappers+=Mapper*;
+	
+Mapper:
+	'mapper' name=ID 'dto' dto=[dto::DTOClass] '{'
+		attributes+=MappedAttribute*
+	'}'
+;
+
+MappedAttribute:
+	attr=[dm::Attribute] '->' mapping=Expression
+;
+
+Expression returns dm::Expression:
+	MemberSelectionExpression |
+	EntityMappingExpression
+;
+
+MemberSelectionExpression returns dm::Expression:
+	AtomExpression
+	(
+		{MemberSelectionExpression.receiver=current} '.'
+		member=[dm::Attribute]
+	)*
+;
+
+EntityMappingExpression:
+	{EntityMappingExpression} 'map' mappedEntity=MemberSelectionExpression 'with' mapper=[Mapper] 
+;
+
+AtomExpression returns AtomExpression:
+	{StaticEntityRef} reference=[dm::Entity]
+;
+

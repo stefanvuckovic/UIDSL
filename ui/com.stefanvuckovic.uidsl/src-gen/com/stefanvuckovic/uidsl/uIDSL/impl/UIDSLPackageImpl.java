@@ -1186,16 +1186,6 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getServerComponent_Expressions()
-  {
-    return (EReference)serverComponentEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getInlineVariable()
   {
     return inlineVariableEClass;
@@ -1660,7 +1650,6 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
 
     serverComponentEClass = createEClass(SERVER_COMPONENT);
     createEReference(serverComponentEClass, SERVER_COMPONENT__MEMBERS);
-    createEReference(serverComponentEClass, SERVER_COMPONENT__EXPRESSIONS);
 
     inlineVariableEClass = createEClass(INLINE_VARIABLE);
 
@@ -1886,7 +1875,6 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
 
     initEClass(serverComponentEClass, ServerComponent.class, "ServerComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getServerComponent_Members(), this.getMember(), null, "members", null, 0, -1, ServerComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getServerComponent_Expressions(), theDomainModelPackage.getExpression(), null, "expressions", null, 0, -1, ServerComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(inlineVariableEClass, InlineVariable.class, "InlineVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

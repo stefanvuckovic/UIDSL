@@ -20,6 +20,7 @@ import com.stefanvuckovic.dto.dTO.FileType;
 import com.stefanvuckovic.dto.dTO.ImageType;
 import com.stefanvuckovic.dto.dTO.PasswordType;
 import com.stefanvuckovic.dto.dTO.TextType;
+import com.stefanvuckovic.dto.generator.DTOUIGenerator;
 import java.util.Arrays;
 import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
@@ -47,6 +48,10 @@ public class DTOGenerator extends AbstractGenerator {
   @Extension
   private DomainModelGenerator generator;
   
+  @Inject
+  @Extension
+  private DTOUIGenerator dtoUIGenerator;
+  
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
     TreeIterator<EObject> _allContents = resource.getAllContents();
@@ -63,6 +68,7 @@ public class DTOGenerator extends AbstractGenerator {
       CharSequence _compile = this.compile(c);
       fsa.generateFile(_builder.toString(), _compile);
     }
+    this.dtoUIGenerator.doGenerate(resource, fsa, context);
   }
   
   public CharSequence compile(final Concept concept) {
@@ -234,11 +240,70 @@ public class DTOGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
+  public String compileWithPackageIncluded(final AttributeType type) {
+    if ((type instanceof CollectionType)) {
+      SingleType _ofType = ((CollectionType) type).getOfType();
+      String _typeStringWithPackage = this.typeStringWithPackage(_ofType, false);
+      String _plus = ("java.util.List<" + _typeStringWithPackage);
+      return (_plus + ">");
+    } else {
+      if ((type instanceof SingleType)) {
+        return this.typeStringWithPackage(((SingleType) type), true);
+      }
+    }
+    return null;
+  }
+  
+  protected String _typeStringWithPackage(final BasicType type, final boolean primitive) {
+    String _xifexpression = null;
+    if ((((((type instanceof TextType) || 
+      (type instanceof EmailType)) || 
+      (type instanceof PasswordType)) || 
+      (type instanceof ImageType)) || 
+      (type instanceof FileType))) {
+      return "String";
+    } else {
+      _xifexpression = this.generator.typeString(type, primitive);
+    }
+    return _xifexpression;
+  }
+  
+  protected String _typeStringWithPackage(final RefType type, final boolean primitive) {
+    String _xblockexpression = null;
+    {
+      String prefix = "";
+      Concept _reference = type.getReference();
+      final Resource res = _reference.eResource();
+      URI _uRI = res.getURI();
+      String _fileExtension = _uRI.fileExtension();
+      boolean _equals = Objects.equal(_fileExtension, "domain");
+      if (_equals) {
+        prefix = "domain.";
+      } else {
+        prefix = "dto.";
+      }
+      String _typeString = this.generator.typeString(type, primitive);
+      _xblockexpression = (prefix + _typeString);
+    }
+    return _xblockexpression;
+  }
+  
   public String typeString(final SingleType type, final boolean primitive) {
     if (type instanceof BasicType) {
       return _typeString((BasicType)type, primitive);
     } else if (type instanceof RefType) {
       return _typeString((RefType)type, primitive);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(type, primitive).toString());
+    }
+  }
+  
+  public String typeStringWithPackage(final SingleType type, final boolean primitive) {
+    if (type instanceof BasicType) {
+      return _typeStringWithPackage((BasicType)type, primitive);
+    } else if (type instanceof RefType) {
+      return _typeStringWithPackage((RefType)type, primitive);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(type, primitive).toString());

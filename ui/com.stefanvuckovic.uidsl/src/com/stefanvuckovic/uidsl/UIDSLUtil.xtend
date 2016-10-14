@@ -9,12 +9,14 @@ import com.stefanvuckovic.uidsl.uIDSL.Field
 import com.stefanvuckovic.uidsl.uIDSL.Method
 import com.stefanvuckovic.uidsl.uIDSL.ObjectGeneralType
 import com.stefanvuckovic.uidsl.uIDSL.PageType
-import com.stefanvuckovic.uidsl.uIDSL.ServerComponent
-import javax.inject.Inject
-import com.stefanvuckovic.uidsl.uIDSL.UIComponent
-import com.stefanvuckovic.uidsl.uIDSL.PropertyValue
 import com.stefanvuckovic.uidsl.uIDSL.PropertyRuntimeType
 import com.stefanvuckovic.uidsl.uIDSL.PropertySingleRuntimeType
+import com.stefanvuckovic.uidsl.uIDSL.PropertyValue
+import com.stefanvuckovic.uidsl.uIDSL.ServerComponent
+import com.stefanvuckovic.uidsl.uIDSL.UIComponent
+import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance
+import javax.inject.Inject
+import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent
 
 class UIDSLUtil {
 	
@@ -69,6 +71,25 @@ class UIDSLUtil {
 					type.propertyType.property
 			}
 		}
+	}
+	
+	def getProperty(UIComponentInstance inst, String propName) {
+		inst.properties.filter[p | p.property.name == propName].head
+	}
+	
+	//when component can have only one instance of child component
+	def getChildComponent(UIComponentInstance inst, String compName) {
+		inst.childElements.filter[c | (c as UIComponentInstance).component.name == compName]?.head as UIComponentInstance
+	}
+	
+	def isTopLevelComponent(UIComponentInstance inst) {
+		!(inst.component.eContainer instanceof UIComponent)
+	}
+	
+	def isChildOfComponent(UIComponentInstance inst, String name) {
+		val cont = inst.component.eContainer
+		cont instanceof ChildUIComponent && cont.eContainer instanceof UIComponent &&
+			(cont.eContainer as UIComponent).name == name
 	}
 	
 }

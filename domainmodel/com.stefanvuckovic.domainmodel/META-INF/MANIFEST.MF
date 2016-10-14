@@ -26,5 +26,6 @@ Export-Package: com.stefanvuckovic.domainmodel,
  com.stefanvuckovic.domainmodel.serializer,
  com.stefanvuckovic.domainmodel.services,
  com.stefanvuckovic.domainmodel.types,
- com.stefanvuckovic.domainmodel.validation
+ com.stefanvuckovic.domainmodel.validation,
+ common
 Import-Package: org.apache.log4j

@@ -5,12 +5,14 @@ package com.stefanvuckovic.domainmodel.validation;
 
 import com.google.common.base.Objects;
 import com.stefanvuckovic.domainmodel.DomainModelUtil;
+import com.stefanvuckovic.domainmodel.LibraryConstants;
 import com.stefanvuckovic.domainmodel.domainModel.Attribute;
 import com.stefanvuckovic.domainmodel.domainModel.AttributeOption;
 import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
 import com.stefanvuckovic.domainmodel.domainModel.BasicType;
 import com.stefanvuckovic.domainmodel.domainModel.Cardinality;
 import com.stefanvuckovic.domainmodel.domainModel.CardinalityType;
+import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Entity;
@@ -19,8 +21,10 @@ import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral;
 import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.Model;
 import com.stefanvuckovic.domainmodel.domainModel.Option;
+import com.stefanvuckovic.domainmodel.domainModel.RefType;
 import com.stefanvuckovic.domainmodel.domainModel.Required;
 import com.stefanvuckovic.domainmodel.domainModel.SingleType;
+import com.stefanvuckovic.domainmodel.domainModel.StaticFieldSelection;
 import com.stefanvuckovic.domainmodel.scoping.CustomIndex;
 import com.stefanvuckovic.domainmodel.types.TypeComputing;
 import com.stefanvuckovic.domainmodel.types.TypeConformance;
@@ -31,6 +35,7 @@ import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
@@ -255,5 +260,44 @@ public class DomainModelValidator extends AbstractDomainModelValidator {
         }
       }
     }
+  }
+  
+  @Check
+  public void checkReferenceToGeneralEntity(final StaticFieldSelection sel) {
+    final Entity ent = sel.getReceiver();
+    boolean _isGeneralEntity = this.isGeneralEntity(ent);
+    if (_isGeneralEntity) {
+      EReference _staticFieldSelection_Receiver = DomainModelPackage.eINSTANCE.getStaticFieldSelection_Receiver();
+      this.error((("General entity \'" + LibraryConstants.COMMON_ENTITY_NAME) + "\' cannot be used in this context"), _staticFieldSelection_Receiver);
+    }
+  }
+  
+  @Check
+  public void checkReferenceToGeneralEntity(final AttributeType at) {
+    AttributeType singleType = at;
+    if ((at instanceof CollectionType)) {
+      SingleType _ofType = ((CollectionType)at).getOfType();
+      singleType = _ofType;
+    }
+    if (((singleType instanceof RefType) && (((RefType) singleType).getReference() instanceof Entity))) {
+      Concept _reference = ((RefType) singleType).getReference();
+      final Entity ent = ((Entity) _reference);
+      boolean _isGeneralEntity = this.isGeneralEntity(ent);
+      if (_isGeneralEntity) {
+        this.error((("General entity \'" + LibraryConstants.COMMON_ENTITY_NAME) + "\' cannot be used in this context"), 
+          null);
+      }
+    }
+  }
+  
+  public boolean isGeneralEntity(final Entity ent) {
+    boolean _xblockexpression = false;
+    {
+      if (((!Objects.equal(ent, null)) && Objects.equal(ent.getName(), LibraryConstants.COMMON_ENTITY_NAME))) {
+        return true;
+      }
+      _xblockexpression = false;
+    }
+    return _xblockexpression;
   }
 }

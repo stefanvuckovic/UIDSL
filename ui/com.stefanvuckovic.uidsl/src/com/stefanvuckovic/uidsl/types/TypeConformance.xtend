@@ -16,6 +16,7 @@ import com.stefanvuckovic.uidsl.uIDSL.PageType
 import javax.inject.Inject
 
 import static com.stefanvuckovic.domainmodel.types.TypeComputing.*
+import com.stefanvuckovic.uidsl.uIDSL.ServerComponent
 
 class TypeConformance {
 	
@@ -44,8 +45,10 @@ class TypeConformance {
 			Enum:
 				c === type2.reference
 			DTOClass:
-				c === type2.reference ||
-					c.hierarchyForClass.contains(type2.reference as DTOClass)		
+				c === type2.reference || type2.reference instanceof DTOClass &&
+					c.hierarchyForClass.contains(type2.reference as DTOClass)
+			ServerComponent:
+				c === type2.reference		
 		} 
 	}
 	
@@ -91,6 +94,8 @@ class TypeConformance {
 			type2.types.filter(ObjectGeneralType).size > 0
 		} else if(type1 instanceof EnumGeneralType) {
 			type2.types.filter(EnumGeneralType).size > 0
+		} else if(type1 instanceof PageType) {
+			type2.types.filter(PageType).size > 0
 		}
 	}
 	

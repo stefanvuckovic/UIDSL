@@ -58,6 +58,7 @@ public class UIDSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDefaultUIComponentAccess().getAlternatives(), "rule__DefaultUIComponent__Alternatives");
 					put(grammarAccess.getComponentAccess().getAlternatives(), "rule__Component__Alternatives");
 					put(grammarAccess.getConceptAccess().getAlternatives(), "rule__Concept__Alternatives");
+					put(grammarAccess.getAttributeOptionAccess().getAlternatives(), "rule__AttributeOption__Alternatives");
 					put(grammarAccess.getBasicTypeAccess().getAlternatives(), "rule__BasicType__Alternatives");
 					put(grammarAccess.getConstantAccess().getAlternatives(), "rule__Constant__Alternatives");
 					put(grammarAccess.getConstantAccess().getValueAlternatives_3_1_0(), "rule__Constant__ValueAlternatives_3_1_0");
@@ -124,7 +125,8 @@ public class UIDSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDefaultUIComponentAccess().getGroup_1(), "rule__DefaultUIComponent__Group_1__0");
 					put(grammarAccess.getDTOClassAccess().getGroup(), "rule__DTOClass__Group__0");
 					put(grammarAccess.getDTOClassAccess().getGroup_2(), "rule__DTOClass__Group_2__0");
-					put(grammarAccess.getAttributeOptionAccess().getGroup(), "rule__AttributeOption__Group__0");
+					put(grammarAccess.getAttributeOptionAccess().getGroup_0(), "rule__AttributeOption__Group_0__0");
+					put(grammarAccess.getAttributeOptionAccess().getGroup_1(), "rule__AttributeOption__Group_1__0");
 					put(grammarAccess.getBasicTypeAccess().getGroup_1(), "rule__BasicType__Group_1__0");
 					put(grammarAccess.getBasicTypeAccess().getGroup_2(), "rule__BasicType__Group_2__0");
 					put(grammarAccess.getBasicTypeAccess().getGroup_3(), "rule__BasicType__Group_3__0");
@@ -160,7 +162,6 @@ public class UIDSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getUIModelAccess().getConceptsAssignment(), "rule__UIModel__ConceptsAssignment");
 					put(grammarAccess.getServerComponentAccess().getNameAssignment_2(), "rule__ServerComponent__NameAssignment_2");
 					put(grammarAccess.getServerComponentAccess().getMembersAssignment_4(), "rule__ServerComponent__MembersAssignment_4");
-					put(grammarAccess.getServerComponentAccess().getExpressionsAssignment_5(), "rule__ServerComponent__ExpressionsAssignment_5");
 					put(grammarAccess.getMethodAccess().getParamsAssignment_2_0(), "rule__Method__ParamsAssignment_2_0");
 					put(grammarAccess.getMethodAccess().getParamsAssignment_2_1_1(), "rule__Method__ParamsAssignment_2_1_1");
 					put(grammarAccess.getInlineVariableAccess().getNameAssignment_1(), "rule__InlineVariable__NameAssignment_1");
