@@ -56,6 +56,10 @@ class CustomIndex {
 		o.getVisibleEObjectDescriptions(UIDSLPackage.eINSTANCE.defaultConfigurations)
 	}
 	
+	def getVisibleCustomComponentDefaults(EObject o) {
+		o.getVisibleEObjectDescriptions(UIDSLPackage.eINSTANCE.customDefaultComponentsDefinition)
+	}
+	
 	def getVisibleEObjectDescriptions(EObject o, EClass type) {
 		o.getVisibleContainers.map [ container |
 			container.getExportedObjectsByType(type)

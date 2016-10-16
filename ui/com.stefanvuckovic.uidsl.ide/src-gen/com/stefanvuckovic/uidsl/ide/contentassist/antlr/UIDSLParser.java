@@ -57,6 +57,7 @@ public class UIDSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDefaultComponentConfigAccess().getTypeAlternatives_2_0(), "rule__DefaultComponentConfig__TypeAlternatives_2_0");
 					put(grammarAccess.getDefaultUIComponentAccess().getAlternatives(), "rule__DefaultUIComponent__Alternatives");
 					put(grammarAccess.getComponentAccess().getAlternatives(), "rule__Component__Alternatives");
+					put(grammarAccess.getCustomDefaultComponentDefinitionAccess().getCompTypeAlternatives_1_0(), "rule__CustomDefaultComponentDefinition__CompTypeAlternatives_1_0");
 					put(grammarAccess.getConceptAccess().getAlternatives(), "rule__Concept__Alternatives");
 					put(grammarAccess.getAttributeOptionAccess().getAlternatives(), "rule__AttributeOption__Alternatives");
 					put(grammarAccess.getBasicTypeAccess().getAlternatives(), "rule__BasicType__Alternatives");
@@ -123,6 +124,10 @@ public class UIDSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDefaultComponentConfigAccess().getGroup(), "rule__DefaultComponentConfig__Group__0");
 					put(grammarAccess.getDefaultUIComponentAccess().getGroup_0(), "rule__DefaultUIComponent__Group_0__0");
 					put(grammarAccess.getDefaultUIComponentAccess().getGroup_1(), "rule__DefaultUIComponent__Group_1__0");
+					put(grammarAccess.getCustomDefaultComponentsDefinitionAccess().getGroup(), "rule__CustomDefaultComponentsDefinition__Group__0");
+					put(grammarAccess.getCustomDefaultComponentDefinitionAccess().getGroup(), "rule__CustomDefaultComponentDefinition__Group__0");
+					put(grammarAccess.getCustomDefaultComponentDefinitionAccess().getGroup_5(), "rule__CustomDefaultComponentDefinition__Group_5__0");
+					put(grammarAccess.getCustomDefaultComponentDefinitionAccess().getGroup_5_2(), "rule__CustomDefaultComponentDefinition__Group_5_2__0");
 					put(grammarAccess.getDTOClassAccess().getGroup(), "rule__DTOClass__Group__0");
 					put(grammarAccess.getDTOClassAccess().getGroup_2(), "rule__DTOClass__Group_2__0");
 					put(grammarAccess.getAttributeOptionAccess().getGroup_0(), "rule__AttributeOption__Group_0__0");
@@ -224,6 +229,13 @@ public class UIDSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDefaultComponentConfigAccess().getOutputCompAssignment_9(), "rule__DefaultComponentConfig__OutputCompAssignment_9");
 					put(grammarAccess.getDefaultUIComponentAccess().getValueAssignment_0_3(), "rule__DefaultUIComponent__ValueAssignment_0_3");
 					put(grammarAccess.getDefaultUIComponentAccess().getValueAssignment_1_3(), "rule__DefaultUIComponent__ValueAssignment_1_3");
+					put(grammarAccess.getCustomDefaultComponentsDefinitionAccess().getNameAssignment_2(), "rule__CustomDefaultComponentsDefinition__NameAssignment_2");
+					put(grammarAccess.getCustomDefaultComponentsDefinitionAccess().getDefaultsAssignment_4(), "rule__CustomDefaultComponentsDefinition__DefaultsAssignment_4");
+					put(grammarAccess.getCustomDefaultComponentDefinitionAccess().getCompTypeAssignment_1(), "rule__CustomDefaultComponentDefinition__CompTypeAssignment_1");
+					put(grammarAccess.getCustomDefaultComponentDefinitionAccess().getTypeAssignment_3(), "rule__CustomDefaultComponentDefinition__TypeAssignment_3");
+					put(grammarAccess.getCustomDefaultComponentDefinitionAccess().getImplicitsAssignment_5_1(), "rule__CustomDefaultComponentDefinition__ImplicitsAssignment_5_1");
+					put(grammarAccess.getCustomDefaultComponentDefinitionAccess().getImplicitsAssignment_5_2_1(), "rule__CustomDefaultComponentDefinition__ImplicitsAssignment_5_2_1");
+					put(grammarAccess.getCustomDefaultComponentDefinitionAccess().getElementsAssignment_7(), "rule__CustomDefaultComponentDefinition__ElementsAssignment_7");
 					put(grammarAccess.getDTOModelAccess().getConceptsAssignment(), "rule__DTOModel__ConceptsAssignment");
 					put(grammarAccess.getDTOClassAccess().getNameAssignment_1(), "rule__DTOClass__NameAssignment_1");
 					put(grammarAccess.getDTOClassAccess().getSuperTypeAssignment_2_1(), "rule__DTOClass__SuperTypeAssignment_2_1");

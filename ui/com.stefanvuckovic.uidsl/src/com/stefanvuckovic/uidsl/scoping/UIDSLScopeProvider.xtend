@@ -16,6 +16,7 @@ import com.stefanvuckovic.uidsl.types.TypeConformance
 import com.stefanvuckovic.uidsl.uIDSL.AllAllowedComponents
 import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent
 import com.stefanvuckovic.uidsl.uIDSL.CustomAllowedComponents
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition
 import com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig
 import com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents
 import com.stefanvuckovic.uidsl.uIDSL.Fragment
@@ -28,6 +29,8 @@ import com.stefanvuckovic.uidsl.uIDSL.PropertyValue
 import com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance
 import com.stefanvuckovic.uidsl.uIDSL.ServerComponent
 import com.stefanvuckovic.uidsl.uIDSL.Template
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragment
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride
 import com.stefanvuckovic.uidsl.uIDSL.UIComponent
 import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage
@@ -42,8 +45,6 @@ import org.eclipse.xtext.scoping.impl.SimpleScope
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import com.stefanvuckovic.uidsl.uIDSL.TemplateFragment
-import com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride
 
 /**
  * This class contains custom scoping description.
@@ -103,6 +104,8 @@ class UIDSLScopeProvider extends AbstractUIDSLScopeProvider {
 					Scopes.scopeFor(container.params + container.serverComponents)
 				Fragment:
 					Scopes.scopeFor(container.params + container.serverComponents)
+				CustomDefaultComponentDefinition:
+					Scopes.scopeFor(newArrayList(container.type) + container.implicits)
 				Template:
 					Scopes.scopeFor(container.serverComponents)
 				Iterator:

@@ -100,8 +100,19 @@ class TypeConformance {
 	}
 	
 	//does not work for RefType and AlternativeType
-	def areTypesSame(AttributeType type1, AttributeType type2) {
-		return type1.class.equals(type2.class)
+	def boolean areTypesSame(AttributeType type1, AttributeType type2) {
+		if(type1 instanceof BasicType) {
+			return type1.class.equals(type2.class)
+		} else if(type1 instanceof RefType) {
+			return type2 instanceof RefType &&
+				type1.reference === (type2 as RefType).reference
+		} else if(type1 instanceof CollectionType) {
+			return type2 instanceof CollectionType &&
+				areTypesSame(type1.ofType, (type2 as CollectionType).ofType)
+		} else {
+			return false
+		}
+		
 	}
 	
 }

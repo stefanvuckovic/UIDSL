@@ -186,8 +186,22 @@ public class TypeConformance {
   }
   
   public boolean areTypesSame(final AttributeType type1, final AttributeType type2) {
-    Class<? extends AttributeType> _class = type1.getClass();
-    Class<? extends AttributeType> _class_1 = type2.getClass();
-    return _class.equals(_class_1);
+    if ((type1 instanceof BasicType)) {
+      Class<? extends BasicType> _class = ((BasicType)type1).getClass();
+      Class<? extends AttributeType> _class_1 = type2.getClass();
+      return _class.equals(_class_1);
+    } else {
+      if ((type1 instanceof RefType)) {
+        return ((type2 instanceof RefType) && 
+          (((RefType)type1).getReference() == ((RefType) type2).getReference()));
+      } else {
+        if ((type1 instanceof CollectionType)) {
+          return ((type2 instanceof CollectionType) && 
+            this.areTypesSame(((CollectionType)type1).getOfType(), ((CollectionType) type2).getOfType()));
+        } else {
+          return false;
+        }
+      }
+    }
   }
 }

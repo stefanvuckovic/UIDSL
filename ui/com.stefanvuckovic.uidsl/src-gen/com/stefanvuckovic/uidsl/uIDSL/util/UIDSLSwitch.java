@@ -304,6 +304,20 @@ public class UIDSLSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case UIDSLPackage.CUSTOM_DEFAULT_COMPONENTS_DEFINITION:
+      {
+        CustomDefaultComponentsDefinition customDefaultComponentsDefinition = (CustomDefaultComponentsDefinition)theEObject;
+        T result = caseCustomDefaultComponentsDefinition(customDefaultComponentsDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UIDSLPackage.CUSTOM_DEFAULT_COMPONENT_DEFINITION:
+      {
+        CustomDefaultComponentDefinition customDefaultComponentDefinition = (CustomDefaultComponentDefinition)theEObject;
+        T result = caseCustomDefaultComponentDefinition(customDefaultComponentDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case UIDSLPackage.SERVER_COMPONENT:
       {
         ServerComponent serverComponent = (ServerComponent)theEObject;
@@ -932,6 +946,38 @@ public class UIDSLSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseComponent(Component object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Custom Default Components Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Custom Default Components Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCustomDefaultComponentsDefinition(CustomDefaultComponentsDefinition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Custom Default Component Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Custom Default Component Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCustomDefaultComponentDefinition(CustomDefaultComponentDefinition object)
   {
     return null;
   }

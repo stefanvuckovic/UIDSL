@@ -35,15 +35,16 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConceptsUIContainerParserRuleCall_0_1 = (RuleCall)cConceptsAlternatives_0.eContents().get(1);
 		private final RuleCall cConceptsUIComponentParserRuleCall_0_2 = (RuleCall)cConceptsAlternatives_0.eContents().get(2);
 		private final RuleCall cConceptsDefaultConfigurationsParserRuleCall_0_3 = (RuleCall)cConceptsAlternatives_0.eContents().get(3);
+		private final RuleCall cConceptsCustomDefaultComponentsDefinitionParserRuleCall_0_4 = (RuleCall)cConceptsAlternatives_0.eContents().get(4);
 		
 		//UIModel:
-		//	concepts+=(ServerComponent | UIContainer | UIComponent | DefaultConfigurations)*;
+		//	concepts+=(ServerComponent | UIContainer | UIComponent | DefaultConfigurations | CustomDefaultComponentsDefinition)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//concepts+=(ServerComponent | UIContainer | UIComponent | DefaultConfigurations)*
+		//concepts+=(ServerComponent | UIContainer | UIComponent | DefaultConfigurations | CustomDefaultComponentsDefinition)*
 		public Assignment getConceptsAssignment() { return cConceptsAssignment; }
 		
-		//(ServerComponent | UIContainer | UIComponent | DefaultConfigurations)
+		//(ServerComponent | UIContainer | UIComponent | DefaultConfigurations | CustomDefaultComponentsDefinition)
 		public Alternatives getConceptsAlternatives_0() { return cConceptsAlternatives_0; }
 		
 		//ServerComponent
@@ -57,6 +58,9 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//DefaultConfigurations
 		public RuleCall getConceptsDefaultConfigurationsParserRuleCall_0_3() { return cConceptsDefaultConfigurationsParserRuleCall_0_3; }
+		
+		//CustomDefaultComponentsDefinition
+		public RuleCall getConceptsCustomDefaultComponentsDefinitionParserRuleCall_0_4() { return cConceptsCustomDefaultComponentsDefinitionParserRuleCall_0_4; }
 	}
 	public class ServerComponentElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.ServerComponent");
@@ -1737,11 +1741,11 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		////defaults
 		//DefaultConfigurations:
 		//	'defaults' name=ID '{'
-		//	defaults+=DefaultComponentConfig+
+		//	defaults+=DefaultComponentConfig*
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'defaults' name=ID '{' defaults+=DefaultComponentConfig+ '}'
+		//'defaults' name=ID '{' defaults+=DefaultComponentConfig* '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'defaults'
@@ -1756,7 +1760,7 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 		
-		//defaults+=DefaultComponentConfig+
+		//defaults+=DefaultComponentConfig*
 		public Assignment getDefaultsAssignment_3() { return cDefaultsAssignment_3; }
 		
 		//DefaultComponentConfig
@@ -1940,6 +1944,150 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		//DefaultUIComponent
 		public RuleCall getDefaultUIComponentParserRuleCall_1() { return cDefaultUIComponentParserRuleCall_1; }
 	}
+	public class CustomDefaultComponentsDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.CustomDefaultComponentsDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cCustomKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cDefaultsKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cDefaultsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cDefaultsCustomDefaultComponentDefinitionParserRuleCall_4_0 = (RuleCall)cDefaultsAssignment_4.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//CustomDefaultComponentsDefinition:
+		//	'custom' 'defaults' name=ID '{'
+		//	defaults+=CustomDefaultComponentDefinition+
+		//	'}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'custom' 'defaults' name=ID '{' defaults+=CustomDefaultComponentDefinition+ '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'custom'
+		public Keyword getCustomKeyword_0() { return cCustomKeyword_0; }
+		
+		//'defaults'
+		public Keyword getDefaultsKeyword_1() { return cDefaultsKeyword_1; }
+		
+		//name=ID
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
+		
+		//defaults+=CustomDefaultComponentDefinition+
+		public Assignment getDefaultsAssignment_4() { return cDefaultsAssignment_4; }
+		
+		//CustomDefaultComponentDefinition
+		public RuleCall getDefaultsCustomDefaultComponentDefinitionParserRuleCall_4_0() { return cDefaultsCustomDefaultComponentDefinitionParserRuleCall_4_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+	}
+	public class CustomDefaultComponentDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.uidsl.UIDSL.CustomDefaultComponentDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cDefineKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cCompTypeAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Alternatives cCompTypeAlternatives_1_0 = (Alternatives)cCompTypeAssignment_1.eContents().get(0);
+		private final Keyword cCompTypeInputKeyword_1_0_0 = (Keyword)cCompTypeAlternatives_1_0.eContents().get(0);
+		private final Keyword cCompTypeOutputKeyword_1_0_1 = (Keyword)cCompTypeAlternatives_1_0.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTypeVariableParserRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cImplicit_variablesKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cImplicitsAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cImplicitsVariableParserRuleCall_5_1_0 = (RuleCall)cImplicitsAssignment_5_1.eContents().get(0);
+		private final Group cGroup_5_2 = (Group)cGroup_5.eContents().get(2);
+		private final Keyword cCommaKeyword_5_2_0 = (Keyword)cGroup_5_2.eContents().get(0);
+		private final Assignment cImplicitsAssignment_5_2_1 = (Assignment)cGroup_5_2.eContents().get(1);
+		private final RuleCall cImplicitsVariableParserRuleCall_5_2_1_0 = (RuleCall)cImplicitsAssignment_5_2_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Assignment cElementsAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cElementsUIElementParserRuleCall_7_0 = (RuleCall)cElementsAssignment_7.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		
+		//CustomDefaultComponentDefinition:
+		//	'define' compType=('input' | 'output') '(' type=Variable ')' ('implicit_variables' implicits+=Variable (','
+		//	implicits+=Variable)*)? '{'
+		//	elements+=UIElement*
+		//	'}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'define' compType=('input' | 'output') '(' type=Variable ')' ('implicit_variables' implicits+=Variable (','
+		//implicits+=Variable)*)? '{' elements+=UIElement* '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'define'
+		public Keyword getDefineKeyword_0() { return cDefineKeyword_0; }
+		
+		//compType=('input' | 'output')
+		public Assignment getCompTypeAssignment_1() { return cCompTypeAssignment_1; }
+		
+		//('input' | 'output')
+		public Alternatives getCompTypeAlternatives_1_0() { return cCompTypeAlternatives_1_0; }
+		
+		//'input'
+		public Keyword getCompTypeInputKeyword_1_0_0() { return cCompTypeInputKeyword_1_0_0; }
+		
+		//'output'
+		public Keyword getCompTypeOutputKeyword_1_0_1() { return cCompTypeOutputKeyword_1_0_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+		
+		//type=Variable
+		public Assignment getTypeAssignment_3() { return cTypeAssignment_3; }
+		
+		//Variable
+		public RuleCall getTypeVariableParserRuleCall_3_0() { return cTypeVariableParserRuleCall_3_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+		
+		//('implicit_variables' implicits+=Variable (',' implicits+=Variable)*)?
+		public Group getGroup_5() { return cGroup_5; }
+		
+		//'implicit_variables'
+		public Keyword getImplicit_variablesKeyword_5_0() { return cImplicit_variablesKeyword_5_0; }
+		
+		//implicits+=Variable
+		public Assignment getImplicitsAssignment_5_1() { return cImplicitsAssignment_5_1; }
+		
+		//Variable
+		public RuleCall getImplicitsVariableParserRuleCall_5_1_0() { return cImplicitsVariableParserRuleCall_5_1_0; }
+		
+		//(',' implicits+=Variable)*
+		public Group getGroup_5_2() { return cGroup_5_2; }
+		
+		//','
+		public Keyword getCommaKeyword_5_2_0() { return cCommaKeyword_5_2_0; }
+		
+		//implicits+=Variable
+		public Assignment getImplicitsAssignment_5_2_1() { return cImplicitsAssignment_5_2_1; }
+		
+		//Variable
+		public RuleCall getImplicitsVariableParserRuleCall_5_2_1_0() { return cImplicitsVariableParserRuleCall_5_2_1_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_6() { return cLeftCurlyBracketKeyword_6; }
+		
+		//elements+=UIElement*
+		public Assignment getElementsAssignment_7() { return cElementsAssignment_7; }
+		
+		//UIElement
+		public RuleCall getElementsUIElementParserRuleCall_7_0() { return cElementsUIElementParserRuleCall_7_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
+	}
 	
 	
 	private final UIModelElements pUIModel;
@@ -1990,6 +2138,8 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	private final DefaultComponentConfigElements pDefaultComponentConfig;
 	private final DefaultUIComponentElements pDefaultUIComponent;
 	private final ComponentElements pComponent;
+	private final CustomDefaultComponentsDefinitionElements pCustomDefaultComponentsDefinition;
+	private final CustomDefaultComponentDefinitionElements pCustomDefaultComponentDefinition;
 	
 	private final Grammar grammar;
 	
@@ -2056,6 +2206,8 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pDefaultComponentConfig = new DefaultComponentConfigElements();
 		this.pDefaultUIComponent = new DefaultUIComponentElements();
 		this.pComponent = new ComponentElements();
+		this.pCustomDefaultComponentsDefinition = new CustomDefaultComponentsDefinitionElements();
+		this.pCustomDefaultComponentDefinition = new CustomDefaultComponentDefinitionElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -2094,7 +2246,7 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//UIModel:
-	//	concepts+=(ServerComponent | UIContainer | UIComponent | DefaultConfigurations)*;
+	//	concepts+=(ServerComponent | UIContainer | UIComponent | DefaultConfigurations | CustomDefaultComponentsDefinition)*;
 	public UIModelElements getUIModelAccess() {
 		return pUIModel;
 	}
@@ -2567,7 +2719,7 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	////defaults
 	//DefaultConfigurations:
 	//	'defaults' name=ID '{'
-	//	defaults+=DefaultComponentConfig+
+	//	defaults+=DefaultComponentConfig*
 	//	'}';
 	public DefaultConfigurationsElements getDefaultConfigurationsAccess() {
 		return pDefaultConfigurations;
@@ -2609,6 +2761,31 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getComponentRule() {
 		return getComponentAccess().getRule();
+	}
+	
+	//CustomDefaultComponentsDefinition:
+	//	'custom' 'defaults' name=ID '{'
+	//	defaults+=CustomDefaultComponentDefinition+
+	//	'}';
+	public CustomDefaultComponentsDefinitionElements getCustomDefaultComponentsDefinitionAccess() {
+		return pCustomDefaultComponentsDefinition;
+	}
+	
+	public ParserRule getCustomDefaultComponentsDefinitionRule() {
+		return getCustomDefaultComponentsDefinitionAccess().getRule();
+	}
+	
+	//CustomDefaultComponentDefinition:
+	//	'define' compType=('input' | 'output') '(' type=Variable ')' ('implicit_variables' implicits+=Variable (','
+	//	implicits+=Variable)*)? '{'
+	//	elements+=UIElement*
+	//	'}';
+	public CustomDefaultComponentDefinitionElements getCustomDefaultComponentDefinitionAccess() {
+		return pCustomDefaultComponentDefinition;
+	}
+	
+	public ParserRule getCustomDefaultComponentDefinitionRule() {
+		return getCustomDefaultComponentDefinitionAccess().getRule();
 	}
 	
 	//DTOModel:

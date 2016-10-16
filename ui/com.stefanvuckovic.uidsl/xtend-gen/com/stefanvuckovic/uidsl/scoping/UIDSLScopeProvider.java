@@ -23,6 +23,7 @@ import com.stefanvuckovic.uidsl.uIDSL.AllAllowedComponents;
 import com.stefanvuckovic.uidsl.uIDSL.AllowedNestedComponents;
 import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent;
 import com.stefanvuckovic.uidsl.uIDSL.CustomAllowedComponents;
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition;
 import com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig;
 import com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents;
 import com.stefanvuckovic.uidsl.uIDSL.Field;
@@ -200,6 +201,16 @@ public class UIDSLScopeProvider extends AbstractUIDSLScopeProvider {
             EList<Variable> _params = ((Fragment)container).getParams();
             EList<Variable> _serverComponents = ((Fragment)container).getServerComponents();
             Iterable<Variable> _plus = Iterables.<Variable>concat(_params, _serverComponents);
+            _switchResult = Scopes.scopeFor(_plus);
+          }
+        }
+        if (!_matched) {
+          if (container instanceof CustomDefaultComponentDefinition) {
+            _matched=true;
+            Variable _type = ((CustomDefaultComponentDefinition)container).getType();
+            ArrayList<Variable> _newArrayList = CollectionLiterals.<Variable>newArrayList(_type);
+            EList<Variable> _implicits = ((CustomDefaultComponentDefinition)container).getImplicits();
+            Iterable<Variable> _plus = Iterables.<Variable>concat(_newArrayList, _implicits);
             _switchResult = Scopes.scopeFor(_plus);
           }
         }

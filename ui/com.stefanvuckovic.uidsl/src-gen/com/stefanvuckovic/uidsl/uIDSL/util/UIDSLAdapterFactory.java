@@ -226,6 +226,16 @@ public class UIDSLAdapterFactory extends AdapterFactoryImpl
         return createComponentAdapter();
       }
       @Override
+      public Adapter caseCustomDefaultComponentsDefinition(CustomDefaultComponentsDefinition object)
+      {
+        return createCustomDefaultComponentsDefinitionAdapter();
+      }
+      @Override
+      public Adapter caseCustomDefaultComponentDefinition(CustomDefaultComponentDefinition object)
+      {
+        return createCustomDefaultComponentDefinitionAdapter();
+      }
+      @Override
       public Adapter caseServerComponent(ServerComponent object)
       {
         return createServerComponentAdapter();
@@ -798,6 +808,36 @@ public class UIDSLAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createComponentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition <em>Custom Default Components Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition
+   * @generated
+   */
+  public Adapter createCustomDefaultComponentsDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition <em>Custom Default Component Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition
+   * @generated
+   */
+  public Adapter createCustomDefaultComponentDefinitionAdapter()
   {
     return null;
   }

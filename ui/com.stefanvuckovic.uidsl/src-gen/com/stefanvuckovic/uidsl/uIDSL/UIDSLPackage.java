@@ -1115,6 +1115,98 @@ public interface UIDSLPackage extends EPackage
   int DEFAULT_COMPONENT_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.CustomDefaultComponentsDefinitionImpl <em>Custom Default Components Definition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.CustomDefaultComponentsDefinitionImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getCustomDefaultComponentsDefinition()
+   * @generated
+   */
+  int CUSTOM_DEFAULT_COMPONENTS_DEFINITION = 29;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_DEFAULT_COMPONENTS_DEFINITION__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Defaults</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_DEFAULT_COMPONENTS_DEFINITION__DEFAULTS = 1;
+
+  /**
+   * The number of structural features of the '<em>Custom Default Components Definition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_DEFAULT_COMPONENTS_DEFINITION_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.CustomDefaultComponentDefinitionImpl <em>Custom Default Component Definition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.CustomDefaultComponentDefinitionImpl
+   * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getCustomDefaultComponentDefinition()
+   * @generated
+   */
+  int CUSTOM_DEFAULT_COMPONENT_DEFINITION = 30;
+
+  /**
+   * The feature id for the '<em><b>Comp Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_DEFAULT_COMPONENT_DEFINITION__COMP_TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_DEFAULT_COMPONENT_DEFINITION__TYPE = 1;
+
+  /**
+   * The feature id for the '<em><b>Implicits</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_DEFAULT_COMPONENT_DEFINITION__IMPLICITS = 2;
+
+  /**
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_DEFAULT_COMPONENT_DEFINITION__ELEMENTS = 3;
+
+  /**
+   * The number of structural features of the '<em>Custom Default Component Definition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_DEFAULT_COMPONENT_DEFINITION_FEATURE_COUNT = 4;
+
+  /**
    * The meta object id for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl <em>Server Component</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1122,7 +1214,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getServerComponent()
    * @generated
    */
-  int SERVER_COMPONENT = 29;
+  int SERVER_COMPONENT = 31;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1168,7 +1260,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getInlineVariable()
    * @generated
    */
-  int INLINE_VARIABLE = 30;
+  int INLINE_VARIABLE = 32;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -1205,7 +1297,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getExistingNestedComponents()
    * @generated
    */
-  int EXISTING_NESTED_COMPONENTS = 31;
+  int EXISTING_NESTED_COMPONENTS = 33;
 
   /**
    * The feature id for the '<em><b>Nested Components</b></em>' containment reference.
@@ -1233,7 +1325,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getAllAllowedComponents()
    * @generated
    */
-  int ALL_ALLOWED_COMPONENTS = 32;
+  int ALL_ALLOWED_COMPONENTS = 34;
 
   /**
    * The number of structural features of the '<em>All Allowed Components</em>' class.
@@ -1252,7 +1344,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getCustomAllowedComponents()
    * @generated
    */
-  int CUSTOM_ALLOWED_COMPONENTS = 33;
+  int CUSTOM_ALLOWED_COMPONENTS = 35;
 
   /**
    * The feature id for the '<em><b>Components</b></em>' reference list.
@@ -1280,7 +1372,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getTemplateFragment()
    * @generated
    */
-  int TEMPLATE_FRAGMENT = 34;
+  int TEMPLATE_FRAGMENT = 36;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1317,7 +1409,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getTemplateFragmentOverride()
    * @generated
    */
-  int TEMPLATE_FRAGMENT_OVERRIDE = 35;
+  int TEMPLATE_FRAGMENT_OVERRIDE = 37;
 
   /**
    * The feature id for the '<em><b>Overriden Fragment</b></em>' reference.
@@ -1354,7 +1446,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getMemberSelectionExpression()
    * @generated
    */
-  int MEMBER_SELECTION_EXPRESSION = 36;
+  int MEMBER_SELECTION_EXPRESSION = 38;
 
   /**
    * The feature id for the '<em><b>Receiver</b></em>' containment reference.
@@ -1409,7 +1501,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPageCall()
    * @generated
    */
-  int PAGE_CALL = 37;
+  int PAGE_CALL = 39;
 
   /**
    * The feature id for the '<em><b>Page</b></em>' reference.
@@ -1446,7 +1538,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getVariableReference()
    * @generated
    */
-  int VARIABLE_REFERENCE = 38;
+  int VARIABLE_REFERENCE = 40;
 
   /**
    * The feature id for the '<em><b>Ref</b></em>' reference.
@@ -1474,7 +1566,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getObjectGeneralType()
    * @generated
    */
-  int OBJECT_GENERAL_TYPE = 39;
+  int OBJECT_GENERAL_TYPE = 41;
 
   /**
    * The number of structural features of the '<em>Object General Type</em>' class.
@@ -1493,7 +1585,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getEnumGeneralType()
    * @generated
    */
-  int ENUM_GENERAL_TYPE = 40;
+  int ENUM_GENERAL_TYPE = 42;
 
   /**
    * The number of structural features of the '<em>Enum General Type</em>' class.
@@ -1512,7 +1604,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getCollectionGeneralType()
    * @generated
    */
-  int COLLECTION_GENERAL_TYPE = 41;
+  int COLLECTION_GENERAL_TYPE = 43;
 
   /**
    * The number of structural features of the '<em>Collection General Type</em>' class.
@@ -1531,7 +1623,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getAnyType()
    * @generated
    */
-  int ANY_TYPE = 42;
+  int ANY_TYPE = 44;
 
   /**
    * The number of structural features of the '<em>Any Type</em>' class.
@@ -1550,7 +1642,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getPageType()
    * @generated
    */
-  int PAGE_TYPE = 43;
+  int PAGE_TYPE = 45;
 
   /**
    * The number of structural features of the '<em>Page Type</em>' class.
@@ -1569,7 +1661,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getVoidType()
    * @generated
    */
-  int VOID_TYPE = 44;
+  int VOID_TYPE = 46;
 
   /**
    * The number of structural features of the '<em>Void Type</em>' class.
@@ -1588,7 +1680,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getAlternativeType()
    * @generated
    */
-  int ALTERNATIVE_TYPE = 45;
+  int ALTERNATIVE_TYPE = 47;
 
   /**
    * The feature id for the '<em><b>Types</b></em>' containment reference list.
@@ -1616,7 +1708,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getSimpleType()
    * @generated
    */
-  int SIMPLE_TYPE = 46;
+  int SIMPLE_TYPE = 48;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -1644,7 +1736,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getInputUIComponent()
    * @generated
    */
-  int INPUT_UI_COMPONENT = 47;
+  int INPUT_UI_COMPONENT = 49;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -1672,7 +1764,7 @@ public interface UIDSLPackage extends EPackage
    * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getOutputUIComponent()
    * @generated
    */
-  int OUTPUT_UI_COMPONENT = 48;
+  int OUTPUT_UI_COMPONENT = 50;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -2411,6 +2503,92 @@ public interface UIDSLPackage extends EPackage
    * @generated
    */
   EClass getComponent();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition <em>Custom Default Components Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Custom Default Components Definition</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition
+   * @generated
+   */
+  EClass getCustomDefaultComponentsDefinition();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition#getName()
+   * @see #getCustomDefaultComponentsDefinition()
+   * @generated
+   */
+  EAttribute getCustomDefaultComponentsDefinition_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition#getDefaults <em>Defaults</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Defaults</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition#getDefaults()
+   * @see #getCustomDefaultComponentsDefinition()
+   * @generated
+   */
+  EReference getCustomDefaultComponentsDefinition_Defaults();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition <em>Custom Default Component Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Custom Default Component Definition</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition
+   * @generated
+   */
+  EClass getCustomDefaultComponentDefinition();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition#getCompType <em>Comp Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Comp Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition#getCompType()
+   * @see #getCustomDefaultComponentDefinition()
+   * @generated
+   */
+  EAttribute getCustomDefaultComponentDefinition_CompType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition#getType()
+   * @see #getCustomDefaultComponentDefinition()
+   * @generated
+   */
+  EReference getCustomDefaultComponentDefinition_Type();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition#getImplicits <em>Implicits</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Implicits</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition#getImplicits()
+   * @see #getCustomDefaultComponentDefinition()
+   * @generated
+   */
+  EReference getCustomDefaultComponentDefinition_Implicits();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition#getElements <em>Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Elements</em>'.
+   * @see com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition#getElements()
+   * @see #getCustomDefaultComponentDefinition()
+   * @generated
+   */
+  EReference getCustomDefaultComponentDefinition_Elements();
 
   /**
    * Returns the meta object for class '{@link com.stefanvuckovic.uidsl.uIDSL.ServerComponent <em>Server Component</em>}'.
@@ -3412,6 +3590,74 @@ public interface UIDSLPackage extends EPackage
      * @generated
      */
     EClass COMPONENT = eINSTANCE.getComponent();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.CustomDefaultComponentsDefinitionImpl <em>Custom Default Components Definition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.CustomDefaultComponentsDefinitionImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getCustomDefaultComponentsDefinition()
+     * @generated
+     */
+    EClass CUSTOM_DEFAULT_COMPONENTS_DEFINITION = eINSTANCE.getCustomDefaultComponentsDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CUSTOM_DEFAULT_COMPONENTS_DEFINITION__NAME = eINSTANCE.getCustomDefaultComponentsDefinition_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Defaults</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CUSTOM_DEFAULT_COMPONENTS_DEFINITION__DEFAULTS = eINSTANCE.getCustomDefaultComponentsDefinition_Defaults();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.CustomDefaultComponentDefinitionImpl <em>Custom Default Component Definition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.CustomDefaultComponentDefinitionImpl
+     * @see com.stefanvuckovic.uidsl.uIDSL.impl.UIDSLPackageImpl#getCustomDefaultComponentDefinition()
+     * @generated
+     */
+    EClass CUSTOM_DEFAULT_COMPONENT_DEFINITION = eINSTANCE.getCustomDefaultComponentDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Comp Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CUSTOM_DEFAULT_COMPONENT_DEFINITION__COMP_TYPE = eINSTANCE.getCustomDefaultComponentDefinition_CompType();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CUSTOM_DEFAULT_COMPONENT_DEFINITION__TYPE = eINSTANCE.getCustomDefaultComponentDefinition_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Implicits</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CUSTOM_DEFAULT_COMPONENT_DEFINITION__IMPLICITS = eINSTANCE.getCustomDefaultComponentDefinition_Implicits();
+
+    /**
+     * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CUSTOM_DEFAULT_COMPONENT_DEFINITION__ELEMENTS = eINSTANCE.getCustomDefaultComponentDefinition_Elements();
 
     /**
      * The meta object literal for the '{@link com.stefanvuckovic.uidsl.uIDSL.impl.ServerComponentImpl <em>Server Component</em>}' class.

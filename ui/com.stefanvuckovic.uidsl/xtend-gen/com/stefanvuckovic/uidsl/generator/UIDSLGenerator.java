@@ -31,11 +31,14 @@ import com.stefanvuckovic.uidsl.UIComponents;
 import com.stefanvuckovic.uidsl.UIDSLUtil;
 import com.stefanvuckovic.uidsl.types.TypeComputing;
 import com.stefanvuckovic.uidsl.uIDSL.Component;
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition;
 import com.stefanvuckovic.uidsl.uIDSL.DefaultComponent;
 import com.stefanvuckovic.uidsl.uIDSL.Field;
 import com.stefanvuckovic.uidsl.uIDSL.Fragment;
 import com.stefanvuckovic.uidsl.uIDSL.FragmentCall;
 import com.stefanvuckovic.uidsl.uIDSL.IFStatement;
+import com.stefanvuckovic.uidsl.uIDSL.InlineVariable;
+import com.stefanvuckovic.uidsl.uIDSL.InputUIComponent;
 import com.stefanvuckovic.uidsl.uIDSL.IterationExpression;
 import com.stefanvuckovic.uidsl.uIDSL.Iterator;
 import com.stefanvuckovic.uidsl.uIDSL.LogicElement;
@@ -64,12 +67,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -140,65 +145,72 @@ public class UIDSLGenerator extends AbstractGenerator {
     TreeIterator<EObject> _allContents = resource.getAllContents();
     Iterable<EObject> _iterable = IteratorExtensions.<EObject>toIterable(_allContents);
     Iterable<UIModel> _filter = Iterables.<UIModel>filter(_iterable, UIModel.class);
-    final UIModel model = IterableExtensions.<UIModel>head(_filter);
-    EList<EObject> _concepts = model.getConcepts();
-    Iterable<UIContainer> _filter_1 = Iterables.<UIContainer>filter(_concepts, UIContainer.class);
-    for (final UIContainer c : _filter_1) {
-      if ((c instanceof Page)) {
-        StringConcatenation _builder = new StringConcatenation();
-        String _name = ((Page)c).getName();
-        _builder.append(_name, "");
-        _builder.append(".xhtml");
-        CharSequence _compilePage = this.compilePage(((Page)c));
-        fsa.generateFile(_builder.toString(), _compilePage);
-      } else {
-        if ((c instanceof Fragment)) {
-          StringConcatenation _builder_1 = new StringConcatenation();
-          _builder_1.append(this.componentsFolder, "");
-          _builder_1.append("/");
-          String _name_1 = ((Fragment)c).getName();
-          _builder_1.append(_name_1, "");
-          _builder_1.append(".xhtml");
-          CharSequence _compileFragment = this.compileFragment(((Fragment)c));
-          fsa.generateFile(_builder_1.toString(), _compileFragment);
+    UIModel _head = null;
+    if (_filter!=null) {
+      _head=IterableExtensions.<UIModel>head(_filter);
+    }
+    final UIModel model = _head;
+    boolean _notEquals = (!Objects.equal(model, null));
+    if (_notEquals) {
+      EList<EObject> _concepts = model.getConcepts();
+      Iterable<UIContainer> _filter_1 = Iterables.<UIContainer>filter(_concepts, UIContainer.class);
+      for (final UIContainer c : _filter_1) {
+        if ((c instanceof Page)) {
+          StringConcatenation _builder = new StringConcatenation();
+          String _name = ((Page)c).getName();
+          _builder.append(_name, "");
+          _builder.append(".xhtml");
+          CharSequence _compilePage = this.compilePage(((Page)c));
+          fsa.generateFile(_builder.toString(), _compilePage);
         } else {
-          if ((c instanceof Template)) {
-            StringConcatenation _builder_2 = new StringConcatenation();
-            _builder_2.append(this.templatesFolder, "");
-            _builder_2.append("/");
-            String _name_2 = ((Template)c).getName();
-            _builder_2.append(_name_2, "");
-            _builder_2.append(".xhtml");
-            CharSequence _compileTemplate = this.compileTemplate(((Template)c));
-            fsa.generateFile(_builder_2.toString(), _compileTemplate);
+          if ((c instanceof Fragment)) {
+            StringConcatenation _builder_1 = new StringConcatenation();
+            _builder_1.append(this.componentsFolder, "");
+            _builder_1.append("/");
+            String _name_1 = ((Fragment)c).getName();
+            _builder_1.append(_name_1, "");
+            _builder_1.append(".xhtml");
+            CharSequence _compileFragment = this.compileFragment(((Fragment)c));
+            fsa.generateFile(_builder_1.toString(), _compileFragment);
+          } else {
+            if ((c instanceof Template)) {
+              StringConcatenation _builder_2 = new StringConcatenation();
+              _builder_2.append(this.templatesFolder, "");
+              _builder_2.append("/");
+              String _name_2 = ((Template)c).getName();
+              _builder_2.append(_name_2, "");
+              _builder_2.append(".xhtml");
+              CharSequence _compileTemplate = this.compileTemplate(((Template)c));
+              fsa.generateFile(_builder_2.toString(), _compileTemplate);
+            }
           }
         }
       }
+      EList<EObject> _concepts_1 = model.getConcepts();
+      Iterable<ServerComponent> _filter_2 = Iterables.<ServerComponent>filter(_concepts_1, ServerComponent.class);
+      for (final ServerComponent c_1 : _filter_2) {
+        StringConcatenation _builder_3 = new StringConcatenation();
+        _builder_3.append(this.serverComponentsPackage, "");
+        _builder_3.append("/");
+        String _name_3 = c_1.getName();
+        _builder_3.append(_name_3, "");
+        _builder_3.append(".java");
+        CharSequence _compileServerComponent = this.compileServerComponent(c_1);
+        fsa.generateFile(_builder_3.toString(), _compileServerComponent);
+      }
+      Collection<ServerComponent> _values = this.newServerComponentsMap.values();
+      for (final ServerComponent sc : _values) {
+        StringConcatenation _builder_4 = new StringConcatenation();
+        _builder_4.append(this.serverComponentsPackage, "");
+        _builder_4.append("/");
+        String _name_4 = sc.getName();
+        _builder_4.append(_name_4, "");
+        _builder_4.append(".java");
+        CharSequence _compileServerComponent_1 = this.compileServerComponent(sc);
+        fsa.generateFile(_builder_4.toString(), _compileServerComponent_1);
+      }
+      this.resetData();
     }
-    EList<EObject> _concepts_1 = model.getConcepts();
-    Iterable<ServerComponent> _filter_2 = Iterables.<ServerComponent>filter(_concepts_1, ServerComponent.class);
-    for (final ServerComponent c_1 : _filter_2) {
-      StringConcatenation _builder_3 = new StringConcatenation();
-      _builder_3.append(this.serverComponentsPackage, "");
-      _builder_3.append("/");
-      String _name_3 = c_1.getName();
-      _builder_3.append(_name_3, "");
-      _builder_3.append(".java");
-      CharSequence _compileServerComponent = this.compileServerComponent(c_1);
-      fsa.generateFile(_builder_3.toString(), _compileServerComponent);
-    }
-    Collection<ServerComponent> _values = this.newServerComponentsMap.values();
-    for (final ServerComponent sc : _values) {
-      StringConcatenation _builder_4 = new StringConcatenation();
-      _builder_4.append(this.serverComponentsPackage, "");
-      _builder_4.append("/");
-      String _name_4 = sc.getName();
-      _builder_4.append(_name_4, "");
-      _builder_4.append(".java");
-      CharSequence _compileServerComponent_1 = this.compileServerComponent(sc);
-      fsa.generateFile(_builder_4.toString(), _compileServerComponent_1);
-    }
-    this.resetData();
   }
   
   public void resetData() {
@@ -1311,59 +1323,238 @@ public class UIDSLGenerator extends AbstractGenerator {
   public CharSequence compileDefaultComponent(final DefaultComponent c) {
     CharSequence _xblockexpression = null;
     {
-      final UIComponent comp = this.genUtil.getUIComponentForDefaultComponent(c);
-      CharSequence _switchResult = null;
-      String _name = comp.getName();
-      switch (_name) {
-        case UIComponents.LIST:
-          _switchResult = this.generateDefaultList(c);
-          break;
-        case UIComponents.TEXT_COMP:
-          _switchResult = this.generateDefaultTextComp(c);
-          break;
-        case UIComponents.TEXT_FIELD:
-          _switchResult = this.generateDefaultTextField(c);
-          break;
-        case UIComponents.TEXT_AREA:
-          _switchResult = this.generateDefaultTextArea(c);
-          break;
-        case UIComponents.PASSWORD_FIELD:
-          _switchResult = this.generateDefaultPasswordField(c);
-          break;
-        case UIComponents.COMBO_BOX:
-          _switchResult = this.generateDefaultComboBox(c);
-          break;
-        case UIComponents.RADIO_SELECTION:
-          _switchResult = this.generateDefaultRadioSelection(c);
-          break;
-        case UIComponents.BOOL_CHECKBOX:
-          _switchResult = this.generateDefaultBoolCheckBox(c);
-          break;
-        case UIComponents.MULTI_SELECT_CHECKBOX:
-          _switchResult = this.generateDefaultMultiSelectCheckbox(c);
-          break;
-        case UIComponents.LINK:
-          _switchResult = this.generateDefaultLink(c);
-          break;
-        case UIComponents.TABLE:
-          _switchResult = this.generateDefaultTable(c);
-          break;
-        case UIComponents.INPUT_DATE:
-          _switchResult = this.generateDefaultInputDate(c);
-          break;
-        case UIComponents.FILE_UPLOAD:
-          _switchResult = this.generateDefaultFileUpload(c);
-          break;
-        case UIComponents.IMAGE_COMPONENT:
-          _switchResult = this.generateDefaultImageComponent(c);
-          break;
-        case UIComponents.LABEL:
-          _switchResult = this.generateDefaultLabel(c);
-          break;
+      Expression _value = c.getValue();
+      AttributeType _type = this._typeComputing.getType(_value);
+      final CustomDefaultComponentDefinition customDefault = this._uIDSLUtil.getCustomDefaultComponentForType(c, _type, (c instanceof InputUIComponent));
+      CharSequence _xifexpression = null;
+      boolean _notEquals = (!Objects.equal(customDefault, null));
+      if (_notEquals) {
+        _xifexpression = this.compileCustomDefaultComponent(customDefault, c);
+      } else {
+        CharSequence _xblockexpression_1 = null;
+        {
+          final UIComponent comp = this.genUtil.getUIComponentForDefaultComponent(c);
+          CharSequence _switchResult = null;
+          String _name = comp.getName();
+          switch (_name) {
+            case UIComponents.LIST:
+              _switchResult = this.generateDefaultList(c);
+              break;
+            case UIComponents.TEXT_COMP:
+              _switchResult = this.generateDefaultTextComp(c);
+              break;
+            case UIComponents.TEXT_FIELD:
+              _switchResult = this.generateDefaultTextField(c);
+              break;
+            case UIComponents.TEXT_AREA:
+              _switchResult = this.generateDefaultTextArea(c);
+              break;
+            case UIComponents.PASSWORD_FIELD:
+              _switchResult = this.generateDefaultPasswordField(c);
+              break;
+            case UIComponents.COMBO_BOX:
+              _switchResult = this.generateDefaultComboBox(c);
+              break;
+            case UIComponents.RADIO_SELECTION:
+              _switchResult = this.generateDefaultRadioSelection(c);
+              break;
+            case UIComponents.BOOL_CHECKBOX:
+              _switchResult = this.generateDefaultBoolCheckBox(c);
+              break;
+            case UIComponents.MULTI_SELECT_CHECKBOX:
+              _switchResult = this.generateDefaultMultiSelectCheckbox(c);
+              break;
+            case UIComponents.LINK:
+              _switchResult = this.generateDefaultLink(c);
+              break;
+            case UIComponents.TABLE:
+              _switchResult = this.generateDefaultTable(c);
+              break;
+            case UIComponents.INPUT_DATE:
+              _switchResult = this.generateDefaultInputDate(c);
+              break;
+            case UIComponents.FILE_UPLOAD:
+              _switchResult = this.generateDefaultFileUpload(c);
+              break;
+            case UIComponents.IMAGE_COMPONENT:
+              _switchResult = this.generateDefaultImageComponent(c);
+              break;
+            case UIComponents.LABEL:
+              _switchResult = this.generateDefaultLabel(c);
+              break;
+          }
+          _xblockexpression_1 = _switchResult;
+        }
+        _xifexpression = _xblockexpression_1;
       }
-      _xblockexpression = _switchResult;
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
+  }
+  
+  public CharSequence compileCustomDefaultComponent(final CustomDefaultComponentDefinition customDefault, final DefaultComponent dc) {
+    CharSequence _xblockexpression = null;
+    {
+      final UIDSLFactory factory = UIDSLFactory.eINSTANCE;
+      final DomainModelFactory dmFactory = DomainModelFactory.eINSTANCE;
+      final UIContainer cont = EcoreUtil2.<UIContainer>getContainerOfType(dc, UIContainer.class);
+      final Map<Variable, Expression> expressionsToRewriteMap = CollectionLiterals.<Variable, Expression>newHashMap();
+      final CustomDefaultComponentDefinition copy = EcoreUtil.<CustomDefaultComponentDefinition>copy(customDefault);
+      final List<InlineVariable> inlineVars = EcoreUtil2.<InlineVariable>getAllContentsOfType(copy, InlineVariable.class);
+      for (final InlineVariable iv : inlineVars) {
+        String _name = iv.getName();
+        String _plus = ("_" + _name);
+        iv.setName(_plus);
+      }
+      final EList<Variable> implicits = copy.getImplicits();
+      boolean _isEmpty = implicits.isEmpty();
+      boolean _not = (!_isEmpty);
+      if (_not) {
+        EList<Variable> _serverComponents = cont.getServerComponents();
+        Variable _head = null;
+        if (_serverComponents!=null) {
+          _head=IterableExtensions.<Variable>head(_serverComponents);
+        }
+        Variable mainSCVar = _head;
+        boolean _equals = Objects.equal(mainSCVar, null);
+        if (_equals) {
+          final ServerComponent mainSC = this.getContainerMainServerComponent(cont);
+          RefType _createRefType = dmFactory.createRefType();
+          final Procedure1<RefType> _function = (RefType it) -> {
+            it.setReference(mainSC);
+          };
+          final RefType refType = ObjectExtensions.<RefType>operator_doubleArrow(_createRefType, _function);
+          Variable _createVariable = factory.createVariable();
+          final Procedure1<Variable> _function_1 = (Variable it) -> {
+            it.setType(refType);
+            String _name_1 = mainSC.getName();
+            String _firstLower = StringExtensions.toFirstLower(_name_1);
+            it.setName(_firstLower);
+          };
+          Variable _doubleArrow = ObjectExtensions.<Variable>operator_doubleArrow(_createVariable, _function_1);
+          mainSCVar = _doubleArrow;
+        }
+        final Variable scVar = mainSCVar;
+        VariableReference _createVariableReference = factory.createVariableReference();
+        final Procedure1<VariableReference> _function_2 = (VariableReference it) -> {
+          it.setRef(scVar);
+        };
+        final VariableReference scRef = ObjectExtensions.<VariableReference>operator_doubleArrow(_createVariableReference, _function_2);
+        for (final Variable implicit : implicits) {
+          {
+            AttributeType _type = scVar.getType();
+            Concept _reference = ((RefType) _type).getReference();
+            String _name_1 = implicit.getName();
+            final String uniqueName = this.generateUniqueField(((ServerComponent) _reference), _name_1);
+            AttributeType _type_1 = implicit.getType();
+            final AttributeType fieldType = EcoreUtil.<AttributeType>copy(_type_1);
+            final Field fld = this.addFieldToServerComponent(cont, uniqueName, fieldType);
+            MemberSelectionExpression _createMemberSelectionExpression = factory.createMemberSelectionExpression();
+            final Procedure1<MemberSelectionExpression> _function_3 = (MemberSelectionExpression it) -> {
+              it.setReceiver(scRef);
+              it.setMember(fld);
+            };
+            final MemberSelectionExpression expr = ObjectExtensions.<MemberSelectionExpression>operator_doubleArrow(_createMemberSelectionExpression, _function_3);
+            expressionsToRewriteMap.put(implicit, expr);
+          }
+        }
+      }
+      Variable _type = copy.getType();
+      Expression _value = dc.getValue();
+      expressionsToRewriteMap.put(_type, _value);
+      this.rewriteExpressions(copy, expressionsToRewriteMap);
+      StringConcatenation _builder = new StringConcatenation();
+      {
+        EList<UIElement> _elements = copy.getElements();
+        for(final UIElement el : _elements) {
+          CharSequence _compileUIElement = this.compileUIElement(el);
+          _builder.append(_compileUIElement, "");
+          _builder.newLineIfNotEmpty();
+        }
+      }
+      _xblockexpression = _builder;
+    }
+    return _xblockexpression;
+  }
+  
+  public void rewriteExpressions(final CustomDefaultComponentDefinition customDef, final Map<Variable, Expression> rewriteMap) {
+    EList<UIElement> _elements = customDef.getElements();
+    for (final UIElement el : _elements) {
+      this.rewriteExpressions(el, rewriteMap);
+    }
+  }
+  
+  public void rewriteExpressions(final UIElement el, final Map<Variable, Expression> rewriteMap) {
+    boolean _matched = false;
+    if (el instanceof UIComponentInstance) {
+      _matched=true;
+      EList<PropertyValueInstance> _properties = ((UIComponentInstance)el).getProperties();
+      final Function1<PropertyValueInstance, Expression> _function = (PropertyValueInstance it) -> {
+        return it.getValue();
+      };
+      final List<Expression> exprs = ListExtensions.<PropertyValueInstance, Expression>map(_properties, _function);
+      for (final Expression e : exprs) {
+        this.replaceExpression(e, rewriteMap);
+      }
+      EList<Component> _childElements = ((UIComponentInstance)el).getChildElements();
+      for (final Component child : _childElements) {
+        this.rewriteExpressions(child, rewriteMap);
+      }
+    }
+    if (!_matched) {
+      if (el instanceof DefaultComponent) {
+        _matched=true;
+        Expression _value = ((DefaultComponent)el).getValue();
+        this.replaceExpression(_value, rewriteMap);
+      }
+    }
+    if (!_matched) {
+      if (el instanceof FragmentCall) {
+        _matched=true;
+        EList<Expression> _params = ((FragmentCall)el).getParams();
+        for (final Expression e : _params) {
+          this.replaceExpression(e, rewriteMap);
+        }
+      }
+    }
+    if (!_matched) {
+      if (el instanceof IFStatement) {
+        _matched=true;
+        Expression _expression = ((IFStatement)el).getExpression();
+        this.replaceExpression(_expression, rewriteMap);
+        EList<UIElement> _elements = ((IFStatement)el).getElements();
+        for (final UIElement e : _elements) {
+          this.rewriteExpressions(e, rewriteMap);
+        }
+      }
+    }
+    if (!_matched) {
+      if (el instanceof Iterator) {
+        _matched=true;
+        IterationExpression _expression = ((Iterator)el).getExpression();
+        this.replaceExpression(_expression, rewriteMap);
+        EList<UIElement> _elements = ((Iterator)el).getElements();
+        for (final UIElement e : _elements) {
+          this.rewriteExpressions(e, rewriteMap);
+        }
+      }
+    }
+  }
+  
+  public void replaceExpression(final Expression e, final Map<Variable, Expression> rewriteMap) {
+    final VariableReference refVar = this._uIDSLUtil.getReferencedVariableFromExpression(e);
+    boolean _notEquals = (!Objects.equal(refVar, null));
+    if (_notEquals) {
+      Variable _ref = refVar.getRef();
+      final Expression rewriteExpr = rewriteMap.get(_ref);
+      boolean _notEquals_1 = (!Objects.equal(rewriteExpr, null));
+      if (_notEquals_1) {
+        final EObject cont = refVar.eContainer();
+        final EStructuralFeature feature = refVar.eContainingFeature();
+        Expression _copy = EcoreUtil.<Expression>copy(rewriteExpr);
+        cont.eSet(feature, _copy);
+      }
+    }
   }
   
   public CharSequence compileUIComponent(final UIComponentInstance compInstance) {
@@ -2433,14 +2624,14 @@ public class UIDSLGenerator extends AbstractGenerator {
     final SingleType type = ((CollectionType) _type).getOfType();
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
-    _builder.append("<ui:repeat var=\"v\" value=\"");
+    _builder.append("<ui:repeat var=\"_v\" value=\"");
     String _compileExpression = this.compileExpression(value, true, false);
     _builder.append(_compileExpression, "\t");
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
     _builder.append("<li>#{");
-    String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(type, "v");
+    String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(type, "_v");
     _builder.append(_defaultRepresentationAttribute, "\t\t");
     _builder.append("}</li>");
     _builder.newLineIfNotEmpty();
@@ -2581,7 +2772,7 @@ public class UIDSLGenerator extends AbstractGenerator {
     _builder.append("<table>");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("<ui:repeat var=\"v\" value=\"");
+    _builder.append("<ui:repeat var=\"_v\" value=\"");
     String _compileExpression = this.compileExpression(value, true, false);
     _builder.append(_compileExpression, "\t");
     _builder.append("\">");
@@ -2591,7 +2782,7 @@ public class UIDSLGenerator extends AbstractGenerator {
     _builder.newLine();
     {
       SingleType _ofType = type.getOfType();
-      ArrayList<String> _defaultColumnsForAttributeType = this.getDefaultColumnsForAttributeType(_ofType, "v");
+      ArrayList<String> _defaultColumnsForAttributeType = this.getDefaultColumnsForAttributeType(_ofType, "_v");
       for(final String col : _defaultColumnsForAttributeType) {
         _builder.append("\t\t\t");
         _builder.append("<td>#{");
@@ -2704,7 +2895,7 @@ public class UIDSLGenerator extends AbstractGenerator {
     String _variableOrMemberName = this.getVariableOrMemberName(_value);
     final String selectFromName = this.getUniqueFieldNameForCollectionType(cont, _variableOrMemberName);
     _builder.newLineIfNotEmpty();
-    this.addFieldToServerComponent(cont, selectFromName, type);
+    final Field fld = this.addFieldToServerComponent(cont, selectFromName, type);
     _builder.newLineIfNotEmpty();
     final String scRefName = this.getMainBeanRefName(cont);
     _builder.newLineIfNotEmpty();
@@ -2718,14 +2909,14 @@ public class UIDSLGenerator extends AbstractGenerator {
     _builder.append(scRefName, "    ");
     _builder.append(".");
     _builder.append(selectFromName, "    ");
-    _builder.append("}\" var=\"v\"");
+    _builder.append("}\" var=\"_v\"");
     _builder.newLineIfNotEmpty();
     _builder.append("   \t\t");
     _builder.append("itemLabel=\"#{");
     SingleType _ofType = type.getOfType();
-    String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(_ofType, "v");
+    String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(_ofType, "_v");
     _builder.append(_defaultRepresentationAttribute, "   \t\t");
-    _builder.append("}\" itemValue=\"#{v}\" />");
+    _builder.append("}\" itemValue=\"#{_v}\" />");
     _builder.newLineIfNotEmpty();
     _builder.append("</h:selectManyCheckbox>\t\t");
     _builder.newLine();
@@ -2783,7 +2974,7 @@ public class UIDSLGenerator extends AbstractGenerator {
     };
     final CollectionType selectFromType = ObjectExtensions.<CollectionType>operator_doubleArrow(_createCollectionType, _function);
     _builder.newLineIfNotEmpty();
-    this.addFieldToServerComponent(cont, selectFromName, selectFromType);
+    final Field fld = this.addFieldToServerComponent(cont, selectFromName, selectFromType);
     _builder.newLineIfNotEmpty();
     final String scRefName = this.getMainBeanRefName(cont);
     _builder.newLineIfNotEmpty();
@@ -2797,13 +2988,13 @@ public class UIDSLGenerator extends AbstractGenerator {
     _builder.append(scRefName, "\t");
     _builder.append(".");
     _builder.append(selectFromName, "\t");
-    _builder.append("\" var=\"v\"");
+    _builder.append("\" var=\"_v\"");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
     _builder.append("itemLabel=\"");
-    String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(type, "v");
+    String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(type, "_v");
     _builder.append(_defaultRepresentationAttribute, "\t\t");
-    _builder.append("\" itemValue=\"#{v}\" />");
+    _builder.append("\" itemValue=\"#{_v}\" />");
     _builder.newLineIfNotEmpty();
     _builder.append("</h:selectOneRadio>\t\t");
     _builder.newLine();
@@ -2845,7 +3036,7 @@ public class UIDSLGenerator extends AbstractGenerator {
     };
     final CollectionType selectFromType = ObjectExtensions.<CollectionType>operator_doubleArrow(_createCollectionType, _function);
     _builder.newLineIfNotEmpty();
-    this.addFieldToServerComponent(cont, selectFromName, selectFromType);
+    final Field fld = this.addFieldToServerComponent(cont, selectFromName, selectFromType);
     _builder.newLineIfNotEmpty();
     final String scRefName = this.getMainBeanRefName(cont);
     _builder.newLineIfNotEmpty();
@@ -2859,13 +3050,13 @@ public class UIDSLGenerator extends AbstractGenerator {
     _builder.append(scRefName, "\t");
     _builder.append(".");
     _builder.append(selectFromName, "\t");
-    _builder.append("}\" var=\"v\"");
+    _builder.append("}\" var=\"_v\"");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
     _builder.append("itemLabel=\"#{");
-    String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(type, "v");
+    String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(type, "_v");
     _builder.append(_defaultRepresentationAttribute, "\t\t");
-    _builder.append("}\" itemValue=\"#{v}\" />");
+    _builder.append("}\" itemValue=\"#{_v}\" />");
     _builder.newLineIfNotEmpty();
     _builder.append("</h:selectOneMenu>");
     _builder.newLine();
@@ -2883,25 +3074,30 @@ public class UIDSLGenerator extends AbstractGenerator {
     return _builder;
   }
   
-  public void addFieldToServerComponent(final UIContainer cont, final String fieldName, final AttributeType fieldType) {
-    final UIDSLFactory factory = UIDSLFactory.eINSTANCE;
-    final ServerComponent sc = this.getContainerMainServerComponent(cont);
-    Field _createField = factory.createField();
-    final Procedure1<Field> _function = (Field it) -> {
-      it.setName(fieldName);
-      AttributeType _copy = EcoreUtil.<AttributeType>copy(fieldType);
-      it.setType(_copy);
-    };
-    final Field field = ObjectExtensions.<Field>operator_doubleArrow(_createField, _function);
-    Resource _eResource = sc.eResource();
-    boolean _equals = Objects.equal(_eResource, null);
-    if (_equals) {
-      EList<Member> _members = sc.getMembers();
-      _members.add(field);
-    } else {
-      String _name = sc.getName();
-      this.serverComponentNewFieldsMap.put(_name, field);
+  public Field addFieldToServerComponent(final UIContainer cont, final String fieldName, final AttributeType fieldType) {
+    Field _xblockexpression = null;
+    {
+      final UIDSLFactory factory = UIDSLFactory.eINSTANCE;
+      final ServerComponent sc = this.getContainerMainServerComponent(cont);
+      Field _createField = factory.createField();
+      final Procedure1<Field> _function = (Field it) -> {
+        it.setName(fieldName);
+        AttributeType _copy = EcoreUtil.<AttributeType>copy(fieldType);
+        it.setType(_copy);
+      };
+      final Field field = ObjectExtensions.<Field>operator_doubleArrow(_createField, _function);
+      Resource _eResource = sc.eResource();
+      boolean _equals = Objects.equal(_eResource, null);
+      if (_equals) {
+        EList<Member> _members = sc.getMembers();
+        _members.add(field);
+      } else {
+        String _name = sc.getName();
+        this.serverComponentNewFieldsMap.put(_name, field);
+      }
+      _xblockexpression = field;
     }
+    return _xblockexpression;
   }
   
   public String getUniqueFieldNameForCollectionType(final UIContainer cont, final String base) {
@@ -2915,10 +3111,37 @@ public class UIDSLGenerator extends AbstractGenerator {
   }
   
   public String generateUniqueField(final ServerComponent sc, final String name) {
-    return this.generateUniqueField(sc, name, 0);
+    String _xblockexpression = null;
+    {
+      Iterable<Field> _fields = this._uIDSLUtil.getFields(sc);
+      final Function1<Field, String> _function = (Field f) -> {
+        return f.getName();
+      };
+      final Iterable<String> fields = IterableExtensions.<Field, String>map(_fields, _function);
+      String _name = sc.getName();
+      final Set<Field> fieldsFromMap = this.serverComponentNewFieldsMap.get(_name);
+      Iterable<String> fieldNamesMap = CollectionLiterals.<String>newArrayList();
+      boolean _notEquals = (!Objects.equal(fieldsFromMap, null));
+      if (_notEquals) {
+        final Function1<Field, String> _function_1 = (Field f) -> {
+          return f.getName();
+        };
+        Iterable<String> _map = IterableExtensions.<Field, String>map(fieldsFromMap, _function_1);
+        Iterable<String> _plus = Iterables.<String>concat(fields, _map);
+        fieldNamesMap = _plus;
+      } else {
+        fieldNamesMap = fields;
+      }
+      _xblockexpression = this.getUniqueFieldNameInCurrentContext(fieldNamesMap, name);
+    }
+    return _xblockexpression;
   }
   
-  public String generateUniqueField(final ServerComponent sc, final String name, final int counter) {
+  public String getUniqueFieldNameInCurrentContext(final Iterable<String> names, final String name) {
+    return this.getUniqueFieldNameInCurrentContext(names, name, 0);
+  }
+  
+  public String getUniqueFieldNameInCurrentContext(final Iterable<String> names, final String name, final int counter) {
     String _xblockexpression = null;
     {
       String _xifexpression = null;
@@ -2928,13 +3151,11 @@ public class UIDSLGenerator extends AbstractGenerator {
         _xifexpression = (name + Integer.valueOf(counter));
       }
       String currName = _xifexpression;
-      Iterable<Field> _fields = this._uIDSLUtil.getFields(sc);
-      for (final Field f : _fields) {
-        String _name = f.getName();
-        boolean _equals = Objects.equal(_name, currName);
+      for (final String n : names) {
+        boolean _equals = Objects.equal(n, currName);
         if (_equals) {
           int newCounter = (counter + 1);
-          return this.generateUniqueField(sc, name, newCounter);
+          return this.getUniqueFieldNameInCurrentContext(names, name, newCounter);
         }
       }
       _xblockexpression = currName;

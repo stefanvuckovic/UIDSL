@@ -285,6 +285,24 @@ public interface UIDSLFactory extends EFactory
   Component createComponent();
 
   /**
+   * Returns a new object of class '<em>Custom Default Components Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Custom Default Components Definition</em>'.
+   * @generated
+   */
+  CustomDefaultComponentsDefinition createCustomDefaultComponentsDefinition();
+
+  /**
+   * Returns a new object of class '<em>Custom Default Component Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Custom Default Component Definition</em>'.
+   * @generated
+   */
+  CustomDefaultComponentDefinition createCustomDefaultComponentDefinition();
+
+  /**
    * Returns a new object of class '<em>Server Component</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

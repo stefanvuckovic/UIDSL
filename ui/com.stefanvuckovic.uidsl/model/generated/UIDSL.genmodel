@@ -95,6 +95,16 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//DefaultComponent/value"/>
     </genClasses>
     <genClasses ecoreClass="UIDSL.ecore#//Component"/>
+    <genClasses ecoreClass="UIDSL.ecore#//CustomDefaultComponentsDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UIDSL.ecore#//CustomDefaultComponentsDefinition/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//CustomDefaultComponentsDefinition/defaults"/>
+    </genClasses>
+    <genClasses ecoreClass="UIDSL.ecore#//CustomDefaultComponentDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UIDSL.ecore#//CustomDefaultComponentDefinition/compType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//CustomDefaultComponentDefinition/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//CustomDefaultComponentDefinition/implicits"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//CustomDefaultComponentDefinition/elements"/>
+    </genClasses>
     <genClasses ecoreClass="UIDSL.ecore#//ServerComponent">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UIDSL.ecore#//ServerComponent/members"/>
     </genClasses>

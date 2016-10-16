@@ -13,6 +13,8 @@ import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent;
 import com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType;
 import com.stefanvuckovic.uidsl.uIDSL.Component;
 import com.stefanvuckovic.uidsl.uIDSL.CustomAllowedComponents;
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition;
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition;
 import com.stefanvuckovic.uidsl.uIDSL.DefaultComponent;
 import com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig;
 import com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations;
@@ -274,6 +276,20 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
    * @generated
    */
   private EClass componentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass customDefaultComponentsDefinitionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass customDefaultComponentDefinitionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1166,6 +1182,86 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getCustomDefaultComponentsDefinition()
+  {
+    return customDefaultComponentsDefinitionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCustomDefaultComponentsDefinition_Name()
+  {
+    return (EAttribute)customDefaultComponentsDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCustomDefaultComponentsDefinition_Defaults()
+  {
+    return (EReference)customDefaultComponentsDefinitionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCustomDefaultComponentDefinition()
+  {
+    return customDefaultComponentDefinitionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCustomDefaultComponentDefinition_CompType()
+  {
+    return (EAttribute)customDefaultComponentDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCustomDefaultComponentDefinition_Type()
+  {
+    return (EReference)customDefaultComponentDefinitionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCustomDefaultComponentDefinition_Implicits()
+  {
+    return (EReference)customDefaultComponentDefinitionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCustomDefaultComponentDefinition_Elements()
+  {
+    return (EReference)customDefaultComponentDefinitionEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getServerComponent()
   {
     return serverComponentEClass;
@@ -1648,6 +1744,16 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
 
     componentEClass = createEClass(COMPONENT);
 
+    customDefaultComponentsDefinitionEClass = createEClass(CUSTOM_DEFAULT_COMPONENTS_DEFINITION);
+    createEAttribute(customDefaultComponentsDefinitionEClass, CUSTOM_DEFAULT_COMPONENTS_DEFINITION__NAME);
+    createEReference(customDefaultComponentsDefinitionEClass, CUSTOM_DEFAULT_COMPONENTS_DEFINITION__DEFAULTS);
+
+    customDefaultComponentDefinitionEClass = createEClass(CUSTOM_DEFAULT_COMPONENT_DEFINITION);
+    createEAttribute(customDefaultComponentDefinitionEClass, CUSTOM_DEFAULT_COMPONENT_DEFINITION__COMP_TYPE);
+    createEReference(customDefaultComponentDefinitionEClass, CUSTOM_DEFAULT_COMPONENT_DEFINITION__TYPE);
+    createEReference(customDefaultComponentDefinitionEClass, CUSTOM_DEFAULT_COMPONENT_DEFINITION__IMPLICITS);
+    createEReference(customDefaultComponentDefinitionEClass, CUSTOM_DEFAULT_COMPONENT_DEFINITION__ELEMENTS);
+
     serverComponentEClass = createEClass(SERVER_COMPONENT);
     createEReference(serverComponentEClass, SERVER_COMPONENT__MEMBERS);
 
@@ -1872,6 +1978,16 @@ public class UIDSLPackageImpl extends EPackageImpl implements UIDSLPackage
     initEReference(getDefaultComponent_Value(), theDomainModelPackage.getExpression(), null, "value", null, 0, 1, DefaultComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(customDefaultComponentsDefinitionEClass, CustomDefaultComponentsDefinition.class, "CustomDefaultComponentsDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getCustomDefaultComponentsDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, CustomDefaultComponentsDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCustomDefaultComponentsDefinition_Defaults(), this.getCustomDefaultComponentDefinition(), null, "defaults", null, 0, -1, CustomDefaultComponentsDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(customDefaultComponentDefinitionEClass, CustomDefaultComponentDefinition.class, "CustomDefaultComponentDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getCustomDefaultComponentDefinition_CompType(), ecorePackage.getEString(), "compType", null, 0, 1, CustomDefaultComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCustomDefaultComponentDefinition_Type(), this.getVariable(), null, "type", null, 0, 1, CustomDefaultComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCustomDefaultComponentDefinition_Implicits(), this.getVariable(), null, "implicits", null, 0, -1, CustomDefaultComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCustomDefaultComponentDefinition_Elements(), this.getUIElement(), null, "elements", null, 0, -1, CustomDefaultComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(serverComponentEClass, ServerComponent.class, "ServerComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getServerComponent_Members(), this.getMember(), null, "members", null, 0, -1, ServerComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

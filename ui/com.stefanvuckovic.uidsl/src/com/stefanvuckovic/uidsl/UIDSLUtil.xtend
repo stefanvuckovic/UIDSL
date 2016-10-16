@@ -17,10 +17,20 @@ import com.stefanvuckovic.uidsl.uIDSL.UIComponent
 import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance
 import javax.inject.Inject
 import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent
+import org.eclipse.emf.ecore.EObject
+import com.stefanvuckovic.uidsl.scoping.CustomIndex
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition
+import com.stefanvuckovic.uidsl.types.TypeConformance
+import com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression
+import com.stefanvuckovic.uidsl.uIDSL.VariableReference
+import com.stefanvuckovic.domainmodel.domainModel.Expression
+import com.stefanvuckovic.uidsl.uIDSL.IterationExpression
 
 class UIDSLUtil {
 	
 	@Inject DTOUtil dtoUtil
+	@Inject extension CustomIndex
+	@Inject extension TypeConformance
 	
 	def getFields(ServerComponent sc) {
 		sc.members.filter(Field)
@@ -90,6 +100,45 @@ class UIDSLUtil {
 		val cont = inst.component.eContainer
 		cont instanceof ChildUIComponent && cont.eContainer instanceof UIComponent &&
 			(cont.eContainer as UIComponent).name == name
+	}
+	
+	def getCustomDefaultComponents(EObject ctx) {
+		val customDefaults = ctx.visibleCustomComponentDefaults
+		if(customDefaults.size == 1) {
+			val custom = customDefaults.head
+			var customDef = custom.EObjectOrProxy
+			if(customDef.eIsProxy) {
+				customDef = ctx.eResource.resourceSet.getEObject(custom.EObjectURI, true)
+			}
+			(customDef as CustomDefaultComponentsDefinition).defaults
+		}
+	}
+	
+	def getCustomDefaultComponentForType(EObject ctx, AttributeType type, boolean input) {
+		val compType = if(input) "input" else "output"
+		ctx.customDefaultComponents.findFirst[c | areTypesSame(type, c.type.type) && c.compType == compType]
+	}
+	
+	def VariableReference getReferencedVariableFromExpression(Expression e) {
+		switch(e) {
+			VariableReference:
+				e
+			MemberSelectionExpression:
+				e.firstReceiver
+			IterationExpression:
+				e.expression.referencedVariableFromExpression
+			default:
+				null
+		}
+	}  
+	
+	def VariableReference getFirstReceiver(MemberSelectionExpression e) {
+		val rec = e.receiver
+		if(rec instanceof VariableReference) {
+			return rec
+		} else {
+			return getFirstReceiver(rec as MemberSelectionExpression)
+		}
 	}
 	
 }

@@ -5,7 +5,7 @@ import "http://www.stefanvuckovic.com/domainmodel/DomainModel" as domainModel
 
 
 UIModel:
-	concepts+=(ServerComponent | UIContainer | UIComponent | DefaultConfigurations)*
+	concepts+=(ServerComponent | UIContainer | UIComponent | DefaultConfigurations | CustomDefaultComponentsDefinition)*
 ;
 	
 //UIConcept:
@@ -233,7 +233,7 @@ PropertySingleRuntimeType:
 
 DefaultConfigurations :
 	'defaults' name=ID '{'
-		defaults+=DefaultComponentConfig+
+		defaults+=DefaultComponentConfig*
 	'}'
 ;
 
@@ -252,4 +252,16 @@ DefaultUIComponent returns DefaultComponent:
 Component: 
 	UIComponentInstance |
 	DefaultUIComponent
+;
+
+CustomDefaultComponentsDefinition:
+	'custom' 'defaults' name=ID '{'
+		defaults+=CustomDefaultComponentDefinition+		
+	'}'
+;
+
+CustomDefaultComponentDefinition:
+	'define' compType=('input'|'output') '(' type=Variable ')' ('implicit_variables' implicits+=Variable (',' implicits+=Variable)*)? '{'
+		elements+=UIElement*
+	'}'
 ;

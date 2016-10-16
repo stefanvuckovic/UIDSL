@@ -94,6 +94,8 @@ public class UIDSLFactoryImpl extends EFactoryImpl implements UIDSLFactory
       case UIDSLPackage.DEFAULT_COMPONENT_CONFIG: return createDefaultComponentConfig();
       case UIDSLPackage.DEFAULT_COMPONENT: return createDefaultComponent();
       case UIDSLPackage.COMPONENT: return createComponent();
+      case UIDSLPackage.CUSTOM_DEFAULT_COMPONENTS_DEFINITION: return createCustomDefaultComponentsDefinition();
+      case UIDSLPackage.CUSTOM_DEFAULT_COMPONENT_DEFINITION: return createCustomDefaultComponentDefinition();
       case UIDSLPackage.SERVER_COMPONENT: return createServerComponent();
       case UIDSLPackage.INLINE_VARIABLE: return createInlineVariable();
       case UIDSLPackage.EXISTING_NESTED_COMPONENTS: return createExistingNestedComponents();
@@ -436,6 +438,28 @@ public class UIDSLFactoryImpl extends EFactoryImpl implements UIDSLFactory
   {
     ComponentImpl component = new ComponentImpl();
     return component;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CustomDefaultComponentsDefinition createCustomDefaultComponentsDefinition()
+  {
+    CustomDefaultComponentsDefinitionImpl customDefaultComponentsDefinition = new CustomDefaultComponentsDefinitionImpl();
+    return customDefaultComponentsDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CustomDefaultComponentDefinition createCustomDefaultComponentDefinition()
+  {
+    CustomDefaultComponentDefinitionImpl customDefaultComponentDefinition = new CustomDefaultComponentDefinitionImpl();
+    return customDefaultComponentDefinition;
   }
 
   /**

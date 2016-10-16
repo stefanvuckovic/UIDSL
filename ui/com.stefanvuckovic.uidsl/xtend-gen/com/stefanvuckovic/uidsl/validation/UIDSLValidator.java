@@ -13,6 +13,7 @@ import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.RefType;
 import com.stefanvuckovic.domainmodel.domainModel.SelectionMember;
+import com.stefanvuckovic.domainmodel.domainModel.SingleType;
 import com.stefanvuckovic.dto.dTO.DTOClass;
 import com.stefanvuckovic.uidsl.LibraryConstants;
 import com.stefanvuckovic.uidsl.UIComponents;
@@ -24,6 +25,8 @@ import com.stefanvuckovic.uidsl.uIDSL.AllAllowedComponents;
 import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent;
 import com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType;
 import com.stefanvuckovic.uidsl.uIDSL.Component;
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition;
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition;
 import com.stefanvuckovic.uidsl.uIDSL.DefaultComponent;
 import com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig;
 import com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations;
@@ -49,9 +52,11 @@ import com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride;
 import com.stefanvuckovic.uidsl.uIDSL.TypeExpression;
 import com.stefanvuckovic.uidsl.uIDSL.UIComponent;
 import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance;
+import com.stefanvuckovic.uidsl.uIDSL.UIContainer;
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage;
 import com.stefanvuckovic.uidsl.uIDSL.UIElement;
 import com.stefanvuckovic.uidsl.uIDSL.Variable;
+import com.stefanvuckovic.uidsl.uIDSL.VariableReference;
 import com.stefanvuckovic.uidsl.uIDSL.VoidType;
 import com.stefanvuckovic.uidsl.validation.AbstractUIDSLValidator;
 import java.util.LinkedHashSet;
@@ -65,6 +70,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
@@ -72,6 +78,7 @@ import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 /**
  * This class contains custom validation rules.
@@ -232,11 +239,20 @@ public class UIDSLValidator extends AbstractUIDSLValidator {
   }
   
   @Check
-  public void checkVoidType(final Field field) {
+  public void checkVoidTypeForField(final Field field) {
     AttributeType _type = field.getType();
     if ((_type instanceof VoidType)) {
       EReference _selectionMember_Type = DomainModelPackage.eINSTANCE.getSelectionMember_Type();
       this.error("Field cannot have void type", _selectionMember_Type);
+    }
+  }
+  
+  @Check
+  public void checkVoidTypeForVariable(final Variable v) {
+    AttributeType _type = v.getType();
+    if ((_type instanceof VoidType)) {
+      EReference _variable_Type = UIDSLPackage.eINSTANCE.getVariable_Type();
+      this.error("Variable cannot have void type", _variable_Type);
     }
   }
   
@@ -566,6 +582,108 @@ public class UIDSLValidator extends AbstractUIDSLValidator {
           this.error(_plus_1, _variable_Name);
         }
       }
+    }
+  }
+  
+  @Check
+  public void checkDefaultComponentDefinitionDuplicates(final CustomDefaultComponentDefinition c) {
+    final Variable type = c.getType();
+    boolean _notEquals = (!Objects.equal(type, null));
+    if (_notEquals) {
+      final String compType = c.getCompType();
+      boolean _notEquals_1 = (!Objects.equal(compType, null));
+      if (_notEquals_1) {
+        EObject _eContainer = c.eContainer();
+        final CustomDefaultComponentsDefinition cont = ((CustomDefaultComponentsDefinition) _eContainer);
+        EList<CustomDefaultComponentDefinition> _defaults = cont.getDefaults();
+        final Function1<CustomDefaultComponentDefinition, Boolean> _function = (CustomDefaultComponentDefinition dc) -> {
+          return Boolean.valueOf((((((dc != c) && (!Objects.equal(dc.getCompType(), null))) && Objects.equal(dc.getCompType(), compType)) && (!Objects.equal(dc.getType(), null))) && this._typeConformance.areTypesSame(dc.getType().getType(), type.getType())));
+        };
+        final CustomDefaultComponentDefinition dc = IterableExtensions.<CustomDefaultComponentDefinition>findFirst(_defaults, _function);
+        boolean _notEquals_2 = (!Objects.equal(dc, null));
+        if (_notEquals_2) {
+          AttributeType _type = type.getType();
+          String _typeToString = this._uIDSLUtil.typeToString(_type);
+          String _plus = ((("Duplicate " + compType) + " definition for type: ") + _typeToString);
+          EReference _customDefaultComponentDefinition_Type = UIDSLPackage.eINSTANCE.getCustomDefaultComponentDefinition_Type();
+          this.error(_plus, _customDefaultComponentDefinition_Type);
+        }
+      }
+    }
+  }
+  
+  @Check
+  public void checkCustomComponentDefaultsType(final Variable v) {
+    final EObject cont = v.eContainer();
+    final AttributeType type = v.getType();
+    AttributeType singleType = type;
+    if ((type instanceof CollectionType)) {
+      SingleType _ofType = ((CollectionType)type).getOfType();
+      singleType = _ofType;
+    }
+    if ((((cont instanceof CustomDefaultComponentDefinition) && (type instanceof RefType)) && (((RefType) type).getReference() instanceof ServerComponent))) {
+      EAttribute _variable_Name = UIDSLPackage.eINSTANCE.getVariable_Name();
+      this.error("ServerComponent variables are not allowed in this context", _variable_Name);
+    }
+  }
+  
+  @Check
+  public void checkThatOnlyOneCustomDefaultComponentDefinitionExists(final CustomDefaultComponentsDefinition c) {
+    Iterable<IEObjectDescription> _visibleCustomComponentDefaults = this._customIndex.getVisibleCustomComponentDefaults(c);
+    int _size = IterableExtensions.size(_visibleCustomComponentDefaults);
+    boolean _greaterThan = (_size > 1);
+    if (_greaterThan) {
+      EAttribute _customDefaultComponentsDefinition_Name = UIDSLPackage.eINSTANCE.getCustomDefaultComponentsDefinition_Name();
+      this.error("Custom default components definition can be specified only once", _customDefaultComponentsDefinition_Name);
+    }
+  }
+  
+  @Check
+  public void checkVariableNameStartsWithUnderscore(final Variable v) {
+    if (((!Objects.equal(v.getName(), null)) && v.getName().startsWith("_"))) {
+      EAttribute _variable_Name = UIDSLPackage.eINSTANCE.getVariable_Name();
+      this.error("Variable name cannot start with underscore", _variable_Name);
+    }
+  }
+  
+  @Check
+  public void checkVariableNameCollisionWithDefaultServerComponentName(final Variable v) {
+    final UIContainer cont = EcoreUtil2.<UIContainer>getContainerOfType(v, UIContainer.class);
+    if (((!Objects.equal(v.getName(), null)) && v.getName().startsWith(StringExtensions.toFirstLower(cont.getName())))) {
+      EAttribute _variable_Name = UIDSLPackage.eINSTANCE.getVariable_Name();
+      this.error("This name is reserved as a default server component name so it can\'t be used for variable name", _variable_Name);
+    }
+  }
+  
+  @Check
+  public void checkCustomDefaultComponentVariableRef(final MemberSelectionExpression e) {
+    final CustomDefaultComponentDefinition cont = EcoreUtil2.<CustomDefaultComponentDefinition>getContainerOfType(e, CustomDefaultComponentDefinition.class);
+    boolean _notEquals = (!Objects.equal(cont, null));
+    if (_notEquals) {
+      final Variable variable = cont.getType();
+      if (((e.getReceiver() instanceof VariableReference) && (((VariableReference) e.getReceiver()).getRef() == variable))) {
+        String _name = variable.getName();
+        String _plus = ("Value variable \'" + _name);
+        String _plus_1 = (_plus + "\' in custom default component definition can only be referenced, selection is not allowed");
+        EReference _memberSelectionExpression_Receiver = UIDSLPackage.eINSTANCE.getMemberSelectionExpression_Receiver();
+        this.error(_plus_1, _memberSelectionExpression_Receiver);
+      }
+    }
+  }
+  
+  @Check
+  public void checkCycleServerComponentReferences(final Field f) {
+    EObject _eContainer = f.eContainer();
+    final ServerComponent sc = ((ServerComponent) _eContainer);
+    final AttributeType type = f.getType();
+    AttributeType singleType = type;
+    if ((type instanceof CollectionType)) {
+      SingleType _ofType = ((CollectionType)type).getOfType();
+      singleType = _ofType;
+    }
+    if ((((!Objects.equal(singleType, null)) && (singleType instanceof RefType)) && (((RefType) singleType).getReference() == sc))) {
+      EAttribute _selectionMember_Name = DomainModelPackage.eINSTANCE.getSelectionMember_Name();
+      this.error("Self reference not allowed inside server component", _selectionMember_Name);
     }
   }
   

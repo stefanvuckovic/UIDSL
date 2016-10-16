@@ -259,7 +259,7 @@ public class TypeComputing {
       AttributeType _xifexpression = null;
       boolean _notEquals = (!Objects.equal(propValueInstance, null));
       if (_notEquals) {
-        Expression _value = propInstance.getValue();
+        Expression _value = propValueInstance.getValue();
         _xifexpression = this.getType(_value);
       }
       _xblockexpression = _xifexpression;

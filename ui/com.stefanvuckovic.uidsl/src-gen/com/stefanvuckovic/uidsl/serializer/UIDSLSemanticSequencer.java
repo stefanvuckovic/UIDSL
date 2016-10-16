@@ -45,6 +45,8 @@ import com.stefanvuckovic.uidsl.uIDSL.AnyType;
 import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent;
 import com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType;
 import com.stefanvuckovic.uidsl.uIDSL.CustomAllowedComponents;
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition;
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition;
 import com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig;
 import com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations;
 import com.stefanvuckovic.uidsl.uIDSL.EnumGeneralType;
@@ -223,6 +225,12 @@ public class UIDSLSemanticSequencer extends DTOSemanticSequencer {
 				return; 
 			case UIDSLPackage.CUSTOM_ALLOWED_COMPONENTS:
 				sequence_AllowedNestedComponents(context, (CustomAllowedComponents) semanticObject); 
+				return; 
+			case UIDSLPackage.CUSTOM_DEFAULT_COMPONENT_DEFINITION:
+				sequence_CustomDefaultComponentDefinition(context, (CustomDefaultComponentDefinition) semanticObject); 
+				return; 
+			case UIDSLPackage.CUSTOM_DEFAULT_COMPONENTS_DEFINITION:
+				sequence_CustomDefaultComponentsDefinition(context, (CustomDefaultComponentsDefinition) semanticObject); 
 				return; 
 			case UIDSLPackage.DEFAULT_COMPONENT_CONFIG:
 				sequence_DefaultComponentConfig(context, (DefaultComponentConfig) semanticObject); 
@@ -428,6 +436,30 @@ public class UIDSLSemanticSequencer extends DTOSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     CustomDefaultComponentDefinition returns CustomDefaultComponentDefinition
+	 *
+	 * Constraint:
+	 *     ((compType='input' | compType='output') type=Variable (implicits+=Variable implicits+=Variable*)? elements+=UIElement*)
+	 */
+	protected void sequence_CustomDefaultComponentDefinition(ISerializationContext context, CustomDefaultComponentDefinition semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     CustomDefaultComponentsDefinition returns CustomDefaultComponentsDefinition
+	 *
+	 * Constraint:
+	 *     (name=ID defaults+=CustomDefaultComponentDefinition+)
+	 */
+	protected void sequence_CustomDefaultComponentsDefinition(ISerializationContext context, CustomDefaultComponentsDefinition semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     DefaultComponentConfig returns DefaultComponentConfig
 	 *
 	 * Constraint:
@@ -443,7 +475,7 @@ public class UIDSLSemanticSequencer extends DTOSemanticSequencer {
 	 *     DefaultConfigurations returns DefaultConfigurations
 	 *
 	 * Constraint:
-	 *     (name=ID defaults+=DefaultComponentConfig+)
+	 *     (name=ID defaults+=DefaultComponentConfig*)
 	 */
 	protected void sequence_DefaultConfigurations(ISerializationContext context, DefaultConfigurations semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -921,7 +953,13 @@ public class UIDSLSemanticSequencer extends DTOSemanticSequencer {
 	 *     UIModel returns UIModel
 	 *
 	 * Constraint:
-	 *     (concepts+=ServerComponent | concepts+=UIContainer | concepts+=UIComponent | concepts+=DefaultConfigurations)+
+	 *     (
+	 *         concepts+=ServerComponent | 
+	 *         concepts+=UIContainer | 
+	 *         concepts+=UIComponent | 
+	 *         concepts+=DefaultConfigurations | 
+	 *         concepts+=CustomDefaultComponentsDefinition
+	 *     )+
 	 */
 	protected void sequence_UIModel(ISerializationContext context, UIModel semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

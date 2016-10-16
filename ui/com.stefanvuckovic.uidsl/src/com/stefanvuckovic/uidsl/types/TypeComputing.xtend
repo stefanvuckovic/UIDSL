@@ -121,7 +121,7 @@ class TypeComputing {
 	def getPropertyRuntimeType(PropertyRuntimeType type, PropertyValueInstance propInstance) {
 		val propValueInstance = (propInstance.eContainer as UIComponentInstance).properties.filter[PropertyValueInstance prop | prop.property === type.property]?.head
 		if(propValueInstance != null) {
-			propInstance.value.type
+			propValueInstance.value.type
 		}	
 	}
 	

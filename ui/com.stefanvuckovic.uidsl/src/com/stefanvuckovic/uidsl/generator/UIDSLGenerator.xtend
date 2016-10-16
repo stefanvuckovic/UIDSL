@@ -26,11 +26,13 @@ import com.stefanvuckovic.uidsl.GeneratorUtil
 import com.stefanvuckovic.uidsl.UIDSLUtil
 import com.stefanvuckovic.uidsl.types.TypeComputing
 import com.stefanvuckovic.uidsl.uIDSL.Component
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition
 import com.stefanvuckovic.uidsl.uIDSL.DefaultComponent
 import com.stefanvuckovic.uidsl.uIDSL.Field
 import com.stefanvuckovic.uidsl.uIDSL.Fragment
 import com.stefanvuckovic.uidsl.uIDSL.FragmentCall
 import com.stefanvuckovic.uidsl.uIDSL.IFStatement
+import com.stefanvuckovic.uidsl.uIDSL.InputUIComponent
 import com.stefanvuckovic.uidsl.uIDSL.IterationExpression
 import com.stefanvuckovic.uidsl.uIDSL.Iterator
 import com.stefanvuckovic.uidsl.uIDSL.LogicElement
@@ -50,7 +52,9 @@ import com.stefanvuckovic.uidsl.uIDSL.UIElement
 import com.stefanvuckovic.uidsl.uIDSL.UIModel
 import com.stefanvuckovic.uidsl.uIDSL.Variable
 import com.stefanvuckovic.uidsl.uIDSL.VariableReference
+import com.stefanvuckovic.uidsl.uIDSL.VoidType
 import java.util.HashMap
+import java.util.Map
 import javax.inject.Inject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
@@ -61,7 +65,7 @@ import static com.stefanvuckovic.uidsl.UIComponents.*
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import com.stefanvuckovic.uidsl.uIDSL.VoidType
+import com.stefanvuckovic.uidsl.uIDSL.InlineVariable
 
 /**
  * Generates code from your model files on save.
@@ -91,25 +95,27 @@ class UIDSLGenerator extends AbstractGenerator {
 	val HashMultimap<String, String> fileUploadListeners = HashMultimap.create()
 	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		val model = resource.allContents.toIterable.filter(UIModel).head
+		val model = resource.allContents.toIterable.filter(UIModel)?.head
 		//we have to iterate containers first and server components at the end because of the added fields to server components
-		for (c : model.concepts.filter(UIContainer)) {
-			if(c instanceof Page) {
-				fsa.generateFile('''«c.name».xhtml''', c.compilePage)
-			} else if(c instanceof Fragment) {
-				fsa.generateFile('''«componentsFolder»/«c.name».xhtml''', c.compileFragment)
-			} else if(c instanceof Template) {
-				fsa.generateFile('''«templatesFolder»/«c.name».xhtml''', c.compileTemplate)
+		if(model != null) {
+			for (c : model.concepts.filter(UIContainer)) {
+				if(c instanceof Page) {
+					fsa.generateFile('''«c.name».xhtml''', c.compilePage)
+				} else if(c instanceof Fragment) {
+					fsa.generateFile('''«componentsFolder»/«c.name».xhtml''', c.compileFragment)
+				} else if(c instanceof Template) {
+					fsa.generateFile('''«templatesFolder»/«c.name».xhtml''', c.compileTemplate)
+				}
 			}
+			for(c : model.concepts.filter(ServerComponent)) {
+				fsa.generateFile('''«serverComponentsPackage»/«c.name».java''', c.compileServerComponent)
+			}
+			for(sc : newServerComponentsMap.values) {
+				fsa.generateFile('''«serverComponentsPackage»/«sc.name».java''', sc.compileServerComponent)
+			}
+			
+			resetData()
 		}
-		for(c : model.concepts.filter(ServerComponent)) {
-			fsa.generateFile('''«serverComponentsPackage»/«c.name».java''', c.compileServerComponent)
-		}
-		for(sc : newServerComponentsMap.values) {
-			fsa.generateFile('''«serverComponentsPackage»/«sc.name».java''', sc.compileServerComponent)
-		}
-		
-		resetData()
 	}
 	
 	def resetData() {
@@ -502,43 +508,141 @@ class UIDSLGenerator extends AbstractGenerator {
 	}
 	
 	def compileDefaultComponent(DefaultComponent c) {
-		val comp = genUtil.getUIComponentForDefaultComponent(c)
-		switch(comp.name) {
-			case LIST :
-				generateDefaultList(c)
-			case TEXT_COMP:
-				generateDefaultTextComp(c)
-			case TEXT_FIELD:
-				generateDefaultTextField(c)
-			case TEXT_AREA:
-				generateDefaultTextArea(c)
-			//case SLIDER:
-				//compileSlider(compInstance)
-			//case SPINNER:
-				//compileSpinner(compInstance)
-			case PASSWORD_FIELD:
-				generateDefaultPasswordField(c)
-			case COMBO_BOX:
-				generateDefaultComboBox(c)
-			case RADIO_SELECTION:
-				generateDefaultRadioSelection(c)
-			case BOOL_CHECKBOX:
-				generateDefaultBoolCheckBox(c)
-			case MULTI_SELECT_CHECKBOX:
-				generateDefaultMultiSelectCheckbox(c)
-			case LINK:
-				generateDefaultLink(c)
-			case TABLE:
-				generateDefaultTable(c)
-			case INPUT_DATE:
-				generateDefaultInputDate(c)
-			case FILE_UPLOAD:
-				generateDefaultFileUpload(c)
-			case IMAGE_COMPONENT:
-				generateDefaultImageComponent(c)
-			case LABEL:
-				generateDefaultLabel(c)
-		}	
+		val customDefault = getCustomDefaultComponentForType(c, c.value.type, c instanceof InputUIComponent)
+		if(customDefault != null) {
+			customDefault.compileCustomDefaultComponent(c)
+		} else {
+			val comp = genUtil.getUIComponentForDefaultComponent(c)
+			switch(comp.name) {
+				case LIST :
+					generateDefaultList(c)
+				case TEXT_COMP:
+					generateDefaultTextComp(c)
+				case TEXT_FIELD:
+					generateDefaultTextField(c)
+				case TEXT_AREA:
+					generateDefaultTextArea(c)
+				//case SLIDER:
+					//compileSlider(compInstance)
+				//case SPINNER:
+					//compileSpinner(compInstance)
+				case PASSWORD_FIELD:
+					generateDefaultPasswordField(c)
+				case COMBO_BOX:
+					generateDefaultComboBox(c)
+				case RADIO_SELECTION:
+					generateDefaultRadioSelection(c)
+				case BOOL_CHECKBOX:
+					generateDefaultBoolCheckBox(c)
+				case MULTI_SELECT_CHECKBOX:
+					generateDefaultMultiSelectCheckbox(c)
+				case LINK:
+					generateDefaultLink(c)
+				case TABLE:
+					generateDefaultTable(c)
+				case INPUT_DATE:
+					generateDefaultInputDate(c)
+				case FILE_UPLOAD:
+					generateDefaultFileUpload(c)
+				case IMAGE_COMPONENT:
+					generateDefaultImageComponent(c)
+				case LABEL:
+					generateDefaultLabel(c)
+			}	
+		}
+	}
+	
+	def compileCustomDefaultComponent(CustomDefaultComponentDefinition customDefault, DefaultComponent dc) {
+		val factory = UIDSLFactory.eINSTANCE
+		val dmFactory = DomainModelFactory.eINSTANCE
+		val cont = dc.getContainerOfType(UIContainer)
+		//val variableNames = cont.getAllContentsOfType(Variable).map[name]
+		val Map<Variable, Expression> expressionsToRewriteMap = newHashMap()
+		val copy = customDefault.copy
+		//change names of inline vars to avoid duplicate variables
+		val inlineVars = copy.getAllContentsOfType(InlineVariable)
+		for(iv : inlineVars) {
+			iv.name = "_" + iv.name
+		}
+		val implicits = copy.implicits
+		if(!implicits.empty) {
+			var Variable mainSCVar = cont.serverComponents?.head
+			if(mainSCVar == null) {
+				val mainSC = cont.containerMainServerComponent 
+				val refType = dmFactory.createRefType => [reference = mainSC]
+				mainSCVar = factory.createVariable => [type = refType name = mainSC.name.toFirstLower]
+			}
+			val scVar = mainSCVar
+			val scRef = factory.createVariableReference => [ref = scVar]
+			for(implicit : implicits) {
+				val uniqueName = generateUniqueField((scVar.type as RefType).reference as ServerComponent, implicit.name)
+				val fieldType = implicit.type.copy
+				val fld = addFieldToServerComponent(cont, uniqueName, fieldType)
+				//create expression to rewrite to
+				val expr = factory.createMemberSelectionExpression => [receiver = scRef member = fld]
+				expressionsToRewriteMap.put(implicit, expr)
+			}
+		}
+		
+		expressionsToRewriteMap.put(copy.type, dc.value)
+
+		rewriteExpressions(copy, expressionsToRewriteMap)
+		
+		'''
+		«FOR el : copy.elements»
+		«el.compileUIElement»
+		«ENDFOR»
+		'''
+	}
+	
+	def rewriteExpressions(CustomDefaultComponentDefinition customDef, Map<Variable, Expression> rewriteMap) {
+		for(el : customDef.elements) {
+			el.rewriteExpressions(rewriteMap)
+		}
+	}
+	
+	def void rewriteExpressions(UIElement el, Map<Variable, Expression> rewriteMap) {
+		switch(el) {
+			UIComponentInstance: {
+				val exprs = el.properties.map[value]
+				for(e : exprs) {
+					e.replaceExpression(rewriteMap)
+				}
+				for(child : el.childElements) {
+					child.rewriteExpressions(rewriteMap)
+				}
+			}
+			DefaultComponent:
+				el.value.replaceExpression(rewriteMap)
+			FragmentCall:
+				for(e : el.params) {
+					e.replaceExpression(rewriteMap)
+				}
+			IFStatement: {
+				el.expression.replaceExpression(rewriteMap)
+				for(e : el.elements) {
+					e.rewriteExpressions(rewriteMap)
+				}
+			}
+			Iterator: {
+				el.expression.replaceExpression(rewriteMap)
+				for(e : el.elements) {
+					e.rewriteExpressions(rewriteMap)
+				}
+			}
+		}
+	}
+	
+	def replaceExpression(Expression e, Map<Variable, Expression> rewriteMap) {
+		val refVar = e.referencedVariableFromExpression
+		if(refVar != null) {
+			val rewriteExpr = rewriteMap.get(refVar.ref)
+			if(rewriteExpr != null) { 
+				val cont = refVar.eContainer
+				val feature = refVar.eContainingFeature
+				cont.eSet(feature, rewriteExpr.copy)
+			}
+		}
 	}
 	
 	def compileUIComponent(UIComponentInstance compInstance) {
@@ -892,8 +996,8 @@ class UIDSLGenerator extends AbstractGenerator {
 		 <ul>
 		 	«val value = c.value»
 		 	«val type = (value.type as CollectionType).ofType»
-		 	<ui:repeat var="v" value="«value.compileExpression(true, false)»">
-		 		<li>#{«type.getDefaultRepresentationAttribute("v")»}</li>
+		 	<ui:repeat var="_v" value="«value.compileExpression(true, false)»">
+		 		<li>#{«type.getDefaultRepresentationAttribute("_v")»}</li>
 		 	</ui:repeat>
 		 </ul>
 	'''
@@ -939,9 +1043,9 @@ class UIDSLGenerator extends AbstractGenerator {
 		«val value = c.value»
 		«val type = value.type as CollectionType»
 		<table>
-			<ui:repeat var="v" value="«value.compileExpression(true, false)»">
+			<ui:repeat var="_v" value="«value.compileExpression(true, false)»">
 			 	<tr>
-					«FOR col : getDefaultColumnsForAttributeType(type.ofType, "v")»		
+					«FOR col : getDefaultColumnsForAttributeType(type.ofType, "_v")»		
 					<td>#{«col»}</td>
 	 				«ENDFOR»
 			 	</tr>
@@ -994,11 +1098,11 @@ class UIDSLGenerator extends AbstractGenerator {
 		«val type = value.type as CollectionType»
 		«val cont = c.getContainerOfType(UIContainer)»
 		«val selectFromName = cont.getUniqueFieldNameForCollectionType(c.value.variableOrMemberName)»
-		«addFieldToServerComponent(cont, selectFromName, type)»
+		«val fld = addFieldToServerComponent(cont, selectFromName, type)»
 		«val scRefName = cont.mainBeanRefName»
 		<h:selectManyCheckbox value="«value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
-		    <f:selectItems value="#{«scRefName».«selectFromName»}" var="v"
-		   		itemLabel="#{«type.ofType.getDefaultRepresentationAttribute("v")»}" itemValue="#{v}" />
+		    <f:selectItems value="#{«scRefName».«selectFromName»}" var="_v"
+		   		itemLabel="#{«type.ofType.getDefaultRepresentationAttribute("_v")»}" itemValue="#{_v}" />
 		</h:selectManyCheckbox>		
 	'''
 	
@@ -1014,11 +1118,11 @@ class UIDSLGenerator extends AbstractGenerator {
 		«val cont = c.getContainerOfType(UIContainer)»
 		«val selectFromName = cont.getUniqueFieldNameForCollectionType(c.value.variableOrMemberName)»
 		«val selectFromType = DomainModelFactory.eINSTANCE.createCollectionType => [ofType = type.copy]»
-		«addFieldToServerComponent(cont, selectFromName, selectFromType)»
+		«val fld = addFieldToServerComponent(cont, selectFromName, selectFromType)»
 		«val scRefName = cont.mainBeanRefName»
 		<h:selectOneRadio value="«value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
-			<f:selectItems value="«scRefName».«selectFromName»" var="v"
-				itemLabel="«type.getDefaultRepresentationAttribute("v")»" itemValue="#{v}" />
+			<f:selectItems value="«scRefName».«selectFromName»" var="_v"
+				itemLabel="«type.getDefaultRepresentationAttribute("_v")»" itemValue="#{_v}" />
 		</h:selectOneRadio>		
 	'''
 	
@@ -1032,11 +1136,11 @@ class UIDSLGenerator extends AbstractGenerator {
 		«val cont = c.getContainerOfType(UIContainer)»
 		«val selectFromName = cont.getUniqueFieldNameForCollectionType(c.value.variableOrMemberName)»
 		«val selectFromType = DomainModelFactory.eINSTANCE.createCollectionType => [ofType = type.copy]»
-		«addFieldToServerComponent(cont, selectFromName, selectFromType)»
+		«val fld = addFieldToServerComponent(cont, selectFromName, selectFromType)»
 		«val scRefName = cont.mainBeanRefName»
 		<h:selectOneMenu value="«value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
-			<f:selectItems value="#{«scRefName».«selectFromName»}" var="v"
-				itemLabel="#{«type.getDefaultRepresentationAttribute("v")»}" itemValue="#{v}" />
+			<f:selectItems value="#{«scRefName».«selectFromName»}" var="_v"
+				itemLabel="#{«type.getDefaultRepresentationAttribute("_v")»}" itemValue="#{_v}" />
 		</h:selectOneMenu>
 	'''
 	
@@ -1044,7 +1148,7 @@ class UIDSLGenerator extends AbstractGenerator {
 		<h:outputText value="«c.value.defaultOutputExpression»" />
 	'''
 	
-	def void addFieldToServerComponent(UIContainer cont, String fieldName, AttributeType fieldType) {
+	def addFieldToServerComponent(UIContainer cont, String fieldName, AttributeType fieldType) {
 		val factory = UIDSLFactory.eINSTANCE
 		val sc = cont.containerMainServerComponent
 		val field = factory.createField => [name = fieldName type = fieldType.copy]
@@ -1053,6 +1157,7 @@ class UIDSLGenerator extends AbstractGenerator {
 		} else {
 			serverComponentNewFieldsMap.put(sc.name, field)
 		}
+		field
 	}
 	
 	
@@ -1062,16 +1167,28 @@ class UIDSLGenerator extends AbstractGenerator {
 		generateUniqueField(sc, name)
 	}
 	
-	def generateUniqueField(ServerComponent sc, String name) {
-		generateUniqueField(sc, name, 0)
+	def String generateUniqueField(ServerComponent sc, String name) {
+		val fields = sc.fields.map[f | f.name]
+		val fieldsFromMap = serverComponentNewFieldsMap.get(sc.name)
+		var Iterable<String> fieldNamesMap = newArrayList()
+		if(fieldsFromMap != null) {
+			fieldNamesMap = fields + fieldsFromMap.map[f | f.name]
+		} else {
+			fieldNamesMap = fields
+		}
+		getUniqueFieldNameInCurrentContext(fieldNamesMap, name)
 	}
 	
-	def String generateUniqueField(ServerComponent sc, String name, int counter) {
+	def getUniqueFieldNameInCurrentContext(Iterable<String> names, String name) {
+		getUniqueFieldNameInCurrentContext(names, name, 0)
+	}
+	
+	def String getUniqueFieldNameInCurrentContext(Iterable<String> names, String name, int counter) {
 		var currName = if(counter == 0) name else name + counter
-		for(f : sc.fields) {
-			if(f.name == currName) {
+		for(n : names) {
+			if(n == currName) {
 				var newCounter = counter + 1
-				return generateUniqueField(sc, name, newCounter)
+				return getUniqueFieldNameInCurrentContext(names, name, newCounter)
 			}
 		}
 		currName

@@ -10,6 +10,7 @@ import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage
 import com.stefanvuckovic.domainmodel.domainModel.Expression
 import com.stefanvuckovic.domainmodel.domainModel.RefType
 import com.stefanvuckovic.dto.dTO.DTOClass
+import com.stefanvuckovic.uidsl.LibraryConstants
 import com.stefanvuckovic.uidsl.UIComponents
 import com.stefanvuckovic.uidsl.UIDSLUtil
 import com.stefanvuckovic.uidsl.scoping.CustomIndex
@@ -19,35 +20,40 @@ import com.stefanvuckovic.uidsl.uIDSL.AllAllowedComponents
 import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent
 import com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType
 import com.stefanvuckovic.uidsl.uIDSL.Component
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition
 import com.stefanvuckovic.uidsl.uIDSL.DefaultComponent
+import com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig
 import com.stefanvuckovic.uidsl.uIDSL.DefaultConfigurations
 import com.stefanvuckovic.uidsl.uIDSL.ExistingNestedComponents
 import com.stefanvuckovic.uidsl.uIDSL.Field
+import com.stefanvuckovic.uidsl.uIDSL.FragmentCall
 import com.stefanvuckovic.uidsl.uIDSL.InputUIComponent
+import com.stefanvuckovic.uidsl.uIDSL.IterationExpression
 import com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression
 import com.stefanvuckovic.uidsl.uIDSL.Method
 import com.stefanvuckovic.uidsl.uIDSL.OutputUIComponent
 import com.stefanvuckovic.uidsl.uIDSL.Page
+import com.stefanvuckovic.uidsl.uIDSL.PageCall
 import com.stefanvuckovic.uidsl.uIDSL.PropertySingleRuntimeType
 import com.stefanvuckovic.uidsl.uIDSL.PropertyValue
 import com.stefanvuckovic.uidsl.uIDSL.PropertyValueInstance
 import com.stefanvuckovic.uidsl.uIDSL.ServerComponent
+import com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride
 import com.stefanvuckovic.uidsl.uIDSL.UIComponent
 import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance
 import com.stefanvuckovic.uidsl.uIDSL.UIDSLPackage
+import com.stefanvuckovic.uidsl.uIDSL.UIElement
 import com.stefanvuckovic.uidsl.uIDSL.Variable
 import com.stefanvuckovic.uidsl.uIDSL.VoidType
 import java.util.List
 import javax.inject.Inject
 import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.xtext.validation.Check
-import com.stefanvuckovic.uidsl.uIDSL.DefaultComponentConfig
-import com.stefanvuckovic.uidsl.LibraryConstants
-import com.stefanvuckovic.uidsl.uIDSL.TemplateFragmentOverride
-import com.stefanvuckovic.uidsl.uIDSL.IterationExpression
-import com.stefanvuckovic.uidsl.uIDSL.FragmentCall
-import com.stefanvuckovic.uidsl.uIDSL.PageCall
-import com.stefanvuckovic.uidsl.uIDSL.UIElement
+
+import static extension org.eclipse.xtext.EcoreUtil2.*
+import com.stefanvuckovic.uidsl.uIDSL.UIContainer
+import com.stefanvuckovic.uidsl.uIDSL.VariableReference
 
 /**
  * This class contains custom validation rules. 
@@ -63,15 +69,15 @@ class UIDSLValidator extends AbstractUIDSLValidator {
 	
 	@Check 
 	def void checkNumberOfParametersInMethodCall(MemberSelectionExpression selection) {
-			val member = selection.member
-			//if selection.isMethod is false, this constraint should not be applied,
-			//instead checkMemberSelection check will issue appropriate error message
-			if (member instanceof Method && selection.isMethod) {
-				if ((member as Method).params.size != selection.params.size) {
-					error("Wrong number of parameters: expected " + (member as Method).params.size + " but was " + selection.params.size,
-						UIDSLPackage.eINSTANCE.memberSelectionExpression_Member)
-				}
+		val member = selection.member
+		//if selection.isMethod is false, this constraint should not be applied,
+		//instead checkMemberSelection check will issue appropriate error message
+		if (member instanceof Method && selection.isMethod) {
+			if ((member as Method).params.size != selection.params.size) {
+				error("Wrong number of parameters: expected " + (member as Method).params.size + " but was " + selection.params.size,
+					UIDSLPackage.eINSTANCE.memberSelectionExpression_Member)
 			}
+		}
 	}
 	
 	@Check 
@@ -159,9 +165,16 @@ class UIDSLValidator extends AbstractUIDSLValidator {
 	}
 	
 	@Check
-	def void checkVoidType(Field field) {
+	def void checkVoidTypeForField(Field field) {
 		if(field.type instanceof VoidType) {
 			error("Field cannot have void type", DomainModelPackage.eINSTANCE.selectionMember_Type)
+		}
+	}
+	
+	@Check
+	def void checkVoidTypeForVariable(Variable v) {
+		if(v.type instanceof VoidType) {
+			error("Variable cannot have void type", UIDSLPackage.eINSTANCE.variable_Type)
 		}
 	}
 	
@@ -388,6 +401,88 @@ class UIDSLValidator extends AbstractUIDSLValidator {
 					)
 				}
 			}
+		}
+	}
+	
+	@Check
+	def checkDefaultComponentDefinitionDuplicates(CustomDefaultComponentDefinition c) {
+		val type = c.type
+		if(type != null) {
+			val compType = c.compType
+			if(compType != null) {
+				val cont = c.eContainer as CustomDefaultComponentsDefinition
+				val dc = cont.defaults.findFirst[dc | dc !== c && dc.compType != null && dc.compType == compType && dc.type != null && areTypesSame(dc.type.type, type.type)]
+				if(dc != null) {
+					error("Duplicate " + compType + " definition for type: " + type.type.typeToString, 
+						UIDSLPackage.eINSTANCE.customDefaultComponentDefinition_Type
+					)
+				}
+			}
+		}
+	} 
+	
+	@Check
+	def checkCustomComponentDefaultsType(Variable v) {
+		val cont = v.eContainer
+		val type = v.type
+		var singleType = type
+		if(type instanceof CollectionType) {
+			singleType = type.ofType
+		}
+		if(cont instanceof CustomDefaultComponentDefinition && type instanceof RefType && (type as RefType).reference instanceof ServerComponent) {
+			error("ServerComponent variables are not allowed in this context", UIDSLPackage.eINSTANCE.variable_Name)
+		} 
+	}
+	
+	@Check
+	def void checkThatOnlyOneCustomDefaultComponentDefinitionExists(CustomDefaultComponentsDefinition c) {
+		if(c.visibleCustomComponentDefaults.size > 1) {
+			error("Custom default components definition can be specified only once", UIDSLPackage.eINSTANCE.customDefaultComponentsDefinition_Name)
+		}
+	}
+	
+	@Check
+	def void checkVariableNameStartsWithUnderscore(Variable v) {
+		if(v.name != null && v.name.startsWith('_')) {
+			error("Variable name cannot start with underscore", UIDSLPackage.eINSTANCE.variable_Name)
+		}
+	}
+	
+	@Check
+	def void checkVariableNameCollisionWithDefaultServerComponentName(Variable v) {
+		val cont = v.getContainerOfType(UIContainer)
+		if(v.name != null && v.name.startsWith(cont.name.toFirstLower)) {
+			error("This name is reserved as a default server component name so it can't be used for variable name",
+				UIDSLPackage.eINSTANCE.variable_Name
+			) 
+		}
+	}
+	
+	@Check
+	def void checkCustomDefaultComponentVariableRef(MemberSelectionExpression e) {
+		val cont = e.getContainerOfType(CustomDefaultComponentDefinition)
+		if(cont != null) {
+			val variable = cont.type
+			if(e.receiver instanceof VariableReference && (e.receiver as VariableReference).ref === variable) {
+				error("Value variable '" + variable.name + "' in custom default component definition can only be referenced, selection is not allowed", 
+					UIDSLPackage.eINSTANCE.memberSelectionExpression_Receiver
+				)
+			}
+		}
+	}
+	
+	@Check
+	def void checkCycleServerComponentReferences(Field f) {
+		val sc = f.eContainer as ServerComponent
+		val type = f.type
+		var singleType = type
+		if(type instanceof CollectionType) {
+			singleType = type.ofType
+		}
+		if(singleType != null && singleType instanceof RefType && (singleType as RefType).reference === sc) {
+			error("Self reference not allowed inside server component", 
+				DomainModelPackage.eINSTANCE.selectionMember_Name
+			)
 		}
 	}
 	

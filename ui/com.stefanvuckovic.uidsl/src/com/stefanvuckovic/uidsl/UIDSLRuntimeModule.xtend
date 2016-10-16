@@ -3,9 +3,12 @@
  */
 package com.stefanvuckovic.uidsl
 
-
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 class UIDSLRuntimeModule extends AbstractUIDSLRuntimeModule {
+	
+//	def Class<? extends NamesAreUniqueValidationHelper> bindNamesAreUniqueValidationHelper() {
+//		return CustomNamesAreUniqueValidator
+//	}
 }

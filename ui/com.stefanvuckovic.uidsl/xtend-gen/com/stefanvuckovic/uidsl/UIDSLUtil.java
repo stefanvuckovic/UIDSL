@@ -3,14 +3,21 @@ package com.stefanvuckovic.uidsl;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import com.stefanvuckovic.domainmodel.domainModel.AttributeType;
+import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.dto.DTOUtil;
+import com.stefanvuckovic.uidsl.scoping.CustomIndex;
+import com.stefanvuckovic.uidsl.types.TypeConformance;
 import com.stefanvuckovic.uidsl.uIDSL.AlternativeType;
 import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent;
 import com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType;
 import com.stefanvuckovic.uidsl.uIDSL.Component;
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentDefinition;
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition;
 import com.stefanvuckovic.uidsl.uIDSL.EnumGeneralType;
 import com.stefanvuckovic.uidsl.uIDSL.Field;
+import com.stefanvuckovic.uidsl.uIDSL.IterationExpression;
 import com.stefanvuckovic.uidsl.uIDSL.Member;
+import com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression;
 import com.stefanvuckovic.uidsl.uIDSL.Method;
 import com.stefanvuckovic.uidsl.uIDSL.ObjectGeneralType;
 import com.stefanvuckovic.uidsl.uIDSL.PageType;
@@ -22,11 +29,17 @@ import com.stefanvuckovic.uidsl.uIDSL.ServerComponent;
 import com.stefanvuckovic.uidsl.uIDSL.TypeExpression;
 import com.stefanvuckovic.uidsl.uIDSL.UIComponent;
 import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance;
+import com.stefanvuckovic.uidsl.uIDSL.VariableReference;
 import java.util.LinkedHashSet;
 import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
@@ -34,6 +47,14 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 public class UIDSLUtil {
   @Inject
   private DTOUtil dtoUtil;
+  
+  @Inject
+  @Extension
+  private CustomIndex _customIndex;
+  
+  @Inject
+  @Extension
+  private TypeConformance _typeConformance;
   
   public Iterable<Field> getFields(final ServerComponent sc) {
     EList<Member> _members = sc.getMembers();
@@ -179,5 +200,88 @@ public class UIDSLUtil {
         Objects.equal(((UIComponent) cont.eContainer()).getName(), name));
     }
     return _xblockexpression;
+  }
+  
+  public EList<CustomDefaultComponentDefinition> getCustomDefaultComponents(final EObject ctx) {
+    EList<CustomDefaultComponentDefinition> _xblockexpression = null;
+    {
+      final Iterable<IEObjectDescription> customDefaults = this._customIndex.getVisibleCustomComponentDefaults(ctx);
+      EList<CustomDefaultComponentDefinition> _xifexpression = null;
+      int _size = IterableExtensions.size(customDefaults);
+      boolean _equals = (_size == 1);
+      if (_equals) {
+        EList<CustomDefaultComponentDefinition> _xblockexpression_1 = null;
+        {
+          final IEObjectDescription custom = IterableExtensions.<IEObjectDescription>head(customDefaults);
+          EObject customDef = custom.getEObjectOrProxy();
+          boolean _eIsProxy = customDef.eIsProxy();
+          if (_eIsProxy) {
+            Resource _eResource = ctx.eResource();
+            ResourceSet _resourceSet = _eResource.getResourceSet();
+            URI _eObjectURI = custom.getEObjectURI();
+            EObject _eObject = _resourceSet.getEObject(_eObjectURI, true);
+            customDef = _eObject;
+          }
+          _xblockexpression_1 = ((CustomDefaultComponentsDefinition) customDef).getDefaults();
+        }
+        _xifexpression = _xblockexpression_1;
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  public CustomDefaultComponentDefinition getCustomDefaultComponentForType(final EObject ctx, final AttributeType type, final boolean input) {
+    CustomDefaultComponentDefinition _xblockexpression = null;
+    {
+      String _xifexpression = null;
+      if (input) {
+        _xifexpression = "input";
+      } else {
+        _xifexpression = "output";
+      }
+      final String compType = _xifexpression;
+      EList<CustomDefaultComponentDefinition> _customDefaultComponents = this.getCustomDefaultComponents(ctx);
+      final Function1<CustomDefaultComponentDefinition, Boolean> _function = (CustomDefaultComponentDefinition c) -> {
+        return Boolean.valueOf((this._typeConformance.areTypesSame(type, c.getType().getType()) && Objects.equal(c.getCompType(), compType)));
+      };
+      _xblockexpression = IterableExtensions.<CustomDefaultComponentDefinition>findFirst(_customDefaultComponents, _function);
+    }
+    return _xblockexpression;
+  }
+  
+  public VariableReference getReferencedVariableFromExpression(final Expression e) {
+    VariableReference _switchResult = null;
+    boolean _matched = false;
+    if (e instanceof VariableReference) {
+      _matched=true;
+      _switchResult = ((VariableReference)e);
+    }
+    if (!_matched) {
+      if (e instanceof MemberSelectionExpression) {
+        _matched=true;
+        _switchResult = this.getFirstReceiver(((MemberSelectionExpression)e));
+      }
+    }
+    if (!_matched) {
+      if (e instanceof IterationExpression) {
+        _matched=true;
+        Expression _expression = ((IterationExpression)e).getExpression();
+        _switchResult = this.getReferencedVariableFromExpression(_expression);
+      }
+    }
+    if (!_matched) {
+      _switchResult = null;
+    }
+    return _switchResult;
+  }
+  
+  public VariableReference getFirstReceiver(final MemberSelectionExpression e) {
+    final Expression rec = e.getReceiver();
+    if ((rec instanceof VariableReference)) {
+      return ((VariableReference)rec);
+    } else {
+      return this.getFirstReceiver(((MemberSelectionExpression) rec));
+    }
   }
 }
