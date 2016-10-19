@@ -18,6 +18,8 @@ import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalConstant;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelFactory;
 import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityDeleteOption;
@@ -48,6 +50,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
@@ -82,15 +85,18 @@ public class DomainModelGenerator extends AbstractGenerator {
       Iterable<EObject> _iterable = IteratorExtensions.<EObject>toIterable(_allContents);
       Iterable<Model> _filter = Iterables.<Model>filter(_iterable, Model.class);
       final Model model = IterableExtensions.<Model>head(_filter);
-      EList<Concept> _concepts = model.getConcepts();
-      for (final Concept c : _concepts) {
-        StringConcatenation _builder = new StringConcatenation();
-        _builder.append("domain/");
-        String _name = c.getName();
-        _builder.append(_name, "");
-        _builder.append(".java");
-        CharSequence _compile = this.compile(c);
-        fsa.generateFile(_builder.toString(), _compile);
+      boolean _notEquals_1 = (!Objects.equal(model, null));
+      if (_notEquals_1) {
+        EList<Concept> _concepts = model.getConcepts();
+        for (final Concept c : _concepts) {
+          StringConcatenation _builder = new StringConcatenation();
+          _builder.append("domain/");
+          String _name = c.getName();
+          _builder.append(_name, "");
+          _builder.append(".java");
+          CharSequence _compile = this.compile(c);
+          fsa.generateFile(_builder.toString(), _compile);
+        }
       }
     }
   }
@@ -356,6 +362,13 @@ public class DomainModelGenerator extends AbstractGenerator {
       if (const_ instanceof BoolConstant) {
         _matched=true;
         _switchResult = ((BoolConstant)const_).getValue();
+      }
+    }
+    if (!_matched) {
+      if (const_ instanceof DecimalConstant) {
+        _matched=true;
+        String _value = ((DecimalConstant)const_).getValue();
+        _switchResult = Double.valueOf(Double.parseDouble(_value));
       }
     }
     if (!_matched) {
@@ -625,7 +638,7 @@ public class DomainModelGenerator extends AbstractGenerator {
           }
         }
         {
-          if (partOf) {
+          if ((partOf && (!Objects.equal(relationshipOwner, null)))) {
             _builder.append(", ");
           }
         }
@@ -638,6 +651,17 @@ public class DomainModelGenerator extends AbstractGenerator {
         }
         _builder.append(")");
         _builder.newLineIfNotEmpty();
+        {
+          if ((((this._domainModelUtil.collectionType(attr.getType()) && (!Objects.equal(this._domainModelUtil.cardinality(attr), null))) && Objects.equal(this._domainModelUtil.cardinality(attr).getCard(), CardinalityType.ONE)) && Objects.equal(this._domainModelUtil.relationshipOwner(attr), null))) {
+            _builder.append("@javax.persistence.JoinColumn(name=\"_");
+            Concept _containerOfType = EcoreUtil2.<Concept>getContainerOfType(attr, Concept.class);
+            String _name_1 = _containerOfType.getName();
+            String _firstLower = StringExtensions.toFirstLower(_name_1);
+            _builder.append(_firstLower, "");
+            _builder.append("\")");
+            _builder.newLineIfNotEmpty();
+          }
+        }
       }
     }
     return _builder;
@@ -809,6 +833,16 @@ public class DomainModelGenerator extends AbstractGenerator {
       if (type instanceof DateType) {
         _matched=true;
         return "java.util.Date";
+      }
+    }
+    if (!_matched) {
+      if (type instanceof DecimalType) {
+        _matched=true;
+        if (primitive) {
+          return "Double";
+        } else {
+          return "double";
+        }
       }
     }
     return null;

@@ -66,6 +66,7 @@ import static com.stefanvuckovic.uidsl.UIComponents.*
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import com.stefanvuckovic.uidsl.uIDSL.InlineVariable
+import com.stefanvuckovic.domainmodel.domainModel.DecimalConstant
 
 /**
  * Generates code from your model files on save.
@@ -947,6 +948,8 @@ class UIDSLGenerator extends AbstractGenerator {
 			}
 			DateConstant:
 				return e.day.toString + "/" + e.month.toString + "/" + e.year.toString
+			DecimalConstant:
+				e.value
 			Null:
 				return "null"
 			VariableReference: { 

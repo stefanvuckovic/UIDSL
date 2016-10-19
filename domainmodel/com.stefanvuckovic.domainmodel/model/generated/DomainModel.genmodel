@@ -72,6 +72,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DomainModel.ecore#//DateConstant/month"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DomainModel.ecore#//DateConstant/year"/>
     </genClasses>
+    <genClasses ecoreClass="DomainModel.ecore#//DecimalConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DomainModel.ecore#//DecimalConstant/value"/>
+    </genClasses>
     <genClasses ecoreClass="DomainModel.ecore#//Null"/>
     <genClasses ecoreClass="DomainModel.ecore#//EntityDeleteOption">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DomainModel.ecore#//EntityDeleteOption/deleteByFlag"/>
@@ -84,6 +87,7 @@
     <genClasses ecoreClass="DomainModel.ecore#//LongType"/>
     <genClasses ecoreClass="DomainModel.ecore#//BoolType"/>
     <genClasses ecoreClass="DomainModel.ecore#//DateType"/>
+    <genClasses ecoreClass="DomainModel.ecore#//DecimalType"/>
     <genClasses ecoreClass="DomainModel.ecore#//Required">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DomainModel.ecore#//Required/required"/>
     </genClasses>

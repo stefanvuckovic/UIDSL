@@ -11,6 +11,8 @@ import com.stefanvuckovic.domainmodel.domainModel.Cardinality;
 import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalConstant;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityDeleteOption;
@@ -78,6 +80,12 @@ public class DomainModelSemanticSequencer extends AbstractDelegatingSemanticSequ
 				return; 
 			case DomainModelPackage.DATE_TYPE:
 				sequence_BasicType(context, (DateType) semanticObject); 
+				return; 
+			case DomainModelPackage.DECIMAL_CONSTANT:
+				sequence_Constant(context, (DecimalConstant) semanticObject); 
+				return; 
+			case DomainModelPackage.DECIMAL_TYPE:
+				sequence_BasicType(context, (DecimalType) semanticObject); 
 				return; 
 			case DomainModelPackage.ENTITY:
 				sequence_Entity(context, (Entity) semanticObject); 
@@ -266,6 +274,20 @@ public class DomainModelSemanticSequencer extends AbstractDelegatingSemanticSequ
 	
 	/**
 	 * Contexts:
+	 *     AttributeType returns DecimalType
+	 *     SingleType returns DecimalType
+	 *     BasicType returns DecimalType
+	 *
+	 * Constraint:
+	 *     {DecimalType}
+	 */
+	protected void sequence_BasicType(ISerializationContext context, DecimalType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     AttributeType returns IntType
 	 *     SingleType returns IntType
 	 *     BasicType returns IntType
@@ -357,6 +379,24 @@ public class DomainModelSemanticSequencer extends AbstractDelegatingSemanticSequ
 		feeder.accept(grammarAccess.getConstantAccess().getDayINTTerminalRuleCall_4_1_0(), semanticObject.getDay());
 		feeder.accept(grammarAccess.getConstantAccess().getMonthINTTerminalRuleCall_4_3_0(), semanticObject.getMonth());
 		feeder.accept(grammarAccess.getConstantAccess().getYearINTTerminalRuleCall_4_5_0(), semanticObject.getYear());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Constant returns DecimalConstant
+	 *
+	 * Constraint:
+	 *     value=Decimal
+	 */
+	protected void sequence_Constant(ISerializationContext context, DecimalConstant semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DomainModelPackage.Literals.DECIMAL_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DomainModelPackage.Literals.DECIMAL_CONSTANT__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getConstantAccess().getValueDecimalParserRuleCall_5_1_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	

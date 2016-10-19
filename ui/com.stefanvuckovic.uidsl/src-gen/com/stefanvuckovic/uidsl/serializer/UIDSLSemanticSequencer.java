@@ -10,6 +10,8 @@ import com.stefanvuckovic.domainmodel.domainModel.BoolType;
 import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalConstant;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityDeleteOption;
@@ -153,6 +155,12 @@ public class UIDSLSemanticSequencer extends DTOSemanticSequencer {
 				return; 
 			case DomainModelPackage.DATE_TYPE:
 				sequence_BasicType(context, (DateType) semanticObject); 
+				return; 
+			case DomainModelPackage.DECIMAL_CONSTANT:
+				sequence_Constant(context, (DecimalConstant) semanticObject); 
+				return; 
+			case DomainModelPackage.DECIMAL_TYPE:
+				sequence_BasicType(context, (DecimalType) semanticObject); 
 				return; 
 			case DomainModelPackage.ENTITY:
 				sequence_Entity(context, (Entity) semanticObject); 

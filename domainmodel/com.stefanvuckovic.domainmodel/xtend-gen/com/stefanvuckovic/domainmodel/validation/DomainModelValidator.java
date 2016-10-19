@@ -21,7 +21,9 @@ import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral;
 import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.Model;
 import com.stefanvuckovic.domainmodel.domainModel.Option;
+import com.stefanvuckovic.domainmodel.domainModel.PartOf;
 import com.stefanvuckovic.domainmodel.domainModel.RefType;
+import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner;
 import com.stefanvuckovic.domainmodel.domainModel.Required;
 import com.stefanvuckovic.domainmodel.domainModel.SingleType;
 import com.stefanvuckovic.domainmodel.domainModel.StaticFieldSelection;
@@ -36,6 +38,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
@@ -113,6 +116,64 @@ public class DomainModelValidator extends AbstractDomainModelValidator {
   }
   
   @Check
+  public void checkRelationshipOwnerOptions(final AttributeOption opt) {
+    EObject _eContainer = opt.eContainer();
+    final Attribute a = ((Attribute) _eContainer);
+    if (((a.getType() instanceof SingleType) && (opt instanceof RelationshipOwner))) {
+      final RelationshipOwner owner = ((RelationshipOwner) opt);
+      StaticFieldSelection _relationshipOwner = owner.getRelationshipOwner();
+      Attribute _member = null;
+      if (_relationshipOwner!=null) {
+        _member=_relationshipOwner.getMember();
+      }
+      final Attribute attr = _member;
+      boolean _notEquals = (!Objects.equal(attr, null));
+      if (_notEquals) {
+        final Cardinality card = this._domainModelUtil.cardinality(a);
+        if (((!Objects.equal(card, null)) && Objects.equal(card.getCard(), CardinalityType.MANY))) {
+          final AttributeType ownerType = attr.getType();
+          if ((((ownerType instanceof CollectionType) && (((CollectionType) ownerType).getOfType() instanceof RefType)) && 
+            (((RefType) ((CollectionType) ownerType).getOfType()).getReference() == EcoreUtil2.<Concept>getContainerOfType(a, Concept.class)))) {
+            this.error("Many side must be relationship owner in many-to-one relationship", null);
+          }
+        }
+      }
+    }
+  }
+  
+  @Check
+  public void checkDuplicateRelationshipOwnerOption(final AttributeOption opt) {
+    EObject _eContainer = opt.eContainer();
+    final Attribute a = ((Attribute) _eContainer);
+    if ((opt instanceof RelationshipOwner)) {
+      final RelationshipOwner owner = ((RelationshipOwner) opt);
+      StaticFieldSelection _relationshipOwner = owner.getRelationshipOwner();
+      Attribute _member = null;
+      if (_relationshipOwner!=null) {
+        _member=_relationshipOwner.getMember();
+      }
+      final Attribute attr = _member;
+      boolean _notEquals = (!Objects.equal(attr, null));
+      if (_notEquals) {
+        final Cardinality card = this._domainModelUtil.cardinality(a);
+        boolean _notEquals_1 = (!Objects.equal(card, null));
+        if (_notEquals_1) {
+          AttributeType ownerSingleType = attr.getType();
+          if ((ownerSingleType instanceof CollectionType)) {
+            SingleType _ofType = ((CollectionType)ownerSingleType).getOfType();
+            ownerSingleType = _ofType;
+          }
+          if ((((ownerSingleType instanceof RefType) && 
+            (((RefType) ownerSingleType).getReference() == EcoreUtil2.<Concept>getContainerOfType(a, Concept.class))) && 
+            (!Objects.equal(this._domainModelUtil.relationshipOwner(attr), null)))) {
+            this.error("Both ends of relationship can\'t be owners", null);
+          }
+        }
+      }
+    }
+  }
+  
+  @Check
   public void checkEntityHierarchyCycles(final Entity e) {
     LinkedHashSet<Entity> _hierarchyForEntity = this._domainModelUtil.getHierarchyForEntity(e);
     boolean _contains = _hierarchyForEntity.contains(e);
@@ -140,6 +201,22 @@ public class DomainModelValidator extends AbstractDomainModelValidator {
     final Entity ent = this._domainModelUtil.getAttributeEntityRefTypeIfExists(_type);
     if (((!Objects.equal(ent, null)) && Objects.equal(this._domainModelUtil.cardinality(a), null))) {
       this.error("You must specify cardinality for this attribute", null);
+    }
+  }
+  
+  @Check
+  public void checkConflictingAttributeOptions(final AttributeOption o) {
+    if ((o instanceof Cardinality)) {
+      final CardinalityType card = ((Cardinality)o).getCard();
+      boolean _equals = Objects.equal(card, CardinalityType.MANY);
+      if (_equals) {
+        EObject _eContainer = ((Cardinality)o).eContainer();
+        PartOf _partOfOption = this._domainModelUtil.partOfOption(((Attribute) _eContainer));
+        final boolean isPartOf = (!Objects.equal(_partOfOption, null));
+        if (isPartOf) {
+          this.error("Cardinality \'MANY\' is not valid for attribute with specified \'partOf\' option", null);
+        }
+      }
     }
   }
   

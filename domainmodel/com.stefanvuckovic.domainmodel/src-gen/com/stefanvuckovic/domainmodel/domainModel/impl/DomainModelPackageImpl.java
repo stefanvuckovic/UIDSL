@@ -15,6 +15,8 @@ import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalConstant;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelFactory;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Entity;
@@ -223,6 +225,13 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass decimalConstantEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass nullEClass = null;
 
   /**
@@ -273,6 +282,13 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
    * @generated
    */
   private EClass dateTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass decimalTypeEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -837,6 +853,26 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getDecimalConstant()
+  {
+    return decimalConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDecimalConstant_Value()
+  {
+    return (EAttribute)decimalConstantEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getNull()
   {
     return nullEClass;
@@ -930,6 +966,16 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
   public EClass getDateType()
   {
     return dateTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDecimalType()
+  {
+    return decimalTypeEClass;
   }
 
   /**
@@ -1121,6 +1167,9 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
     createEAttribute(dateConstantEClass, DATE_CONSTANT__MONTH);
     createEAttribute(dateConstantEClass, DATE_CONSTANT__YEAR);
 
+    decimalConstantEClass = createEClass(DECIMAL_CONSTANT);
+    createEAttribute(decimalConstantEClass, DECIMAL_CONSTANT__VALUE);
+
     nullEClass = createEClass(NULL);
 
     entityDeleteOptionEClass = createEClass(ENTITY_DELETE_OPTION);
@@ -1138,6 +1187,8 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
     boolTypeEClass = createEClass(BOOL_TYPE);
 
     dateTypeEClass = createEClass(DATE_TYPE);
+
+    decimalTypeEClass = createEClass(DECIMAL_TYPE);
 
     requiredEClass = createEClass(REQUIRED);
     createEAttribute(requiredEClass, REQUIRED__REQUIRED);
@@ -1198,6 +1249,7 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
     stringConstantEClass.getESuperTypes().add(this.getExpression());
     boolConstantEClass.getESuperTypes().add(this.getExpression());
     dateConstantEClass.getESuperTypes().add(this.getExpression());
+    decimalConstantEClass.getESuperTypes().add(this.getExpression());
     nullEClass.getESuperTypes().add(this.getExpression());
     entityDeleteOptionEClass.getESuperTypes().add(this.getEntityOption());
     inheritanceMappingOptionEClass.getESuperTypes().add(this.getEntityOption());
@@ -1206,6 +1258,7 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
     longTypeEClass.getESuperTypes().add(this.getBasicType());
     boolTypeEClass.getESuperTypes().add(this.getBasicType());
     dateTypeEClass.getESuperTypes().add(this.getBasicType());
+    decimalTypeEClass.getESuperTypes().add(this.getBasicType());
     requiredEClass.getESuperTypes().add(this.getAttributeOption());
     partOfEClass.getESuperTypes().add(this.getAttributeOption());
     relationshipOwnerEClass.getESuperTypes().add(this.getAttributeOption());
@@ -1281,6 +1334,9 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
     initEAttribute(getDateConstant_Month(), ecorePackage.getEInt(), "month", null, 0, 1, DateConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDateConstant_Year(), ecorePackage.getEInt(), "year", null, 0, 1, DateConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(decimalConstantEClass, DecimalConstant.class, "DecimalConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getDecimalConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, DecimalConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(nullEClass, Null.class, "Null", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(entityDeleteOptionEClass, EntityDeleteOption.class, "EntityDeleteOption", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1298,6 +1354,8 @@ public class DomainModelPackageImpl extends EPackageImpl implements DomainModelP
     initEClass(boolTypeEClass, BoolType.class, "BoolType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(dateTypeEClass, DateType.class, "DateType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(decimalTypeEClass, DecimalType.class, "DecimalType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(requiredEClass, Required.class, "Required", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getRequired_Required(), ecorePackage.getEBoolean(), "required", null, 0, 1, Required.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

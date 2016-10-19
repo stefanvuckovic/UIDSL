@@ -14,6 +14,8 @@ import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalConstant;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityDeleteOption;
@@ -284,6 +286,14 @@ public class DomainModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DomainModelPackage.DECIMAL_CONSTANT:
+      {
+        DecimalConstant decimalConstant = (DecimalConstant)theEObject;
+        T result = caseDecimalConstant(decimalConstant);
+        if (result == null) result = caseExpression(decimalConstant);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DomainModelPackage.NULL:
       {
         Null null_ = (Null)theEObject;
@@ -357,6 +367,16 @@ public class DomainModelSwitch<T> extends Switch<T>
         if (result == null) result = caseBasicType(dateType);
         if (result == null) result = caseSingleType(dateType);
         if (result == null) result = caseAttributeType(dateType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DomainModelPackage.DECIMAL_TYPE:
+      {
+        DecimalType decimalType = (DecimalType)theEObject;
+        T result = caseDecimalType(decimalType);
+        if (result == null) result = caseBasicType(decimalType);
+        if (result == null) result = caseSingleType(decimalType);
+        if (result == null) result = caseAttributeType(decimalType);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -769,6 +789,22 @@ public class DomainModelSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Decimal Constant</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Decimal Constant</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDecimalConstant(DecimalConstant object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Null</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -892,6 +928,22 @@ public class DomainModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseDateType(DateType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Decimal Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Decimal Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDecimalType(DecimalType object)
   {
     return null;
   }

@@ -71,6 +71,7 @@ public class DTOParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConstantAccess().getGroup_3(), "rule__Constant__Group_3__0");
 					put(grammarAccess.getConstantAccess().getGroup_4(), "rule__Constant__Group_4__0");
 					put(grammarAccess.getConstantAccess().getGroup_5(), "rule__Constant__Group_5__0");
+					put(grammarAccess.getConstantAccess().getGroup_6(), "rule__Constant__Group_6__0");
 					put(grammarAccess.getEntityOptionAccess().getGroup_0(), "rule__EntityOption__Group_0__0");
 					put(grammarAccess.getEntityOptionAccess().getGroup_1(), "rule__EntityOption__Group_1__0");
 					put(grammarAccess.getAttributeAccess().getGroup(), "rule__Attribute__Group__0");
@@ -81,9 +82,11 @@ public class DTOParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDomainModelBasicTypeAccess().getGroup_2(), "superBasicType__Group_2__0");
 					put(grammarAccess.getDomainModelBasicTypeAccess().getGroup_3(), "superBasicType__Group_3__0");
 					put(grammarAccess.getDomainModelBasicTypeAccess().getGroup_4(), "superBasicType__Group_4__0");
+					put(grammarAccess.getDomainModelBasicTypeAccess().getGroup_5(), "superBasicType__Group_5__0");
 					put(grammarAccess.getCollectionTypeAccess().getGroup(), "rule__CollectionType__Group__0");
 					put(grammarAccess.getStaticFieldSelectionAccess().getGroup(), "rule__StaticFieldSelection__Group__0");
 					put(grammarAccess.getDumbSelectionMemberAccess().getGroup(), "rule__DumbSelectionMember__Group__0");
+					put(grammarAccess.getDecimalAccess().getGroup(), "rule__Decimal__Group__0");
 					put(grammarAccess.getDTOModelAccess().getConceptsAssignment(), "rule__DTOModel__ConceptsAssignment");
 					put(grammarAccess.getDTOClassAccess().getNameAssignment_1(), "rule__DTOClass__NameAssignment_1");
 					put(grammarAccess.getDTOClassAccess().getSuperTypeAssignment_2_1(), "rule__DTOClass__SuperTypeAssignment_2_1");
@@ -107,6 +110,7 @@ public class DTOParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConstantAccess().getDayAssignment_4_1(), "rule__Constant__DayAssignment_4_1");
 					put(grammarAccess.getConstantAccess().getMonthAssignment_4_3(), "rule__Constant__MonthAssignment_4_3");
 					put(grammarAccess.getConstantAccess().getYearAssignment_4_5(), "rule__Constant__YearAssignment_4_5");
+					put(grammarAccess.getConstantAccess().getValueAssignment_5_1(), "rule__Constant__ValueAssignment_5_1");
 					put(grammarAccess.getEntityOptionAccess().getDeleteByFlagAssignment_0_1(), "rule__EntityOption__DeleteByFlagAssignment_0_1");
 					put(grammarAccess.getEntityOptionAccess().getInheritanceMappingAssignment_1_3(), "rule__EntityOption__InheritanceMappingAssignment_1_3");
 					put(grammarAccess.getInheritanceMappingTypeAccess().getTypeAssignment(), "rule__InheritanceMappingType__TypeAssignment");

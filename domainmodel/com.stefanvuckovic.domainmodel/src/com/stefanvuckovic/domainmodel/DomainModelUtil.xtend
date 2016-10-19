@@ -22,6 +22,7 @@ import com.stefanvuckovic.domainmodel.domainModel.StringType
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.common.util.URI
 import com.stefanvuckovic.domainmodel.domainModel.Model
+import com.stefanvuckovic.domainmodel.domainModel.DecimalType
 
 class DomainModelUtil {
 	
@@ -139,6 +140,8 @@ class DomainModelUtil {
 				"boolean"
 			DateType:
 				"date"
+			DecimalType:
+				"decimal"
 			RefType:
 				type.reference.name
 			CollectionType:

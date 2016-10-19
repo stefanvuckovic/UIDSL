@@ -38,6 +38,10 @@ import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import com.stefanvuckovic.domainmodel.LibraryConstants
+import com.stefanvuckovic.domainmodel.domainModel.DecimalType
+import com.stefanvuckovic.domainmodel.domainModel.DecimalConstant
+
+import static extension org.eclipse.xtext.EcoreUtil2.*
 
 /**
  * Generates code from your model files on save.
@@ -52,8 +56,10 @@ class DomainModelGenerator extends AbstractGenerator {
 		val uri = resource.URI.toPlatformString(true)
 		if(uri != LibraryConstants.COMMON_ENTITY_LIBRARY) {
 			val model = resource.allContents.toIterable.filter(Model).head
-			for (c : model.concepts) {
-				fsa.generateFile('''domain/«c.name».java''', c.compile)
+			if(model != null) {
+				for (c : model.concepts) {
+					fsa.generateFile('''domain/«c.name».java''', c.compile)
+				}
 			}
 		}
 	}
@@ -131,6 +137,8 @@ class DomainModelGenerator extends AbstractGenerator {
 				"\"" + const.day + "/" + const.month + "/" + const.year + "\""
 			BoolConstant:
 				const.value
+			DecimalConstant:
+				Double.parseDouble(const.value)
 			Null:
 				"null"
 		}
@@ -198,7 +206,10 @@ class DomainModelGenerator extends AbstractGenerator {
 		«IF attr.type.attributeEntityRefTypeIfExists != null»
 		«val partOf = attr.partOfOption != null»
 		«val relationshipOwner = attr.relationshipOwner»
-		«attr.cardinality.getAnnotationBasedOnCardinality(attr.type.collectionType)»(«IF partOf»«generatePartOf(attr.cardinality)»«ENDIF»«IF partOf», «ENDIF»«IF relationshipOwner != null»«relationshipOwner.generateRelationshipOwner»«ENDIF»)
+		«attr.cardinality.getAnnotationBasedOnCardinality(attr.type.collectionType)»(«IF partOf»«generatePartOf(attr.cardinality)»«ENDIF»«IF partOf && relationshipOwner != null», «ENDIF»«IF relationshipOwner != null»«relationshipOwner.generateRelationshipOwner»«ENDIF»)
+		«IF attr.type.collectionType && attr.cardinality != null && attr.cardinality.card == CardinalityType.ONE && attr.relationshipOwner == null»
+		@javax.persistence.JoinColumn(name="_«attr.getContainerOfType(Concept).name.toFirstLower»")
+		«ENDIF»
 		«ENDIF»
 	'''
 	
@@ -299,6 +310,12 @@ class DomainModelGenerator extends AbstractGenerator {
 				}
 			DateType:
 				return "java.util.Date"
+			DecimalType:
+				if(primitive) {
+					return "Double"
+				} else {
+					return "double"
+				}
 		}
 	}
 	

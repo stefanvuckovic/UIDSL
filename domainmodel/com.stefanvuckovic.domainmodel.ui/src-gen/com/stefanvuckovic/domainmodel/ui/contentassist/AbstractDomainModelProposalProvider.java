@@ -181,4 +181,7 @@ public abstract class AbstractDomainModelProposalProvider extends TerminalsPropo
 	public void complete_DumbSelectionMember(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override
 	}
+	public void complete_Decimal(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		// subclasses may override
+	}
 }

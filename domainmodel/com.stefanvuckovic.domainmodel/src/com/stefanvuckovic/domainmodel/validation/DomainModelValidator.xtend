@@ -30,6 +30,10 @@ import com.stefanvuckovic.domainmodel.LibraryConstants
 import com.stefanvuckovic.domainmodel.domainModel.RefType
 import com.stefanvuckovic.domainmodel.domainModel.AttributeType
 import com.stefanvuckovic.domainmodel.domainModel.CollectionType
+import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner
+
+import static extension org.eclipse.xtext.EcoreUtil2.*
+import com.stefanvuckovic.domainmodel.domainModel.Concept
 
 /**
  * This class contains custom validation rules. 
@@ -76,6 +80,48 @@ class DomainModelValidator extends AbstractDomainModelValidator {
 			return true
 		}
 		false
+	}
+	
+	@Check
+	def checkRelationshipOwnerOptions(AttributeOption opt) {
+		val a = opt.eContainer as Attribute
+		if(a.type instanceof SingleType && opt instanceof RelationshipOwner) {
+			val owner = opt as RelationshipOwner
+			val attr = owner.relationshipOwner?.member
+			if(attr != null) {
+				val card = a.cardinality
+				if(card != null && card.card == CardinalityType.MANY) {
+					val ownerType = attr.type
+					if(ownerType instanceof CollectionType && (ownerType as CollectionType).ofType instanceof RefType &&
+						((ownerType as CollectionType).ofType as RefType).reference === a.getContainerOfType(Concept)) {
+							error("Many side must be relationship owner in many-to-one relationship", null)
+						}
+				}
+			}
+		}
+	}
+	
+	@Check
+	def checkDuplicateRelationshipOwnerOption(AttributeOption opt) {
+		val a = opt.eContainer as Attribute
+		if(opt instanceof RelationshipOwner) {
+			val owner = opt as RelationshipOwner
+			val attr = owner.relationshipOwner?.member
+			if(attr != null) {
+				val card = a.cardinality
+				if(card != null) {
+					var ownerSingleType = attr.type
+					if(ownerSingleType instanceof CollectionType) {
+						ownerSingleType = ownerSingleType.ofType
+					}
+					if(ownerSingleType instanceof RefType &&
+						((ownerSingleType as RefType)).reference === a.getContainerOfType(Concept) &&
+						attr.relationshipOwner != null) {
+							error("Both ends of relationship can't be owners", null)
+						}
+				}
+			}
+		}
 	}
 
 //	@Check
@@ -145,6 +191,19 @@ class DomainModelValidator extends AbstractDomainModelValidator {
 		val ent = a.type.attributeEntityRefTypeIfExists
 		if(ent != null && a.cardinality == null) {
 			error("You must specify cardinality for this attribute", null)
+		}
+	}
+	
+	@Check
+	def checkConflictingAttributeOptions(AttributeOption o) {
+		if(o instanceof Cardinality) {
+			val card = o.card
+			if(card == CardinalityType.MANY) {
+				val isPartOf = (o.eContainer as Attribute).partOfOption != null
+				if(isPartOf) {
+					error("Cardinality 'MANY' is not valid for attribute with specified 'partOf' option", null)
+				}
+			}
 		}
 	}
 	

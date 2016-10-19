@@ -11,6 +11,7 @@ import com.stefanvuckovic.domainmodel.domainModel.Cardinality;
 import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalType;
 import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityDeleteOption;
 import com.stefanvuckovic.domainmodel.domainModel.EntityOption;
@@ -262,6 +263,12 @@ public class DomainModelUtil {
       if (type instanceof DateType) {
         _matched=true;
         _switchResult = "date";
+      }
+    }
+    if (!_matched) {
+      if (type instanceof DecimalType) {
+        _matched=true;
+        _switchResult = "decimal";
       }
     }
     if (!_matched) {

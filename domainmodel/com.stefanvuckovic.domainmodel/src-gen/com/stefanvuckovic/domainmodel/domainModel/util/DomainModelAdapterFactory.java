@@ -14,6 +14,8 @@ import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalConstant;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Entity;
 import com.stefanvuckovic.domainmodel.domainModel.EntityDeleteOption;
@@ -225,6 +227,11 @@ public class DomainModelAdapterFactory extends AdapterFactoryImpl
         return createDateConstantAdapter();
       }
       @Override
+      public Adapter caseDecimalConstant(DecimalConstant object)
+      {
+        return createDecimalConstantAdapter();
+      }
+      @Override
       public Adapter caseNull(Null object)
       {
         return createNullAdapter();
@@ -263,6 +270,11 @@ public class DomainModelAdapterFactory extends AdapterFactoryImpl
       public Adapter caseDateType(DateType object)
       {
         return createDateTypeAdapter();
+      }
+      @Override
+      public Adapter caseDecimalType(DecimalType object)
+      {
+        return createDecimalTypeAdapter();
       }
       @Override
       public Adapter caseRequired(Required object)
@@ -652,6 +664,21 @@ public class DomainModelAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.domainmodel.domainModel.DecimalConstant <em>Decimal Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.domainmodel.domainModel.DecimalConstant
+   * @generated
+   */
+  public Adapter createDecimalConstantAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link com.stefanvuckovic.domainmodel.domainModel.Null <em>Null</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -767,6 +794,21 @@ public class DomainModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDateTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.stefanvuckovic.domainmodel.domainModel.DecimalType <em>Decimal Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.stefanvuckovic.domainmodel.domainModel.DecimalType
+   * @generated
+   */
+  public Adapter createDecimalTypeAdapter()
   {
     return null;
   }

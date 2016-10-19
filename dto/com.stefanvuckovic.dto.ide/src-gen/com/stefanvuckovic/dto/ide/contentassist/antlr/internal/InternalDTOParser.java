@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalDTOParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'true'", "'false'", "'SINGLE_TABLE'", "'TABLE_PER_CONCRETE_CLASS'", "'TABLE_PER_CLASS'", "'class'", "'{'", "'}'", "'extends'", "'representation'", "'@id'", "'text'", "'email'", "'password'", "'file'", "'image'", "'enum'", "'('", "')'", "','", "'L'", "'/'", "'null'", "'inheritance'", "'='", "';'", "'string'", "'int'", "'long'", "'boolean'", "'date'", "'List'", "'<'", "'>'", "'deleteByFlag'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_ID", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'true'", "'false'", "'SINGLE_TABLE'", "'TABLE_PER_CONCRETE_CLASS'", "'TABLE_PER_CLASS'", "'class'", "'{'", "'}'", "'extends'", "'representation'", "'@id'", "'text'", "'email'", "'password'", "'file'", "'image'", "'enum'", "'('", "')'", "','", "'L'", "'/'", "'null'", "'inheritance'", "'='", "';'", "'string'", "'int'", "'long'", "'boolean'", "'date'", "'decimal'", "'List'", "'<'", "'>'", "'.'", "'deleteByFlag'"
     };
     public static final int T__19=19;
     public static final int T__15=15;
@@ -33,11 +33,11 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
     public static final int T__12=12;
     public static final int T__13=13;
     public static final int T__14=14;
-    public static final int RULE_ID=4;
+    public static final int RULE_ID=5;
     public static final int T__26=26;
     public static final int T__27=27;
     public static final int T__28=28;
-    public static final int RULE_INT=5;
+    public static final int RULE_INT=4;
     public static final int T__29=29;
     public static final int T__22=22;
     public static final int RULE_ML_COMMENT=7;
@@ -63,6 +63,8 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
     public static final int RULE_ANY_OTHER=10;
     public static final int T__44=44;
     public static final int T__45=45;
+    public static final int T__46=46;
+    public static final int T__47=47;
     public static final int T__40=40;
     public static final int T__41=41;
     public static final int T__42=42;
@@ -1353,14 +1355,91 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "ruleCollectionType"
 
 
+    // $ANTLR start "entryRuleDecimal"
+    // InternalDTO.g:453:1: entryRuleDecimal : ruleDecimal EOF ;
+    public final void entryRuleDecimal() throws RecognitionException {
+        try {
+            // InternalDTO.g:454:1: ( ruleDecimal EOF )
+            // InternalDTO.g:455:1: ruleDecimal EOF
+            {
+             before(grammarAccess.getDecimalRule()); 
+            pushFollow(FOLLOW_1);
+            ruleDecimal();
+
+            state._fsp--;
+
+             after(grammarAccess.getDecimalRule()); 
+            match(input,EOF,FOLLOW_2); 
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return ;
+    }
+    // $ANTLR end "entryRuleDecimal"
+
+
+    // $ANTLR start "ruleDecimal"
+    // InternalDTO.g:462:1: ruleDecimal : ( ( rule__Decimal__Group__0 ) ) ;
+    public final void ruleDecimal() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:466:2: ( ( ( rule__Decimal__Group__0 ) ) )
+            // InternalDTO.g:467:2: ( ( rule__Decimal__Group__0 ) )
+            {
+            // InternalDTO.g:467:2: ( ( rule__Decimal__Group__0 ) )
+            // InternalDTO.g:468:3: ( rule__Decimal__Group__0 )
+            {
+             before(grammarAccess.getDecimalAccess().getGroup()); 
+            // InternalDTO.g:469:3: ( rule__Decimal__Group__0 )
+            // InternalDTO.g:469:4: rule__Decimal__Group__0
+            {
+            pushFollow(FOLLOW_2);
+            rule__Decimal__Group__0();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getDecimalAccess().getGroup()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "ruleDecimal"
+
+
     // $ANTLR start "rule__Concept__Alternatives"
-    // InternalDTO.g:452:1: rule__Concept__Alternatives : ( ( ruleDTOClass ) | ( ruleEnum ) );
+    // InternalDTO.g:477:1: rule__Concept__Alternatives : ( ( ruleDTOClass ) | ( ruleEnum ) );
     public final void rule__Concept__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:456:1: ( ( ruleDTOClass ) | ( ruleEnum ) )
+            // InternalDTO.g:481:1: ( ( ruleDTOClass ) | ( ruleEnum ) )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -1378,10 +1457,10 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
             }
             switch (alt2) {
                 case 1 :
-                    // InternalDTO.g:457:2: ( ruleDTOClass )
+                    // InternalDTO.g:482:2: ( ruleDTOClass )
                     {
-                    // InternalDTO.g:457:2: ( ruleDTOClass )
-                    // InternalDTO.g:458:3: ruleDTOClass
+                    // InternalDTO.g:482:2: ( ruleDTOClass )
+                    // InternalDTO.g:483:3: ruleDTOClass
                     {
                      before(grammarAccess.getConceptAccess().getDTOClassParserRuleCall_0()); 
                     pushFollow(FOLLOW_2);
@@ -1397,10 +1476,10 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:463:2: ( ruleEnum )
+                    // InternalDTO.g:488:2: ( ruleEnum )
                     {
-                    // InternalDTO.g:463:2: ( ruleEnum )
-                    // InternalDTO.g:464:3: ruleEnum
+                    // InternalDTO.g:488:2: ( ruleEnum )
+                    // InternalDTO.g:489:3: ruleEnum
                     {
                      before(grammarAccess.getConceptAccess().getEnumParserRuleCall_1()); 
                     pushFollow(FOLLOW_2);
@@ -1433,13 +1512,13 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AttributeOption__Alternatives"
-    // InternalDTO.g:473:1: rule__AttributeOption__Alternatives : ( ( ( rule__AttributeOption__Group_0__0 ) ) | ( ( rule__AttributeOption__Group_1__0 ) ) );
+    // InternalDTO.g:498:1: rule__AttributeOption__Alternatives : ( ( ( rule__AttributeOption__Group_0__0 ) ) | ( ( rule__AttributeOption__Group_1__0 ) ) );
     public final void rule__AttributeOption__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:477:1: ( ( ( rule__AttributeOption__Group_0__0 ) ) | ( ( rule__AttributeOption__Group_1__0 ) ) )
+            // InternalDTO.g:502:1: ( ( ( rule__AttributeOption__Group_0__0 ) ) | ( ( rule__AttributeOption__Group_1__0 ) ) )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -1457,14 +1536,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
             }
             switch (alt3) {
                 case 1 :
-                    // InternalDTO.g:478:2: ( ( rule__AttributeOption__Group_0__0 ) )
+                    // InternalDTO.g:503:2: ( ( rule__AttributeOption__Group_0__0 ) )
                     {
-                    // InternalDTO.g:478:2: ( ( rule__AttributeOption__Group_0__0 ) )
-                    // InternalDTO.g:479:3: ( rule__AttributeOption__Group_0__0 )
+                    // InternalDTO.g:503:2: ( ( rule__AttributeOption__Group_0__0 ) )
+                    // InternalDTO.g:504:3: ( rule__AttributeOption__Group_0__0 )
                     {
                      before(grammarAccess.getAttributeOptionAccess().getGroup_0()); 
-                    // InternalDTO.g:480:3: ( rule__AttributeOption__Group_0__0 )
-                    // InternalDTO.g:480:4: rule__AttributeOption__Group_0__0
+                    // InternalDTO.g:505:3: ( rule__AttributeOption__Group_0__0 )
+                    // InternalDTO.g:505:4: rule__AttributeOption__Group_0__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__AttributeOption__Group_0__0();
@@ -1482,14 +1561,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:484:2: ( ( rule__AttributeOption__Group_1__0 ) )
+                    // InternalDTO.g:509:2: ( ( rule__AttributeOption__Group_1__0 ) )
                     {
-                    // InternalDTO.g:484:2: ( ( rule__AttributeOption__Group_1__0 ) )
-                    // InternalDTO.g:485:3: ( rule__AttributeOption__Group_1__0 )
+                    // InternalDTO.g:509:2: ( ( rule__AttributeOption__Group_1__0 ) )
+                    // InternalDTO.g:510:3: ( rule__AttributeOption__Group_1__0 )
                     {
                      before(grammarAccess.getAttributeOptionAccess().getGroup_1()); 
-                    // InternalDTO.g:486:3: ( rule__AttributeOption__Group_1__0 )
-                    // InternalDTO.g:486:4: rule__AttributeOption__Group_1__0
+                    // InternalDTO.g:511:3: ( rule__AttributeOption__Group_1__0 )
+                    // InternalDTO.g:511:4: rule__AttributeOption__Group_1__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__AttributeOption__Group_1__0();
@@ -1524,13 +1603,13 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Alternatives"
-    // InternalDTO.g:494:1: rule__BasicType__Alternatives : ( ( superBasicType ) | ( ( rule__BasicType__Group_1__0 ) ) | ( ( rule__BasicType__Group_2__0 ) ) | ( ( rule__BasicType__Group_3__0 ) ) | ( ( rule__BasicType__Group_4__0 ) ) | ( ( rule__BasicType__Group_5__0 ) ) );
+    // InternalDTO.g:519:1: rule__BasicType__Alternatives : ( ( superBasicType ) | ( ( rule__BasicType__Group_1__0 ) ) | ( ( rule__BasicType__Group_2__0 ) ) | ( ( rule__BasicType__Group_3__0 ) ) | ( ( rule__BasicType__Group_4__0 ) ) | ( ( rule__BasicType__Group_5__0 ) ) );
     public final void rule__BasicType__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:498:1: ( ( superBasicType ) | ( ( rule__BasicType__Group_1__0 ) ) | ( ( rule__BasicType__Group_2__0 ) ) | ( ( rule__BasicType__Group_3__0 ) ) | ( ( rule__BasicType__Group_4__0 ) ) | ( ( rule__BasicType__Group_5__0 ) ) )
+            // InternalDTO.g:523:1: ( ( superBasicType ) | ( ( rule__BasicType__Group_1__0 ) ) | ( ( rule__BasicType__Group_2__0 ) ) | ( ( rule__BasicType__Group_3__0 ) ) | ( ( rule__BasicType__Group_4__0 ) ) | ( ( rule__BasicType__Group_5__0 ) ) )
             int alt4=6;
             switch ( input.LA(1) ) {
             case 37:
@@ -1538,6 +1617,7 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
             case 39:
             case 40:
             case 41:
+            case 42:
                 {
                 alt4=1;
                 }
@@ -1576,10 +1656,10 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
             switch (alt4) {
                 case 1 :
-                    // InternalDTO.g:499:2: ( superBasicType )
+                    // InternalDTO.g:524:2: ( superBasicType )
                     {
-                    // InternalDTO.g:499:2: ( superBasicType )
-                    // InternalDTO.g:500:3: superBasicType
+                    // InternalDTO.g:524:2: ( superBasicType )
+                    // InternalDTO.g:525:3: superBasicType
                     {
                      before(grammarAccess.getBasicTypeAccess().getBasicTypeParserRuleCall_0()); 
                     pushFollow(FOLLOW_2);
@@ -1595,14 +1675,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:505:2: ( ( rule__BasicType__Group_1__0 ) )
+                    // InternalDTO.g:530:2: ( ( rule__BasicType__Group_1__0 ) )
                     {
-                    // InternalDTO.g:505:2: ( ( rule__BasicType__Group_1__0 ) )
-                    // InternalDTO.g:506:3: ( rule__BasicType__Group_1__0 )
+                    // InternalDTO.g:530:2: ( ( rule__BasicType__Group_1__0 ) )
+                    // InternalDTO.g:531:3: ( rule__BasicType__Group_1__0 )
                     {
                      before(grammarAccess.getBasicTypeAccess().getGroup_1()); 
-                    // InternalDTO.g:507:3: ( rule__BasicType__Group_1__0 )
-                    // InternalDTO.g:507:4: rule__BasicType__Group_1__0
+                    // InternalDTO.g:532:3: ( rule__BasicType__Group_1__0 )
+                    // InternalDTO.g:532:4: rule__BasicType__Group_1__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__BasicType__Group_1__0();
@@ -1620,14 +1700,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalDTO.g:511:2: ( ( rule__BasicType__Group_2__0 ) )
+                    // InternalDTO.g:536:2: ( ( rule__BasicType__Group_2__0 ) )
                     {
-                    // InternalDTO.g:511:2: ( ( rule__BasicType__Group_2__0 ) )
-                    // InternalDTO.g:512:3: ( rule__BasicType__Group_2__0 )
+                    // InternalDTO.g:536:2: ( ( rule__BasicType__Group_2__0 ) )
+                    // InternalDTO.g:537:3: ( rule__BasicType__Group_2__0 )
                     {
                      before(grammarAccess.getBasicTypeAccess().getGroup_2()); 
-                    // InternalDTO.g:513:3: ( rule__BasicType__Group_2__0 )
-                    // InternalDTO.g:513:4: rule__BasicType__Group_2__0
+                    // InternalDTO.g:538:3: ( rule__BasicType__Group_2__0 )
+                    // InternalDTO.g:538:4: rule__BasicType__Group_2__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__BasicType__Group_2__0();
@@ -1645,14 +1725,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // InternalDTO.g:517:2: ( ( rule__BasicType__Group_3__0 ) )
+                    // InternalDTO.g:542:2: ( ( rule__BasicType__Group_3__0 ) )
                     {
-                    // InternalDTO.g:517:2: ( ( rule__BasicType__Group_3__0 ) )
-                    // InternalDTO.g:518:3: ( rule__BasicType__Group_3__0 )
+                    // InternalDTO.g:542:2: ( ( rule__BasicType__Group_3__0 ) )
+                    // InternalDTO.g:543:3: ( rule__BasicType__Group_3__0 )
                     {
                      before(grammarAccess.getBasicTypeAccess().getGroup_3()); 
-                    // InternalDTO.g:519:3: ( rule__BasicType__Group_3__0 )
-                    // InternalDTO.g:519:4: rule__BasicType__Group_3__0
+                    // InternalDTO.g:544:3: ( rule__BasicType__Group_3__0 )
+                    // InternalDTO.g:544:4: rule__BasicType__Group_3__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__BasicType__Group_3__0();
@@ -1670,14 +1750,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 5 :
-                    // InternalDTO.g:523:2: ( ( rule__BasicType__Group_4__0 ) )
+                    // InternalDTO.g:548:2: ( ( rule__BasicType__Group_4__0 ) )
                     {
-                    // InternalDTO.g:523:2: ( ( rule__BasicType__Group_4__0 ) )
-                    // InternalDTO.g:524:3: ( rule__BasicType__Group_4__0 )
+                    // InternalDTO.g:548:2: ( ( rule__BasicType__Group_4__0 ) )
+                    // InternalDTO.g:549:3: ( rule__BasicType__Group_4__0 )
                     {
                      before(grammarAccess.getBasicTypeAccess().getGroup_4()); 
-                    // InternalDTO.g:525:3: ( rule__BasicType__Group_4__0 )
-                    // InternalDTO.g:525:4: rule__BasicType__Group_4__0
+                    // InternalDTO.g:550:3: ( rule__BasicType__Group_4__0 )
+                    // InternalDTO.g:550:4: rule__BasicType__Group_4__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__BasicType__Group_4__0();
@@ -1695,14 +1775,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 6 :
-                    // InternalDTO.g:529:2: ( ( rule__BasicType__Group_5__0 ) )
+                    // InternalDTO.g:554:2: ( ( rule__BasicType__Group_5__0 ) )
                     {
-                    // InternalDTO.g:529:2: ( ( rule__BasicType__Group_5__0 ) )
-                    // InternalDTO.g:530:3: ( rule__BasicType__Group_5__0 )
+                    // InternalDTO.g:554:2: ( ( rule__BasicType__Group_5__0 ) )
+                    // InternalDTO.g:555:3: ( rule__BasicType__Group_5__0 )
                     {
                      before(grammarAccess.getBasicTypeAccess().getGroup_5()); 
-                    // InternalDTO.g:531:3: ( rule__BasicType__Group_5__0 )
-                    // InternalDTO.g:531:4: rule__BasicType__Group_5__0
+                    // InternalDTO.g:556:3: ( rule__BasicType__Group_5__0 )
+                    // InternalDTO.g:556:4: rule__BasicType__Group_5__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__BasicType__Group_5__0();
@@ -1737,14 +1817,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Alternatives"
-    // InternalDTO.g:539:1: rule__Constant__Alternatives : ( ( ( rule__Constant__Group_0__0 ) ) | ( ( rule__Constant__Group_1__0 ) ) | ( ( rule__Constant__Group_2__0 ) ) | ( ( rule__Constant__Group_3__0 ) ) | ( ( rule__Constant__Group_4__0 ) ) | ( ( rule__Constant__Group_5__0 ) ) );
+    // InternalDTO.g:564:1: rule__Constant__Alternatives : ( ( ( rule__Constant__Group_0__0 ) ) | ( ( rule__Constant__Group_1__0 ) ) | ( ( rule__Constant__Group_2__0 ) ) | ( ( rule__Constant__Group_3__0 ) ) | ( ( rule__Constant__Group_4__0 ) ) | ( ( rule__Constant__Group_5__0 ) ) | ( ( rule__Constant__Group_6__0 ) ) );
     public final void rule__Constant__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:543:1: ( ( ( rule__Constant__Group_0__0 ) ) | ( ( rule__Constant__Group_1__0 ) ) | ( ( rule__Constant__Group_2__0 ) ) | ( ( rule__Constant__Group_3__0 ) ) | ( ( rule__Constant__Group_4__0 ) ) | ( ( rule__Constant__Group_5__0 ) ) )
-            int alt5=6;
+            // InternalDTO.g:568:1: ( ( ( rule__Constant__Group_0__0 ) ) | ( ( rule__Constant__Group_1__0 ) ) | ( ( rule__Constant__Group_2__0 ) ) | ( ( rule__Constant__Group_3__0 ) ) | ( ( rule__Constant__Group_4__0 ) ) | ( ( rule__Constant__Group_5__0 ) ) | ( ( rule__Constant__Group_6__0 ) ) )
+            int alt5=7;
             switch ( input.LA(1) ) {
             case RULE_INT:
                 {
@@ -1754,6 +1834,11 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                 case 30:
                     {
                     alt5=1;
+                    }
+                    break;
+                case 46:
+                    {
+                    alt5=6;
                     }
                     break;
                 case 31:
@@ -1788,7 +1873,7 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                 break;
             case 33:
                 {
-                alt5=6;
+                alt5=7;
                 }
                 break;
             default:
@@ -1800,14 +1885,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
             switch (alt5) {
                 case 1 :
-                    // InternalDTO.g:544:2: ( ( rule__Constant__Group_0__0 ) )
+                    // InternalDTO.g:569:2: ( ( rule__Constant__Group_0__0 ) )
                     {
-                    // InternalDTO.g:544:2: ( ( rule__Constant__Group_0__0 ) )
-                    // InternalDTO.g:545:3: ( rule__Constant__Group_0__0 )
+                    // InternalDTO.g:569:2: ( ( rule__Constant__Group_0__0 ) )
+                    // InternalDTO.g:570:3: ( rule__Constant__Group_0__0 )
                     {
                      before(grammarAccess.getConstantAccess().getGroup_0()); 
-                    // InternalDTO.g:546:3: ( rule__Constant__Group_0__0 )
-                    // InternalDTO.g:546:4: rule__Constant__Group_0__0
+                    // InternalDTO.g:571:3: ( rule__Constant__Group_0__0 )
+                    // InternalDTO.g:571:4: rule__Constant__Group_0__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Constant__Group_0__0();
@@ -1825,14 +1910,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:550:2: ( ( rule__Constant__Group_1__0 ) )
+                    // InternalDTO.g:575:2: ( ( rule__Constant__Group_1__0 ) )
                     {
-                    // InternalDTO.g:550:2: ( ( rule__Constant__Group_1__0 ) )
-                    // InternalDTO.g:551:3: ( rule__Constant__Group_1__0 )
+                    // InternalDTO.g:575:2: ( ( rule__Constant__Group_1__0 ) )
+                    // InternalDTO.g:576:3: ( rule__Constant__Group_1__0 )
                     {
                      before(grammarAccess.getConstantAccess().getGroup_1()); 
-                    // InternalDTO.g:552:3: ( rule__Constant__Group_1__0 )
-                    // InternalDTO.g:552:4: rule__Constant__Group_1__0
+                    // InternalDTO.g:577:3: ( rule__Constant__Group_1__0 )
+                    // InternalDTO.g:577:4: rule__Constant__Group_1__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Constant__Group_1__0();
@@ -1850,14 +1935,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalDTO.g:556:2: ( ( rule__Constant__Group_2__0 ) )
+                    // InternalDTO.g:581:2: ( ( rule__Constant__Group_2__0 ) )
                     {
-                    // InternalDTO.g:556:2: ( ( rule__Constant__Group_2__0 ) )
-                    // InternalDTO.g:557:3: ( rule__Constant__Group_2__0 )
+                    // InternalDTO.g:581:2: ( ( rule__Constant__Group_2__0 ) )
+                    // InternalDTO.g:582:3: ( rule__Constant__Group_2__0 )
                     {
                      before(grammarAccess.getConstantAccess().getGroup_2()); 
-                    // InternalDTO.g:558:3: ( rule__Constant__Group_2__0 )
-                    // InternalDTO.g:558:4: rule__Constant__Group_2__0
+                    // InternalDTO.g:583:3: ( rule__Constant__Group_2__0 )
+                    // InternalDTO.g:583:4: rule__Constant__Group_2__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Constant__Group_2__0();
@@ -1875,14 +1960,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // InternalDTO.g:562:2: ( ( rule__Constant__Group_3__0 ) )
+                    // InternalDTO.g:587:2: ( ( rule__Constant__Group_3__0 ) )
                     {
-                    // InternalDTO.g:562:2: ( ( rule__Constant__Group_3__0 ) )
-                    // InternalDTO.g:563:3: ( rule__Constant__Group_3__0 )
+                    // InternalDTO.g:587:2: ( ( rule__Constant__Group_3__0 ) )
+                    // InternalDTO.g:588:3: ( rule__Constant__Group_3__0 )
                     {
                      before(grammarAccess.getConstantAccess().getGroup_3()); 
-                    // InternalDTO.g:564:3: ( rule__Constant__Group_3__0 )
-                    // InternalDTO.g:564:4: rule__Constant__Group_3__0
+                    // InternalDTO.g:589:3: ( rule__Constant__Group_3__0 )
+                    // InternalDTO.g:589:4: rule__Constant__Group_3__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Constant__Group_3__0();
@@ -1900,14 +1985,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 5 :
-                    // InternalDTO.g:568:2: ( ( rule__Constant__Group_4__0 ) )
+                    // InternalDTO.g:593:2: ( ( rule__Constant__Group_4__0 ) )
                     {
-                    // InternalDTO.g:568:2: ( ( rule__Constant__Group_4__0 ) )
-                    // InternalDTO.g:569:3: ( rule__Constant__Group_4__0 )
+                    // InternalDTO.g:593:2: ( ( rule__Constant__Group_4__0 ) )
+                    // InternalDTO.g:594:3: ( rule__Constant__Group_4__0 )
                     {
                      before(grammarAccess.getConstantAccess().getGroup_4()); 
-                    // InternalDTO.g:570:3: ( rule__Constant__Group_4__0 )
-                    // InternalDTO.g:570:4: rule__Constant__Group_4__0
+                    // InternalDTO.g:595:3: ( rule__Constant__Group_4__0 )
+                    // InternalDTO.g:595:4: rule__Constant__Group_4__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Constant__Group_4__0();
@@ -1925,14 +2010,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 6 :
-                    // InternalDTO.g:574:2: ( ( rule__Constant__Group_5__0 ) )
+                    // InternalDTO.g:599:2: ( ( rule__Constant__Group_5__0 ) )
                     {
-                    // InternalDTO.g:574:2: ( ( rule__Constant__Group_5__0 ) )
-                    // InternalDTO.g:575:3: ( rule__Constant__Group_5__0 )
+                    // InternalDTO.g:599:2: ( ( rule__Constant__Group_5__0 ) )
+                    // InternalDTO.g:600:3: ( rule__Constant__Group_5__0 )
                     {
                      before(grammarAccess.getConstantAccess().getGroup_5()); 
-                    // InternalDTO.g:576:3: ( rule__Constant__Group_5__0 )
-                    // InternalDTO.g:576:4: rule__Constant__Group_5__0
+                    // InternalDTO.g:601:3: ( rule__Constant__Group_5__0 )
+                    // InternalDTO.g:601:4: rule__Constant__Group_5__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Constant__Group_5__0();
@@ -1943,6 +2028,31 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
 
                      after(grammarAccess.getConstantAccess().getGroup_5()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 7 :
+                    // InternalDTO.g:605:2: ( ( rule__Constant__Group_6__0 ) )
+                    {
+                    // InternalDTO.g:605:2: ( ( rule__Constant__Group_6__0 ) )
+                    // InternalDTO.g:606:3: ( rule__Constant__Group_6__0 )
+                    {
+                     before(grammarAccess.getConstantAccess().getGroup_6()); 
+                    // InternalDTO.g:607:3: ( rule__Constant__Group_6__0 )
+                    // InternalDTO.g:607:4: rule__Constant__Group_6__0
+                    {
+                    pushFollow(FOLLOW_2);
+                    rule__Constant__Group_6__0();
+
+                    state._fsp--;
+
+
+                    }
+
+                     after(grammarAccess.getConstantAccess().getGroup_6()); 
 
                     }
 
@@ -1967,13 +2077,13 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__ValueAlternatives_3_1_0"
-    // InternalDTO.g:584:1: rule__Constant__ValueAlternatives_3_1_0 : ( ( 'true' ) | ( 'false' ) );
+    // InternalDTO.g:615:1: rule__Constant__ValueAlternatives_3_1_0 : ( ( 'true' ) | ( 'false' ) );
     public final void rule__Constant__ValueAlternatives_3_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:588:1: ( ( 'true' ) | ( 'false' ) )
+            // InternalDTO.g:619:1: ( ( 'true' ) | ( 'false' ) )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1991,10 +2101,10 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
             }
             switch (alt6) {
                 case 1 :
-                    // InternalDTO.g:589:2: ( 'true' )
+                    // InternalDTO.g:620:2: ( 'true' )
                     {
-                    // InternalDTO.g:589:2: ( 'true' )
-                    // InternalDTO.g:590:3: 'true'
+                    // InternalDTO.g:620:2: ( 'true' )
+                    // InternalDTO.g:621:3: 'true'
                     {
                      before(grammarAccess.getConstantAccess().getValueTrueKeyword_3_1_0_0()); 
                     match(input,11,FOLLOW_2); 
@@ -2006,10 +2116,10 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:595:2: ( 'false' )
+                    // InternalDTO.g:626:2: ( 'false' )
                     {
-                    // InternalDTO.g:595:2: ( 'false' )
-                    // InternalDTO.g:596:3: 'false'
+                    // InternalDTO.g:626:2: ( 'false' )
+                    // InternalDTO.g:627:3: 'false'
                     {
                      before(grammarAccess.getConstantAccess().getValueFalseKeyword_3_1_0_1()); 
                     match(input,12,FOLLOW_2); 
@@ -2038,17 +2148,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EntityOption__Alternatives"
-    // InternalDTO.g:605:1: rule__EntityOption__Alternatives : ( ( ( rule__EntityOption__Group_0__0 ) ) | ( ( rule__EntityOption__Group_1__0 ) ) );
+    // InternalDTO.g:636:1: rule__EntityOption__Alternatives : ( ( ( rule__EntityOption__Group_0__0 ) ) | ( ( rule__EntityOption__Group_1__0 ) ) );
     public final void rule__EntityOption__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:609:1: ( ( ( rule__EntityOption__Group_0__0 ) ) | ( ( rule__EntityOption__Group_1__0 ) ) )
+            // InternalDTO.g:640:1: ( ( ( rule__EntityOption__Group_0__0 ) ) | ( ( rule__EntityOption__Group_1__0 ) ) )
             int alt7=2;
             int LA7_0 = input.LA(1);
 
-            if ( (LA7_0==45) ) {
+            if ( (LA7_0==47) ) {
                 alt7=1;
             }
             else if ( (LA7_0==34) ) {
@@ -2062,14 +2172,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
             }
             switch (alt7) {
                 case 1 :
-                    // InternalDTO.g:610:2: ( ( rule__EntityOption__Group_0__0 ) )
+                    // InternalDTO.g:641:2: ( ( rule__EntityOption__Group_0__0 ) )
                     {
-                    // InternalDTO.g:610:2: ( ( rule__EntityOption__Group_0__0 ) )
-                    // InternalDTO.g:611:3: ( rule__EntityOption__Group_0__0 )
+                    // InternalDTO.g:641:2: ( ( rule__EntityOption__Group_0__0 ) )
+                    // InternalDTO.g:642:3: ( rule__EntityOption__Group_0__0 )
                     {
                      before(grammarAccess.getEntityOptionAccess().getGroup_0()); 
-                    // InternalDTO.g:612:3: ( rule__EntityOption__Group_0__0 )
-                    // InternalDTO.g:612:4: rule__EntityOption__Group_0__0
+                    // InternalDTO.g:643:3: ( rule__EntityOption__Group_0__0 )
+                    // InternalDTO.g:643:4: rule__EntityOption__Group_0__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__EntityOption__Group_0__0();
@@ -2087,14 +2197,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:616:2: ( ( rule__EntityOption__Group_1__0 ) )
+                    // InternalDTO.g:647:2: ( ( rule__EntityOption__Group_1__0 ) )
                     {
-                    // InternalDTO.g:616:2: ( ( rule__EntityOption__Group_1__0 ) )
-                    // InternalDTO.g:617:3: ( rule__EntityOption__Group_1__0 )
+                    // InternalDTO.g:647:2: ( ( rule__EntityOption__Group_1__0 ) )
+                    // InternalDTO.g:648:3: ( rule__EntityOption__Group_1__0 )
                     {
                      before(grammarAccess.getEntityOptionAccess().getGroup_1()); 
-                    // InternalDTO.g:618:3: ( rule__EntityOption__Group_1__0 )
-                    // InternalDTO.g:618:4: rule__EntityOption__Group_1__0
+                    // InternalDTO.g:649:3: ( rule__EntityOption__Group_1__0 )
+                    // InternalDTO.g:649:4: rule__EntityOption__Group_1__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__EntityOption__Group_1__0();
@@ -2129,13 +2239,13 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InheritanceMappingType__TypeAlternatives_0"
-    // InternalDTO.g:626:1: rule__InheritanceMappingType__TypeAlternatives_0 : ( ( 'SINGLE_TABLE' ) | ( 'TABLE_PER_CONCRETE_CLASS' ) | ( 'TABLE_PER_CLASS' ) );
+    // InternalDTO.g:657:1: rule__InheritanceMappingType__TypeAlternatives_0 : ( ( 'SINGLE_TABLE' ) | ( 'TABLE_PER_CONCRETE_CLASS' ) | ( 'TABLE_PER_CLASS' ) );
     public final void rule__InheritanceMappingType__TypeAlternatives_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:630:1: ( ( 'SINGLE_TABLE' ) | ( 'TABLE_PER_CONCRETE_CLASS' ) | ( 'TABLE_PER_CLASS' ) )
+            // InternalDTO.g:661:1: ( ( 'SINGLE_TABLE' ) | ( 'TABLE_PER_CONCRETE_CLASS' ) | ( 'TABLE_PER_CLASS' ) )
             int alt8=3;
             switch ( input.LA(1) ) {
             case 13:
@@ -2162,10 +2272,10 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
             switch (alt8) {
                 case 1 :
-                    // InternalDTO.g:631:2: ( 'SINGLE_TABLE' )
+                    // InternalDTO.g:662:2: ( 'SINGLE_TABLE' )
                     {
-                    // InternalDTO.g:631:2: ( 'SINGLE_TABLE' )
-                    // InternalDTO.g:632:3: 'SINGLE_TABLE'
+                    // InternalDTO.g:662:2: ( 'SINGLE_TABLE' )
+                    // InternalDTO.g:663:3: 'SINGLE_TABLE'
                     {
                      before(grammarAccess.getInheritanceMappingTypeAccess().getTypeSINGLE_TABLEKeyword_0_0()); 
                     match(input,13,FOLLOW_2); 
@@ -2177,10 +2287,10 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:637:2: ( 'TABLE_PER_CONCRETE_CLASS' )
+                    // InternalDTO.g:668:2: ( 'TABLE_PER_CONCRETE_CLASS' )
                     {
-                    // InternalDTO.g:637:2: ( 'TABLE_PER_CONCRETE_CLASS' )
-                    // InternalDTO.g:638:3: 'TABLE_PER_CONCRETE_CLASS'
+                    // InternalDTO.g:668:2: ( 'TABLE_PER_CONCRETE_CLASS' )
+                    // InternalDTO.g:669:3: 'TABLE_PER_CONCRETE_CLASS'
                     {
                      before(grammarAccess.getInheritanceMappingTypeAccess().getTypeTABLE_PER_CONCRETE_CLASSKeyword_0_1()); 
                     match(input,14,FOLLOW_2); 
@@ -2192,10 +2302,10 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalDTO.g:643:2: ( 'TABLE_PER_CLASS' )
+                    // InternalDTO.g:674:2: ( 'TABLE_PER_CLASS' )
                     {
-                    // InternalDTO.g:643:2: ( 'TABLE_PER_CLASS' )
-                    // InternalDTO.g:644:3: 'TABLE_PER_CLASS'
+                    // InternalDTO.g:674:2: ( 'TABLE_PER_CLASS' )
+                    // InternalDTO.g:675:3: 'TABLE_PER_CLASS'
                     {
                      before(grammarAccess.getInheritanceMappingTypeAccess().getTypeTABLE_PER_CLASSKeyword_0_2()); 
                     match(input,15,FOLLOW_2); 
@@ -2224,20 +2334,20 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AttributeType__Alternatives"
-    // InternalDTO.g:653:1: rule__AttributeType__Alternatives : ( ( ruleSingleType ) | ( ruleCollectionType ) );
+    // InternalDTO.g:684:1: rule__AttributeType__Alternatives : ( ( ruleSingleType ) | ( ruleCollectionType ) );
     public final void rule__AttributeType__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:657:1: ( ( ruleSingleType ) | ( ruleCollectionType ) )
+            // InternalDTO.g:688:1: ( ( ruleSingleType ) | ( ruleCollectionType ) )
             int alt9=2;
             int LA9_0 = input.LA(1);
 
-            if ( (LA9_0==RULE_ID||(LA9_0>=22 && LA9_0<=26)||(LA9_0>=37 && LA9_0<=41)) ) {
+            if ( (LA9_0==RULE_ID||(LA9_0>=22 && LA9_0<=26)||(LA9_0>=37 && LA9_0<=42)) ) {
                 alt9=1;
             }
-            else if ( (LA9_0==42) ) {
+            else if ( (LA9_0==43) ) {
                 alt9=2;
             }
             else {
@@ -2248,10 +2358,10 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
             }
             switch (alt9) {
                 case 1 :
-                    // InternalDTO.g:658:2: ( ruleSingleType )
+                    // InternalDTO.g:689:2: ( ruleSingleType )
                     {
-                    // InternalDTO.g:658:2: ( ruleSingleType )
-                    // InternalDTO.g:659:3: ruleSingleType
+                    // InternalDTO.g:689:2: ( ruleSingleType )
+                    // InternalDTO.g:690:3: ruleSingleType
                     {
                      before(grammarAccess.getAttributeTypeAccess().getSingleTypeParserRuleCall_0()); 
                     pushFollow(FOLLOW_2);
@@ -2267,10 +2377,10 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:664:2: ( ruleCollectionType )
+                    // InternalDTO.g:695:2: ( ruleCollectionType )
                     {
-                    // InternalDTO.g:664:2: ( ruleCollectionType )
-                    // InternalDTO.g:665:3: ruleCollectionType
+                    // InternalDTO.g:695:2: ( ruleCollectionType )
+                    // InternalDTO.g:696:3: ruleCollectionType
                     {
                      before(grammarAccess.getAttributeTypeAccess().getCollectionTypeParserRuleCall_1()); 
                     pushFollow(FOLLOW_2);
@@ -2303,17 +2413,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SingleType__Alternatives"
-    // InternalDTO.g:674:1: rule__SingleType__Alternatives : ( ( ruleBasicType ) | ( ruleRefType ) );
+    // InternalDTO.g:705:1: rule__SingleType__Alternatives : ( ( ruleBasicType ) | ( ruleRefType ) );
     public final void rule__SingleType__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:678:1: ( ( ruleBasicType ) | ( ruleRefType ) )
+            // InternalDTO.g:709:1: ( ( ruleBasicType ) | ( ruleRefType ) )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
-            if ( ((LA10_0>=22 && LA10_0<=26)||(LA10_0>=37 && LA10_0<=41)) ) {
+            if ( ((LA10_0>=22 && LA10_0<=26)||(LA10_0>=37 && LA10_0<=42)) ) {
                 alt10=1;
             }
             else if ( (LA10_0==RULE_ID) ) {
@@ -2327,10 +2437,10 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
             }
             switch (alt10) {
                 case 1 :
-                    // InternalDTO.g:679:2: ( ruleBasicType )
+                    // InternalDTO.g:710:2: ( ruleBasicType )
                     {
-                    // InternalDTO.g:679:2: ( ruleBasicType )
-                    // InternalDTO.g:680:3: ruleBasicType
+                    // InternalDTO.g:710:2: ( ruleBasicType )
+                    // InternalDTO.g:711:3: ruleBasicType
                     {
                      before(grammarAccess.getSingleTypeAccess().getBasicTypeParserRuleCall_0()); 
                     pushFollow(FOLLOW_2);
@@ -2346,10 +2456,10 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:685:2: ( ruleRefType )
+                    // InternalDTO.g:716:2: ( ruleRefType )
                     {
-                    // InternalDTO.g:685:2: ( ruleRefType )
-                    // InternalDTO.g:686:3: ruleRefType
+                    // InternalDTO.g:716:2: ( ruleRefType )
+                    // InternalDTO.g:717:3: ruleRefType
                     {
                      before(grammarAccess.getSingleTypeAccess().getRefTypeParserRuleCall_1()); 
                     pushFollow(FOLLOW_2);
@@ -2382,14 +2492,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Alternatives"
-    // InternalDTO.g:695:1: superBasicType__Alternatives : ( ( ( superBasicType__Group_0__0 ) ) | ( ( superBasicType__Group_1__0 ) ) | ( ( superBasicType__Group_2__0 ) ) | ( ( superBasicType__Group_3__0 ) ) | ( ( superBasicType__Group_4__0 ) ) );
+    // InternalDTO.g:726:1: superBasicType__Alternatives : ( ( ( superBasicType__Group_0__0 ) ) | ( ( superBasicType__Group_1__0 ) ) | ( ( superBasicType__Group_2__0 ) ) | ( ( superBasicType__Group_3__0 ) ) | ( ( superBasicType__Group_4__0 ) ) | ( ( superBasicType__Group_5__0 ) ) );
     public final void superBasicType__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:699:1: ( ( ( superBasicType__Group_0__0 ) ) | ( ( superBasicType__Group_1__0 ) ) | ( ( superBasicType__Group_2__0 ) ) | ( ( superBasicType__Group_3__0 ) ) | ( ( superBasicType__Group_4__0 ) ) )
-            int alt11=5;
+            // InternalDTO.g:730:1: ( ( ( superBasicType__Group_0__0 ) ) | ( ( superBasicType__Group_1__0 ) ) | ( ( superBasicType__Group_2__0 ) ) | ( ( superBasicType__Group_3__0 ) ) | ( ( superBasicType__Group_4__0 ) ) | ( ( superBasicType__Group_5__0 ) ) )
+            int alt11=6;
             switch ( input.LA(1) ) {
             case 37:
                 {
@@ -2416,6 +2526,11 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                 alt11=5;
                 }
                 break;
+            case 42:
+                {
+                alt11=6;
+                }
+                break;
             default:
                 NoViableAltException nvae =
                     new NoViableAltException("", 11, 0, input);
@@ -2425,14 +2540,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
             switch (alt11) {
                 case 1 :
-                    // InternalDTO.g:700:2: ( ( superBasicType__Group_0__0 ) )
+                    // InternalDTO.g:731:2: ( ( superBasicType__Group_0__0 ) )
                     {
-                    // InternalDTO.g:700:2: ( ( superBasicType__Group_0__0 ) )
-                    // InternalDTO.g:701:3: ( superBasicType__Group_0__0 )
+                    // InternalDTO.g:731:2: ( ( superBasicType__Group_0__0 ) )
+                    // InternalDTO.g:732:3: ( superBasicType__Group_0__0 )
                     {
                      before(grammarAccess.getDomainModelBasicTypeAccess().getGroup_0()); 
-                    // InternalDTO.g:702:3: ( superBasicType__Group_0__0 )
-                    // InternalDTO.g:702:4: superBasicType__Group_0__0
+                    // InternalDTO.g:733:3: ( superBasicType__Group_0__0 )
+                    // InternalDTO.g:733:4: superBasicType__Group_0__0
                     {
                     pushFollow(FOLLOW_2);
                     superBasicType__Group_0__0();
@@ -2450,14 +2565,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:706:2: ( ( superBasicType__Group_1__0 ) )
+                    // InternalDTO.g:737:2: ( ( superBasicType__Group_1__0 ) )
                     {
-                    // InternalDTO.g:706:2: ( ( superBasicType__Group_1__0 ) )
-                    // InternalDTO.g:707:3: ( superBasicType__Group_1__0 )
+                    // InternalDTO.g:737:2: ( ( superBasicType__Group_1__0 ) )
+                    // InternalDTO.g:738:3: ( superBasicType__Group_1__0 )
                     {
                      before(grammarAccess.getDomainModelBasicTypeAccess().getGroup_1()); 
-                    // InternalDTO.g:708:3: ( superBasicType__Group_1__0 )
-                    // InternalDTO.g:708:4: superBasicType__Group_1__0
+                    // InternalDTO.g:739:3: ( superBasicType__Group_1__0 )
+                    // InternalDTO.g:739:4: superBasicType__Group_1__0
                     {
                     pushFollow(FOLLOW_2);
                     superBasicType__Group_1__0();
@@ -2475,14 +2590,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalDTO.g:712:2: ( ( superBasicType__Group_2__0 ) )
+                    // InternalDTO.g:743:2: ( ( superBasicType__Group_2__0 ) )
                     {
-                    // InternalDTO.g:712:2: ( ( superBasicType__Group_2__0 ) )
-                    // InternalDTO.g:713:3: ( superBasicType__Group_2__0 )
+                    // InternalDTO.g:743:2: ( ( superBasicType__Group_2__0 ) )
+                    // InternalDTO.g:744:3: ( superBasicType__Group_2__0 )
                     {
                      before(grammarAccess.getDomainModelBasicTypeAccess().getGroup_2()); 
-                    // InternalDTO.g:714:3: ( superBasicType__Group_2__0 )
-                    // InternalDTO.g:714:4: superBasicType__Group_2__0
+                    // InternalDTO.g:745:3: ( superBasicType__Group_2__0 )
+                    // InternalDTO.g:745:4: superBasicType__Group_2__0
                     {
                     pushFollow(FOLLOW_2);
                     superBasicType__Group_2__0();
@@ -2500,14 +2615,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // InternalDTO.g:718:2: ( ( superBasicType__Group_3__0 ) )
+                    // InternalDTO.g:749:2: ( ( superBasicType__Group_3__0 ) )
                     {
-                    // InternalDTO.g:718:2: ( ( superBasicType__Group_3__0 ) )
-                    // InternalDTO.g:719:3: ( superBasicType__Group_3__0 )
+                    // InternalDTO.g:749:2: ( ( superBasicType__Group_3__0 ) )
+                    // InternalDTO.g:750:3: ( superBasicType__Group_3__0 )
                     {
                      before(grammarAccess.getDomainModelBasicTypeAccess().getGroup_3()); 
-                    // InternalDTO.g:720:3: ( superBasicType__Group_3__0 )
-                    // InternalDTO.g:720:4: superBasicType__Group_3__0
+                    // InternalDTO.g:751:3: ( superBasicType__Group_3__0 )
+                    // InternalDTO.g:751:4: superBasicType__Group_3__0
                     {
                     pushFollow(FOLLOW_2);
                     superBasicType__Group_3__0();
@@ -2525,14 +2640,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 5 :
-                    // InternalDTO.g:724:2: ( ( superBasicType__Group_4__0 ) )
+                    // InternalDTO.g:755:2: ( ( superBasicType__Group_4__0 ) )
                     {
-                    // InternalDTO.g:724:2: ( ( superBasicType__Group_4__0 ) )
-                    // InternalDTO.g:725:3: ( superBasicType__Group_4__0 )
+                    // InternalDTO.g:755:2: ( ( superBasicType__Group_4__0 ) )
+                    // InternalDTO.g:756:3: ( superBasicType__Group_4__0 )
                     {
                      before(grammarAccess.getDomainModelBasicTypeAccess().getGroup_4()); 
-                    // InternalDTO.g:726:3: ( superBasicType__Group_4__0 )
-                    // InternalDTO.g:726:4: superBasicType__Group_4__0
+                    // InternalDTO.g:757:3: ( superBasicType__Group_4__0 )
+                    // InternalDTO.g:757:4: superBasicType__Group_4__0
                     {
                     pushFollow(FOLLOW_2);
                     superBasicType__Group_4__0();
@@ -2543,6 +2658,31 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     }
 
                      after(grammarAccess.getDomainModelBasicTypeAccess().getGroup_4()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 6 :
+                    // InternalDTO.g:761:2: ( ( superBasicType__Group_5__0 ) )
+                    {
+                    // InternalDTO.g:761:2: ( ( superBasicType__Group_5__0 ) )
+                    // InternalDTO.g:762:3: ( superBasicType__Group_5__0 )
+                    {
+                     before(grammarAccess.getDomainModelBasicTypeAccess().getGroup_5()); 
+                    // InternalDTO.g:763:3: ( superBasicType__Group_5__0 )
+                    // InternalDTO.g:763:4: superBasicType__Group_5__0
+                    {
+                    pushFollow(FOLLOW_2);
+                    superBasicType__Group_5__0();
+
+                    state._fsp--;
+
+
+                    }
+
+                     after(grammarAccess.getDomainModelBasicTypeAccess().getGroup_5()); 
 
                     }
 
@@ -2567,14 +2707,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group__0"
-    // InternalDTO.g:734:1: rule__DTOClass__Group__0 : rule__DTOClass__Group__0__Impl rule__DTOClass__Group__1 ;
+    // InternalDTO.g:771:1: rule__DTOClass__Group__0 : rule__DTOClass__Group__0__Impl rule__DTOClass__Group__1 ;
     public final void rule__DTOClass__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:738:1: ( rule__DTOClass__Group__0__Impl rule__DTOClass__Group__1 )
-            // InternalDTO.g:739:2: rule__DTOClass__Group__0__Impl rule__DTOClass__Group__1
+            // InternalDTO.g:775:1: ( rule__DTOClass__Group__0__Impl rule__DTOClass__Group__1 )
+            // InternalDTO.g:776:2: rule__DTOClass__Group__0__Impl rule__DTOClass__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__DTOClass__Group__0__Impl();
@@ -2605,17 +2745,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group__0__Impl"
-    // InternalDTO.g:746:1: rule__DTOClass__Group__0__Impl : ( 'class' ) ;
+    // InternalDTO.g:783:1: rule__DTOClass__Group__0__Impl : ( 'class' ) ;
     public final void rule__DTOClass__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:750:1: ( ( 'class' ) )
-            // InternalDTO.g:751:1: ( 'class' )
+            // InternalDTO.g:787:1: ( ( 'class' ) )
+            // InternalDTO.g:788:1: ( 'class' )
             {
-            // InternalDTO.g:751:1: ( 'class' )
-            // InternalDTO.g:752:2: 'class'
+            // InternalDTO.g:788:1: ( 'class' )
+            // InternalDTO.g:789:2: 'class'
             {
              before(grammarAccess.getDTOClassAccess().getClassKeyword_0()); 
             match(input,16,FOLLOW_2); 
@@ -2642,14 +2782,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group__1"
-    // InternalDTO.g:761:1: rule__DTOClass__Group__1 : rule__DTOClass__Group__1__Impl rule__DTOClass__Group__2 ;
+    // InternalDTO.g:798:1: rule__DTOClass__Group__1 : rule__DTOClass__Group__1__Impl rule__DTOClass__Group__2 ;
     public final void rule__DTOClass__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:765:1: ( rule__DTOClass__Group__1__Impl rule__DTOClass__Group__2 )
-            // InternalDTO.g:766:2: rule__DTOClass__Group__1__Impl rule__DTOClass__Group__2
+            // InternalDTO.g:802:1: ( rule__DTOClass__Group__1__Impl rule__DTOClass__Group__2 )
+            // InternalDTO.g:803:2: rule__DTOClass__Group__1__Impl rule__DTOClass__Group__2
             {
             pushFollow(FOLLOW_5);
             rule__DTOClass__Group__1__Impl();
@@ -2680,21 +2820,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group__1__Impl"
-    // InternalDTO.g:773:1: rule__DTOClass__Group__1__Impl : ( ( rule__DTOClass__NameAssignment_1 ) ) ;
+    // InternalDTO.g:810:1: rule__DTOClass__Group__1__Impl : ( ( rule__DTOClass__NameAssignment_1 ) ) ;
     public final void rule__DTOClass__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:777:1: ( ( ( rule__DTOClass__NameAssignment_1 ) ) )
-            // InternalDTO.g:778:1: ( ( rule__DTOClass__NameAssignment_1 ) )
+            // InternalDTO.g:814:1: ( ( ( rule__DTOClass__NameAssignment_1 ) ) )
+            // InternalDTO.g:815:1: ( ( rule__DTOClass__NameAssignment_1 ) )
             {
-            // InternalDTO.g:778:1: ( ( rule__DTOClass__NameAssignment_1 ) )
-            // InternalDTO.g:779:2: ( rule__DTOClass__NameAssignment_1 )
+            // InternalDTO.g:815:1: ( ( rule__DTOClass__NameAssignment_1 ) )
+            // InternalDTO.g:816:2: ( rule__DTOClass__NameAssignment_1 )
             {
              before(grammarAccess.getDTOClassAccess().getNameAssignment_1()); 
-            // InternalDTO.g:780:2: ( rule__DTOClass__NameAssignment_1 )
-            // InternalDTO.g:780:3: rule__DTOClass__NameAssignment_1
+            // InternalDTO.g:817:2: ( rule__DTOClass__NameAssignment_1 )
+            // InternalDTO.g:817:3: rule__DTOClass__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__DTOClass__NameAssignment_1();
@@ -2727,14 +2867,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group__2"
-    // InternalDTO.g:788:1: rule__DTOClass__Group__2 : rule__DTOClass__Group__2__Impl rule__DTOClass__Group__3 ;
+    // InternalDTO.g:825:1: rule__DTOClass__Group__2 : rule__DTOClass__Group__2__Impl rule__DTOClass__Group__3 ;
     public final void rule__DTOClass__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:792:1: ( rule__DTOClass__Group__2__Impl rule__DTOClass__Group__3 )
-            // InternalDTO.g:793:2: rule__DTOClass__Group__2__Impl rule__DTOClass__Group__3
+            // InternalDTO.g:829:1: ( rule__DTOClass__Group__2__Impl rule__DTOClass__Group__3 )
+            // InternalDTO.g:830:2: rule__DTOClass__Group__2__Impl rule__DTOClass__Group__3
             {
             pushFollow(FOLLOW_5);
             rule__DTOClass__Group__2__Impl();
@@ -2765,20 +2905,20 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group__2__Impl"
-    // InternalDTO.g:800:1: rule__DTOClass__Group__2__Impl : ( ( rule__DTOClass__Group_2__0 )? ) ;
+    // InternalDTO.g:837:1: rule__DTOClass__Group__2__Impl : ( ( rule__DTOClass__Group_2__0 )? ) ;
     public final void rule__DTOClass__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:804:1: ( ( ( rule__DTOClass__Group_2__0 )? ) )
-            // InternalDTO.g:805:1: ( ( rule__DTOClass__Group_2__0 )? )
+            // InternalDTO.g:841:1: ( ( ( rule__DTOClass__Group_2__0 )? ) )
+            // InternalDTO.g:842:1: ( ( rule__DTOClass__Group_2__0 )? )
             {
-            // InternalDTO.g:805:1: ( ( rule__DTOClass__Group_2__0 )? )
-            // InternalDTO.g:806:2: ( rule__DTOClass__Group_2__0 )?
+            // InternalDTO.g:842:1: ( ( rule__DTOClass__Group_2__0 )? )
+            // InternalDTO.g:843:2: ( rule__DTOClass__Group_2__0 )?
             {
              before(grammarAccess.getDTOClassAccess().getGroup_2()); 
-            // InternalDTO.g:807:2: ( rule__DTOClass__Group_2__0 )?
+            // InternalDTO.g:844:2: ( rule__DTOClass__Group_2__0 )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -2787,7 +2927,7 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
             }
             switch (alt12) {
                 case 1 :
-                    // InternalDTO.g:807:3: rule__DTOClass__Group_2__0
+                    // InternalDTO.g:844:3: rule__DTOClass__Group_2__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__DTOClass__Group_2__0();
@@ -2823,14 +2963,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group__3"
-    // InternalDTO.g:815:1: rule__DTOClass__Group__3 : rule__DTOClass__Group__3__Impl rule__DTOClass__Group__4 ;
+    // InternalDTO.g:852:1: rule__DTOClass__Group__3 : rule__DTOClass__Group__3__Impl rule__DTOClass__Group__4 ;
     public final void rule__DTOClass__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:819:1: ( rule__DTOClass__Group__3__Impl rule__DTOClass__Group__4 )
-            // InternalDTO.g:820:2: rule__DTOClass__Group__3__Impl rule__DTOClass__Group__4
+            // InternalDTO.g:856:1: ( rule__DTOClass__Group__3__Impl rule__DTOClass__Group__4 )
+            // InternalDTO.g:857:2: rule__DTOClass__Group__3__Impl rule__DTOClass__Group__4
             {
             pushFollow(FOLLOW_6);
             rule__DTOClass__Group__3__Impl();
@@ -2861,17 +3001,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group__3__Impl"
-    // InternalDTO.g:827:1: rule__DTOClass__Group__3__Impl : ( '{' ) ;
+    // InternalDTO.g:864:1: rule__DTOClass__Group__3__Impl : ( '{' ) ;
     public final void rule__DTOClass__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:831:1: ( ( '{' ) )
-            // InternalDTO.g:832:1: ( '{' )
+            // InternalDTO.g:868:1: ( ( '{' ) )
+            // InternalDTO.g:869:1: ( '{' )
             {
-            // InternalDTO.g:832:1: ( '{' )
-            // InternalDTO.g:833:2: '{'
+            // InternalDTO.g:869:1: ( '{' )
+            // InternalDTO.g:870:2: '{'
             {
              before(grammarAccess.getDTOClassAccess().getLeftCurlyBracketKeyword_3()); 
             match(input,17,FOLLOW_2); 
@@ -2898,14 +3038,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group__4"
-    // InternalDTO.g:842:1: rule__DTOClass__Group__4 : rule__DTOClass__Group__4__Impl rule__DTOClass__Group__5 ;
+    // InternalDTO.g:879:1: rule__DTOClass__Group__4 : rule__DTOClass__Group__4__Impl rule__DTOClass__Group__5 ;
     public final void rule__DTOClass__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:846:1: ( rule__DTOClass__Group__4__Impl rule__DTOClass__Group__5 )
-            // InternalDTO.g:847:2: rule__DTOClass__Group__4__Impl rule__DTOClass__Group__5
+            // InternalDTO.g:883:1: ( rule__DTOClass__Group__4__Impl rule__DTOClass__Group__5 )
+            // InternalDTO.g:884:2: rule__DTOClass__Group__4__Impl rule__DTOClass__Group__5
             {
             pushFollow(FOLLOW_6);
             rule__DTOClass__Group__4__Impl();
@@ -2936,33 +3076,33 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group__4__Impl"
-    // InternalDTO.g:854:1: rule__DTOClass__Group__4__Impl : ( ( rule__DTOClass__AttributesAssignment_4 )* ) ;
+    // InternalDTO.g:891:1: rule__DTOClass__Group__4__Impl : ( ( rule__DTOClass__AttributesAssignment_4 )* ) ;
     public final void rule__DTOClass__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:858:1: ( ( ( rule__DTOClass__AttributesAssignment_4 )* ) )
-            // InternalDTO.g:859:1: ( ( rule__DTOClass__AttributesAssignment_4 )* )
+            // InternalDTO.g:895:1: ( ( ( rule__DTOClass__AttributesAssignment_4 )* ) )
+            // InternalDTO.g:896:1: ( ( rule__DTOClass__AttributesAssignment_4 )* )
             {
-            // InternalDTO.g:859:1: ( ( rule__DTOClass__AttributesAssignment_4 )* )
-            // InternalDTO.g:860:2: ( rule__DTOClass__AttributesAssignment_4 )*
+            // InternalDTO.g:896:1: ( ( rule__DTOClass__AttributesAssignment_4 )* )
+            // InternalDTO.g:897:2: ( rule__DTOClass__AttributesAssignment_4 )*
             {
              before(grammarAccess.getDTOClassAccess().getAttributesAssignment_4()); 
-            // InternalDTO.g:861:2: ( rule__DTOClass__AttributesAssignment_4 )*
+            // InternalDTO.g:898:2: ( rule__DTOClass__AttributesAssignment_4 )*
             loop13:
             do {
                 int alt13=2;
                 int LA13_0 = input.LA(1);
 
-                if ( (LA13_0==RULE_ID||(LA13_0>=22 && LA13_0<=26)||(LA13_0>=37 && LA13_0<=42)) ) {
+                if ( (LA13_0==RULE_ID||(LA13_0>=22 && LA13_0<=26)||(LA13_0>=37 && LA13_0<=43)) ) {
                     alt13=1;
                 }
 
 
                 switch (alt13) {
             	case 1 :
-            	    // InternalDTO.g:861:3: rule__DTOClass__AttributesAssignment_4
+            	    // InternalDTO.g:898:3: rule__DTOClass__AttributesAssignment_4
             	    {
             	    pushFollow(FOLLOW_7);
             	    rule__DTOClass__AttributesAssignment_4();
@@ -3001,14 +3141,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group__5"
-    // InternalDTO.g:869:1: rule__DTOClass__Group__5 : rule__DTOClass__Group__5__Impl ;
+    // InternalDTO.g:906:1: rule__DTOClass__Group__5 : rule__DTOClass__Group__5__Impl ;
     public final void rule__DTOClass__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:873:1: ( rule__DTOClass__Group__5__Impl )
-            // InternalDTO.g:874:2: rule__DTOClass__Group__5__Impl
+            // InternalDTO.g:910:1: ( rule__DTOClass__Group__5__Impl )
+            // InternalDTO.g:911:2: rule__DTOClass__Group__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__DTOClass__Group__5__Impl();
@@ -3034,17 +3174,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group__5__Impl"
-    // InternalDTO.g:880:1: rule__DTOClass__Group__5__Impl : ( '}' ) ;
+    // InternalDTO.g:917:1: rule__DTOClass__Group__5__Impl : ( '}' ) ;
     public final void rule__DTOClass__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:884:1: ( ( '}' ) )
-            // InternalDTO.g:885:1: ( '}' )
+            // InternalDTO.g:921:1: ( ( '}' ) )
+            // InternalDTO.g:922:1: ( '}' )
             {
-            // InternalDTO.g:885:1: ( '}' )
-            // InternalDTO.g:886:2: '}'
+            // InternalDTO.g:922:1: ( '}' )
+            // InternalDTO.g:923:2: '}'
             {
              before(grammarAccess.getDTOClassAccess().getRightCurlyBracketKeyword_5()); 
             match(input,18,FOLLOW_2); 
@@ -3071,14 +3211,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group_2__0"
-    // InternalDTO.g:896:1: rule__DTOClass__Group_2__0 : rule__DTOClass__Group_2__0__Impl rule__DTOClass__Group_2__1 ;
+    // InternalDTO.g:933:1: rule__DTOClass__Group_2__0 : rule__DTOClass__Group_2__0__Impl rule__DTOClass__Group_2__1 ;
     public final void rule__DTOClass__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:900:1: ( rule__DTOClass__Group_2__0__Impl rule__DTOClass__Group_2__1 )
-            // InternalDTO.g:901:2: rule__DTOClass__Group_2__0__Impl rule__DTOClass__Group_2__1
+            // InternalDTO.g:937:1: ( rule__DTOClass__Group_2__0__Impl rule__DTOClass__Group_2__1 )
+            // InternalDTO.g:938:2: rule__DTOClass__Group_2__0__Impl rule__DTOClass__Group_2__1
             {
             pushFollow(FOLLOW_4);
             rule__DTOClass__Group_2__0__Impl();
@@ -3109,17 +3249,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group_2__0__Impl"
-    // InternalDTO.g:908:1: rule__DTOClass__Group_2__0__Impl : ( 'extends' ) ;
+    // InternalDTO.g:945:1: rule__DTOClass__Group_2__0__Impl : ( 'extends' ) ;
     public final void rule__DTOClass__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:912:1: ( ( 'extends' ) )
-            // InternalDTO.g:913:1: ( 'extends' )
+            // InternalDTO.g:949:1: ( ( 'extends' ) )
+            // InternalDTO.g:950:1: ( 'extends' )
             {
-            // InternalDTO.g:913:1: ( 'extends' )
-            // InternalDTO.g:914:2: 'extends'
+            // InternalDTO.g:950:1: ( 'extends' )
+            // InternalDTO.g:951:2: 'extends'
             {
              before(grammarAccess.getDTOClassAccess().getExtendsKeyword_2_0()); 
             match(input,19,FOLLOW_2); 
@@ -3146,14 +3286,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group_2__1"
-    // InternalDTO.g:923:1: rule__DTOClass__Group_2__1 : rule__DTOClass__Group_2__1__Impl ;
+    // InternalDTO.g:960:1: rule__DTOClass__Group_2__1 : rule__DTOClass__Group_2__1__Impl ;
     public final void rule__DTOClass__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:927:1: ( rule__DTOClass__Group_2__1__Impl )
-            // InternalDTO.g:928:2: rule__DTOClass__Group_2__1__Impl
+            // InternalDTO.g:964:1: ( rule__DTOClass__Group_2__1__Impl )
+            // InternalDTO.g:965:2: rule__DTOClass__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__DTOClass__Group_2__1__Impl();
@@ -3179,21 +3319,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__Group_2__1__Impl"
-    // InternalDTO.g:934:1: rule__DTOClass__Group_2__1__Impl : ( ( rule__DTOClass__SuperTypeAssignment_2_1 ) ) ;
+    // InternalDTO.g:971:1: rule__DTOClass__Group_2__1__Impl : ( ( rule__DTOClass__SuperTypeAssignment_2_1 ) ) ;
     public final void rule__DTOClass__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:938:1: ( ( ( rule__DTOClass__SuperTypeAssignment_2_1 ) ) )
-            // InternalDTO.g:939:1: ( ( rule__DTOClass__SuperTypeAssignment_2_1 ) )
+            // InternalDTO.g:975:1: ( ( ( rule__DTOClass__SuperTypeAssignment_2_1 ) ) )
+            // InternalDTO.g:976:1: ( ( rule__DTOClass__SuperTypeAssignment_2_1 ) )
             {
-            // InternalDTO.g:939:1: ( ( rule__DTOClass__SuperTypeAssignment_2_1 ) )
-            // InternalDTO.g:940:2: ( rule__DTOClass__SuperTypeAssignment_2_1 )
+            // InternalDTO.g:976:1: ( ( rule__DTOClass__SuperTypeAssignment_2_1 ) )
+            // InternalDTO.g:977:2: ( rule__DTOClass__SuperTypeAssignment_2_1 )
             {
              before(grammarAccess.getDTOClassAccess().getSuperTypeAssignment_2_1()); 
-            // InternalDTO.g:941:2: ( rule__DTOClass__SuperTypeAssignment_2_1 )
-            // InternalDTO.g:941:3: rule__DTOClass__SuperTypeAssignment_2_1
+            // InternalDTO.g:978:2: ( rule__DTOClass__SuperTypeAssignment_2_1 )
+            // InternalDTO.g:978:3: rule__DTOClass__SuperTypeAssignment_2_1
             {
             pushFollow(FOLLOW_2);
             rule__DTOClass__SuperTypeAssignment_2_1();
@@ -3226,14 +3366,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AttributeOption__Group_0__0"
-    // InternalDTO.g:950:1: rule__AttributeOption__Group_0__0 : rule__AttributeOption__Group_0__0__Impl rule__AttributeOption__Group_0__1 ;
+    // InternalDTO.g:987:1: rule__AttributeOption__Group_0__0 : rule__AttributeOption__Group_0__0__Impl rule__AttributeOption__Group_0__1 ;
     public final void rule__AttributeOption__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:954:1: ( rule__AttributeOption__Group_0__0__Impl rule__AttributeOption__Group_0__1 )
-            // InternalDTO.g:955:2: rule__AttributeOption__Group_0__0__Impl rule__AttributeOption__Group_0__1
+            // InternalDTO.g:991:1: ( rule__AttributeOption__Group_0__0__Impl rule__AttributeOption__Group_0__1 )
+            // InternalDTO.g:992:2: rule__AttributeOption__Group_0__0__Impl rule__AttributeOption__Group_0__1
             {
             pushFollow(FOLLOW_8);
             rule__AttributeOption__Group_0__0__Impl();
@@ -3264,21 +3404,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AttributeOption__Group_0__0__Impl"
-    // InternalDTO.g:962:1: rule__AttributeOption__Group_0__0__Impl : ( () ) ;
+    // InternalDTO.g:999:1: rule__AttributeOption__Group_0__0__Impl : ( () ) ;
     public final void rule__AttributeOption__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:966:1: ( ( () ) )
-            // InternalDTO.g:967:1: ( () )
+            // InternalDTO.g:1003:1: ( ( () ) )
+            // InternalDTO.g:1004:1: ( () )
             {
-            // InternalDTO.g:967:1: ( () )
-            // InternalDTO.g:968:2: ()
+            // InternalDTO.g:1004:1: ( () )
+            // InternalDTO.g:1005:2: ()
             {
              before(grammarAccess.getAttributeOptionAccess().getObjectRepresentationAction_0_0()); 
-            // InternalDTO.g:969:2: ()
-            // InternalDTO.g:969:3: 
+            // InternalDTO.g:1006:2: ()
+            // InternalDTO.g:1006:3: 
             {
             }
 
@@ -3301,14 +3441,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AttributeOption__Group_0__1"
-    // InternalDTO.g:977:1: rule__AttributeOption__Group_0__1 : rule__AttributeOption__Group_0__1__Impl ;
+    // InternalDTO.g:1014:1: rule__AttributeOption__Group_0__1 : rule__AttributeOption__Group_0__1__Impl ;
     public final void rule__AttributeOption__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:981:1: ( rule__AttributeOption__Group_0__1__Impl )
-            // InternalDTO.g:982:2: rule__AttributeOption__Group_0__1__Impl
+            // InternalDTO.g:1018:1: ( rule__AttributeOption__Group_0__1__Impl )
+            // InternalDTO.g:1019:2: rule__AttributeOption__Group_0__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AttributeOption__Group_0__1__Impl();
@@ -3334,17 +3474,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AttributeOption__Group_0__1__Impl"
-    // InternalDTO.g:988:1: rule__AttributeOption__Group_0__1__Impl : ( 'representation' ) ;
+    // InternalDTO.g:1025:1: rule__AttributeOption__Group_0__1__Impl : ( 'representation' ) ;
     public final void rule__AttributeOption__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:992:1: ( ( 'representation' ) )
-            // InternalDTO.g:993:1: ( 'representation' )
+            // InternalDTO.g:1029:1: ( ( 'representation' ) )
+            // InternalDTO.g:1030:1: ( 'representation' )
             {
-            // InternalDTO.g:993:1: ( 'representation' )
-            // InternalDTO.g:994:2: 'representation'
+            // InternalDTO.g:1030:1: ( 'representation' )
+            // InternalDTO.g:1031:2: 'representation'
             {
              before(grammarAccess.getAttributeOptionAccess().getRepresentationKeyword_0_1()); 
             match(input,20,FOLLOW_2); 
@@ -3371,14 +3511,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AttributeOption__Group_1__0"
-    // InternalDTO.g:1004:1: rule__AttributeOption__Group_1__0 : rule__AttributeOption__Group_1__0__Impl rule__AttributeOption__Group_1__1 ;
+    // InternalDTO.g:1041:1: rule__AttributeOption__Group_1__0 : rule__AttributeOption__Group_1__0__Impl rule__AttributeOption__Group_1__1 ;
     public final void rule__AttributeOption__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1008:1: ( rule__AttributeOption__Group_1__0__Impl rule__AttributeOption__Group_1__1 )
-            // InternalDTO.g:1009:2: rule__AttributeOption__Group_1__0__Impl rule__AttributeOption__Group_1__1
+            // InternalDTO.g:1045:1: ( rule__AttributeOption__Group_1__0__Impl rule__AttributeOption__Group_1__1 )
+            // InternalDTO.g:1046:2: rule__AttributeOption__Group_1__0__Impl rule__AttributeOption__Group_1__1
             {
             pushFollow(FOLLOW_9);
             rule__AttributeOption__Group_1__0__Impl();
@@ -3409,21 +3549,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AttributeOption__Group_1__0__Impl"
-    // InternalDTO.g:1016:1: rule__AttributeOption__Group_1__0__Impl : ( () ) ;
+    // InternalDTO.g:1053:1: rule__AttributeOption__Group_1__0__Impl : ( () ) ;
     public final void rule__AttributeOption__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1020:1: ( ( () ) )
-            // InternalDTO.g:1021:1: ( () )
+            // InternalDTO.g:1057:1: ( ( () ) )
+            // InternalDTO.g:1058:1: ( () )
             {
-            // InternalDTO.g:1021:1: ( () )
-            // InternalDTO.g:1022:2: ()
+            // InternalDTO.g:1058:1: ( () )
+            // InternalDTO.g:1059:2: ()
             {
              before(grammarAccess.getAttributeOptionAccess().getIDAttributeAction_1_0()); 
-            // InternalDTO.g:1023:2: ()
-            // InternalDTO.g:1023:3: 
+            // InternalDTO.g:1060:2: ()
+            // InternalDTO.g:1060:3: 
             {
             }
 
@@ -3446,14 +3586,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AttributeOption__Group_1__1"
-    // InternalDTO.g:1031:1: rule__AttributeOption__Group_1__1 : rule__AttributeOption__Group_1__1__Impl ;
+    // InternalDTO.g:1068:1: rule__AttributeOption__Group_1__1 : rule__AttributeOption__Group_1__1__Impl ;
     public final void rule__AttributeOption__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1035:1: ( rule__AttributeOption__Group_1__1__Impl )
-            // InternalDTO.g:1036:2: rule__AttributeOption__Group_1__1__Impl
+            // InternalDTO.g:1072:1: ( rule__AttributeOption__Group_1__1__Impl )
+            // InternalDTO.g:1073:2: rule__AttributeOption__Group_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AttributeOption__Group_1__1__Impl();
@@ -3479,17 +3619,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AttributeOption__Group_1__1__Impl"
-    // InternalDTO.g:1042:1: rule__AttributeOption__Group_1__1__Impl : ( '@id' ) ;
+    // InternalDTO.g:1079:1: rule__AttributeOption__Group_1__1__Impl : ( '@id' ) ;
     public final void rule__AttributeOption__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1046:1: ( ( '@id' ) )
-            // InternalDTO.g:1047:1: ( '@id' )
+            // InternalDTO.g:1083:1: ( ( '@id' ) )
+            // InternalDTO.g:1084:1: ( '@id' )
             {
-            // InternalDTO.g:1047:1: ( '@id' )
-            // InternalDTO.g:1048:2: '@id'
+            // InternalDTO.g:1084:1: ( '@id' )
+            // InternalDTO.g:1085:2: '@id'
             {
              before(grammarAccess.getAttributeOptionAccess().getIdKeyword_1_1()); 
             match(input,21,FOLLOW_2); 
@@ -3516,14 +3656,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_1__0"
-    // InternalDTO.g:1058:1: rule__BasicType__Group_1__0 : rule__BasicType__Group_1__0__Impl rule__BasicType__Group_1__1 ;
+    // InternalDTO.g:1095:1: rule__BasicType__Group_1__0 : rule__BasicType__Group_1__0__Impl rule__BasicType__Group_1__1 ;
     public final void rule__BasicType__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1062:1: ( rule__BasicType__Group_1__0__Impl rule__BasicType__Group_1__1 )
-            // InternalDTO.g:1063:2: rule__BasicType__Group_1__0__Impl rule__BasicType__Group_1__1
+            // InternalDTO.g:1099:1: ( rule__BasicType__Group_1__0__Impl rule__BasicType__Group_1__1 )
+            // InternalDTO.g:1100:2: rule__BasicType__Group_1__0__Impl rule__BasicType__Group_1__1
             {
             pushFollow(FOLLOW_10);
             rule__BasicType__Group_1__0__Impl();
@@ -3554,21 +3694,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_1__0__Impl"
-    // InternalDTO.g:1070:1: rule__BasicType__Group_1__0__Impl : ( () ) ;
+    // InternalDTO.g:1107:1: rule__BasicType__Group_1__0__Impl : ( () ) ;
     public final void rule__BasicType__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1074:1: ( ( () ) )
-            // InternalDTO.g:1075:1: ( () )
+            // InternalDTO.g:1111:1: ( ( () ) )
+            // InternalDTO.g:1112:1: ( () )
             {
-            // InternalDTO.g:1075:1: ( () )
-            // InternalDTO.g:1076:2: ()
+            // InternalDTO.g:1112:1: ( () )
+            // InternalDTO.g:1113:2: ()
             {
              before(grammarAccess.getBasicTypeAccess().getTextTypeAction_1_0()); 
-            // InternalDTO.g:1077:2: ()
-            // InternalDTO.g:1077:3: 
+            // InternalDTO.g:1114:2: ()
+            // InternalDTO.g:1114:3: 
             {
             }
 
@@ -3591,14 +3731,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_1__1"
-    // InternalDTO.g:1085:1: rule__BasicType__Group_1__1 : rule__BasicType__Group_1__1__Impl ;
+    // InternalDTO.g:1122:1: rule__BasicType__Group_1__1 : rule__BasicType__Group_1__1__Impl ;
     public final void rule__BasicType__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1089:1: ( rule__BasicType__Group_1__1__Impl )
-            // InternalDTO.g:1090:2: rule__BasicType__Group_1__1__Impl
+            // InternalDTO.g:1126:1: ( rule__BasicType__Group_1__1__Impl )
+            // InternalDTO.g:1127:2: rule__BasicType__Group_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__BasicType__Group_1__1__Impl();
@@ -3624,17 +3764,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_1__1__Impl"
-    // InternalDTO.g:1096:1: rule__BasicType__Group_1__1__Impl : ( 'text' ) ;
+    // InternalDTO.g:1133:1: rule__BasicType__Group_1__1__Impl : ( 'text' ) ;
     public final void rule__BasicType__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1100:1: ( ( 'text' ) )
-            // InternalDTO.g:1101:1: ( 'text' )
+            // InternalDTO.g:1137:1: ( ( 'text' ) )
+            // InternalDTO.g:1138:1: ( 'text' )
             {
-            // InternalDTO.g:1101:1: ( 'text' )
-            // InternalDTO.g:1102:2: 'text'
+            // InternalDTO.g:1138:1: ( 'text' )
+            // InternalDTO.g:1139:2: 'text'
             {
              before(grammarAccess.getBasicTypeAccess().getTextKeyword_1_1()); 
             match(input,22,FOLLOW_2); 
@@ -3661,14 +3801,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_2__0"
-    // InternalDTO.g:1112:1: rule__BasicType__Group_2__0 : rule__BasicType__Group_2__0__Impl rule__BasicType__Group_2__1 ;
+    // InternalDTO.g:1149:1: rule__BasicType__Group_2__0 : rule__BasicType__Group_2__0__Impl rule__BasicType__Group_2__1 ;
     public final void rule__BasicType__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1116:1: ( rule__BasicType__Group_2__0__Impl rule__BasicType__Group_2__1 )
-            // InternalDTO.g:1117:2: rule__BasicType__Group_2__0__Impl rule__BasicType__Group_2__1
+            // InternalDTO.g:1153:1: ( rule__BasicType__Group_2__0__Impl rule__BasicType__Group_2__1 )
+            // InternalDTO.g:1154:2: rule__BasicType__Group_2__0__Impl rule__BasicType__Group_2__1
             {
             pushFollow(FOLLOW_11);
             rule__BasicType__Group_2__0__Impl();
@@ -3699,21 +3839,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_2__0__Impl"
-    // InternalDTO.g:1124:1: rule__BasicType__Group_2__0__Impl : ( () ) ;
+    // InternalDTO.g:1161:1: rule__BasicType__Group_2__0__Impl : ( () ) ;
     public final void rule__BasicType__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1128:1: ( ( () ) )
-            // InternalDTO.g:1129:1: ( () )
+            // InternalDTO.g:1165:1: ( ( () ) )
+            // InternalDTO.g:1166:1: ( () )
             {
-            // InternalDTO.g:1129:1: ( () )
-            // InternalDTO.g:1130:2: ()
+            // InternalDTO.g:1166:1: ( () )
+            // InternalDTO.g:1167:2: ()
             {
              before(grammarAccess.getBasicTypeAccess().getEmailTypeAction_2_0()); 
-            // InternalDTO.g:1131:2: ()
-            // InternalDTO.g:1131:3: 
+            // InternalDTO.g:1168:2: ()
+            // InternalDTO.g:1168:3: 
             {
             }
 
@@ -3736,14 +3876,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_2__1"
-    // InternalDTO.g:1139:1: rule__BasicType__Group_2__1 : rule__BasicType__Group_2__1__Impl ;
+    // InternalDTO.g:1176:1: rule__BasicType__Group_2__1 : rule__BasicType__Group_2__1__Impl ;
     public final void rule__BasicType__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1143:1: ( rule__BasicType__Group_2__1__Impl )
-            // InternalDTO.g:1144:2: rule__BasicType__Group_2__1__Impl
+            // InternalDTO.g:1180:1: ( rule__BasicType__Group_2__1__Impl )
+            // InternalDTO.g:1181:2: rule__BasicType__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__BasicType__Group_2__1__Impl();
@@ -3769,17 +3909,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_2__1__Impl"
-    // InternalDTO.g:1150:1: rule__BasicType__Group_2__1__Impl : ( 'email' ) ;
+    // InternalDTO.g:1187:1: rule__BasicType__Group_2__1__Impl : ( 'email' ) ;
     public final void rule__BasicType__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1154:1: ( ( 'email' ) )
-            // InternalDTO.g:1155:1: ( 'email' )
+            // InternalDTO.g:1191:1: ( ( 'email' ) )
+            // InternalDTO.g:1192:1: ( 'email' )
             {
-            // InternalDTO.g:1155:1: ( 'email' )
-            // InternalDTO.g:1156:2: 'email'
+            // InternalDTO.g:1192:1: ( 'email' )
+            // InternalDTO.g:1193:2: 'email'
             {
              before(grammarAccess.getBasicTypeAccess().getEmailKeyword_2_1()); 
             match(input,23,FOLLOW_2); 
@@ -3806,14 +3946,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_3__0"
-    // InternalDTO.g:1166:1: rule__BasicType__Group_3__0 : rule__BasicType__Group_3__0__Impl rule__BasicType__Group_3__1 ;
+    // InternalDTO.g:1203:1: rule__BasicType__Group_3__0 : rule__BasicType__Group_3__0__Impl rule__BasicType__Group_3__1 ;
     public final void rule__BasicType__Group_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1170:1: ( rule__BasicType__Group_3__0__Impl rule__BasicType__Group_3__1 )
-            // InternalDTO.g:1171:2: rule__BasicType__Group_3__0__Impl rule__BasicType__Group_3__1
+            // InternalDTO.g:1207:1: ( rule__BasicType__Group_3__0__Impl rule__BasicType__Group_3__1 )
+            // InternalDTO.g:1208:2: rule__BasicType__Group_3__0__Impl rule__BasicType__Group_3__1
             {
             pushFollow(FOLLOW_12);
             rule__BasicType__Group_3__0__Impl();
@@ -3844,21 +3984,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_3__0__Impl"
-    // InternalDTO.g:1178:1: rule__BasicType__Group_3__0__Impl : ( () ) ;
+    // InternalDTO.g:1215:1: rule__BasicType__Group_3__0__Impl : ( () ) ;
     public final void rule__BasicType__Group_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1182:1: ( ( () ) )
-            // InternalDTO.g:1183:1: ( () )
+            // InternalDTO.g:1219:1: ( ( () ) )
+            // InternalDTO.g:1220:1: ( () )
             {
-            // InternalDTO.g:1183:1: ( () )
-            // InternalDTO.g:1184:2: ()
+            // InternalDTO.g:1220:1: ( () )
+            // InternalDTO.g:1221:2: ()
             {
              before(grammarAccess.getBasicTypeAccess().getPasswordTypeAction_3_0()); 
-            // InternalDTO.g:1185:2: ()
-            // InternalDTO.g:1185:3: 
+            // InternalDTO.g:1222:2: ()
+            // InternalDTO.g:1222:3: 
             {
             }
 
@@ -3881,14 +4021,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_3__1"
-    // InternalDTO.g:1193:1: rule__BasicType__Group_3__1 : rule__BasicType__Group_3__1__Impl ;
+    // InternalDTO.g:1230:1: rule__BasicType__Group_3__1 : rule__BasicType__Group_3__1__Impl ;
     public final void rule__BasicType__Group_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1197:1: ( rule__BasicType__Group_3__1__Impl )
-            // InternalDTO.g:1198:2: rule__BasicType__Group_3__1__Impl
+            // InternalDTO.g:1234:1: ( rule__BasicType__Group_3__1__Impl )
+            // InternalDTO.g:1235:2: rule__BasicType__Group_3__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__BasicType__Group_3__1__Impl();
@@ -3914,17 +4054,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_3__1__Impl"
-    // InternalDTO.g:1204:1: rule__BasicType__Group_3__1__Impl : ( 'password' ) ;
+    // InternalDTO.g:1241:1: rule__BasicType__Group_3__1__Impl : ( 'password' ) ;
     public final void rule__BasicType__Group_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1208:1: ( ( 'password' ) )
-            // InternalDTO.g:1209:1: ( 'password' )
+            // InternalDTO.g:1245:1: ( ( 'password' ) )
+            // InternalDTO.g:1246:1: ( 'password' )
             {
-            // InternalDTO.g:1209:1: ( 'password' )
-            // InternalDTO.g:1210:2: 'password'
+            // InternalDTO.g:1246:1: ( 'password' )
+            // InternalDTO.g:1247:2: 'password'
             {
              before(grammarAccess.getBasicTypeAccess().getPasswordKeyword_3_1()); 
             match(input,24,FOLLOW_2); 
@@ -3951,14 +4091,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_4__0"
-    // InternalDTO.g:1220:1: rule__BasicType__Group_4__0 : rule__BasicType__Group_4__0__Impl rule__BasicType__Group_4__1 ;
+    // InternalDTO.g:1257:1: rule__BasicType__Group_4__0 : rule__BasicType__Group_4__0__Impl rule__BasicType__Group_4__1 ;
     public final void rule__BasicType__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1224:1: ( rule__BasicType__Group_4__0__Impl rule__BasicType__Group_4__1 )
-            // InternalDTO.g:1225:2: rule__BasicType__Group_4__0__Impl rule__BasicType__Group_4__1
+            // InternalDTO.g:1261:1: ( rule__BasicType__Group_4__0__Impl rule__BasicType__Group_4__1 )
+            // InternalDTO.g:1262:2: rule__BasicType__Group_4__0__Impl rule__BasicType__Group_4__1
             {
             pushFollow(FOLLOW_13);
             rule__BasicType__Group_4__0__Impl();
@@ -3989,21 +4129,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_4__0__Impl"
-    // InternalDTO.g:1232:1: rule__BasicType__Group_4__0__Impl : ( () ) ;
+    // InternalDTO.g:1269:1: rule__BasicType__Group_4__0__Impl : ( () ) ;
     public final void rule__BasicType__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1236:1: ( ( () ) )
-            // InternalDTO.g:1237:1: ( () )
+            // InternalDTO.g:1273:1: ( ( () ) )
+            // InternalDTO.g:1274:1: ( () )
             {
-            // InternalDTO.g:1237:1: ( () )
-            // InternalDTO.g:1238:2: ()
+            // InternalDTO.g:1274:1: ( () )
+            // InternalDTO.g:1275:2: ()
             {
              before(grammarAccess.getBasicTypeAccess().getFileTypeAction_4_0()); 
-            // InternalDTO.g:1239:2: ()
-            // InternalDTO.g:1239:3: 
+            // InternalDTO.g:1276:2: ()
+            // InternalDTO.g:1276:3: 
             {
             }
 
@@ -4026,14 +4166,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_4__1"
-    // InternalDTO.g:1247:1: rule__BasicType__Group_4__1 : rule__BasicType__Group_4__1__Impl ;
+    // InternalDTO.g:1284:1: rule__BasicType__Group_4__1 : rule__BasicType__Group_4__1__Impl ;
     public final void rule__BasicType__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1251:1: ( rule__BasicType__Group_4__1__Impl )
-            // InternalDTO.g:1252:2: rule__BasicType__Group_4__1__Impl
+            // InternalDTO.g:1288:1: ( rule__BasicType__Group_4__1__Impl )
+            // InternalDTO.g:1289:2: rule__BasicType__Group_4__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__BasicType__Group_4__1__Impl();
@@ -4059,17 +4199,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_4__1__Impl"
-    // InternalDTO.g:1258:1: rule__BasicType__Group_4__1__Impl : ( 'file' ) ;
+    // InternalDTO.g:1295:1: rule__BasicType__Group_4__1__Impl : ( 'file' ) ;
     public final void rule__BasicType__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1262:1: ( ( 'file' ) )
-            // InternalDTO.g:1263:1: ( 'file' )
+            // InternalDTO.g:1299:1: ( ( 'file' ) )
+            // InternalDTO.g:1300:1: ( 'file' )
             {
-            // InternalDTO.g:1263:1: ( 'file' )
-            // InternalDTO.g:1264:2: 'file'
+            // InternalDTO.g:1300:1: ( 'file' )
+            // InternalDTO.g:1301:2: 'file'
             {
              before(grammarAccess.getBasicTypeAccess().getFileKeyword_4_1()); 
             match(input,25,FOLLOW_2); 
@@ -4096,14 +4236,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_5__0"
-    // InternalDTO.g:1274:1: rule__BasicType__Group_5__0 : rule__BasicType__Group_5__0__Impl rule__BasicType__Group_5__1 ;
+    // InternalDTO.g:1311:1: rule__BasicType__Group_5__0 : rule__BasicType__Group_5__0__Impl rule__BasicType__Group_5__1 ;
     public final void rule__BasicType__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1278:1: ( rule__BasicType__Group_5__0__Impl rule__BasicType__Group_5__1 )
-            // InternalDTO.g:1279:2: rule__BasicType__Group_5__0__Impl rule__BasicType__Group_5__1
+            // InternalDTO.g:1315:1: ( rule__BasicType__Group_5__0__Impl rule__BasicType__Group_5__1 )
+            // InternalDTO.g:1316:2: rule__BasicType__Group_5__0__Impl rule__BasicType__Group_5__1
             {
             pushFollow(FOLLOW_14);
             rule__BasicType__Group_5__0__Impl();
@@ -4134,21 +4274,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_5__0__Impl"
-    // InternalDTO.g:1286:1: rule__BasicType__Group_5__0__Impl : ( () ) ;
+    // InternalDTO.g:1323:1: rule__BasicType__Group_5__0__Impl : ( () ) ;
     public final void rule__BasicType__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1290:1: ( ( () ) )
-            // InternalDTO.g:1291:1: ( () )
+            // InternalDTO.g:1327:1: ( ( () ) )
+            // InternalDTO.g:1328:1: ( () )
             {
-            // InternalDTO.g:1291:1: ( () )
-            // InternalDTO.g:1292:2: ()
+            // InternalDTO.g:1328:1: ( () )
+            // InternalDTO.g:1329:2: ()
             {
              before(grammarAccess.getBasicTypeAccess().getImageTypeAction_5_0()); 
-            // InternalDTO.g:1293:2: ()
-            // InternalDTO.g:1293:3: 
+            // InternalDTO.g:1330:2: ()
+            // InternalDTO.g:1330:3: 
             {
             }
 
@@ -4171,14 +4311,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_5__1"
-    // InternalDTO.g:1301:1: rule__BasicType__Group_5__1 : rule__BasicType__Group_5__1__Impl ;
+    // InternalDTO.g:1338:1: rule__BasicType__Group_5__1 : rule__BasicType__Group_5__1__Impl ;
     public final void rule__BasicType__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1305:1: ( rule__BasicType__Group_5__1__Impl )
-            // InternalDTO.g:1306:2: rule__BasicType__Group_5__1__Impl
+            // InternalDTO.g:1342:1: ( rule__BasicType__Group_5__1__Impl )
+            // InternalDTO.g:1343:2: rule__BasicType__Group_5__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__BasicType__Group_5__1__Impl();
@@ -4204,17 +4344,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BasicType__Group_5__1__Impl"
-    // InternalDTO.g:1312:1: rule__BasicType__Group_5__1__Impl : ( 'image' ) ;
+    // InternalDTO.g:1349:1: rule__BasicType__Group_5__1__Impl : ( 'image' ) ;
     public final void rule__BasicType__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1316:1: ( ( 'image' ) )
-            // InternalDTO.g:1317:1: ( 'image' )
+            // InternalDTO.g:1353:1: ( ( 'image' ) )
+            // InternalDTO.g:1354:1: ( 'image' )
             {
-            // InternalDTO.g:1317:1: ( 'image' )
-            // InternalDTO.g:1318:2: 'image'
+            // InternalDTO.g:1354:1: ( 'image' )
+            // InternalDTO.g:1355:2: 'image'
             {
              before(grammarAccess.getBasicTypeAccess().getImageKeyword_5_1()); 
             match(input,26,FOLLOW_2); 
@@ -4241,14 +4381,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__Group__0"
-    // InternalDTO.g:1328:1: rule__Enum__Group__0 : rule__Enum__Group__0__Impl rule__Enum__Group__1 ;
+    // InternalDTO.g:1365:1: rule__Enum__Group__0 : rule__Enum__Group__0__Impl rule__Enum__Group__1 ;
     public final void rule__Enum__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1332:1: ( rule__Enum__Group__0__Impl rule__Enum__Group__1 )
-            // InternalDTO.g:1333:2: rule__Enum__Group__0__Impl rule__Enum__Group__1
+            // InternalDTO.g:1369:1: ( rule__Enum__Group__0__Impl rule__Enum__Group__1 )
+            // InternalDTO.g:1370:2: rule__Enum__Group__0__Impl rule__Enum__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__Enum__Group__0__Impl();
@@ -4279,17 +4419,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__Group__0__Impl"
-    // InternalDTO.g:1340:1: rule__Enum__Group__0__Impl : ( 'enum' ) ;
+    // InternalDTO.g:1377:1: rule__Enum__Group__0__Impl : ( 'enum' ) ;
     public final void rule__Enum__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1344:1: ( ( 'enum' ) )
-            // InternalDTO.g:1345:1: ( 'enum' )
+            // InternalDTO.g:1381:1: ( ( 'enum' ) )
+            // InternalDTO.g:1382:1: ( 'enum' )
             {
-            // InternalDTO.g:1345:1: ( 'enum' )
-            // InternalDTO.g:1346:2: 'enum'
+            // InternalDTO.g:1382:1: ( 'enum' )
+            // InternalDTO.g:1383:2: 'enum'
             {
              before(grammarAccess.getEnumAccess().getEnumKeyword_0()); 
             match(input,27,FOLLOW_2); 
@@ -4316,14 +4456,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__Group__1"
-    // InternalDTO.g:1355:1: rule__Enum__Group__1 : rule__Enum__Group__1__Impl rule__Enum__Group__2 ;
+    // InternalDTO.g:1392:1: rule__Enum__Group__1 : rule__Enum__Group__1__Impl rule__Enum__Group__2 ;
     public final void rule__Enum__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1359:1: ( rule__Enum__Group__1__Impl rule__Enum__Group__2 )
-            // InternalDTO.g:1360:2: rule__Enum__Group__1__Impl rule__Enum__Group__2
+            // InternalDTO.g:1396:1: ( rule__Enum__Group__1__Impl rule__Enum__Group__2 )
+            // InternalDTO.g:1397:2: rule__Enum__Group__1__Impl rule__Enum__Group__2
             {
             pushFollow(FOLLOW_15);
             rule__Enum__Group__1__Impl();
@@ -4354,21 +4494,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__Group__1__Impl"
-    // InternalDTO.g:1367:1: rule__Enum__Group__1__Impl : ( ( rule__Enum__NameAssignment_1 ) ) ;
+    // InternalDTO.g:1404:1: rule__Enum__Group__1__Impl : ( ( rule__Enum__NameAssignment_1 ) ) ;
     public final void rule__Enum__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1371:1: ( ( ( rule__Enum__NameAssignment_1 ) ) )
-            // InternalDTO.g:1372:1: ( ( rule__Enum__NameAssignment_1 ) )
+            // InternalDTO.g:1408:1: ( ( ( rule__Enum__NameAssignment_1 ) ) )
+            // InternalDTO.g:1409:1: ( ( rule__Enum__NameAssignment_1 ) )
             {
-            // InternalDTO.g:1372:1: ( ( rule__Enum__NameAssignment_1 ) )
-            // InternalDTO.g:1373:2: ( rule__Enum__NameAssignment_1 )
+            // InternalDTO.g:1409:1: ( ( rule__Enum__NameAssignment_1 ) )
+            // InternalDTO.g:1410:2: ( rule__Enum__NameAssignment_1 )
             {
              before(grammarAccess.getEnumAccess().getNameAssignment_1()); 
-            // InternalDTO.g:1374:2: ( rule__Enum__NameAssignment_1 )
-            // InternalDTO.g:1374:3: rule__Enum__NameAssignment_1
+            // InternalDTO.g:1411:2: ( rule__Enum__NameAssignment_1 )
+            // InternalDTO.g:1411:3: rule__Enum__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Enum__NameAssignment_1();
@@ -4401,14 +4541,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__Group__2"
-    // InternalDTO.g:1382:1: rule__Enum__Group__2 : rule__Enum__Group__2__Impl rule__Enum__Group__3 ;
+    // InternalDTO.g:1419:1: rule__Enum__Group__2 : rule__Enum__Group__2__Impl rule__Enum__Group__3 ;
     public final void rule__Enum__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1386:1: ( rule__Enum__Group__2__Impl rule__Enum__Group__3 )
-            // InternalDTO.g:1387:2: rule__Enum__Group__2__Impl rule__Enum__Group__3
+            // InternalDTO.g:1423:1: ( rule__Enum__Group__2__Impl rule__Enum__Group__3 )
+            // InternalDTO.g:1424:2: rule__Enum__Group__2__Impl rule__Enum__Group__3
             {
             pushFollow(FOLLOW_16);
             rule__Enum__Group__2__Impl();
@@ -4439,17 +4579,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__Group__2__Impl"
-    // InternalDTO.g:1394:1: rule__Enum__Group__2__Impl : ( '{' ) ;
+    // InternalDTO.g:1431:1: rule__Enum__Group__2__Impl : ( '{' ) ;
     public final void rule__Enum__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1398:1: ( ( '{' ) )
-            // InternalDTO.g:1399:1: ( '{' )
+            // InternalDTO.g:1435:1: ( ( '{' ) )
+            // InternalDTO.g:1436:1: ( '{' )
             {
-            // InternalDTO.g:1399:1: ( '{' )
-            // InternalDTO.g:1400:2: '{'
+            // InternalDTO.g:1436:1: ( '{' )
+            // InternalDTO.g:1437:2: '{'
             {
              before(grammarAccess.getEnumAccess().getLeftCurlyBracketKeyword_2()); 
             match(input,17,FOLLOW_2); 
@@ -4476,14 +4616,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__Group__3"
-    // InternalDTO.g:1409:1: rule__Enum__Group__3 : rule__Enum__Group__3__Impl rule__Enum__Group__4 ;
+    // InternalDTO.g:1446:1: rule__Enum__Group__3 : rule__Enum__Group__3__Impl rule__Enum__Group__4 ;
     public final void rule__Enum__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1413:1: ( rule__Enum__Group__3__Impl rule__Enum__Group__4 )
-            // InternalDTO.g:1414:2: rule__Enum__Group__3__Impl rule__Enum__Group__4
+            // InternalDTO.g:1450:1: ( rule__Enum__Group__3__Impl rule__Enum__Group__4 )
+            // InternalDTO.g:1451:2: rule__Enum__Group__3__Impl rule__Enum__Group__4
             {
             pushFollow(FOLLOW_16);
             rule__Enum__Group__3__Impl();
@@ -4514,20 +4654,20 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__Group__3__Impl"
-    // InternalDTO.g:1421:1: rule__Enum__Group__3__Impl : ( ( rule__Enum__AttributesAssignment_3 )* ) ;
+    // InternalDTO.g:1458:1: rule__Enum__Group__3__Impl : ( ( rule__Enum__AttributesAssignment_3 )* ) ;
     public final void rule__Enum__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1425:1: ( ( ( rule__Enum__AttributesAssignment_3 )* ) )
-            // InternalDTO.g:1426:1: ( ( rule__Enum__AttributesAssignment_3 )* )
+            // InternalDTO.g:1462:1: ( ( ( rule__Enum__AttributesAssignment_3 )* ) )
+            // InternalDTO.g:1463:1: ( ( rule__Enum__AttributesAssignment_3 )* )
             {
-            // InternalDTO.g:1426:1: ( ( rule__Enum__AttributesAssignment_3 )* )
-            // InternalDTO.g:1427:2: ( rule__Enum__AttributesAssignment_3 )*
+            // InternalDTO.g:1463:1: ( ( rule__Enum__AttributesAssignment_3 )* )
+            // InternalDTO.g:1464:2: ( rule__Enum__AttributesAssignment_3 )*
             {
              before(grammarAccess.getEnumAccess().getAttributesAssignment_3()); 
-            // InternalDTO.g:1428:2: ( rule__Enum__AttributesAssignment_3 )*
+            // InternalDTO.g:1465:2: ( rule__Enum__AttributesAssignment_3 )*
             loop14:
             do {
                 int alt14=2;
@@ -4537,9 +4677,9 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
                     int LA14_1 = input.LA(2);
 
                     if ( (LA14_1==RULE_ID) ) {
-                        int LA14_4 = input.LA(3);
+                        int LA14_3 = input.LA(3);
 
-                        if ( ((LA14_4>=20 && LA14_4<=21)||LA14_4==36) ) {
+                        if ( ((LA14_3>=20 && LA14_3<=21)||LA14_3==36) ) {
                             alt14=1;
                         }
 
@@ -4548,14 +4688,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
                 }
-                else if ( ((LA14_0>=22 && LA14_0<=26)||(LA14_0>=37 && LA14_0<=42)) ) {
+                else if ( ((LA14_0>=22 && LA14_0<=26)||(LA14_0>=37 && LA14_0<=43)) ) {
                     alt14=1;
                 }
 
 
                 switch (alt14) {
             	case 1 :
-            	    // InternalDTO.g:1428:3: rule__Enum__AttributesAssignment_3
+            	    // InternalDTO.g:1465:3: rule__Enum__AttributesAssignment_3
             	    {
             	    pushFollow(FOLLOW_7);
             	    rule__Enum__AttributesAssignment_3();
@@ -4594,14 +4734,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__Group__4"
-    // InternalDTO.g:1436:1: rule__Enum__Group__4 : rule__Enum__Group__4__Impl rule__Enum__Group__5 ;
+    // InternalDTO.g:1473:1: rule__Enum__Group__4 : rule__Enum__Group__4__Impl rule__Enum__Group__5 ;
     public final void rule__Enum__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1440:1: ( rule__Enum__Group__4__Impl rule__Enum__Group__5 )
-            // InternalDTO.g:1441:2: rule__Enum__Group__4__Impl rule__Enum__Group__5
+            // InternalDTO.g:1477:1: ( rule__Enum__Group__4__Impl rule__Enum__Group__5 )
+            // InternalDTO.g:1478:2: rule__Enum__Group__4__Impl rule__Enum__Group__5
             {
             pushFollow(FOLLOW_17);
             rule__Enum__Group__4__Impl();
@@ -4632,24 +4772,24 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__Group__4__Impl"
-    // InternalDTO.g:1448:1: rule__Enum__Group__4__Impl : ( ( ( rule__Enum__LiteralsAssignment_4 ) ) ( ( rule__Enum__LiteralsAssignment_4 )* ) ) ;
+    // InternalDTO.g:1485:1: rule__Enum__Group__4__Impl : ( ( ( rule__Enum__LiteralsAssignment_4 ) ) ( ( rule__Enum__LiteralsAssignment_4 )* ) ) ;
     public final void rule__Enum__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1452:1: ( ( ( ( rule__Enum__LiteralsAssignment_4 ) ) ( ( rule__Enum__LiteralsAssignment_4 )* ) ) )
-            // InternalDTO.g:1453:1: ( ( ( rule__Enum__LiteralsAssignment_4 ) ) ( ( rule__Enum__LiteralsAssignment_4 )* ) )
+            // InternalDTO.g:1489:1: ( ( ( ( rule__Enum__LiteralsAssignment_4 ) ) ( ( rule__Enum__LiteralsAssignment_4 )* ) ) )
+            // InternalDTO.g:1490:1: ( ( ( rule__Enum__LiteralsAssignment_4 ) ) ( ( rule__Enum__LiteralsAssignment_4 )* ) )
             {
-            // InternalDTO.g:1453:1: ( ( ( rule__Enum__LiteralsAssignment_4 ) ) ( ( rule__Enum__LiteralsAssignment_4 )* ) )
-            // InternalDTO.g:1454:2: ( ( rule__Enum__LiteralsAssignment_4 ) ) ( ( rule__Enum__LiteralsAssignment_4 )* )
+            // InternalDTO.g:1490:1: ( ( ( rule__Enum__LiteralsAssignment_4 ) ) ( ( rule__Enum__LiteralsAssignment_4 )* ) )
+            // InternalDTO.g:1491:2: ( ( rule__Enum__LiteralsAssignment_4 ) ) ( ( rule__Enum__LiteralsAssignment_4 )* )
             {
-            // InternalDTO.g:1454:2: ( ( rule__Enum__LiteralsAssignment_4 ) )
-            // InternalDTO.g:1455:3: ( rule__Enum__LiteralsAssignment_4 )
+            // InternalDTO.g:1491:2: ( ( rule__Enum__LiteralsAssignment_4 ) )
+            // InternalDTO.g:1492:3: ( rule__Enum__LiteralsAssignment_4 )
             {
              before(grammarAccess.getEnumAccess().getLiteralsAssignment_4()); 
-            // InternalDTO.g:1456:3: ( rule__Enum__LiteralsAssignment_4 )
-            // InternalDTO.g:1456:4: rule__Enum__LiteralsAssignment_4
+            // InternalDTO.g:1493:3: ( rule__Enum__LiteralsAssignment_4 )
+            // InternalDTO.g:1493:4: rule__Enum__LiteralsAssignment_4
             {
             pushFollow(FOLLOW_7);
             rule__Enum__LiteralsAssignment_4();
@@ -4663,11 +4803,11 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // InternalDTO.g:1459:2: ( ( rule__Enum__LiteralsAssignment_4 )* )
-            // InternalDTO.g:1460:3: ( rule__Enum__LiteralsAssignment_4 )*
+            // InternalDTO.g:1496:2: ( ( rule__Enum__LiteralsAssignment_4 )* )
+            // InternalDTO.g:1497:3: ( rule__Enum__LiteralsAssignment_4 )*
             {
              before(grammarAccess.getEnumAccess().getLiteralsAssignment_4()); 
-            // InternalDTO.g:1461:3: ( rule__Enum__LiteralsAssignment_4 )*
+            // InternalDTO.g:1498:3: ( rule__Enum__LiteralsAssignment_4 )*
             loop15:
             do {
                 int alt15=2;
@@ -4680,7 +4820,7 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
                 switch (alt15) {
             	case 1 :
-            	    // InternalDTO.g:1461:4: rule__Enum__LiteralsAssignment_4
+            	    // InternalDTO.g:1498:4: rule__Enum__LiteralsAssignment_4
             	    {
             	    pushFollow(FOLLOW_7);
             	    rule__Enum__LiteralsAssignment_4();
@@ -4722,14 +4862,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__Group__5"
-    // InternalDTO.g:1470:1: rule__Enum__Group__5 : rule__Enum__Group__5__Impl ;
+    // InternalDTO.g:1507:1: rule__Enum__Group__5 : rule__Enum__Group__5__Impl ;
     public final void rule__Enum__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1474:1: ( rule__Enum__Group__5__Impl )
-            // InternalDTO.g:1475:2: rule__Enum__Group__5__Impl
+            // InternalDTO.g:1511:1: ( rule__Enum__Group__5__Impl )
+            // InternalDTO.g:1512:2: rule__Enum__Group__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Enum__Group__5__Impl();
@@ -4755,17 +4895,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__Group__5__Impl"
-    // InternalDTO.g:1481:1: rule__Enum__Group__5__Impl : ( '}' ) ;
+    // InternalDTO.g:1518:1: rule__Enum__Group__5__Impl : ( '}' ) ;
     public final void rule__Enum__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1485:1: ( ( '}' ) )
-            // InternalDTO.g:1486:1: ( '}' )
+            // InternalDTO.g:1522:1: ( ( '}' ) )
+            // InternalDTO.g:1523:1: ( '}' )
             {
-            // InternalDTO.g:1486:1: ( '}' )
-            // InternalDTO.g:1487:2: '}'
+            // InternalDTO.g:1523:1: ( '}' )
+            // InternalDTO.g:1524:2: '}'
             {
              before(grammarAccess.getEnumAccess().getRightCurlyBracketKeyword_5()); 
             match(input,18,FOLLOW_2); 
@@ -4792,14 +4932,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group__0"
-    // InternalDTO.g:1497:1: rule__EnumLiteral__Group__0 : rule__EnumLiteral__Group__0__Impl rule__EnumLiteral__Group__1 ;
+    // InternalDTO.g:1534:1: rule__EnumLiteral__Group__0 : rule__EnumLiteral__Group__0__Impl rule__EnumLiteral__Group__1 ;
     public final void rule__EnumLiteral__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1501:1: ( rule__EnumLiteral__Group__0__Impl rule__EnumLiteral__Group__1 )
-            // InternalDTO.g:1502:2: rule__EnumLiteral__Group__0__Impl rule__EnumLiteral__Group__1
+            // InternalDTO.g:1538:1: ( rule__EnumLiteral__Group__0__Impl rule__EnumLiteral__Group__1 )
+            // InternalDTO.g:1539:2: rule__EnumLiteral__Group__0__Impl rule__EnumLiteral__Group__1
             {
             pushFollow(FOLLOW_18);
             rule__EnumLiteral__Group__0__Impl();
@@ -4830,21 +4970,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group__0__Impl"
-    // InternalDTO.g:1509:1: rule__EnumLiteral__Group__0__Impl : ( ( rule__EnumLiteral__NameAssignment_0 ) ) ;
+    // InternalDTO.g:1546:1: rule__EnumLiteral__Group__0__Impl : ( ( rule__EnumLiteral__NameAssignment_0 ) ) ;
     public final void rule__EnumLiteral__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1513:1: ( ( ( rule__EnumLiteral__NameAssignment_0 ) ) )
-            // InternalDTO.g:1514:1: ( ( rule__EnumLiteral__NameAssignment_0 ) )
+            // InternalDTO.g:1550:1: ( ( ( rule__EnumLiteral__NameAssignment_0 ) ) )
+            // InternalDTO.g:1551:1: ( ( rule__EnumLiteral__NameAssignment_0 ) )
             {
-            // InternalDTO.g:1514:1: ( ( rule__EnumLiteral__NameAssignment_0 ) )
-            // InternalDTO.g:1515:2: ( rule__EnumLiteral__NameAssignment_0 )
+            // InternalDTO.g:1551:1: ( ( rule__EnumLiteral__NameAssignment_0 ) )
+            // InternalDTO.g:1552:2: ( rule__EnumLiteral__NameAssignment_0 )
             {
              before(grammarAccess.getEnumLiteralAccess().getNameAssignment_0()); 
-            // InternalDTO.g:1516:2: ( rule__EnumLiteral__NameAssignment_0 )
-            // InternalDTO.g:1516:3: rule__EnumLiteral__NameAssignment_0
+            // InternalDTO.g:1553:2: ( rule__EnumLiteral__NameAssignment_0 )
+            // InternalDTO.g:1553:3: rule__EnumLiteral__NameAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__EnumLiteral__NameAssignment_0();
@@ -4877,14 +5017,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group__1"
-    // InternalDTO.g:1524:1: rule__EnumLiteral__Group__1 : rule__EnumLiteral__Group__1__Impl ;
+    // InternalDTO.g:1561:1: rule__EnumLiteral__Group__1 : rule__EnumLiteral__Group__1__Impl ;
     public final void rule__EnumLiteral__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1528:1: ( rule__EnumLiteral__Group__1__Impl )
-            // InternalDTO.g:1529:2: rule__EnumLiteral__Group__1__Impl
+            // InternalDTO.g:1565:1: ( rule__EnumLiteral__Group__1__Impl )
+            // InternalDTO.g:1566:2: rule__EnumLiteral__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__EnumLiteral__Group__1__Impl();
@@ -4910,20 +5050,20 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group__1__Impl"
-    // InternalDTO.g:1535:1: rule__EnumLiteral__Group__1__Impl : ( ( rule__EnumLiteral__Group_1__0 )? ) ;
+    // InternalDTO.g:1572:1: rule__EnumLiteral__Group__1__Impl : ( ( rule__EnumLiteral__Group_1__0 )? ) ;
     public final void rule__EnumLiteral__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1539:1: ( ( ( rule__EnumLiteral__Group_1__0 )? ) )
-            // InternalDTO.g:1540:1: ( ( rule__EnumLiteral__Group_1__0 )? )
+            // InternalDTO.g:1576:1: ( ( ( rule__EnumLiteral__Group_1__0 )? ) )
+            // InternalDTO.g:1577:1: ( ( rule__EnumLiteral__Group_1__0 )? )
             {
-            // InternalDTO.g:1540:1: ( ( rule__EnumLiteral__Group_1__0 )? )
-            // InternalDTO.g:1541:2: ( rule__EnumLiteral__Group_1__0 )?
+            // InternalDTO.g:1577:1: ( ( rule__EnumLiteral__Group_1__0 )? )
+            // InternalDTO.g:1578:2: ( rule__EnumLiteral__Group_1__0 )?
             {
              before(grammarAccess.getEnumLiteralAccess().getGroup_1()); 
-            // InternalDTO.g:1542:2: ( rule__EnumLiteral__Group_1__0 )?
+            // InternalDTO.g:1579:2: ( rule__EnumLiteral__Group_1__0 )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -4932,7 +5072,7 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
             }
             switch (alt16) {
                 case 1 :
-                    // InternalDTO.g:1542:3: rule__EnumLiteral__Group_1__0
+                    // InternalDTO.g:1579:3: rule__EnumLiteral__Group_1__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__EnumLiteral__Group_1__0();
@@ -4968,14 +5108,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group_1__0"
-    // InternalDTO.g:1551:1: rule__EnumLiteral__Group_1__0 : rule__EnumLiteral__Group_1__0__Impl rule__EnumLiteral__Group_1__1 ;
+    // InternalDTO.g:1588:1: rule__EnumLiteral__Group_1__0 : rule__EnumLiteral__Group_1__0__Impl rule__EnumLiteral__Group_1__1 ;
     public final void rule__EnumLiteral__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1555:1: ( rule__EnumLiteral__Group_1__0__Impl rule__EnumLiteral__Group_1__1 )
-            // InternalDTO.g:1556:2: rule__EnumLiteral__Group_1__0__Impl rule__EnumLiteral__Group_1__1
+            // InternalDTO.g:1592:1: ( rule__EnumLiteral__Group_1__0__Impl rule__EnumLiteral__Group_1__1 )
+            // InternalDTO.g:1593:2: rule__EnumLiteral__Group_1__0__Impl rule__EnumLiteral__Group_1__1
             {
             pushFollow(FOLLOW_19);
             rule__EnumLiteral__Group_1__0__Impl();
@@ -5006,17 +5146,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group_1__0__Impl"
-    // InternalDTO.g:1563:1: rule__EnumLiteral__Group_1__0__Impl : ( '(' ) ;
+    // InternalDTO.g:1600:1: rule__EnumLiteral__Group_1__0__Impl : ( '(' ) ;
     public final void rule__EnumLiteral__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1567:1: ( ( '(' ) )
-            // InternalDTO.g:1568:1: ( '(' )
+            // InternalDTO.g:1604:1: ( ( '(' ) )
+            // InternalDTO.g:1605:1: ( '(' )
             {
-            // InternalDTO.g:1568:1: ( '(' )
-            // InternalDTO.g:1569:2: '('
+            // InternalDTO.g:1605:1: ( '(' )
+            // InternalDTO.g:1606:2: '('
             {
              before(grammarAccess.getEnumLiteralAccess().getLeftParenthesisKeyword_1_0()); 
             match(input,28,FOLLOW_2); 
@@ -5043,14 +5183,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group_1__1"
-    // InternalDTO.g:1578:1: rule__EnumLiteral__Group_1__1 : rule__EnumLiteral__Group_1__1__Impl rule__EnumLiteral__Group_1__2 ;
+    // InternalDTO.g:1615:1: rule__EnumLiteral__Group_1__1 : rule__EnumLiteral__Group_1__1__Impl rule__EnumLiteral__Group_1__2 ;
     public final void rule__EnumLiteral__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1582:1: ( rule__EnumLiteral__Group_1__1__Impl rule__EnumLiteral__Group_1__2 )
-            // InternalDTO.g:1583:2: rule__EnumLiteral__Group_1__1__Impl rule__EnumLiteral__Group_1__2
+            // InternalDTO.g:1619:1: ( rule__EnumLiteral__Group_1__1__Impl rule__EnumLiteral__Group_1__2 )
+            // InternalDTO.g:1620:2: rule__EnumLiteral__Group_1__1__Impl rule__EnumLiteral__Group_1__2
             {
             pushFollow(FOLLOW_20);
             rule__EnumLiteral__Group_1__1__Impl();
@@ -5081,21 +5221,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group_1__1__Impl"
-    // InternalDTO.g:1590:1: rule__EnumLiteral__Group_1__1__Impl : ( ( rule__EnumLiteral__ParamsAssignment_1_1 ) ) ;
+    // InternalDTO.g:1627:1: rule__EnumLiteral__Group_1__1__Impl : ( ( rule__EnumLiteral__ParamsAssignment_1_1 ) ) ;
     public final void rule__EnumLiteral__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1594:1: ( ( ( rule__EnumLiteral__ParamsAssignment_1_1 ) ) )
-            // InternalDTO.g:1595:1: ( ( rule__EnumLiteral__ParamsAssignment_1_1 ) )
+            // InternalDTO.g:1631:1: ( ( ( rule__EnumLiteral__ParamsAssignment_1_1 ) ) )
+            // InternalDTO.g:1632:1: ( ( rule__EnumLiteral__ParamsAssignment_1_1 ) )
             {
-            // InternalDTO.g:1595:1: ( ( rule__EnumLiteral__ParamsAssignment_1_1 ) )
-            // InternalDTO.g:1596:2: ( rule__EnumLiteral__ParamsAssignment_1_1 )
+            // InternalDTO.g:1632:1: ( ( rule__EnumLiteral__ParamsAssignment_1_1 ) )
+            // InternalDTO.g:1633:2: ( rule__EnumLiteral__ParamsAssignment_1_1 )
             {
              before(grammarAccess.getEnumLiteralAccess().getParamsAssignment_1_1()); 
-            // InternalDTO.g:1597:2: ( rule__EnumLiteral__ParamsAssignment_1_1 )
-            // InternalDTO.g:1597:3: rule__EnumLiteral__ParamsAssignment_1_1
+            // InternalDTO.g:1634:2: ( rule__EnumLiteral__ParamsAssignment_1_1 )
+            // InternalDTO.g:1634:3: rule__EnumLiteral__ParamsAssignment_1_1
             {
             pushFollow(FOLLOW_2);
             rule__EnumLiteral__ParamsAssignment_1_1();
@@ -5128,14 +5268,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group_1__2"
-    // InternalDTO.g:1605:1: rule__EnumLiteral__Group_1__2 : rule__EnumLiteral__Group_1__2__Impl rule__EnumLiteral__Group_1__3 ;
+    // InternalDTO.g:1642:1: rule__EnumLiteral__Group_1__2 : rule__EnumLiteral__Group_1__2__Impl rule__EnumLiteral__Group_1__3 ;
     public final void rule__EnumLiteral__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1609:1: ( rule__EnumLiteral__Group_1__2__Impl rule__EnumLiteral__Group_1__3 )
-            // InternalDTO.g:1610:2: rule__EnumLiteral__Group_1__2__Impl rule__EnumLiteral__Group_1__3
+            // InternalDTO.g:1646:1: ( rule__EnumLiteral__Group_1__2__Impl rule__EnumLiteral__Group_1__3 )
+            // InternalDTO.g:1647:2: rule__EnumLiteral__Group_1__2__Impl rule__EnumLiteral__Group_1__3
             {
             pushFollow(FOLLOW_20);
             rule__EnumLiteral__Group_1__2__Impl();
@@ -5166,20 +5306,20 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group_1__2__Impl"
-    // InternalDTO.g:1617:1: rule__EnumLiteral__Group_1__2__Impl : ( ( rule__EnumLiteral__Group_1_2__0 )* ) ;
+    // InternalDTO.g:1654:1: rule__EnumLiteral__Group_1__2__Impl : ( ( rule__EnumLiteral__Group_1_2__0 )* ) ;
     public final void rule__EnumLiteral__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1621:1: ( ( ( rule__EnumLiteral__Group_1_2__0 )* ) )
-            // InternalDTO.g:1622:1: ( ( rule__EnumLiteral__Group_1_2__0 )* )
+            // InternalDTO.g:1658:1: ( ( ( rule__EnumLiteral__Group_1_2__0 )* ) )
+            // InternalDTO.g:1659:1: ( ( rule__EnumLiteral__Group_1_2__0 )* )
             {
-            // InternalDTO.g:1622:1: ( ( rule__EnumLiteral__Group_1_2__0 )* )
-            // InternalDTO.g:1623:2: ( rule__EnumLiteral__Group_1_2__0 )*
+            // InternalDTO.g:1659:1: ( ( rule__EnumLiteral__Group_1_2__0 )* )
+            // InternalDTO.g:1660:2: ( rule__EnumLiteral__Group_1_2__0 )*
             {
              before(grammarAccess.getEnumLiteralAccess().getGroup_1_2()); 
-            // InternalDTO.g:1624:2: ( rule__EnumLiteral__Group_1_2__0 )*
+            // InternalDTO.g:1661:2: ( rule__EnumLiteral__Group_1_2__0 )*
             loop17:
             do {
                 int alt17=2;
@@ -5192,7 +5332,7 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
                 switch (alt17) {
             	case 1 :
-            	    // InternalDTO.g:1624:3: rule__EnumLiteral__Group_1_2__0
+            	    // InternalDTO.g:1661:3: rule__EnumLiteral__Group_1_2__0
             	    {
             	    pushFollow(FOLLOW_21);
             	    rule__EnumLiteral__Group_1_2__0();
@@ -5231,14 +5371,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group_1__3"
-    // InternalDTO.g:1632:1: rule__EnumLiteral__Group_1__3 : rule__EnumLiteral__Group_1__3__Impl ;
+    // InternalDTO.g:1669:1: rule__EnumLiteral__Group_1__3 : rule__EnumLiteral__Group_1__3__Impl ;
     public final void rule__EnumLiteral__Group_1__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1636:1: ( rule__EnumLiteral__Group_1__3__Impl )
-            // InternalDTO.g:1637:2: rule__EnumLiteral__Group_1__3__Impl
+            // InternalDTO.g:1673:1: ( rule__EnumLiteral__Group_1__3__Impl )
+            // InternalDTO.g:1674:2: rule__EnumLiteral__Group_1__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__EnumLiteral__Group_1__3__Impl();
@@ -5264,17 +5404,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group_1__3__Impl"
-    // InternalDTO.g:1643:1: rule__EnumLiteral__Group_1__3__Impl : ( ')' ) ;
+    // InternalDTO.g:1680:1: rule__EnumLiteral__Group_1__3__Impl : ( ')' ) ;
     public final void rule__EnumLiteral__Group_1__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1647:1: ( ( ')' ) )
-            // InternalDTO.g:1648:1: ( ')' )
+            // InternalDTO.g:1684:1: ( ( ')' ) )
+            // InternalDTO.g:1685:1: ( ')' )
             {
-            // InternalDTO.g:1648:1: ( ')' )
-            // InternalDTO.g:1649:2: ')'
+            // InternalDTO.g:1685:1: ( ')' )
+            // InternalDTO.g:1686:2: ')'
             {
              before(grammarAccess.getEnumLiteralAccess().getRightParenthesisKeyword_1_3()); 
             match(input,29,FOLLOW_2); 
@@ -5301,14 +5441,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group_1_2__0"
-    // InternalDTO.g:1659:1: rule__EnumLiteral__Group_1_2__0 : rule__EnumLiteral__Group_1_2__0__Impl rule__EnumLiteral__Group_1_2__1 ;
+    // InternalDTO.g:1696:1: rule__EnumLiteral__Group_1_2__0 : rule__EnumLiteral__Group_1_2__0__Impl rule__EnumLiteral__Group_1_2__1 ;
     public final void rule__EnumLiteral__Group_1_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1663:1: ( rule__EnumLiteral__Group_1_2__0__Impl rule__EnumLiteral__Group_1_2__1 )
-            // InternalDTO.g:1664:2: rule__EnumLiteral__Group_1_2__0__Impl rule__EnumLiteral__Group_1_2__1
+            // InternalDTO.g:1700:1: ( rule__EnumLiteral__Group_1_2__0__Impl rule__EnumLiteral__Group_1_2__1 )
+            // InternalDTO.g:1701:2: rule__EnumLiteral__Group_1_2__0__Impl rule__EnumLiteral__Group_1_2__1
             {
             pushFollow(FOLLOW_19);
             rule__EnumLiteral__Group_1_2__0__Impl();
@@ -5339,17 +5479,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group_1_2__0__Impl"
-    // InternalDTO.g:1671:1: rule__EnumLiteral__Group_1_2__0__Impl : ( ',' ) ;
+    // InternalDTO.g:1708:1: rule__EnumLiteral__Group_1_2__0__Impl : ( ',' ) ;
     public final void rule__EnumLiteral__Group_1_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1675:1: ( ( ',' ) )
-            // InternalDTO.g:1676:1: ( ',' )
+            // InternalDTO.g:1712:1: ( ( ',' ) )
+            // InternalDTO.g:1713:1: ( ',' )
             {
-            // InternalDTO.g:1676:1: ( ',' )
-            // InternalDTO.g:1677:2: ','
+            // InternalDTO.g:1713:1: ( ',' )
+            // InternalDTO.g:1714:2: ','
             {
              before(grammarAccess.getEnumLiteralAccess().getCommaKeyword_1_2_0()); 
             match(input,30,FOLLOW_2); 
@@ -5376,14 +5516,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group_1_2__1"
-    // InternalDTO.g:1686:1: rule__EnumLiteral__Group_1_2__1 : rule__EnumLiteral__Group_1_2__1__Impl ;
+    // InternalDTO.g:1723:1: rule__EnumLiteral__Group_1_2__1 : rule__EnumLiteral__Group_1_2__1__Impl ;
     public final void rule__EnumLiteral__Group_1_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1690:1: ( rule__EnumLiteral__Group_1_2__1__Impl )
-            // InternalDTO.g:1691:2: rule__EnumLiteral__Group_1_2__1__Impl
+            // InternalDTO.g:1727:1: ( rule__EnumLiteral__Group_1_2__1__Impl )
+            // InternalDTO.g:1728:2: rule__EnumLiteral__Group_1_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__EnumLiteral__Group_1_2__1__Impl();
@@ -5409,21 +5549,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__Group_1_2__1__Impl"
-    // InternalDTO.g:1697:1: rule__EnumLiteral__Group_1_2__1__Impl : ( ( rule__EnumLiteral__ParamsAssignment_1_2_1 ) ) ;
+    // InternalDTO.g:1734:1: rule__EnumLiteral__Group_1_2__1__Impl : ( ( rule__EnumLiteral__ParamsAssignment_1_2_1 ) ) ;
     public final void rule__EnumLiteral__Group_1_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1701:1: ( ( ( rule__EnumLiteral__ParamsAssignment_1_2_1 ) ) )
-            // InternalDTO.g:1702:1: ( ( rule__EnumLiteral__ParamsAssignment_1_2_1 ) )
+            // InternalDTO.g:1738:1: ( ( ( rule__EnumLiteral__ParamsAssignment_1_2_1 ) ) )
+            // InternalDTO.g:1739:1: ( ( rule__EnumLiteral__ParamsAssignment_1_2_1 ) )
             {
-            // InternalDTO.g:1702:1: ( ( rule__EnumLiteral__ParamsAssignment_1_2_1 ) )
-            // InternalDTO.g:1703:2: ( rule__EnumLiteral__ParamsAssignment_1_2_1 )
+            // InternalDTO.g:1739:1: ( ( rule__EnumLiteral__ParamsAssignment_1_2_1 ) )
+            // InternalDTO.g:1740:2: ( rule__EnumLiteral__ParamsAssignment_1_2_1 )
             {
              before(grammarAccess.getEnumLiteralAccess().getParamsAssignment_1_2_1()); 
-            // InternalDTO.g:1704:2: ( rule__EnumLiteral__ParamsAssignment_1_2_1 )
-            // InternalDTO.g:1704:3: rule__EnumLiteral__ParamsAssignment_1_2_1
+            // InternalDTO.g:1741:2: ( rule__EnumLiteral__ParamsAssignment_1_2_1 )
+            // InternalDTO.g:1741:3: rule__EnumLiteral__ParamsAssignment_1_2_1
             {
             pushFollow(FOLLOW_2);
             rule__EnumLiteral__ParamsAssignment_1_2_1();
@@ -5456,14 +5596,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_0__0"
-    // InternalDTO.g:1713:1: rule__Constant__Group_0__0 : rule__Constant__Group_0__0__Impl rule__Constant__Group_0__1 ;
+    // InternalDTO.g:1750:1: rule__Constant__Group_0__0 : rule__Constant__Group_0__0__Impl rule__Constant__Group_0__1 ;
     public final void rule__Constant__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1717:1: ( rule__Constant__Group_0__0__Impl rule__Constant__Group_0__1 )
-            // InternalDTO.g:1718:2: rule__Constant__Group_0__0__Impl rule__Constant__Group_0__1
+            // InternalDTO.g:1754:1: ( rule__Constant__Group_0__0__Impl rule__Constant__Group_0__1 )
+            // InternalDTO.g:1755:2: rule__Constant__Group_0__0__Impl rule__Constant__Group_0__1
             {
             pushFollow(FOLLOW_22);
             rule__Constant__Group_0__0__Impl();
@@ -5494,21 +5634,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_0__0__Impl"
-    // InternalDTO.g:1725:1: rule__Constant__Group_0__0__Impl : ( () ) ;
+    // InternalDTO.g:1762:1: rule__Constant__Group_0__0__Impl : ( () ) ;
     public final void rule__Constant__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1729:1: ( ( () ) )
-            // InternalDTO.g:1730:1: ( () )
+            // InternalDTO.g:1766:1: ( ( () ) )
+            // InternalDTO.g:1767:1: ( () )
             {
-            // InternalDTO.g:1730:1: ( () )
-            // InternalDTO.g:1731:2: ()
+            // InternalDTO.g:1767:1: ( () )
+            // InternalDTO.g:1768:2: ()
             {
              before(grammarAccess.getConstantAccess().getIntConstantAction_0_0()); 
-            // InternalDTO.g:1732:2: ()
-            // InternalDTO.g:1732:3: 
+            // InternalDTO.g:1769:2: ()
+            // InternalDTO.g:1769:3: 
             {
             }
 
@@ -5531,14 +5671,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_0__1"
-    // InternalDTO.g:1740:1: rule__Constant__Group_0__1 : rule__Constant__Group_0__1__Impl ;
+    // InternalDTO.g:1777:1: rule__Constant__Group_0__1 : rule__Constant__Group_0__1__Impl ;
     public final void rule__Constant__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1744:1: ( rule__Constant__Group_0__1__Impl )
-            // InternalDTO.g:1745:2: rule__Constant__Group_0__1__Impl
+            // InternalDTO.g:1781:1: ( rule__Constant__Group_0__1__Impl )
+            // InternalDTO.g:1782:2: rule__Constant__Group_0__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Constant__Group_0__1__Impl();
@@ -5564,21 +5704,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_0__1__Impl"
-    // InternalDTO.g:1751:1: rule__Constant__Group_0__1__Impl : ( ( rule__Constant__ValueAssignment_0_1 ) ) ;
+    // InternalDTO.g:1788:1: rule__Constant__Group_0__1__Impl : ( ( rule__Constant__ValueAssignment_0_1 ) ) ;
     public final void rule__Constant__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1755:1: ( ( ( rule__Constant__ValueAssignment_0_1 ) ) )
-            // InternalDTO.g:1756:1: ( ( rule__Constant__ValueAssignment_0_1 ) )
+            // InternalDTO.g:1792:1: ( ( ( rule__Constant__ValueAssignment_0_1 ) ) )
+            // InternalDTO.g:1793:1: ( ( rule__Constant__ValueAssignment_0_1 ) )
             {
-            // InternalDTO.g:1756:1: ( ( rule__Constant__ValueAssignment_0_1 ) )
-            // InternalDTO.g:1757:2: ( rule__Constant__ValueAssignment_0_1 )
+            // InternalDTO.g:1793:1: ( ( rule__Constant__ValueAssignment_0_1 ) )
+            // InternalDTO.g:1794:2: ( rule__Constant__ValueAssignment_0_1 )
             {
              before(grammarAccess.getConstantAccess().getValueAssignment_0_1()); 
-            // InternalDTO.g:1758:2: ( rule__Constant__ValueAssignment_0_1 )
-            // InternalDTO.g:1758:3: rule__Constant__ValueAssignment_0_1
+            // InternalDTO.g:1795:2: ( rule__Constant__ValueAssignment_0_1 )
+            // InternalDTO.g:1795:3: rule__Constant__ValueAssignment_0_1
             {
             pushFollow(FOLLOW_2);
             rule__Constant__ValueAssignment_0_1();
@@ -5611,14 +5751,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_1__0"
-    // InternalDTO.g:1767:1: rule__Constant__Group_1__0 : rule__Constant__Group_1__0__Impl rule__Constant__Group_1__1 ;
+    // InternalDTO.g:1804:1: rule__Constant__Group_1__0 : rule__Constant__Group_1__0__Impl rule__Constant__Group_1__1 ;
     public final void rule__Constant__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1771:1: ( rule__Constant__Group_1__0__Impl rule__Constant__Group_1__1 )
-            // InternalDTO.g:1772:2: rule__Constant__Group_1__0__Impl rule__Constant__Group_1__1
+            // InternalDTO.g:1808:1: ( rule__Constant__Group_1__0__Impl rule__Constant__Group_1__1 )
+            // InternalDTO.g:1809:2: rule__Constant__Group_1__0__Impl rule__Constant__Group_1__1
             {
             pushFollow(FOLLOW_22);
             rule__Constant__Group_1__0__Impl();
@@ -5649,21 +5789,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_1__0__Impl"
-    // InternalDTO.g:1779:1: rule__Constant__Group_1__0__Impl : ( () ) ;
+    // InternalDTO.g:1816:1: rule__Constant__Group_1__0__Impl : ( () ) ;
     public final void rule__Constant__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1783:1: ( ( () ) )
-            // InternalDTO.g:1784:1: ( () )
+            // InternalDTO.g:1820:1: ( ( () ) )
+            // InternalDTO.g:1821:1: ( () )
             {
-            // InternalDTO.g:1784:1: ( () )
-            // InternalDTO.g:1785:2: ()
+            // InternalDTO.g:1821:1: ( () )
+            // InternalDTO.g:1822:2: ()
             {
              before(grammarAccess.getConstantAccess().getLongConstantAction_1_0()); 
-            // InternalDTO.g:1786:2: ()
-            // InternalDTO.g:1786:3: 
+            // InternalDTO.g:1823:2: ()
+            // InternalDTO.g:1823:3: 
             {
             }
 
@@ -5686,14 +5826,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_1__1"
-    // InternalDTO.g:1794:1: rule__Constant__Group_1__1 : rule__Constant__Group_1__1__Impl rule__Constant__Group_1__2 ;
+    // InternalDTO.g:1831:1: rule__Constant__Group_1__1 : rule__Constant__Group_1__1__Impl rule__Constant__Group_1__2 ;
     public final void rule__Constant__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1798:1: ( rule__Constant__Group_1__1__Impl rule__Constant__Group_1__2 )
-            // InternalDTO.g:1799:2: rule__Constant__Group_1__1__Impl rule__Constant__Group_1__2
+            // InternalDTO.g:1835:1: ( rule__Constant__Group_1__1__Impl rule__Constant__Group_1__2 )
+            // InternalDTO.g:1836:2: rule__Constant__Group_1__1__Impl rule__Constant__Group_1__2
             {
             pushFollow(FOLLOW_23);
             rule__Constant__Group_1__1__Impl();
@@ -5724,21 +5864,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_1__1__Impl"
-    // InternalDTO.g:1806:1: rule__Constant__Group_1__1__Impl : ( ( rule__Constant__ValueAssignment_1_1 ) ) ;
+    // InternalDTO.g:1843:1: rule__Constant__Group_1__1__Impl : ( ( rule__Constant__ValueAssignment_1_1 ) ) ;
     public final void rule__Constant__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1810:1: ( ( ( rule__Constant__ValueAssignment_1_1 ) ) )
-            // InternalDTO.g:1811:1: ( ( rule__Constant__ValueAssignment_1_1 ) )
+            // InternalDTO.g:1847:1: ( ( ( rule__Constant__ValueAssignment_1_1 ) ) )
+            // InternalDTO.g:1848:1: ( ( rule__Constant__ValueAssignment_1_1 ) )
             {
-            // InternalDTO.g:1811:1: ( ( rule__Constant__ValueAssignment_1_1 ) )
-            // InternalDTO.g:1812:2: ( rule__Constant__ValueAssignment_1_1 )
+            // InternalDTO.g:1848:1: ( ( rule__Constant__ValueAssignment_1_1 ) )
+            // InternalDTO.g:1849:2: ( rule__Constant__ValueAssignment_1_1 )
             {
              before(grammarAccess.getConstantAccess().getValueAssignment_1_1()); 
-            // InternalDTO.g:1813:2: ( rule__Constant__ValueAssignment_1_1 )
-            // InternalDTO.g:1813:3: rule__Constant__ValueAssignment_1_1
+            // InternalDTO.g:1850:2: ( rule__Constant__ValueAssignment_1_1 )
+            // InternalDTO.g:1850:3: rule__Constant__ValueAssignment_1_1
             {
             pushFollow(FOLLOW_2);
             rule__Constant__ValueAssignment_1_1();
@@ -5771,14 +5911,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_1__2"
-    // InternalDTO.g:1821:1: rule__Constant__Group_1__2 : rule__Constant__Group_1__2__Impl ;
+    // InternalDTO.g:1858:1: rule__Constant__Group_1__2 : rule__Constant__Group_1__2__Impl ;
     public final void rule__Constant__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1825:1: ( rule__Constant__Group_1__2__Impl )
-            // InternalDTO.g:1826:2: rule__Constant__Group_1__2__Impl
+            // InternalDTO.g:1862:1: ( rule__Constant__Group_1__2__Impl )
+            // InternalDTO.g:1863:2: rule__Constant__Group_1__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Constant__Group_1__2__Impl();
@@ -5804,17 +5944,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_1__2__Impl"
-    // InternalDTO.g:1832:1: rule__Constant__Group_1__2__Impl : ( 'L' ) ;
+    // InternalDTO.g:1869:1: rule__Constant__Group_1__2__Impl : ( 'L' ) ;
     public final void rule__Constant__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1836:1: ( ( 'L' ) )
-            // InternalDTO.g:1837:1: ( 'L' )
+            // InternalDTO.g:1873:1: ( ( 'L' ) )
+            // InternalDTO.g:1874:1: ( 'L' )
             {
-            // InternalDTO.g:1837:1: ( 'L' )
-            // InternalDTO.g:1838:2: 'L'
+            // InternalDTO.g:1874:1: ( 'L' )
+            // InternalDTO.g:1875:2: 'L'
             {
              before(grammarAccess.getConstantAccess().getLKeyword_1_2()); 
             match(input,31,FOLLOW_2); 
@@ -5841,14 +5981,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_2__0"
-    // InternalDTO.g:1848:1: rule__Constant__Group_2__0 : rule__Constant__Group_2__0__Impl rule__Constant__Group_2__1 ;
+    // InternalDTO.g:1885:1: rule__Constant__Group_2__0 : rule__Constant__Group_2__0__Impl rule__Constant__Group_2__1 ;
     public final void rule__Constant__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1852:1: ( rule__Constant__Group_2__0__Impl rule__Constant__Group_2__1 )
-            // InternalDTO.g:1853:2: rule__Constant__Group_2__0__Impl rule__Constant__Group_2__1
+            // InternalDTO.g:1889:1: ( rule__Constant__Group_2__0__Impl rule__Constant__Group_2__1 )
+            // InternalDTO.g:1890:2: rule__Constant__Group_2__0__Impl rule__Constant__Group_2__1
             {
             pushFollow(FOLLOW_24);
             rule__Constant__Group_2__0__Impl();
@@ -5879,21 +6019,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_2__0__Impl"
-    // InternalDTO.g:1860:1: rule__Constant__Group_2__0__Impl : ( () ) ;
+    // InternalDTO.g:1897:1: rule__Constant__Group_2__0__Impl : ( () ) ;
     public final void rule__Constant__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1864:1: ( ( () ) )
-            // InternalDTO.g:1865:1: ( () )
+            // InternalDTO.g:1901:1: ( ( () ) )
+            // InternalDTO.g:1902:1: ( () )
             {
-            // InternalDTO.g:1865:1: ( () )
-            // InternalDTO.g:1866:2: ()
+            // InternalDTO.g:1902:1: ( () )
+            // InternalDTO.g:1903:2: ()
             {
              before(grammarAccess.getConstantAccess().getStringConstantAction_2_0()); 
-            // InternalDTO.g:1867:2: ()
-            // InternalDTO.g:1867:3: 
+            // InternalDTO.g:1904:2: ()
+            // InternalDTO.g:1904:3: 
             {
             }
 
@@ -5916,14 +6056,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_2__1"
-    // InternalDTO.g:1875:1: rule__Constant__Group_2__1 : rule__Constant__Group_2__1__Impl ;
+    // InternalDTO.g:1912:1: rule__Constant__Group_2__1 : rule__Constant__Group_2__1__Impl ;
     public final void rule__Constant__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1879:1: ( rule__Constant__Group_2__1__Impl )
-            // InternalDTO.g:1880:2: rule__Constant__Group_2__1__Impl
+            // InternalDTO.g:1916:1: ( rule__Constant__Group_2__1__Impl )
+            // InternalDTO.g:1917:2: rule__Constant__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Constant__Group_2__1__Impl();
@@ -5949,21 +6089,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_2__1__Impl"
-    // InternalDTO.g:1886:1: rule__Constant__Group_2__1__Impl : ( ( rule__Constant__ValueAssignment_2_1 ) ) ;
+    // InternalDTO.g:1923:1: rule__Constant__Group_2__1__Impl : ( ( rule__Constant__ValueAssignment_2_1 ) ) ;
     public final void rule__Constant__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1890:1: ( ( ( rule__Constant__ValueAssignment_2_1 ) ) )
-            // InternalDTO.g:1891:1: ( ( rule__Constant__ValueAssignment_2_1 ) )
+            // InternalDTO.g:1927:1: ( ( ( rule__Constant__ValueAssignment_2_1 ) ) )
+            // InternalDTO.g:1928:1: ( ( rule__Constant__ValueAssignment_2_1 ) )
             {
-            // InternalDTO.g:1891:1: ( ( rule__Constant__ValueAssignment_2_1 ) )
-            // InternalDTO.g:1892:2: ( rule__Constant__ValueAssignment_2_1 )
+            // InternalDTO.g:1928:1: ( ( rule__Constant__ValueAssignment_2_1 ) )
+            // InternalDTO.g:1929:2: ( rule__Constant__ValueAssignment_2_1 )
             {
              before(grammarAccess.getConstantAccess().getValueAssignment_2_1()); 
-            // InternalDTO.g:1893:2: ( rule__Constant__ValueAssignment_2_1 )
-            // InternalDTO.g:1893:3: rule__Constant__ValueAssignment_2_1
+            // InternalDTO.g:1930:2: ( rule__Constant__ValueAssignment_2_1 )
+            // InternalDTO.g:1930:3: rule__Constant__ValueAssignment_2_1
             {
             pushFollow(FOLLOW_2);
             rule__Constant__ValueAssignment_2_1();
@@ -5996,14 +6136,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_3__0"
-    // InternalDTO.g:1902:1: rule__Constant__Group_3__0 : rule__Constant__Group_3__0__Impl rule__Constant__Group_3__1 ;
+    // InternalDTO.g:1939:1: rule__Constant__Group_3__0 : rule__Constant__Group_3__0__Impl rule__Constant__Group_3__1 ;
     public final void rule__Constant__Group_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1906:1: ( rule__Constant__Group_3__0__Impl rule__Constant__Group_3__1 )
-            // InternalDTO.g:1907:2: rule__Constant__Group_3__0__Impl rule__Constant__Group_3__1
+            // InternalDTO.g:1943:1: ( rule__Constant__Group_3__0__Impl rule__Constant__Group_3__1 )
+            // InternalDTO.g:1944:2: rule__Constant__Group_3__0__Impl rule__Constant__Group_3__1
             {
             pushFollow(FOLLOW_25);
             rule__Constant__Group_3__0__Impl();
@@ -6034,21 +6174,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_3__0__Impl"
-    // InternalDTO.g:1914:1: rule__Constant__Group_3__0__Impl : ( () ) ;
+    // InternalDTO.g:1951:1: rule__Constant__Group_3__0__Impl : ( () ) ;
     public final void rule__Constant__Group_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1918:1: ( ( () ) )
-            // InternalDTO.g:1919:1: ( () )
+            // InternalDTO.g:1955:1: ( ( () ) )
+            // InternalDTO.g:1956:1: ( () )
             {
-            // InternalDTO.g:1919:1: ( () )
-            // InternalDTO.g:1920:2: ()
+            // InternalDTO.g:1956:1: ( () )
+            // InternalDTO.g:1957:2: ()
             {
              before(grammarAccess.getConstantAccess().getBoolConstantAction_3_0()); 
-            // InternalDTO.g:1921:2: ()
-            // InternalDTO.g:1921:3: 
+            // InternalDTO.g:1958:2: ()
+            // InternalDTO.g:1958:3: 
             {
             }
 
@@ -6071,14 +6211,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_3__1"
-    // InternalDTO.g:1929:1: rule__Constant__Group_3__1 : rule__Constant__Group_3__1__Impl ;
+    // InternalDTO.g:1966:1: rule__Constant__Group_3__1 : rule__Constant__Group_3__1__Impl ;
     public final void rule__Constant__Group_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1933:1: ( rule__Constant__Group_3__1__Impl )
-            // InternalDTO.g:1934:2: rule__Constant__Group_3__1__Impl
+            // InternalDTO.g:1970:1: ( rule__Constant__Group_3__1__Impl )
+            // InternalDTO.g:1971:2: rule__Constant__Group_3__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Constant__Group_3__1__Impl();
@@ -6104,21 +6244,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_3__1__Impl"
-    // InternalDTO.g:1940:1: rule__Constant__Group_3__1__Impl : ( ( rule__Constant__ValueAssignment_3_1 ) ) ;
+    // InternalDTO.g:1977:1: rule__Constant__Group_3__1__Impl : ( ( rule__Constant__ValueAssignment_3_1 ) ) ;
     public final void rule__Constant__Group_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1944:1: ( ( ( rule__Constant__ValueAssignment_3_1 ) ) )
-            // InternalDTO.g:1945:1: ( ( rule__Constant__ValueAssignment_3_1 ) )
+            // InternalDTO.g:1981:1: ( ( ( rule__Constant__ValueAssignment_3_1 ) ) )
+            // InternalDTO.g:1982:1: ( ( rule__Constant__ValueAssignment_3_1 ) )
             {
-            // InternalDTO.g:1945:1: ( ( rule__Constant__ValueAssignment_3_1 ) )
-            // InternalDTO.g:1946:2: ( rule__Constant__ValueAssignment_3_1 )
+            // InternalDTO.g:1982:1: ( ( rule__Constant__ValueAssignment_3_1 ) )
+            // InternalDTO.g:1983:2: ( rule__Constant__ValueAssignment_3_1 )
             {
              before(grammarAccess.getConstantAccess().getValueAssignment_3_1()); 
-            // InternalDTO.g:1947:2: ( rule__Constant__ValueAssignment_3_1 )
-            // InternalDTO.g:1947:3: rule__Constant__ValueAssignment_3_1
+            // InternalDTO.g:1984:2: ( rule__Constant__ValueAssignment_3_1 )
+            // InternalDTO.g:1984:3: rule__Constant__ValueAssignment_3_1
             {
             pushFollow(FOLLOW_2);
             rule__Constant__ValueAssignment_3_1();
@@ -6151,14 +6291,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_4__0"
-    // InternalDTO.g:1956:1: rule__Constant__Group_4__0 : rule__Constant__Group_4__0__Impl rule__Constant__Group_4__1 ;
+    // InternalDTO.g:1993:1: rule__Constant__Group_4__0 : rule__Constant__Group_4__0__Impl rule__Constant__Group_4__1 ;
     public final void rule__Constant__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1960:1: ( rule__Constant__Group_4__0__Impl rule__Constant__Group_4__1 )
-            // InternalDTO.g:1961:2: rule__Constant__Group_4__0__Impl rule__Constant__Group_4__1
+            // InternalDTO.g:1997:1: ( rule__Constant__Group_4__0__Impl rule__Constant__Group_4__1 )
+            // InternalDTO.g:1998:2: rule__Constant__Group_4__0__Impl rule__Constant__Group_4__1
             {
             pushFollow(FOLLOW_22);
             rule__Constant__Group_4__0__Impl();
@@ -6189,21 +6329,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_4__0__Impl"
-    // InternalDTO.g:1968:1: rule__Constant__Group_4__0__Impl : ( () ) ;
+    // InternalDTO.g:2005:1: rule__Constant__Group_4__0__Impl : ( () ) ;
     public final void rule__Constant__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1972:1: ( ( () ) )
-            // InternalDTO.g:1973:1: ( () )
+            // InternalDTO.g:2009:1: ( ( () ) )
+            // InternalDTO.g:2010:1: ( () )
             {
-            // InternalDTO.g:1973:1: ( () )
-            // InternalDTO.g:1974:2: ()
+            // InternalDTO.g:2010:1: ( () )
+            // InternalDTO.g:2011:2: ()
             {
              before(grammarAccess.getConstantAccess().getDateConstantAction_4_0()); 
-            // InternalDTO.g:1975:2: ()
-            // InternalDTO.g:1975:3: 
+            // InternalDTO.g:2012:2: ()
+            // InternalDTO.g:2012:3: 
             {
             }
 
@@ -6226,14 +6366,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_4__1"
-    // InternalDTO.g:1983:1: rule__Constant__Group_4__1 : rule__Constant__Group_4__1__Impl rule__Constant__Group_4__2 ;
+    // InternalDTO.g:2020:1: rule__Constant__Group_4__1 : rule__Constant__Group_4__1__Impl rule__Constant__Group_4__2 ;
     public final void rule__Constant__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1987:1: ( rule__Constant__Group_4__1__Impl rule__Constant__Group_4__2 )
-            // InternalDTO.g:1988:2: rule__Constant__Group_4__1__Impl rule__Constant__Group_4__2
+            // InternalDTO.g:2024:1: ( rule__Constant__Group_4__1__Impl rule__Constant__Group_4__2 )
+            // InternalDTO.g:2025:2: rule__Constant__Group_4__1__Impl rule__Constant__Group_4__2
             {
             pushFollow(FOLLOW_26);
             rule__Constant__Group_4__1__Impl();
@@ -6264,21 +6404,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_4__1__Impl"
-    // InternalDTO.g:1995:1: rule__Constant__Group_4__1__Impl : ( ( rule__Constant__DayAssignment_4_1 ) ) ;
+    // InternalDTO.g:2032:1: rule__Constant__Group_4__1__Impl : ( ( rule__Constant__DayAssignment_4_1 ) ) ;
     public final void rule__Constant__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:1999:1: ( ( ( rule__Constant__DayAssignment_4_1 ) ) )
-            // InternalDTO.g:2000:1: ( ( rule__Constant__DayAssignment_4_1 ) )
+            // InternalDTO.g:2036:1: ( ( ( rule__Constant__DayAssignment_4_1 ) ) )
+            // InternalDTO.g:2037:1: ( ( rule__Constant__DayAssignment_4_1 ) )
             {
-            // InternalDTO.g:2000:1: ( ( rule__Constant__DayAssignment_4_1 ) )
-            // InternalDTO.g:2001:2: ( rule__Constant__DayAssignment_4_1 )
+            // InternalDTO.g:2037:1: ( ( rule__Constant__DayAssignment_4_1 ) )
+            // InternalDTO.g:2038:2: ( rule__Constant__DayAssignment_4_1 )
             {
              before(grammarAccess.getConstantAccess().getDayAssignment_4_1()); 
-            // InternalDTO.g:2002:2: ( rule__Constant__DayAssignment_4_1 )
-            // InternalDTO.g:2002:3: rule__Constant__DayAssignment_4_1
+            // InternalDTO.g:2039:2: ( rule__Constant__DayAssignment_4_1 )
+            // InternalDTO.g:2039:3: rule__Constant__DayAssignment_4_1
             {
             pushFollow(FOLLOW_2);
             rule__Constant__DayAssignment_4_1();
@@ -6311,14 +6451,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_4__2"
-    // InternalDTO.g:2010:1: rule__Constant__Group_4__2 : rule__Constant__Group_4__2__Impl rule__Constant__Group_4__3 ;
+    // InternalDTO.g:2047:1: rule__Constant__Group_4__2 : rule__Constant__Group_4__2__Impl rule__Constant__Group_4__3 ;
     public final void rule__Constant__Group_4__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2014:1: ( rule__Constant__Group_4__2__Impl rule__Constant__Group_4__3 )
-            // InternalDTO.g:2015:2: rule__Constant__Group_4__2__Impl rule__Constant__Group_4__3
+            // InternalDTO.g:2051:1: ( rule__Constant__Group_4__2__Impl rule__Constant__Group_4__3 )
+            // InternalDTO.g:2052:2: rule__Constant__Group_4__2__Impl rule__Constant__Group_4__3
             {
             pushFollow(FOLLOW_22);
             rule__Constant__Group_4__2__Impl();
@@ -6349,17 +6489,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_4__2__Impl"
-    // InternalDTO.g:2022:1: rule__Constant__Group_4__2__Impl : ( '/' ) ;
+    // InternalDTO.g:2059:1: rule__Constant__Group_4__2__Impl : ( '/' ) ;
     public final void rule__Constant__Group_4__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2026:1: ( ( '/' ) )
-            // InternalDTO.g:2027:1: ( '/' )
+            // InternalDTO.g:2063:1: ( ( '/' ) )
+            // InternalDTO.g:2064:1: ( '/' )
             {
-            // InternalDTO.g:2027:1: ( '/' )
-            // InternalDTO.g:2028:2: '/'
+            // InternalDTO.g:2064:1: ( '/' )
+            // InternalDTO.g:2065:2: '/'
             {
              before(grammarAccess.getConstantAccess().getSolidusKeyword_4_2()); 
             match(input,32,FOLLOW_2); 
@@ -6386,14 +6526,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_4__3"
-    // InternalDTO.g:2037:1: rule__Constant__Group_4__3 : rule__Constant__Group_4__3__Impl rule__Constant__Group_4__4 ;
+    // InternalDTO.g:2074:1: rule__Constant__Group_4__3 : rule__Constant__Group_4__3__Impl rule__Constant__Group_4__4 ;
     public final void rule__Constant__Group_4__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2041:1: ( rule__Constant__Group_4__3__Impl rule__Constant__Group_4__4 )
-            // InternalDTO.g:2042:2: rule__Constant__Group_4__3__Impl rule__Constant__Group_4__4
+            // InternalDTO.g:2078:1: ( rule__Constant__Group_4__3__Impl rule__Constant__Group_4__4 )
+            // InternalDTO.g:2079:2: rule__Constant__Group_4__3__Impl rule__Constant__Group_4__4
             {
             pushFollow(FOLLOW_26);
             rule__Constant__Group_4__3__Impl();
@@ -6424,21 +6564,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_4__3__Impl"
-    // InternalDTO.g:2049:1: rule__Constant__Group_4__3__Impl : ( ( rule__Constant__MonthAssignment_4_3 ) ) ;
+    // InternalDTO.g:2086:1: rule__Constant__Group_4__3__Impl : ( ( rule__Constant__MonthAssignment_4_3 ) ) ;
     public final void rule__Constant__Group_4__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2053:1: ( ( ( rule__Constant__MonthAssignment_4_3 ) ) )
-            // InternalDTO.g:2054:1: ( ( rule__Constant__MonthAssignment_4_3 ) )
+            // InternalDTO.g:2090:1: ( ( ( rule__Constant__MonthAssignment_4_3 ) ) )
+            // InternalDTO.g:2091:1: ( ( rule__Constant__MonthAssignment_4_3 ) )
             {
-            // InternalDTO.g:2054:1: ( ( rule__Constant__MonthAssignment_4_3 ) )
-            // InternalDTO.g:2055:2: ( rule__Constant__MonthAssignment_4_3 )
+            // InternalDTO.g:2091:1: ( ( rule__Constant__MonthAssignment_4_3 ) )
+            // InternalDTO.g:2092:2: ( rule__Constant__MonthAssignment_4_3 )
             {
              before(grammarAccess.getConstantAccess().getMonthAssignment_4_3()); 
-            // InternalDTO.g:2056:2: ( rule__Constant__MonthAssignment_4_3 )
-            // InternalDTO.g:2056:3: rule__Constant__MonthAssignment_4_3
+            // InternalDTO.g:2093:2: ( rule__Constant__MonthAssignment_4_3 )
+            // InternalDTO.g:2093:3: rule__Constant__MonthAssignment_4_3
             {
             pushFollow(FOLLOW_2);
             rule__Constant__MonthAssignment_4_3();
@@ -6471,14 +6611,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_4__4"
-    // InternalDTO.g:2064:1: rule__Constant__Group_4__4 : rule__Constant__Group_4__4__Impl rule__Constant__Group_4__5 ;
+    // InternalDTO.g:2101:1: rule__Constant__Group_4__4 : rule__Constant__Group_4__4__Impl rule__Constant__Group_4__5 ;
     public final void rule__Constant__Group_4__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2068:1: ( rule__Constant__Group_4__4__Impl rule__Constant__Group_4__5 )
-            // InternalDTO.g:2069:2: rule__Constant__Group_4__4__Impl rule__Constant__Group_4__5
+            // InternalDTO.g:2105:1: ( rule__Constant__Group_4__4__Impl rule__Constant__Group_4__5 )
+            // InternalDTO.g:2106:2: rule__Constant__Group_4__4__Impl rule__Constant__Group_4__5
             {
             pushFollow(FOLLOW_22);
             rule__Constant__Group_4__4__Impl();
@@ -6509,17 +6649,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_4__4__Impl"
-    // InternalDTO.g:2076:1: rule__Constant__Group_4__4__Impl : ( '/' ) ;
+    // InternalDTO.g:2113:1: rule__Constant__Group_4__4__Impl : ( '/' ) ;
     public final void rule__Constant__Group_4__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2080:1: ( ( '/' ) )
-            // InternalDTO.g:2081:1: ( '/' )
+            // InternalDTO.g:2117:1: ( ( '/' ) )
+            // InternalDTO.g:2118:1: ( '/' )
             {
-            // InternalDTO.g:2081:1: ( '/' )
-            // InternalDTO.g:2082:2: '/'
+            // InternalDTO.g:2118:1: ( '/' )
+            // InternalDTO.g:2119:2: '/'
             {
              before(grammarAccess.getConstantAccess().getSolidusKeyword_4_4()); 
             match(input,32,FOLLOW_2); 
@@ -6546,14 +6686,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_4__5"
-    // InternalDTO.g:2091:1: rule__Constant__Group_4__5 : rule__Constant__Group_4__5__Impl ;
+    // InternalDTO.g:2128:1: rule__Constant__Group_4__5 : rule__Constant__Group_4__5__Impl ;
     public final void rule__Constant__Group_4__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2095:1: ( rule__Constant__Group_4__5__Impl )
-            // InternalDTO.g:2096:2: rule__Constant__Group_4__5__Impl
+            // InternalDTO.g:2132:1: ( rule__Constant__Group_4__5__Impl )
+            // InternalDTO.g:2133:2: rule__Constant__Group_4__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Constant__Group_4__5__Impl();
@@ -6579,21 +6719,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_4__5__Impl"
-    // InternalDTO.g:2102:1: rule__Constant__Group_4__5__Impl : ( ( rule__Constant__YearAssignment_4_5 ) ) ;
+    // InternalDTO.g:2139:1: rule__Constant__Group_4__5__Impl : ( ( rule__Constant__YearAssignment_4_5 ) ) ;
     public final void rule__Constant__Group_4__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2106:1: ( ( ( rule__Constant__YearAssignment_4_5 ) ) )
-            // InternalDTO.g:2107:1: ( ( rule__Constant__YearAssignment_4_5 ) )
+            // InternalDTO.g:2143:1: ( ( ( rule__Constant__YearAssignment_4_5 ) ) )
+            // InternalDTO.g:2144:1: ( ( rule__Constant__YearAssignment_4_5 ) )
             {
-            // InternalDTO.g:2107:1: ( ( rule__Constant__YearAssignment_4_5 ) )
-            // InternalDTO.g:2108:2: ( rule__Constant__YearAssignment_4_5 )
+            // InternalDTO.g:2144:1: ( ( rule__Constant__YearAssignment_4_5 ) )
+            // InternalDTO.g:2145:2: ( rule__Constant__YearAssignment_4_5 )
             {
              before(grammarAccess.getConstantAccess().getYearAssignment_4_5()); 
-            // InternalDTO.g:2109:2: ( rule__Constant__YearAssignment_4_5 )
-            // InternalDTO.g:2109:3: rule__Constant__YearAssignment_4_5
+            // InternalDTO.g:2146:2: ( rule__Constant__YearAssignment_4_5 )
+            // InternalDTO.g:2146:3: rule__Constant__YearAssignment_4_5
             {
             pushFollow(FOLLOW_2);
             rule__Constant__YearAssignment_4_5();
@@ -6626,16 +6766,16 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_5__0"
-    // InternalDTO.g:2118:1: rule__Constant__Group_5__0 : rule__Constant__Group_5__0__Impl rule__Constant__Group_5__1 ;
+    // InternalDTO.g:2155:1: rule__Constant__Group_5__0 : rule__Constant__Group_5__0__Impl rule__Constant__Group_5__1 ;
     public final void rule__Constant__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2122:1: ( rule__Constant__Group_5__0__Impl rule__Constant__Group_5__1 )
-            // InternalDTO.g:2123:2: rule__Constant__Group_5__0__Impl rule__Constant__Group_5__1
+            // InternalDTO.g:2159:1: ( rule__Constant__Group_5__0__Impl rule__Constant__Group_5__1 )
+            // InternalDTO.g:2160:2: rule__Constant__Group_5__0__Impl rule__Constant__Group_5__1
             {
-            pushFollow(FOLLOW_19);
+            pushFollow(FOLLOW_22);
             rule__Constant__Group_5__0__Impl();
 
             state._fsp--;
@@ -6664,25 +6804,25 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_5__0__Impl"
-    // InternalDTO.g:2130:1: rule__Constant__Group_5__0__Impl : ( () ) ;
+    // InternalDTO.g:2167:1: rule__Constant__Group_5__0__Impl : ( () ) ;
     public final void rule__Constant__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2134:1: ( ( () ) )
-            // InternalDTO.g:2135:1: ( () )
+            // InternalDTO.g:2171:1: ( ( () ) )
+            // InternalDTO.g:2172:1: ( () )
             {
-            // InternalDTO.g:2135:1: ( () )
-            // InternalDTO.g:2136:2: ()
+            // InternalDTO.g:2172:1: ( () )
+            // InternalDTO.g:2173:2: ()
             {
-             before(grammarAccess.getConstantAccess().getNullAction_5_0()); 
-            // InternalDTO.g:2137:2: ()
-            // InternalDTO.g:2137:3: 
+             before(grammarAccess.getConstantAccess().getDecimalConstantAction_5_0()); 
+            // InternalDTO.g:2174:2: ()
+            // InternalDTO.g:2174:3: 
             {
             }
 
-             after(grammarAccess.getConstantAccess().getNullAction_5_0()); 
+             after(grammarAccess.getConstantAccess().getDecimalConstantAction_5_0()); 
 
             }
 
@@ -6701,14 +6841,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_5__1"
-    // InternalDTO.g:2145:1: rule__Constant__Group_5__1 : rule__Constant__Group_5__1__Impl ;
+    // InternalDTO.g:2182:1: rule__Constant__Group_5__1 : rule__Constant__Group_5__1__Impl ;
     public final void rule__Constant__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2149:1: ( rule__Constant__Group_5__1__Impl )
-            // InternalDTO.g:2150:2: rule__Constant__Group_5__1__Impl
+            // InternalDTO.g:2186:1: ( rule__Constant__Group_5__1__Impl )
+            // InternalDTO.g:2187:2: rule__Constant__Group_5__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Constant__Group_5__1__Impl();
@@ -6734,21 +6874,31 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group_5__1__Impl"
-    // InternalDTO.g:2156:1: rule__Constant__Group_5__1__Impl : ( 'null' ) ;
+    // InternalDTO.g:2193:1: rule__Constant__Group_5__1__Impl : ( ( rule__Constant__ValueAssignment_5_1 ) ) ;
     public final void rule__Constant__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2160:1: ( ( 'null' ) )
-            // InternalDTO.g:2161:1: ( 'null' )
+            // InternalDTO.g:2197:1: ( ( ( rule__Constant__ValueAssignment_5_1 ) ) )
+            // InternalDTO.g:2198:1: ( ( rule__Constant__ValueAssignment_5_1 ) )
             {
-            // InternalDTO.g:2161:1: ( 'null' )
-            // InternalDTO.g:2162:2: 'null'
+            // InternalDTO.g:2198:1: ( ( rule__Constant__ValueAssignment_5_1 ) )
+            // InternalDTO.g:2199:2: ( rule__Constant__ValueAssignment_5_1 )
             {
-             before(grammarAccess.getConstantAccess().getNullKeyword_5_1()); 
-            match(input,33,FOLLOW_2); 
-             after(grammarAccess.getConstantAccess().getNullKeyword_5_1()); 
+             before(grammarAccess.getConstantAccess().getValueAssignment_5_1()); 
+            // InternalDTO.g:2200:2: ( rule__Constant__ValueAssignment_5_1 )
+            // InternalDTO.g:2200:3: rule__Constant__ValueAssignment_5_1
+            {
+            pushFollow(FOLLOW_2);
+            rule__Constant__ValueAssignment_5_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getConstantAccess().getValueAssignment_5_1()); 
 
             }
 
@@ -6770,15 +6920,160 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Constant__Group_5__1__Impl"
 
 
+    // $ANTLR start "rule__Constant__Group_6__0"
+    // InternalDTO.g:2209:1: rule__Constant__Group_6__0 : rule__Constant__Group_6__0__Impl rule__Constant__Group_6__1 ;
+    public final void rule__Constant__Group_6__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:2213:1: ( rule__Constant__Group_6__0__Impl rule__Constant__Group_6__1 )
+            // InternalDTO.g:2214:2: rule__Constant__Group_6__0__Impl rule__Constant__Group_6__1
+            {
+            pushFollow(FOLLOW_19);
+            rule__Constant__Group_6__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__Constant__Group_6__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Constant__Group_6__0"
+
+
+    // $ANTLR start "rule__Constant__Group_6__0__Impl"
+    // InternalDTO.g:2221:1: rule__Constant__Group_6__0__Impl : ( () ) ;
+    public final void rule__Constant__Group_6__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:2225:1: ( ( () ) )
+            // InternalDTO.g:2226:1: ( () )
+            {
+            // InternalDTO.g:2226:1: ( () )
+            // InternalDTO.g:2227:2: ()
+            {
+             before(grammarAccess.getConstantAccess().getNullAction_6_0()); 
+            // InternalDTO.g:2228:2: ()
+            // InternalDTO.g:2228:3: 
+            {
+            }
+
+             after(grammarAccess.getConstantAccess().getNullAction_6_0()); 
+
+            }
+
+
+            }
+
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Constant__Group_6__0__Impl"
+
+
+    // $ANTLR start "rule__Constant__Group_6__1"
+    // InternalDTO.g:2236:1: rule__Constant__Group_6__1 : rule__Constant__Group_6__1__Impl ;
+    public final void rule__Constant__Group_6__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:2240:1: ( rule__Constant__Group_6__1__Impl )
+            // InternalDTO.g:2241:2: rule__Constant__Group_6__1__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__Constant__Group_6__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Constant__Group_6__1"
+
+
+    // $ANTLR start "rule__Constant__Group_6__1__Impl"
+    // InternalDTO.g:2247:1: rule__Constant__Group_6__1__Impl : ( 'null' ) ;
+    public final void rule__Constant__Group_6__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:2251:1: ( ( 'null' ) )
+            // InternalDTO.g:2252:1: ( 'null' )
+            {
+            // InternalDTO.g:2252:1: ( 'null' )
+            // InternalDTO.g:2253:2: 'null'
+            {
+             before(grammarAccess.getConstantAccess().getNullKeyword_6_1()); 
+            match(input,33,FOLLOW_2); 
+             after(grammarAccess.getConstantAccess().getNullKeyword_6_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Constant__Group_6__1__Impl"
+
+
     // $ANTLR start "rule__EntityOption__Group_0__0"
-    // InternalDTO.g:2172:1: rule__EntityOption__Group_0__0 : rule__EntityOption__Group_0__0__Impl rule__EntityOption__Group_0__1 ;
+    // InternalDTO.g:2263:1: rule__EntityOption__Group_0__0 : rule__EntityOption__Group_0__0__Impl rule__EntityOption__Group_0__1 ;
     public final void rule__EntityOption__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2176:1: ( rule__EntityOption__Group_0__0__Impl rule__EntityOption__Group_0__1 )
-            // InternalDTO.g:2177:2: rule__EntityOption__Group_0__0__Impl rule__EntityOption__Group_0__1
+            // InternalDTO.g:2267:1: ( rule__EntityOption__Group_0__0__Impl rule__EntityOption__Group_0__1 )
+            // InternalDTO.g:2268:2: rule__EntityOption__Group_0__0__Impl rule__EntityOption__Group_0__1
             {
             pushFollow(FOLLOW_27);
             rule__EntityOption__Group_0__0__Impl();
@@ -6809,21 +7104,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EntityOption__Group_0__0__Impl"
-    // InternalDTO.g:2184:1: rule__EntityOption__Group_0__0__Impl : ( () ) ;
+    // InternalDTO.g:2275:1: rule__EntityOption__Group_0__0__Impl : ( () ) ;
     public final void rule__EntityOption__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2188:1: ( ( () ) )
-            // InternalDTO.g:2189:1: ( () )
+            // InternalDTO.g:2279:1: ( ( () ) )
+            // InternalDTO.g:2280:1: ( () )
             {
-            // InternalDTO.g:2189:1: ( () )
-            // InternalDTO.g:2190:2: ()
+            // InternalDTO.g:2280:1: ( () )
+            // InternalDTO.g:2281:2: ()
             {
              before(grammarAccess.getEntityOptionAccess().getEntityDeleteOptionAction_0_0()); 
-            // InternalDTO.g:2191:2: ()
-            // InternalDTO.g:2191:3: 
+            // InternalDTO.g:2282:2: ()
+            // InternalDTO.g:2282:3: 
             {
             }
 
@@ -6846,14 +7141,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EntityOption__Group_0__1"
-    // InternalDTO.g:2199:1: rule__EntityOption__Group_0__1 : rule__EntityOption__Group_0__1__Impl ;
+    // InternalDTO.g:2290:1: rule__EntityOption__Group_0__1 : rule__EntityOption__Group_0__1__Impl ;
     public final void rule__EntityOption__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2203:1: ( rule__EntityOption__Group_0__1__Impl )
-            // InternalDTO.g:2204:2: rule__EntityOption__Group_0__1__Impl
+            // InternalDTO.g:2294:1: ( rule__EntityOption__Group_0__1__Impl )
+            // InternalDTO.g:2295:2: rule__EntityOption__Group_0__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__EntityOption__Group_0__1__Impl();
@@ -6879,21 +7174,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EntityOption__Group_0__1__Impl"
-    // InternalDTO.g:2210:1: rule__EntityOption__Group_0__1__Impl : ( ( rule__EntityOption__DeleteByFlagAssignment_0_1 ) ) ;
+    // InternalDTO.g:2301:1: rule__EntityOption__Group_0__1__Impl : ( ( rule__EntityOption__DeleteByFlagAssignment_0_1 ) ) ;
     public final void rule__EntityOption__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2214:1: ( ( ( rule__EntityOption__DeleteByFlagAssignment_0_1 ) ) )
-            // InternalDTO.g:2215:1: ( ( rule__EntityOption__DeleteByFlagAssignment_0_1 ) )
+            // InternalDTO.g:2305:1: ( ( ( rule__EntityOption__DeleteByFlagAssignment_0_1 ) ) )
+            // InternalDTO.g:2306:1: ( ( rule__EntityOption__DeleteByFlagAssignment_0_1 ) )
             {
-            // InternalDTO.g:2215:1: ( ( rule__EntityOption__DeleteByFlagAssignment_0_1 ) )
-            // InternalDTO.g:2216:2: ( rule__EntityOption__DeleteByFlagAssignment_0_1 )
+            // InternalDTO.g:2306:1: ( ( rule__EntityOption__DeleteByFlagAssignment_0_1 ) )
+            // InternalDTO.g:2307:2: ( rule__EntityOption__DeleteByFlagAssignment_0_1 )
             {
              before(grammarAccess.getEntityOptionAccess().getDeleteByFlagAssignment_0_1()); 
-            // InternalDTO.g:2217:2: ( rule__EntityOption__DeleteByFlagAssignment_0_1 )
-            // InternalDTO.g:2217:3: rule__EntityOption__DeleteByFlagAssignment_0_1
+            // InternalDTO.g:2308:2: ( rule__EntityOption__DeleteByFlagAssignment_0_1 )
+            // InternalDTO.g:2308:3: rule__EntityOption__DeleteByFlagAssignment_0_1
             {
             pushFollow(FOLLOW_2);
             rule__EntityOption__DeleteByFlagAssignment_0_1();
@@ -6926,14 +7221,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EntityOption__Group_1__0"
-    // InternalDTO.g:2226:1: rule__EntityOption__Group_1__0 : rule__EntityOption__Group_1__0__Impl rule__EntityOption__Group_1__1 ;
+    // InternalDTO.g:2317:1: rule__EntityOption__Group_1__0 : rule__EntityOption__Group_1__0__Impl rule__EntityOption__Group_1__1 ;
     public final void rule__EntityOption__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2230:1: ( rule__EntityOption__Group_1__0__Impl rule__EntityOption__Group_1__1 )
-            // InternalDTO.g:2231:2: rule__EntityOption__Group_1__0__Impl rule__EntityOption__Group_1__1
+            // InternalDTO.g:2321:1: ( rule__EntityOption__Group_1__0__Impl rule__EntityOption__Group_1__1 )
+            // InternalDTO.g:2322:2: rule__EntityOption__Group_1__0__Impl rule__EntityOption__Group_1__1
             {
             pushFollow(FOLLOW_28);
             rule__EntityOption__Group_1__0__Impl();
@@ -6964,21 +7259,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EntityOption__Group_1__0__Impl"
-    // InternalDTO.g:2238:1: rule__EntityOption__Group_1__0__Impl : ( () ) ;
+    // InternalDTO.g:2329:1: rule__EntityOption__Group_1__0__Impl : ( () ) ;
     public final void rule__EntityOption__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2242:1: ( ( () ) )
-            // InternalDTO.g:2243:1: ( () )
+            // InternalDTO.g:2333:1: ( ( () ) )
+            // InternalDTO.g:2334:1: ( () )
             {
-            // InternalDTO.g:2243:1: ( () )
-            // InternalDTO.g:2244:2: ()
+            // InternalDTO.g:2334:1: ( () )
+            // InternalDTO.g:2335:2: ()
             {
              before(grammarAccess.getEntityOptionAccess().getInheritanceMappingOptionAction_1_0()); 
-            // InternalDTO.g:2245:2: ()
-            // InternalDTO.g:2245:3: 
+            // InternalDTO.g:2336:2: ()
+            // InternalDTO.g:2336:3: 
             {
             }
 
@@ -7001,14 +7296,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EntityOption__Group_1__1"
-    // InternalDTO.g:2253:1: rule__EntityOption__Group_1__1 : rule__EntityOption__Group_1__1__Impl rule__EntityOption__Group_1__2 ;
+    // InternalDTO.g:2344:1: rule__EntityOption__Group_1__1 : rule__EntityOption__Group_1__1__Impl rule__EntityOption__Group_1__2 ;
     public final void rule__EntityOption__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2257:1: ( rule__EntityOption__Group_1__1__Impl rule__EntityOption__Group_1__2 )
-            // InternalDTO.g:2258:2: rule__EntityOption__Group_1__1__Impl rule__EntityOption__Group_1__2
+            // InternalDTO.g:2348:1: ( rule__EntityOption__Group_1__1__Impl rule__EntityOption__Group_1__2 )
+            // InternalDTO.g:2349:2: rule__EntityOption__Group_1__1__Impl rule__EntityOption__Group_1__2
             {
             pushFollow(FOLLOW_29);
             rule__EntityOption__Group_1__1__Impl();
@@ -7039,17 +7334,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EntityOption__Group_1__1__Impl"
-    // InternalDTO.g:2265:1: rule__EntityOption__Group_1__1__Impl : ( 'inheritance' ) ;
+    // InternalDTO.g:2356:1: rule__EntityOption__Group_1__1__Impl : ( 'inheritance' ) ;
     public final void rule__EntityOption__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2269:1: ( ( 'inheritance' ) )
-            // InternalDTO.g:2270:1: ( 'inheritance' )
+            // InternalDTO.g:2360:1: ( ( 'inheritance' ) )
+            // InternalDTO.g:2361:1: ( 'inheritance' )
             {
-            // InternalDTO.g:2270:1: ( 'inheritance' )
-            // InternalDTO.g:2271:2: 'inheritance'
+            // InternalDTO.g:2361:1: ( 'inheritance' )
+            // InternalDTO.g:2362:2: 'inheritance'
             {
              before(grammarAccess.getEntityOptionAccess().getInheritanceKeyword_1_1()); 
             match(input,34,FOLLOW_2); 
@@ -7076,14 +7371,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EntityOption__Group_1__2"
-    // InternalDTO.g:2280:1: rule__EntityOption__Group_1__2 : rule__EntityOption__Group_1__2__Impl rule__EntityOption__Group_1__3 ;
+    // InternalDTO.g:2371:1: rule__EntityOption__Group_1__2 : rule__EntityOption__Group_1__2__Impl rule__EntityOption__Group_1__3 ;
     public final void rule__EntityOption__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2284:1: ( rule__EntityOption__Group_1__2__Impl rule__EntityOption__Group_1__3 )
-            // InternalDTO.g:2285:2: rule__EntityOption__Group_1__2__Impl rule__EntityOption__Group_1__3
+            // InternalDTO.g:2375:1: ( rule__EntityOption__Group_1__2__Impl rule__EntityOption__Group_1__3 )
+            // InternalDTO.g:2376:2: rule__EntityOption__Group_1__2__Impl rule__EntityOption__Group_1__3
             {
             pushFollow(FOLLOW_30);
             rule__EntityOption__Group_1__2__Impl();
@@ -7114,17 +7409,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EntityOption__Group_1__2__Impl"
-    // InternalDTO.g:2292:1: rule__EntityOption__Group_1__2__Impl : ( '=' ) ;
+    // InternalDTO.g:2383:1: rule__EntityOption__Group_1__2__Impl : ( '=' ) ;
     public final void rule__EntityOption__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2296:1: ( ( '=' ) )
-            // InternalDTO.g:2297:1: ( '=' )
+            // InternalDTO.g:2387:1: ( ( '=' ) )
+            // InternalDTO.g:2388:1: ( '=' )
             {
-            // InternalDTO.g:2297:1: ( '=' )
-            // InternalDTO.g:2298:2: '='
+            // InternalDTO.g:2388:1: ( '=' )
+            // InternalDTO.g:2389:2: '='
             {
              before(grammarAccess.getEntityOptionAccess().getEqualsSignKeyword_1_2()); 
             match(input,35,FOLLOW_2); 
@@ -7151,14 +7446,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EntityOption__Group_1__3"
-    // InternalDTO.g:2307:1: rule__EntityOption__Group_1__3 : rule__EntityOption__Group_1__3__Impl ;
+    // InternalDTO.g:2398:1: rule__EntityOption__Group_1__3 : rule__EntityOption__Group_1__3__Impl ;
     public final void rule__EntityOption__Group_1__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2311:1: ( rule__EntityOption__Group_1__3__Impl )
-            // InternalDTO.g:2312:2: rule__EntityOption__Group_1__3__Impl
+            // InternalDTO.g:2402:1: ( rule__EntityOption__Group_1__3__Impl )
+            // InternalDTO.g:2403:2: rule__EntityOption__Group_1__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__EntityOption__Group_1__3__Impl();
@@ -7184,21 +7479,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EntityOption__Group_1__3__Impl"
-    // InternalDTO.g:2318:1: rule__EntityOption__Group_1__3__Impl : ( ( rule__EntityOption__InheritanceMappingAssignment_1_3 ) ) ;
+    // InternalDTO.g:2409:1: rule__EntityOption__Group_1__3__Impl : ( ( rule__EntityOption__InheritanceMappingAssignment_1_3 ) ) ;
     public final void rule__EntityOption__Group_1__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2322:1: ( ( ( rule__EntityOption__InheritanceMappingAssignment_1_3 ) ) )
-            // InternalDTO.g:2323:1: ( ( rule__EntityOption__InheritanceMappingAssignment_1_3 ) )
+            // InternalDTO.g:2413:1: ( ( ( rule__EntityOption__InheritanceMappingAssignment_1_3 ) ) )
+            // InternalDTO.g:2414:1: ( ( rule__EntityOption__InheritanceMappingAssignment_1_3 ) )
             {
-            // InternalDTO.g:2323:1: ( ( rule__EntityOption__InheritanceMappingAssignment_1_3 ) )
-            // InternalDTO.g:2324:2: ( rule__EntityOption__InheritanceMappingAssignment_1_3 )
+            // InternalDTO.g:2414:1: ( ( rule__EntityOption__InheritanceMappingAssignment_1_3 ) )
+            // InternalDTO.g:2415:2: ( rule__EntityOption__InheritanceMappingAssignment_1_3 )
             {
              before(grammarAccess.getEntityOptionAccess().getInheritanceMappingAssignment_1_3()); 
-            // InternalDTO.g:2325:2: ( rule__EntityOption__InheritanceMappingAssignment_1_3 )
-            // InternalDTO.g:2325:3: rule__EntityOption__InheritanceMappingAssignment_1_3
+            // InternalDTO.g:2416:2: ( rule__EntityOption__InheritanceMappingAssignment_1_3 )
+            // InternalDTO.g:2416:3: rule__EntityOption__InheritanceMappingAssignment_1_3
             {
             pushFollow(FOLLOW_2);
             rule__EntityOption__InheritanceMappingAssignment_1_3();
@@ -7231,14 +7526,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group__0"
-    // InternalDTO.g:2334:1: rule__Attribute__Group__0 : rule__Attribute__Group__0__Impl rule__Attribute__Group__1 ;
+    // InternalDTO.g:2425:1: rule__Attribute__Group__0 : rule__Attribute__Group__0__Impl rule__Attribute__Group__1 ;
     public final void rule__Attribute__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2338:1: ( rule__Attribute__Group__0__Impl rule__Attribute__Group__1 )
-            // InternalDTO.g:2339:2: rule__Attribute__Group__0__Impl rule__Attribute__Group__1
+            // InternalDTO.g:2429:1: ( rule__Attribute__Group__0__Impl rule__Attribute__Group__1 )
+            // InternalDTO.g:2430:2: rule__Attribute__Group__0__Impl rule__Attribute__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__Attribute__Group__0__Impl();
@@ -7269,21 +7564,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group__0__Impl"
-    // InternalDTO.g:2346:1: rule__Attribute__Group__0__Impl : ( ( rule__Attribute__TypeAssignment_0 ) ) ;
+    // InternalDTO.g:2437:1: rule__Attribute__Group__0__Impl : ( ( rule__Attribute__TypeAssignment_0 ) ) ;
     public final void rule__Attribute__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2350:1: ( ( ( rule__Attribute__TypeAssignment_0 ) ) )
-            // InternalDTO.g:2351:1: ( ( rule__Attribute__TypeAssignment_0 ) )
+            // InternalDTO.g:2441:1: ( ( ( rule__Attribute__TypeAssignment_0 ) ) )
+            // InternalDTO.g:2442:1: ( ( rule__Attribute__TypeAssignment_0 ) )
             {
-            // InternalDTO.g:2351:1: ( ( rule__Attribute__TypeAssignment_0 ) )
-            // InternalDTO.g:2352:2: ( rule__Attribute__TypeAssignment_0 )
+            // InternalDTO.g:2442:1: ( ( rule__Attribute__TypeAssignment_0 ) )
+            // InternalDTO.g:2443:2: ( rule__Attribute__TypeAssignment_0 )
             {
              before(grammarAccess.getAttributeAccess().getTypeAssignment_0()); 
-            // InternalDTO.g:2353:2: ( rule__Attribute__TypeAssignment_0 )
-            // InternalDTO.g:2353:3: rule__Attribute__TypeAssignment_0
+            // InternalDTO.g:2444:2: ( rule__Attribute__TypeAssignment_0 )
+            // InternalDTO.g:2444:3: rule__Attribute__TypeAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__Attribute__TypeAssignment_0();
@@ -7316,14 +7611,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group__1"
-    // InternalDTO.g:2361:1: rule__Attribute__Group__1 : rule__Attribute__Group__1__Impl rule__Attribute__Group__2 ;
+    // InternalDTO.g:2452:1: rule__Attribute__Group__1 : rule__Attribute__Group__1__Impl rule__Attribute__Group__2 ;
     public final void rule__Attribute__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2365:1: ( rule__Attribute__Group__1__Impl rule__Attribute__Group__2 )
-            // InternalDTO.g:2366:2: rule__Attribute__Group__1__Impl rule__Attribute__Group__2
+            // InternalDTO.g:2456:1: ( rule__Attribute__Group__1__Impl rule__Attribute__Group__2 )
+            // InternalDTO.g:2457:2: rule__Attribute__Group__1__Impl rule__Attribute__Group__2
             {
             pushFollow(FOLLOW_31);
             rule__Attribute__Group__1__Impl();
@@ -7354,21 +7649,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group__1__Impl"
-    // InternalDTO.g:2373:1: rule__Attribute__Group__1__Impl : ( ( rule__Attribute__NameAssignment_1 ) ) ;
+    // InternalDTO.g:2464:1: rule__Attribute__Group__1__Impl : ( ( rule__Attribute__NameAssignment_1 ) ) ;
     public final void rule__Attribute__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2377:1: ( ( ( rule__Attribute__NameAssignment_1 ) ) )
-            // InternalDTO.g:2378:1: ( ( rule__Attribute__NameAssignment_1 ) )
+            // InternalDTO.g:2468:1: ( ( ( rule__Attribute__NameAssignment_1 ) ) )
+            // InternalDTO.g:2469:1: ( ( rule__Attribute__NameAssignment_1 ) )
             {
-            // InternalDTO.g:2378:1: ( ( rule__Attribute__NameAssignment_1 ) )
-            // InternalDTO.g:2379:2: ( rule__Attribute__NameAssignment_1 )
+            // InternalDTO.g:2469:1: ( ( rule__Attribute__NameAssignment_1 ) )
+            // InternalDTO.g:2470:2: ( rule__Attribute__NameAssignment_1 )
             {
              before(grammarAccess.getAttributeAccess().getNameAssignment_1()); 
-            // InternalDTO.g:2380:2: ( rule__Attribute__NameAssignment_1 )
-            // InternalDTO.g:2380:3: rule__Attribute__NameAssignment_1
+            // InternalDTO.g:2471:2: ( rule__Attribute__NameAssignment_1 )
+            // InternalDTO.g:2471:3: rule__Attribute__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Attribute__NameAssignment_1();
@@ -7401,14 +7696,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group__2"
-    // InternalDTO.g:2388:1: rule__Attribute__Group__2 : rule__Attribute__Group__2__Impl rule__Attribute__Group__3 ;
+    // InternalDTO.g:2479:1: rule__Attribute__Group__2 : rule__Attribute__Group__2__Impl rule__Attribute__Group__3 ;
     public final void rule__Attribute__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2392:1: ( rule__Attribute__Group__2__Impl rule__Attribute__Group__3 )
-            // InternalDTO.g:2393:2: rule__Attribute__Group__2__Impl rule__Attribute__Group__3
+            // InternalDTO.g:2483:1: ( rule__Attribute__Group__2__Impl rule__Attribute__Group__3 )
+            // InternalDTO.g:2484:2: rule__Attribute__Group__2__Impl rule__Attribute__Group__3
             {
             pushFollow(FOLLOW_31);
             rule__Attribute__Group__2__Impl();
@@ -7439,20 +7734,20 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group__2__Impl"
-    // InternalDTO.g:2400:1: rule__Attribute__Group__2__Impl : ( ( rule__Attribute__Group_2__0 )? ) ;
+    // InternalDTO.g:2491:1: rule__Attribute__Group__2__Impl : ( ( rule__Attribute__Group_2__0 )? ) ;
     public final void rule__Attribute__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2404:1: ( ( ( rule__Attribute__Group_2__0 )? ) )
-            // InternalDTO.g:2405:1: ( ( rule__Attribute__Group_2__0 )? )
+            // InternalDTO.g:2495:1: ( ( ( rule__Attribute__Group_2__0 )? ) )
+            // InternalDTO.g:2496:1: ( ( rule__Attribute__Group_2__0 )? )
             {
-            // InternalDTO.g:2405:1: ( ( rule__Attribute__Group_2__0 )? )
-            // InternalDTO.g:2406:2: ( rule__Attribute__Group_2__0 )?
+            // InternalDTO.g:2496:1: ( ( rule__Attribute__Group_2__0 )? )
+            // InternalDTO.g:2497:2: ( rule__Attribute__Group_2__0 )?
             {
              before(grammarAccess.getAttributeAccess().getGroup_2()); 
-            // InternalDTO.g:2407:2: ( rule__Attribute__Group_2__0 )?
+            // InternalDTO.g:2498:2: ( rule__Attribute__Group_2__0 )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -7461,7 +7756,7 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
             }
             switch (alt18) {
                 case 1 :
-                    // InternalDTO.g:2407:3: rule__Attribute__Group_2__0
+                    // InternalDTO.g:2498:3: rule__Attribute__Group_2__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Attribute__Group_2__0();
@@ -7497,14 +7792,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group__3"
-    // InternalDTO.g:2415:1: rule__Attribute__Group__3 : rule__Attribute__Group__3__Impl ;
+    // InternalDTO.g:2506:1: rule__Attribute__Group__3 : rule__Attribute__Group__3__Impl ;
     public final void rule__Attribute__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2419:1: ( rule__Attribute__Group__3__Impl )
-            // InternalDTO.g:2420:2: rule__Attribute__Group__3__Impl
+            // InternalDTO.g:2510:1: ( rule__Attribute__Group__3__Impl )
+            // InternalDTO.g:2511:2: rule__Attribute__Group__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Attribute__Group__3__Impl();
@@ -7530,17 +7825,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group__3__Impl"
-    // InternalDTO.g:2426:1: rule__Attribute__Group__3__Impl : ( ';' ) ;
+    // InternalDTO.g:2517:1: rule__Attribute__Group__3__Impl : ( ';' ) ;
     public final void rule__Attribute__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2430:1: ( ( ';' ) )
-            // InternalDTO.g:2431:1: ( ';' )
+            // InternalDTO.g:2521:1: ( ( ';' ) )
+            // InternalDTO.g:2522:1: ( ';' )
             {
-            // InternalDTO.g:2431:1: ( ';' )
-            // InternalDTO.g:2432:2: ';'
+            // InternalDTO.g:2522:1: ( ';' )
+            // InternalDTO.g:2523:2: ';'
             {
              before(grammarAccess.getAttributeAccess().getSemicolonKeyword_3()); 
             match(input,36,FOLLOW_2); 
@@ -7567,14 +7862,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group_2__0"
-    // InternalDTO.g:2442:1: rule__Attribute__Group_2__0 : rule__Attribute__Group_2__0__Impl rule__Attribute__Group_2__1 ;
+    // InternalDTO.g:2533:1: rule__Attribute__Group_2__0 : rule__Attribute__Group_2__0__Impl rule__Attribute__Group_2__1 ;
     public final void rule__Attribute__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2446:1: ( rule__Attribute__Group_2__0__Impl rule__Attribute__Group_2__1 )
-            // InternalDTO.g:2447:2: rule__Attribute__Group_2__0__Impl rule__Attribute__Group_2__1
+            // InternalDTO.g:2537:1: ( rule__Attribute__Group_2__0__Impl rule__Attribute__Group_2__1 )
+            // InternalDTO.g:2538:2: rule__Attribute__Group_2__0__Impl rule__Attribute__Group_2__1
             {
             pushFollow(FOLLOW_32);
             rule__Attribute__Group_2__0__Impl();
@@ -7605,21 +7900,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group_2__0__Impl"
-    // InternalDTO.g:2454:1: rule__Attribute__Group_2__0__Impl : ( ( rule__Attribute__OptionsAssignment_2_0 ) ) ;
+    // InternalDTO.g:2545:1: rule__Attribute__Group_2__0__Impl : ( ( rule__Attribute__OptionsAssignment_2_0 ) ) ;
     public final void rule__Attribute__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2458:1: ( ( ( rule__Attribute__OptionsAssignment_2_0 ) ) )
-            // InternalDTO.g:2459:1: ( ( rule__Attribute__OptionsAssignment_2_0 ) )
+            // InternalDTO.g:2549:1: ( ( ( rule__Attribute__OptionsAssignment_2_0 ) ) )
+            // InternalDTO.g:2550:1: ( ( rule__Attribute__OptionsAssignment_2_0 ) )
             {
-            // InternalDTO.g:2459:1: ( ( rule__Attribute__OptionsAssignment_2_0 ) )
-            // InternalDTO.g:2460:2: ( rule__Attribute__OptionsAssignment_2_0 )
+            // InternalDTO.g:2550:1: ( ( rule__Attribute__OptionsAssignment_2_0 ) )
+            // InternalDTO.g:2551:2: ( rule__Attribute__OptionsAssignment_2_0 )
             {
              before(grammarAccess.getAttributeAccess().getOptionsAssignment_2_0()); 
-            // InternalDTO.g:2461:2: ( rule__Attribute__OptionsAssignment_2_0 )
-            // InternalDTO.g:2461:3: rule__Attribute__OptionsAssignment_2_0
+            // InternalDTO.g:2552:2: ( rule__Attribute__OptionsAssignment_2_0 )
+            // InternalDTO.g:2552:3: rule__Attribute__OptionsAssignment_2_0
             {
             pushFollow(FOLLOW_2);
             rule__Attribute__OptionsAssignment_2_0();
@@ -7652,14 +7947,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group_2__1"
-    // InternalDTO.g:2469:1: rule__Attribute__Group_2__1 : rule__Attribute__Group_2__1__Impl ;
+    // InternalDTO.g:2560:1: rule__Attribute__Group_2__1 : rule__Attribute__Group_2__1__Impl ;
     public final void rule__Attribute__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2473:1: ( rule__Attribute__Group_2__1__Impl )
-            // InternalDTO.g:2474:2: rule__Attribute__Group_2__1__Impl
+            // InternalDTO.g:2564:1: ( rule__Attribute__Group_2__1__Impl )
+            // InternalDTO.g:2565:2: rule__Attribute__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Attribute__Group_2__1__Impl();
@@ -7685,20 +7980,20 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group_2__1__Impl"
-    // InternalDTO.g:2480:1: rule__Attribute__Group_2__1__Impl : ( ( rule__Attribute__Group_2_1__0 )* ) ;
+    // InternalDTO.g:2571:1: rule__Attribute__Group_2__1__Impl : ( ( rule__Attribute__Group_2_1__0 )* ) ;
     public final void rule__Attribute__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2484:1: ( ( ( rule__Attribute__Group_2_1__0 )* ) )
-            // InternalDTO.g:2485:1: ( ( rule__Attribute__Group_2_1__0 )* )
+            // InternalDTO.g:2575:1: ( ( ( rule__Attribute__Group_2_1__0 )* ) )
+            // InternalDTO.g:2576:1: ( ( rule__Attribute__Group_2_1__0 )* )
             {
-            // InternalDTO.g:2485:1: ( ( rule__Attribute__Group_2_1__0 )* )
-            // InternalDTO.g:2486:2: ( rule__Attribute__Group_2_1__0 )*
+            // InternalDTO.g:2576:1: ( ( rule__Attribute__Group_2_1__0 )* )
+            // InternalDTO.g:2577:2: ( rule__Attribute__Group_2_1__0 )*
             {
              before(grammarAccess.getAttributeAccess().getGroup_2_1()); 
-            // InternalDTO.g:2487:2: ( rule__Attribute__Group_2_1__0 )*
+            // InternalDTO.g:2578:2: ( rule__Attribute__Group_2_1__0 )*
             loop19:
             do {
                 int alt19=2;
@@ -7711,7 +8006,7 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
                 switch (alt19) {
             	case 1 :
-            	    // InternalDTO.g:2487:3: rule__Attribute__Group_2_1__0
+            	    // InternalDTO.g:2578:3: rule__Attribute__Group_2_1__0
             	    {
             	    pushFollow(FOLLOW_21);
             	    rule__Attribute__Group_2_1__0();
@@ -7750,14 +8045,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group_2_1__0"
-    // InternalDTO.g:2496:1: rule__Attribute__Group_2_1__0 : rule__Attribute__Group_2_1__0__Impl rule__Attribute__Group_2_1__1 ;
+    // InternalDTO.g:2587:1: rule__Attribute__Group_2_1__0 : rule__Attribute__Group_2_1__0__Impl rule__Attribute__Group_2_1__1 ;
     public final void rule__Attribute__Group_2_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2500:1: ( rule__Attribute__Group_2_1__0__Impl rule__Attribute__Group_2_1__1 )
-            // InternalDTO.g:2501:2: rule__Attribute__Group_2_1__0__Impl rule__Attribute__Group_2_1__1
+            // InternalDTO.g:2591:1: ( rule__Attribute__Group_2_1__0__Impl rule__Attribute__Group_2_1__1 )
+            // InternalDTO.g:2592:2: rule__Attribute__Group_2_1__0__Impl rule__Attribute__Group_2_1__1
             {
             pushFollow(FOLLOW_33);
             rule__Attribute__Group_2_1__0__Impl();
@@ -7788,17 +8083,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group_2_1__0__Impl"
-    // InternalDTO.g:2508:1: rule__Attribute__Group_2_1__0__Impl : ( ',' ) ;
+    // InternalDTO.g:2599:1: rule__Attribute__Group_2_1__0__Impl : ( ',' ) ;
     public final void rule__Attribute__Group_2_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2512:1: ( ( ',' ) )
-            // InternalDTO.g:2513:1: ( ',' )
+            // InternalDTO.g:2603:1: ( ( ',' ) )
+            // InternalDTO.g:2604:1: ( ',' )
             {
-            // InternalDTO.g:2513:1: ( ',' )
-            // InternalDTO.g:2514:2: ','
+            // InternalDTO.g:2604:1: ( ',' )
+            // InternalDTO.g:2605:2: ','
             {
              before(grammarAccess.getAttributeAccess().getCommaKeyword_2_1_0()); 
             match(input,30,FOLLOW_2); 
@@ -7825,14 +8120,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group_2_1__1"
-    // InternalDTO.g:2523:1: rule__Attribute__Group_2_1__1 : rule__Attribute__Group_2_1__1__Impl ;
+    // InternalDTO.g:2614:1: rule__Attribute__Group_2_1__1 : rule__Attribute__Group_2_1__1__Impl ;
     public final void rule__Attribute__Group_2_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2527:1: ( rule__Attribute__Group_2_1__1__Impl )
-            // InternalDTO.g:2528:2: rule__Attribute__Group_2_1__1__Impl
+            // InternalDTO.g:2618:1: ( rule__Attribute__Group_2_1__1__Impl )
+            // InternalDTO.g:2619:2: rule__Attribute__Group_2_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Attribute__Group_2_1__1__Impl();
@@ -7858,21 +8153,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__Group_2_1__1__Impl"
-    // InternalDTO.g:2534:1: rule__Attribute__Group_2_1__1__Impl : ( ( rule__Attribute__OptionsAssignment_2_1_1 ) ) ;
+    // InternalDTO.g:2625:1: rule__Attribute__Group_2_1__1__Impl : ( ( rule__Attribute__OptionsAssignment_2_1_1 ) ) ;
     public final void rule__Attribute__Group_2_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2538:1: ( ( ( rule__Attribute__OptionsAssignment_2_1_1 ) ) )
-            // InternalDTO.g:2539:1: ( ( rule__Attribute__OptionsAssignment_2_1_1 ) )
+            // InternalDTO.g:2629:1: ( ( ( rule__Attribute__OptionsAssignment_2_1_1 ) ) )
+            // InternalDTO.g:2630:1: ( ( rule__Attribute__OptionsAssignment_2_1_1 ) )
             {
-            // InternalDTO.g:2539:1: ( ( rule__Attribute__OptionsAssignment_2_1_1 ) )
-            // InternalDTO.g:2540:2: ( rule__Attribute__OptionsAssignment_2_1_1 )
+            // InternalDTO.g:2630:1: ( ( rule__Attribute__OptionsAssignment_2_1_1 ) )
+            // InternalDTO.g:2631:2: ( rule__Attribute__OptionsAssignment_2_1_1 )
             {
              before(grammarAccess.getAttributeAccess().getOptionsAssignment_2_1_1()); 
-            // InternalDTO.g:2541:2: ( rule__Attribute__OptionsAssignment_2_1_1 )
-            // InternalDTO.g:2541:3: rule__Attribute__OptionsAssignment_2_1_1
+            // InternalDTO.g:2632:2: ( rule__Attribute__OptionsAssignment_2_1_1 )
+            // InternalDTO.g:2632:3: rule__Attribute__OptionsAssignment_2_1_1
             {
             pushFollow(FOLLOW_2);
             rule__Attribute__OptionsAssignment_2_1_1();
@@ -7905,14 +8200,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_0__0"
-    // InternalDTO.g:2550:1: superBasicType__Group_0__0 : superBasicType__Group_0__0__Impl superBasicType__Group_0__1 ;
+    // InternalDTO.g:2641:1: superBasicType__Group_0__0 : superBasicType__Group_0__0__Impl superBasicType__Group_0__1 ;
     public final void superBasicType__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2554:1: ( superBasicType__Group_0__0__Impl superBasicType__Group_0__1 )
-            // InternalDTO.g:2555:2: superBasicType__Group_0__0__Impl superBasicType__Group_0__1
+            // InternalDTO.g:2645:1: ( superBasicType__Group_0__0__Impl superBasicType__Group_0__1 )
+            // InternalDTO.g:2646:2: superBasicType__Group_0__0__Impl superBasicType__Group_0__1
             {
             pushFollow(FOLLOW_34);
             superBasicType__Group_0__0__Impl();
@@ -7943,21 +8238,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_0__0__Impl"
-    // InternalDTO.g:2562:1: superBasicType__Group_0__0__Impl : ( () ) ;
+    // InternalDTO.g:2653:1: superBasicType__Group_0__0__Impl : ( () ) ;
     public final void superBasicType__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2566:1: ( ( () ) )
-            // InternalDTO.g:2567:1: ( () )
+            // InternalDTO.g:2657:1: ( ( () ) )
+            // InternalDTO.g:2658:1: ( () )
             {
-            // InternalDTO.g:2567:1: ( () )
-            // InternalDTO.g:2568:2: ()
+            // InternalDTO.g:2658:1: ( () )
+            // InternalDTO.g:2659:2: ()
             {
              before(grammarAccess.getDomainModelBasicTypeAccess().getStringTypeAction_0_0()); 
-            // InternalDTO.g:2569:2: ()
-            // InternalDTO.g:2569:3: 
+            // InternalDTO.g:2660:2: ()
+            // InternalDTO.g:2660:3: 
             {
             }
 
@@ -7980,14 +8275,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_0__1"
-    // InternalDTO.g:2577:1: superBasicType__Group_0__1 : superBasicType__Group_0__1__Impl ;
+    // InternalDTO.g:2668:1: superBasicType__Group_0__1 : superBasicType__Group_0__1__Impl ;
     public final void superBasicType__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2581:1: ( superBasicType__Group_0__1__Impl )
-            // InternalDTO.g:2582:2: superBasicType__Group_0__1__Impl
+            // InternalDTO.g:2672:1: ( superBasicType__Group_0__1__Impl )
+            // InternalDTO.g:2673:2: superBasicType__Group_0__1__Impl
             {
             pushFollow(FOLLOW_2);
             superBasicType__Group_0__1__Impl();
@@ -8013,17 +8308,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_0__1__Impl"
-    // InternalDTO.g:2588:1: superBasicType__Group_0__1__Impl : ( 'string' ) ;
+    // InternalDTO.g:2679:1: superBasicType__Group_0__1__Impl : ( 'string' ) ;
     public final void superBasicType__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2592:1: ( ( 'string' ) )
-            // InternalDTO.g:2593:1: ( 'string' )
+            // InternalDTO.g:2683:1: ( ( 'string' ) )
+            // InternalDTO.g:2684:1: ( 'string' )
             {
-            // InternalDTO.g:2593:1: ( 'string' )
-            // InternalDTO.g:2594:2: 'string'
+            // InternalDTO.g:2684:1: ( 'string' )
+            // InternalDTO.g:2685:2: 'string'
             {
              before(grammarAccess.getDomainModelBasicTypeAccess().getStringKeyword_0_1()); 
             match(input,37,FOLLOW_2); 
@@ -8050,14 +8345,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_1__0"
-    // InternalDTO.g:2604:1: superBasicType__Group_1__0 : superBasicType__Group_1__0__Impl superBasicType__Group_1__1 ;
+    // InternalDTO.g:2695:1: superBasicType__Group_1__0 : superBasicType__Group_1__0__Impl superBasicType__Group_1__1 ;
     public final void superBasicType__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2608:1: ( superBasicType__Group_1__0__Impl superBasicType__Group_1__1 )
-            // InternalDTO.g:2609:2: superBasicType__Group_1__0__Impl superBasicType__Group_1__1
+            // InternalDTO.g:2699:1: ( superBasicType__Group_1__0__Impl superBasicType__Group_1__1 )
+            // InternalDTO.g:2700:2: superBasicType__Group_1__0__Impl superBasicType__Group_1__1
             {
             pushFollow(FOLLOW_35);
             superBasicType__Group_1__0__Impl();
@@ -8088,21 +8383,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_1__0__Impl"
-    // InternalDTO.g:2616:1: superBasicType__Group_1__0__Impl : ( () ) ;
+    // InternalDTO.g:2707:1: superBasicType__Group_1__0__Impl : ( () ) ;
     public final void superBasicType__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2620:1: ( ( () ) )
-            // InternalDTO.g:2621:1: ( () )
+            // InternalDTO.g:2711:1: ( ( () ) )
+            // InternalDTO.g:2712:1: ( () )
             {
-            // InternalDTO.g:2621:1: ( () )
-            // InternalDTO.g:2622:2: ()
+            // InternalDTO.g:2712:1: ( () )
+            // InternalDTO.g:2713:2: ()
             {
              before(grammarAccess.getDomainModelBasicTypeAccess().getIntTypeAction_1_0()); 
-            // InternalDTO.g:2623:2: ()
-            // InternalDTO.g:2623:3: 
+            // InternalDTO.g:2714:2: ()
+            // InternalDTO.g:2714:3: 
             {
             }
 
@@ -8125,14 +8420,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_1__1"
-    // InternalDTO.g:2631:1: superBasicType__Group_1__1 : superBasicType__Group_1__1__Impl ;
+    // InternalDTO.g:2722:1: superBasicType__Group_1__1 : superBasicType__Group_1__1__Impl ;
     public final void superBasicType__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2635:1: ( superBasicType__Group_1__1__Impl )
-            // InternalDTO.g:2636:2: superBasicType__Group_1__1__Impl
+            // InternalDTO.g:2726:1: ( superBasicType__Group_1__1__Impl )
+            // InternalDTO.g:2727:2: superBasicType__Group_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             superBasicType__Group_1__1__Impl();
@@ -8158,17 +8453,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_1__1__Impl"
-    // InternalDTO.g:2642:1: superBasicType__Group_1__1__Impl : ( 'int' ) ;
+    // InternalDTO.g:2733:1: superBasicType__Group_1__1__Impl : ( 'int' ) ;
     public final void superBasicType__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2646:1: ( ( 'int' ) )
-            // InternalDTO.g:2647:1: ( 'int' )
+            // InternalDTO.g:2737:1: ( ( 'int' ) )
+            // InternalDTO.g:2738:1: ( 'int' )
             {
-            // InternalDTO.g:2647:1: ( 'int' )
-            // InternalDTO.g:2648:2: 'int'
+            // InternalDTO.g:2738:1: ( 'int' )
+            // InternalDTO.g:2739:2: 'int'
             {
              before(grammarAccess.getDomainModelBasicTypeAccess().getIntKeyword_1_1()); 
             match(input,38,FOLLOW_2); 
@@ -8195,14 +8490,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_2__0"
-    // InternalDTO.g:2658:1: superBasicType__Group_2__0 : superBasicType__Group_2__0__Impl superBasicType__Group_2__1 ;
+    // InternalDTO.g:2749:1: superBasicType__Group_2__0 : superBasicType__Group_2__0__Impl superBasicType__Group_2__1 ;
     public final void superBasicType__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2662:1: ( superBasicType__Group_2__0__Impl superBasicType__Group_2__1 )
-            // InternalDTO.g:2663:2: superBasicType__Group_2__0__Impl superBasicType__Group_2__1
+            // InternalDTO.g:2753:1: ( superBasicType__Group_2__0__Impl superBasicType__Group_2__1 )
+            // InternalDTO.g:2754:2: superBasicType__Group_2__0__Impl superBasicType__Group_2__1
             {
             pushFollow(FOLLOW_36);
             superBasicType__Group_2__0__Impl();
@@ -8233,21 +8528,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_2__0__Impl"
-    // InternalDTO.g:2670:1: superBasicType__Group_2__0__Impl : ( () ) ;
+    // InternalDTO.g:2761:1: superBasicType__Group_2__0__Impl : ( () ) ;
     public final void superBasicType__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2674:1: ( ( () ) )
-            // InternalDTO.g:2675:1: ( () )
+            // InternalDTO.g:2765:1: ( ( () ) )
+            // InternalDTO.g:2766:1: ( () )
             {
-            // InternalDTO.g:2675:1: ( () )
-            // InternalDTO.g:2676:2: ()
+            // InternalDTO.g:2766:1: ( () )
+            // InternalDTO.g:2767:2: ()
             {
              before(grammarAccess.getDomainModelBasicTypeAccess().getLongTypeAction_2_0()); 
-            // InternalDTO.g:2677:2: ()
-            // InternalDTO.g:2677:3: 
+            // InternalDTO.g:2768:2: ()
+            // InternalDTO.g:2768:3: 
             {
             }
 
@@ -8270,14 +8565,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_2__1"
-    // InternalDTO.g:2685:1: superBasicType__Group_2__1 : superBasicType__Group_2__1__Impl ;
+    // InternalDTO.g:2776:1: superBasicType__Group_2__1 : superBasicType__Group_2__1__Impl ;
     public final void superBasicType__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2689:1: ( superBasicType__Group_2__1__Impl )
-            // InternalDTO.g:2690:2: superBasicType__Group_2__1__Impl
+            // InternalDTO.g:2780:1: ( superBasicType__Group_2__1__Impl )
+            // InternalDTO.g:2781:2: superBasicType__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             superBasicType__Group_2__1__Impl();
@@ -8303,17 +8598,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_2__1__Impl"
-    // InternalDTO.g:2696:1: superBasicType__Group_2__1__Impl : ( 'long' ) ;
+    // InternalDTO.g:2787:1: superBasicType__Group_2__1__Impl : ( 'long' ) ;
     public final void superBasicType__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2700:1: ( ( 'long' ) )
-            // InternalDTO.g:2701:1: ( 'long' )
+            // InternalDTO.g:2791:1: ( ( 'long' ) )
+            // InternalDTO.g:2792:1: ( 'long' )
             {
-            // InternalDTO.g:2701:1: ( 'long' )
-            // InternalDTO.g:2702:2: 'long'
+            // InternalDTO.g:2792:1: ( 'long' )
+            // InternalDTO.g:2793:2: 'long'
             {
              before(grammarAccess.getDomainModelBasicTypeAccess().getLongKeyword_2_1()); 
             match(input,39,FOLLOW_2); 
@@ -8340,14 +8635,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_3__0"
-    // InternalDTO.g:2712:1: superBasicType__Group_3__0 : superBasicType__Group_3__0__Impl superBasicType__Group_3__1 ;
+    // InternalDTO.g:2803:1: superBasicType__Group_3__0 : superBasicType__Group_3__0__Impl superBasicType__Group_3__1 ;
     public final void superBasicType__Group_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2716:1: ( superBasicType__Group_3__0__Impl superBasicType__Group_3__1 )
-            // InternalDTO.g:2717:2: superBasicType__Group_3__0__Impl superBasicType__Group_3__1
+            // InternalDTO.g:2807:1: ( superBasicType__Group_3__0__Impl superBasicType__Group_3__1 )
+            // InternalDTO.g:2808:2: superBasicType__Group_3__0__Impl superBasicType__Group_3__1
             {
             pushFollow(FOLLOW_37);
             superBasicType__Group_3__0__Impl();
@@ -8378,21 +8673,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_3__0__Impl"
-    // InternalDTO.g:2724:1: superBasicType__Group_3__0__Impl : ( () ) ;
+    // InternalDTO.g:2815:1: superBasicType__Group_3__0__Impl : ( () ) ;
     public final void superBasicType__Group_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2728:1: ( ( () ) )
-            // InternalDTO.g:2729:1: ( () )
+            // InternalDTO.g:2819:1: ( ( () ) )
+            // InternalDTO.g:2820:1: ( () )
             {
-            // InternalDTO.g:2729:1: ( () )
-            // InternalDTO.g:2730:2: ()
+            // InternalDTO.g:2820:1: ( () )
+            // InternalDTO.g:2821:2: ()
             {
              before(grammarAccess.getDomainModelBasicTypeAccess().getBoolTypeAction_3_0()); 
-            // InternalDTO.g:2731:2: ()
-            // InternalDTO.g:2731:3: 
+            // InternalDTO.g:2822:2: ()
+            // InternalDTO.g:2822:3: 
             {
             }
 
@@ -8415,14 +8710,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_3__1"
-    // InternalDTO.g:2739:1: superBasicType__Group_3__1 : superBasicType__Group_3__1__Impl ;
+    // InternalDTO.g:2830:1: superBasicType__Group_3__1 : superBasicType__Group_3__1__Impl ;
     public final void superBasicType__Group_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2743:1: ( superBasicType__Group_3__1__Impl )
-            // InternalDTO.g:2744:2: superBasicType__Group_3__1__Impl
+            // InternalDTO.g:2834:1: ( superBasicType__Group_3__1__Impl )
+            // InternalDTO.g:2835:2: superBasicType__Group_3__1__Impl
             {
             pushFollow(FOLLOW_2);
             superBasicType__Group_3__1__Impl();
@@ -8448,17 +8743,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_3__1__Impl"
-    // InternalDTO.g:2750:1: superBasicType__Group_3__1__Impl : ( 'boolean' ) ;
+    // InternalDTO.g:2841:1: superBasicType__Group_3__1__Impl : ( 'boolean' ) ;
     public final void superBasicType__Group_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2754:1: ( ( 'boolean' ) )
-            // InternalDTO.g:2755:1: ( 'boolean' )
+            // InternalDTO.g:2845:1: ( ( 'boolean' ) )
+            // InternalDTO.g:2846:1: ( 'boolean' )
             {
-            // InternalDTO.g:2755:1: ( 'boolean' )
-            // InternalDTO.g:2756:2: 'boolean'
+            // InternalDTO.g:2846:1: ( 'boolean' )
+            // InternalDTO.g:2847:2: 'boolean'
             {
              before(grammarAccess.getDomainModelBasicTypeAccess().getBooleanKeyword_3_1()); 
             match(input,40,FOLLOW_2); 
@@ -8485,14 +8780,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_4__0"
-    // InternalDTO.g:2766:1: superBasicType__Group_4__0 : superBasicType__Group_4__0__Impl superBasicType__Group_4__1 ;
+    // InternalDTO.g:2857:1: superBasicType__Group_4__0 : superBasicType__Group_4__0__Impl superBasicType__Group_4__1 ;
     public final void superBasicType__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2770:1: ( superBasicType__Group_4__0__Impl superBasicType__Group_4__1 )
-            // InternalDTO.g:2771:2: superBasicType__Group_4__0__Impl superBasicType__Group_4__1
+            // InternalDTO.g:2861:1: ( superBasicType__Group_4__0__Impl superBasicType__Group_4__1 )
+            // InternalDTO.g:2862:2: superBasicType__Group_4__0__Impl superBasicType__Group_4__1
             {
             pushFollow(FOLLOW_38);
             superBasicType__Group_4__0__Impl();
@@ -8523,21 +8818,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_4__0__Impl"
-    // InternalDTO.g:2778:1: superBasicType__Group_4__0__Impl : ( () ) ;
+    // InternalDTO.g:2869:1: superBasicType__Group_4__0__Impl : ( () ) ;
     public final void superBasicType__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2782:1: ( ( () ) )
-            // InternalDTO.g:2783:1: ( () )
+            // InternalDTO.g:2873:1: ( ( () ) )
+            // InternalDTO.g:2874:1: ( () )
             {
-            // InternalDTO.g:2783:1: ( () )
-            // InternalDTO.g:2784:2: ()
+            // InternalDTO.g:2874:1: ( () )
+            // InternalDTO.g:2875:2: ()
             {
              before(grammarAccess.getDomainModelBasicTypeAccess().getDateTypeAction_4_0()); 
-            // InternalDTO.g:2785:2: ()
-            // InternalDTO.g:2785:3: 
+            // InternalDTO.g:2876:2: ()
+            // InternalDTO.g:2876:3: 
             {
             }
 
@@ -8560,14 +8855,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_4__1"
-    // InternalDTO.g:2793:1: superBasicType__Group_4__1 : superBasicType__Group_4__1__Impl ;
+    // InternalDTO.g:2884:1: superBasicType__Group_4__1 : superBasicType__Group_4__1__Impl ;
     public final void superBasicType__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2797:1: ( superBasicType__Group_4__1__Impl )
-            // InternalDTO.g:2798:2: superBasicType__Group_4__1__Impl
+            // InternalDTO.g:2888:1: ( superBasicType__Group_4__1__Impl )
+            // InternalDTO.g:2889:2: superBasicType__Group_4__1__Impl
             {
             pushFollow(FOLLOW_2);
             superBasicType__Group_4__1__Impl();
@@ -8593,17 +8888,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "superBasicType__Group_4__1__Impl"
-    // InternalDTO.g:2804:1: superBasicType__Group_4__1__Impl : ( 'date' ) ;
+    // InternalDTO.g:2895:1: superBasicType__Group_4__1__Impl : ( 'date' ) ;
     public final void superBasicType__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2808:1: ( ( 'date' ) )
-            // InternalDTO.g:2809:1: ( 'date' )
+            // InternalDTO.g:2899:1: ( ( 'date' ) )
+            // InternalDTO.g:2900:1: ( 'date' )
             {
-            // InternalDTO.g:2809:1: ( 'date' )
-            // InternalDTO.g:2810:2: 'date'
+            // InternalDTO.g:2900:1: ( 'date' )
+            // InternalDTO.g:2901:2: 'date'
             {
              before(grammarAccess.getDomainModelBasicTypeAccess().getDateKeyword_4_1()); 
             match(input,41,FOLLOW_2); 
@@ -8629,17 +8924,162 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "superBasicType__Group_4__1__Impl"
 
 
+    // $ANTLR start "superBasicType__Group_5__0"
+    // InternalDTO.g:2911:1: superBasicType__Group_5__0 : superBasicType__Group_5__0__Impl superBasicType__Group_5__1 ;
+    public final void superBasicType__Group_5__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:2915:1: ( superBasicType__Group_5__0__Impl superBasicType__Group_5__1 )
+            // InternalDTO.g:2916:2: superBasicType__Group_5__0__Impl superBasicType__Group_5__1
+            {
+            pushFollow(FOLLOW_39);
+            superBasicType__Group_5__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            superBasicType__Group_5__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "superBasicType__Group_5__0"
+
+
+    // $ANTLR start "superBasicType__Group_5__0__Impl"
+    // InternalDTO.g:2923:1: superBasicType__Group_5__0__Impl : ( () ) ;
+    public final void superBasicType__Group_5__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:2927:1: ( ( () ) )
+            // InternalDTO.g:2928:1: ( () )
+            {
+            // InternalDTO.g:2928:1: ( () )
+            // InternalDTO.g:2929:2: ()
+            {
+             before(grammarAccess.getDomainModelBasicTypeAccess().getDecimalTypeAction_5_0()); 
+            // InternalDTO.g:2930:2: ()
+            // InternalDTO.g:2930:3: 
+            {
+            }
+
+             after(grammarAccess.getDomainModelBasicTypeAccess().getDecimalTypeAction_5_0()); 
+
+            }
+
+
+            }
+
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "superBasicType__Group_5__0__Impl"
+
+
+    // $ANTLR start "superBasicType__Group_5__1"
+    // InternalDTO.g:2938:1: superBasicType__Group_5__1 : superBasicType__Group_5__1__Impl ;
+    public final void superBasicType__Group_5__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:2942:1: ( superBasicType__Group_5__1__Impl )
+            // InternalDTO.g:2943:2: superBasicType__Group_5__1__Impl
+            {
+            pushFollow(FOLLOW_2);
+            superBasicType__Group_5__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "superBasicType__Group_5__1"
+
+
+    // $ANTLR start "superBasicType__Group_5__1__Impl"
+    // InternalDTO.g:2949:1: superBasicType__Group_5__1__Impl : ( 'decimal' ) ;
+    public final void superBasicType__Group_5__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:2953:1: ( ( 'decimal' ) )
+            // InternalDTO.g:2954:1: ( 'decimal' )
+            {
+            // InternalDTO.g:2954:1: ( 'decimal' )
+            // InternalDTO.g:2955:2: 'decimal'
+            {
+             before(grammarAccess.getDomainModelBasicTypeAccess().getDecimalKeyword_5_1()); 
+            match(input,42,FOLLOW_2); 
+             after(grammarAccess.getDomainModelBasicTypeAccess().getDecimalKeyword_5_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "superBasicType__Group_5__1__Impl"
+
+
     // $ANTLR start "rule__CollectionType__Group__0"
-    // InternalDTO.g:2820:1: rule__CollectionType__Group__0 : rule__CollectionType__Group__0__Impl rule__CollectionType__Group__1 ;
+    // InternalDTO.g:2965:1: rule__CollectionType__Group__0 : rule__CollectionType__Group__0__Impl rule__CollectionType__Group__1 ;
     public final void rule__CollectionType__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2824:1: ( rule__CollectionType__Group__0__Impl rule__CollectionType__Group__1 )
-            // InternalDTO.g:2825:2: rule__CollectionType__Group__0__Impl rule__CollectionType__Group__1
+            // InternalDTO.g:2969:1: ( rule__CollectionType__Group__0__Impl rule__CollectionType__Group__1 )
+            // InternalDTO.g:2970:2: rule__CollectionType__Group__0__Impl rule__CollectionType__Group__1
             {
-            pushFollow(FOLLOW_39);
+            pushFollow(FOLLOW_40);
             rule__CollectionType__Group__0__Impl();
 
             state._fsp--;
@@ -8668,20 +9108,20 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CollectionType__Group__0__Impl"
-    // InternalDTO.g:2832:1: rule__CollectionType__Group__0__Impl : ( 'List' ) ;
+    // InternalDTO.g:2977:1: rule__CollectionType__Group__0__Impl : ( 'List' ) ;
     public final void rule__CollectionType__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2836:1: ( ( 'List' ) )
-            // InternalDTO.g:2837:1: ( 'List' )
+            // InternalDTO.g:2981:1: ( ( 'List' ) )
+            // InternalDTO.g:2982:1: ( 'List' )
             {
-            // InternalDTO.g:2837:1: ( 'List' )
-            // InternalDTO.g:2838:2: 'List'
+            // InternalDTO.g:2982:1: ( 'List' )
+            // InternalDTO.g:2983:2: 'List'
             {
              before(grammarAccess.getCollectionTypeAccess().getListKeyword_0()); 
-            match(input,42,FOLLOW_2); 
+            match(input,43,FOLLOW_2); 
              after(grammarAccess.getCollectionTypeAccess().getListKeyword_0()); 
 
             }
@@ -8705,16 +9145,16 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CollectionType__Group__1"
-    // InternalDTO.g:2847:1: rule__CollectionType__Group__1 : rule__CollectionType__Group__1__Impl rule__CollectionType__Group__2 ;
+    // InternalDTO.g:2992:1: rule__CollectionType__Group__1 : rule__CollectionType__Group__1__Impl rule__CollectionType__Group__2 ;
     public final void rule__CollectionType__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2851:1: ( rule__CollectionType__Group__1__Impl rule__CollectionType__Group__2 )
-            // InternalDTO.g:2852:2: rule__CollectionType__Group__1__Impl rule__CollectionType__Group__2
+            // InternalDTO.g:2996:1: ( rule__CollectionType__Group__1__Impl rule__CollectionType__Group__2 )
+            // InternalDTO.g:2997:2: rule__CollectionType__Group__1__Impl rule__CollectionType__Group__2
             {
-            pushFollow(FOLLOW_40);
+            pushFollow(FOLLOW_41);
             rule__CollectionType__Group__1__Impl();
 
             state._fsp--;
@@ -8743,20 +9183,20 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CollectionType__Group__1__Impl"
-    // InternalDTO.g:2859:1: rule__CollectionType__Group__1__Impl : ( '<' ) ;
+    // InternalDTO.g:3004:1: rule__CollectionType__Group__1__Impl : ( '<' ) ;
     public final void rule__CollectionType__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2863:1: ( ( '<' ) )
-            // InternalDTO.g:2864:1: ( '<' )
+            // InternalDTO.g:3008:1: ( ( '<' ) )
+            // InternalDTO.g:3009:1: ( '<' )
             {
-            // InternalDTO.g:2864:1: ( '<' )
-            // InternalDTO.g:2865:2: '<'
+            // InternalDTO.g:3009:1: ( '<' )
+            // InternalDTO.g:3010:2: '<'
             {
              before(grammarAccess.getCollectionTypeAccess().getLessThanSignKeyword_1()); 
-            match(input,43,FOLLOW_2); 
+            match(input,44,FOLLOW_2); 
              after(grammarAccess.getCollectionTypeAccess().getLessThanSignKeyword_1()); 
 
             }
@@ -8780,16 +9220,16 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CollectionType__Group__2"
-    // InternalDTO.g:2874:1: rule__CollectionType__Group__2 : rule__CollectionType__Group__2__Impl rule__CollectionType__Group__3 ;
+    // InternalDTO.g:3019:1: rule__CollectionType__Group__2 : rule__CollectionType__Group__2__Impl rule__CollectionType__Group__3 ;
     public final void rule__CollectionType__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2878:1: ( rule__CollectionType__Group__2__Impl rule__CollectionType__Group__3 )
-            // InternalDTO.g:2879:2: rule__CollectionType__Group__2__Impl rule__CollectionType__Group__3
+            // InternalDTO.g:3023:1: ( rule__CollectionType__Group__2__Impl rule__CollectionType__Group__3 )
+            // InternalDTO.g:3024:2: rule__CollectionType__Group__2__Impl rule__CollectionType__Group__3
             {
-            pushFollow(FOLLOW_41);
+            pushFollow(FOLLOW_42);
             rule__CollectionType__Group__2__Impl();
 
             state._fsp--;
@@ -8818,21 +9258,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CollectionType__Group__2__Impl"
-    // InternalDTO.g:2886:1: rule__CollectionType__Group__2__Impl : ( ( rule__CollectionType__OfTypeAssignment_2 ) ) ;
+    // InternalDTO.g:3031:1: rule__CollectionType__Group__2__Impl : ( ( rule__CollectionType__OfTypeAssignment_2 ) ) ;
     public final void rule__CollectionType__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2890:1: ( ( ( rule__CollectionType__OfTypeAssignment_2 ) ) )
-            // InternalDTO.g:2891:1: ( ( rule__CollectionType__OfTypeAssignment_2 ) )
+            // InternalDTO.g:3035:1: ( ( ( rule__CollectionType__OfTypeAssignment_2 ) ) )
+            // InternalDTO.g:3036:1: ( ( rule__CollectionType__OfTypeAssignment_2 ) )
             {
-            // InternalDTO.g:2891:1: ( ( rule__CollectionType__OfTypeAssignment_2 ) )
-            // InternalDTO.g:2892:2: ( rule__CollectionType__OfTypeAssignment_2 )
+            // InternalDTO.g:3036:1: ( ( rule__CollectionType__OfTypeAssignment_2 ) )
+            // InternalDTO.g:3037:2: ( rule__CollectionType__OfTypeAssignment_2 )
             {
              before(grammarAccess.getCollectionTypeAccess().getOfTypeAssignment_2()); 
-            // InternalDTO.g:2893:2: ( rule__CollectionType__OfTypeAssignment_2 )
-            // InternalDTO.g:2893:3: rule__CollectionType__OfTypeAssignment_2
+            // InternalDTO.g:3038:2: ( rule__CollectionType__OfTypeAssignment_2 )
+            // InternalDTO.g:3038:3: rule__CollectionType__OfTypeAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__CollectionType__OfTypeAssignment_2();
@@ -8865,14 +9305,14 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CollectionType__Group__3"
-    // InternalDTO.g:2901:1: rule__CollectionType__Group__3 : rule__CollectionType__Group__3__Impl ;
+    // InternalDTO.g:3046:1: rule__CollectionType__Group__3 : rule__CollectionType__Group__3__Impl ;
     public final void rule__CollectionType__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2905:1: ( rule__CollectionType__Group__3__Impl )
-            // InternalDTO.g:2906:2: rule__CollectionType__Group__3__Impl
+            // InternalDTO.g:3050:1: ( rule__CollectionType__Group__3__Impl )
+            // InternalDTO.g:3051:2: rule__CollectionType__Group__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__CollectionType__Group__3__Impl();
@@ -8898,20 +9338,20 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CollectionType__Group__3__Impl"
-    // InternalDTO.g:2912:1: rule__CollectionType__Group__3__Impl : ( '>' ) ;
+    // InternalDTO.g:3057:1: rule__CollectionType__Group__3__Impl : ( '>' ) ;
     public final void rule__CollectionType__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2916:1: ( ( '>' ) )
-            // InternalDTO.g:2917:1: ( '>' )
+            // InternalDTO.g:3061:1: ( ( '>' ) )
+            // InternalDTO.g:3062:1: ( '>' )
             {
-            // InternalDTO.g:2917:1: ( '>' )
-            // InternalDTO.g:2918:2: '>'
+            // InternalDTO.g:3062:1: ( '>' )
+            // InternalDTO.g:3063:2: '>'
             {
              before(grammarAccess.getCollectionTypeAccess().getGreaterThanSignKeyword_3()); 
-            match(input,44,FOLLOW_2); 
+            match(input,45,FOLLOW_2); 
              after(grammarAccess.getCollectionTypeAccess().getGreaterThanSignKeyword_3()); 
 
             }
@@ -8934,18 +9374,238 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__CollectionType__Group__3__Impl"
 
 
+    // $ANTLR start "rule__Decimal__Group__0"
+    // InternalDTO.g:3073:1: rule__Decimal__Group__0 : rule__Decimal__Group__0__Impl rule__Decimal__Group__1 ;
+    public final void rule__Decimal__Group__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:3077:1: ( rule__Decimal__Group__0__Impl rule__Decimal__Group__1 )
+            // InternalDTO.g:3078:2: rule__Decimal__Group__0__Impl rule__Decimal__Group__1
+            {
+            pushFollow(FOLLOW_43);
+            rule__Decimal__Group__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__Decimal__Group__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Decimal__Group__0"
+
+
+    // $ANTLR start "rule__Decimal__Group__0__Impl"
+    // InternalDTO.g:3085:1: rule__Decimal__Group__0__Impl : ( RULE_INT ) ;
+    public final void rule__Decimal__Group__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:3089:1: ( ( RULE_INT ) )
+            // InternalDTO.g:3090:1: ( RULE_INT )
+            {
+            // InternalDTO.g:3090:1: ( RULE_INT )
+            // InternalDTO.g:3091:2: RULE_INT
+            {
+             before(grammarAccess.getDecimalAccess().getINTTerminalRuleCall_0()); 
+            match(input,RULE_INT,FOLLOW_2); 
+             after(grammarAccess.getDecimalAccess().getINTTerminalRuleCall_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Decimal__Group__0__Impl"
+
+
+    // $ANTLR start "rule__Decimal__Group__1"
+    // InternalDTO.g:3100:1: rule__Decimal__Group__1 : rule__Decimal__Group__1__Impl rule__Decimal__Group__2 ;
+    public final void rule__Decimal__Group__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:3104:1: ( rule__Decimal__Group__1__Impl rule__Decimal__Group__2 )
+            // InternalDTO.g:3105:2: rule__Decimal__Group__1__Impl rule__Decimal__Group__2
+            {
+            pushFollow(FOLLOW_22);
+            rule__Decimal__Group__1__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__Decimal__Group__2();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Decimal__Group__1"
+
+
+    // $ANTLR start "rule__Decimal__Group__1__Impl"
+    // InternalDTO.g:3112:1: rule__Decimal__Group__1__Impl : ( '.' ) ;
+    public final void rule__Decimal__Group__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:3116:1: ( ( '.' ) )
+            // InternalDTO.g:3117:1: ( '.' )
+            {
+            // InternalDTO.g:3117:1: ( '.' )
+            // InternalDTO.g:3118:2: '.'
+            {
+             before(grammarAccess.getDecimalAccess().getFullStopKeyword_1()); 
+            match(input,46,FOLLOW_2); 
+             after(grammarAccess.getDecimalAccess().getFullStopKeyword_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Decimal__Group__1__Impl"
+
+
+    // $ANTLR start "rule__Decimal__Group__2"
+    // InternalDTO.g:3127:1: rule__Decimal__Group__2 : rule__Decimal__Group__2__Impl ;
+    public final void rule__Decimal__Group__2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:3131:1: ( rule__Decimal__Group__2__Impl )
+            // InternalDTO.g:3132:2: rule__Decimal__Group__2__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__Decimal__Group__2__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Decimal__Group__2"
+
+
+    // $ANTLR start "rule__Decimal__Group__2__Impl"
+    // InternalDTO.g:3138:1: rule__Decimal__Group__2__Impl : ( RULE_INT ) ;
+    public final void rule__Decimal__Group__2__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:3142:1: ( ( RULE_INT ) )
+            // InternalDTO.g:3143:1: ( RULE_INT )
+            {
+            // InternalDTO.g:3143:1: ( RULE_INT )
+            // InternalDTO.g:3144:2: RULE_INT
+            {
+             before(grammarAccess.getDecimalAccess().getINTTerminalRuleCall_2()); 
+            match(input,RULE_INT,FOLLOW_2); 
+             after(grammarAccess.getDecimalAccess().getINTTerminalRuleCall_2()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Decimal__Group__2__Impl"
+
+
     // $ANTLR start "rule__DTOModel__ConceptsAssignment"
-    // InternalDTO.g:2928:1: rule__DTOModel__ConceptsAssignment : ( ruleConcept ) ;
+    // InternalDTO.g:3154:1: rule__DTOModel__ConceptsAssignment : ( ruleConcept ) ;
     public final void rule__DTOModel__ConceptsAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2932:1: ( ( ruleConcept ) )
-            // InternalDTO.g:2933:2: ( ruleConcept )
+            // InternalDTO.g:3158:1: ( ( ruleConcept ) )
+            // InternalDTO.g:3159:2: ( ruleConcept )
             {
-            // InternalDTO.g:2933:2: ( ruleConcept )
-            // InternalDTO.g:2934:3: ruleConcept
+            // InternalDTO.g:3159:2: ( ruleConcept )
+            // InternalDTO.g:3160:3: ruleConcept
             {
              before(grammarAccess.getDTOModelAccess().getConceptsConceptParserRuleCall_0()); 
             pushFollow(FOLLOW_2);
@@ -8976,17 +9636,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__NameAssignment_1"
-    // InternalDTO.g:2943:1: rule__DTOClass__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalDTO.g:3169:1: rule__DTOClass__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__DTOClass__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2947:1: ( ( RULE_ID ) )
-            // InternalDTO.g:2948:2: ( RULE_ID )
+            // InternalDTO.g:3173:1: ( ( RULE_ID ) )
+            // InternalDTO.g:3174:2: ( RULE_ID )
             {
-            // InternalDTO.g:2948:2: ( RULE_ID )
-            // InternalDTO.g:2949:3: RULE_ID
+            // InternalDTO.g:3174:2: ( RULE_ID )
+            // InternalDTO.g:3175:3: RULE_ID
             {
              before(grammarAccess.getDTOClassAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -9013,21 +9673,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__SuperTypeAssignment_2_1"
-    // InternalDTO.g:2958:1: rule__DTOClass__SuperTypeAssignment_2_1 : ( ( RULE_ID ) ) ;
+    // InternalDTO.g:3184:1: rule__DTOClass__SuperTypeAssignment_2_1 : ( ( RULE_ID ) ) ;
     public final void rule__DTOClass__SuperTypeAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2962:1: ( ( ( RULE_ID ) ) )
-            // InternalDTO.g:2963:2: ( ( RULE_ID ) )
+            // InternalDTO.g:3188:1: ( ( ( RULE_ID ) ) )
+            // InternalDTO.g:3189:2: ( ( RULE_ID ) )
             {
-            // InternalDTO.g:2963:2: ( ( RULE_ID ) )
-            // InternalDTO.g:2964:3: ( RULE_ID )
+            // InternalDTO.g:3189:2: ( ( RULE_ID ) )
+            // InternalDTO.g:3190:3: ( RULE_ID )
             {
              before(grammarAccess.getDTOClassAccess().getSuperTypeDTOClassCrossReference_2_1_0()); 
-            // InternalDTO.g:2965:3: ( RULE_ID )
-            // InternalDTO.g:2966:4: RULE_ID
+            // InternalDTO.g:3191:3: ( RULE_ID )
+            // InternalDTO.g:3192:4: RULE_ID
             {
              before(grammarAccess.getDTOClassAccess().getSuperTypeDTOClassIDTerminalRuleCall_2_1_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -9058,17 +9718,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DTOClass__AttributesAssignment_4"
-    // InternalDTO.g:2977:1: rule__DTOClass__AttributesAssignment_4 : ( ruleAttribute ) ;
+    // InternalDTO.g:3203:1: rule__DTOClass__AttributesAssignment_4 : ( ruleAttribute ) ;
     public final void rule__DTOClass__AttributesAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2981:1: ( ( ruleAttribute ) )
-            // InternalDTO.g:2982:2: ( ruleAttribute )
+            // InternalDTO.g:3207:1: ( ( ruleAttribute ) )
+            // InternalDTO.g:3208:2: ( ruleAttribute )
             {
-            // InternalDTO.g:2982:2: ( ruleAttribute )
-            // InternalDTO.g:2983:3: ruleAttribute
+            // InternalDTO.g:3208:2: ( ruleAttribute )
+            // InternalDTO.g:3209:3: ruleAttribute
             {
              before(grammarAccess.getDTOClassAccess().getAttributesAttributeParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -9099,17 +9759,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__NameAssignment_1"
-    // InternalDTO.g:2992:1: rule__Enum__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalDTO.g:3218:1: rule__Enum__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Enum__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:2996:1: ( ( RULE_ID ) )
-            // InternalDTO.g:2997:2: ( RULE_ID )
+            // InternalDTO.g:3222:1: ( ( RULE_ID ) )
+            // InternalDTO.g:3223:2: ( RULE_ID )
             {
-            // InternalDTO.g:2997:2: ( RULE_ID )
-            // InternalDTO.g:2998:3: RULE_ID
+            // InternalDTO.g:3223:2: ( RULE_ID )
+            // InternalDTO.g:3224:3: RULE_ID
             {
              before(grammarAccess.getEnumAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -9136,17 +9796,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__AttributesAssignment_3"
-    // InternalDTO.g:3007:1: rule__Enum__AttributesAssignment_3 : ( ruleAttribute ) ;
+    // InternalDTO.g:3233:1: rule__Enum__AttributesAssignment_3 : ( ruleAttribute ) ;
     public final void rule__Enum__AttributesAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3011:1: ( ( ruleAttribute ) )
-            // InternalDTO.g:3012:2: ( ruleAttribute )
+            // InternalDTO.g:3237:1: ( ( ruleAttribute ) )
+            // InternalDTO.g:3238:2: ( ruleAttribute )
             {
-            // InternalDTO.g:3012:2: ( ruleAttribute )
-            // InternalDTO.g:3013:3: ruleAttribute
+            // InternalDTO.g:3238:2: ( ruleAttribute )
+            // InternalDTO.g:3239:3: ruleAttribute
             {
              before(grammarAccess.getEnumAccess().getAttributesAttributeParserRuleCall_3_0()); 
             pushFollow(FOLLOW_2);
@@ -9177,17 +9837,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Enum__LiteralsAssignment_4"
-    // InternalDTO.g:3022:1: rule__Enum__LiteralsAssignment_4 : ( ruleEnumLiteral ) ;
+    // InternalDTO.g:3248:1: rule__Enum__LiteralsAssignment_4 : ( ruleEnumLiteral ) ;
     public final void rule__Enum__LiteralsAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3026:1: ( ( ruleEnumLiteral ) )
-            // InternalDTO.g:3027:2: ( ruleEnumLiteral )
+            // InternalDTO.g:3252:1: ( ( ruleEnumLiteral ) )
+            // InternalDTO.g:3253:2: ( ruleEnumLiteral )
             {
-            // InternalDTO.g:3027:2: ( ruleEnumLiteral )
-            // InternalDTO.g:3028:3: ruleEnumLiteral
+            // InternalDTO.g:3253:2: ( ruleEnumLiteral )
+            // InternalDTO.g:3254:3: ruleEnumLiteral
             {
              before(grammarAccess.getEnumAccess().getLiteralsEnumLiteralParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -9218,17 +9878,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__NameAssignment_0"
-    // InternalDTO.g:3037:1: rule__EnumLiteral__NameAssignment_0 : ( RULE_ID ) ;
+    // InternalDTO.g:3263:1: rule__EnumLiteral__NameAssignment_0 : ( RULE_ID ) ;
     public final void rule__EnumLiteral__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3041:1: ( ( RULE_ID ) )
-            // InternalDTO.g:3042:2: ( RULE_ID )
+            // InternalDTO.g:3267:1: ( ( RULE_ID ) )
+            // InternalDTO.g:3268:2: ( RULE_ID )
             {
-            // InternalDTO.g:3042:2: ( RULE_ID )
-            // InternalDTO.g:3043:3: RULE_ID
+            // InternalDTO.g:3268:2: ( RULE_ID )
+            // InternalDTO.g:3269:3: RULE_ID
             {
              before(grammarAccess.getEnumLiteralAccess().getNameIDTerminalRuleCall_0_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -9255,17 +9915,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__ParamsAssignment_1_1"
-    // InternalDTO.g:3052:1: rule__EnumLiteral__ParamsAssignment_1_1 : ( ruleConstant ) ;
+    // InternalDTO.g:3278:1: rule__EnumLiteral__ParamsAssignment_1_1 : ( ruleConstant ) ;
     public final void rule__EnumLiteral__ParamsAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3056:1: ( ( ruleConstant ) )
-            // InternalDTO.g:3057:2: ( ruleConstant )
+            // InternalDTO.g:3282:1: ( ( ruleConstant ) )
+            // InternalDTO.g:3283:2: ( ruleConstant )
             {
-            // InternalDTO.g:3057:2: ( ruleConstant )
-            // InternalDTO.g:3058:3: ruleConstant
+            // InternalDTO.g:3283:2: ( ruleConstant )
+            // InternalDTO.g:3284:3: ruleConstant
             {
              before(grammarAccess.getEnumLiteralAccess().getParamsConstantParserRuleCall_1_1_0()); 
             pushFollow(FOLLOW_2);
@@ -9296,17 +9956,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumLiteral__ParamsAssignment_1_2_1"
-    // InternalDTO.g:3067:1: rule__EnumLiteral__ParamsAssignment_1_2_1 : ( ruleConstant ) ;
+    // InternalDTO.g:3293:1: rule__EnumLiteral__ParamsAssignment_1_2_1 : ( ruleConstant ) ;
     public final void rule__EnumLiteral__ParamsAssignment_1_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3071:1: ( ( ruleConstant ) )
-            // InternalDTO.g:3072:2: ( ruleConstant )
+            // InternalDTO.g:3297:1: ( ( ruleConstant ) )
+            // InternalDTO.g:3298:2: ( ruleConstant )
             {
-            // InternalDTO.g:3072:2: ( ruleConstant )
-            // InternalDTO.g:3073:3: ruleConstant
+            // InternalDTO.g:3298:2: ( ruleConstant )
+            // InternalDTO.g:3299:3: ruleConstant
             {
              before(grammarAccess.getEnumLiteralAccess().getParamsConstantParserRuleCall_1_2_1_0()); 
             pushFollow(FOLLOW_2);
@@ -9337,17 +9997,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__ValueAssignment_0_1"
-    // InternalDTO.g:3082:1: rule__Constant__ValueAssignment_0_1 : ( RULE_INT ) ;
+    // InternalDTO.g:3308:1: rule__Constant__ValueAssignment_0_1 : ( RULE_INT ) ;
     public final void rule__Constant__ValueAssignment_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3086:1: ( ( RULE_INT ) )
-            // InternalDTO.g:3087:2: ( RULE_INT )
+            // InternalDTO.g:3312:1: ( ( RULE_INT ) )
+            // InternalDTO.g:3313:2: ( RULE_INT )
             {
-            // InternalDTO.g:3087:2: ( RULE_INT )
-            // InternalDTO.g:3088:3: RULE_INT
+            // InternalDTO.g:3313:2: ( RULE_INT )
+            // InternalDTO.g:3314:3: RULE_INT
             {
              before(grammarAccess.getConstantAccess().getValueINTTerminalRuleCall_0_1_0()); 
             match(input,RULE_INT,FOLLOW_2); 
@@ -9374,17 +10034,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__ValueAssignment_1_1"
-    // InternalDTO.g:3097:1: rule__Constant__ValueAssignment_1_1 : ( RULE_INT ) ;
+    // InternalDTO.g:3323:1: rule__Constant__ValueAssignment_1_1 : ( RULE_INT ) ;
     public final void rule__Constant__ValueAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3101:1: ( ( RULE_INT ) )
-            // InternalDTO.g:3102:2: ( RULE_INT )
+            // InternalDTO.g:3327:1: ( ( RULE_INT ) )
+            // InternalDTO.g:3328:2: ( RULE_INT )
             {
-            // InternalDTO.g:3102:2: ( RULE_INT )
-            // InternalDTO.g:3103:3: RULE_INT
+            // InternalDTO.g:3328:2: ( RULE_INT )
+            // InternalDTO.g:3329:3: RULE_INT
             {
              before(grammarAccess.getConstantAccess().getValueINTTerminalRuleCall_1_1_0()); 
             match(input,RULE_INT,FOLLOW_2); 
@@ -9411,17 +10071,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__ValueAssignment_2_1"
-    // InternalDTO.g:3112:1: rule__Constant__ValueAssignment_2_1 : ( RULE_STRING ) ;
+    // InternalDTO.g:3338:1: rule__Constant__ValueAssignment_2_1 : ( RULE_STRING ) ;
     public final void rule__Constant__ValueAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3116:1: ( ( RULE_STRING ) )
-            // InternalDTO.g:3117:2: ( RULE_STRING )
+            // InternalDTO.g:3342:1: ( ( RULE_STRING ) )
+            // InternalDTO.g:3343:2: ( RULE_STRING )
             {
-            // InternalDTO.g:3117:2: ( RULE_STRING )
-            // InternalDTO.g:3118:3: RULE_STRING
+            // InternalDTO.g:3343:2: ( RULE_STRING )
+            // InternalDTO.g:3344:3: RULE_STRING
             {
              before(grammarAccess.getConstantAccess().getValueSTRINGTerminalRuleCall_2_1_0()); 
             match(input,RULE_STRING,FOLLOW_2); 
@@ -9448,21 +10108,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__ValueAssignment_3_1"
-    // InternalDTO.g:3127:1: rule__Constant__ValueAssignment_3_1 : ( ( rule__Constant__ValueAlternatives_3_1_0 ) ) ;
+    // InternalDTO.g:3353:1: rule__Constant__ValueAssignment_3_1 : ( ( rule__Constant__ValueAlternatives_3_1_0 ) ) ;
     public final void rule__Constant__ValueAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3131:1: ( ( ( rule__Constant__ValueAlternatives_3_1_0 ) ) )
-            // InternalDTO.g:3132:2: ( ( rule__Constant__ValueAlternatives_3_1_0 ) )
+            // InternalDTO.g:3357:1: ( ( ( rule__Constant__ValueAlternatives_3_1_0 ) ) )
+            // InternalDTO.g:3358:2: ( ( rule__Constant__ValueAlternatives_3_1_0 ) )
             {
-            // InternalDTO.g:3132:2: ( ( rule__Constant__ValueAlternatives_3_1_0 ) )
-            // InternalDTO.g:3133:3: ( rule__Constant__ValueAlternatives_3_1_0 )
+            // InternalDTO.g:3358:2: ( ( rule__Constant__ValueAlternatives_3_1_0 ) )
+            // InternalDTO.g:3359:3: ( rule__Constant__ValueAlternatives_3_1_0 )
             {
              before(grammarAccess.getConstantAccess().getValueAlternatives_3_1_0()); 
-            // InternalDTO.g:3134:3: ( rule__Constant__ValueAlternatives_3_1_0 )
-            // InternalDTO.g:3134:4: rule__Constant__ValueAlternatives_3_1_0
+            // InternalDTO.g:3360:3: ( rule__Constant__ValueAlternatives_3_1_0 )
+            // InternalDTO.g:3360:4: rule__Constant__ValueAlternatives_3_1_0
             {
             pushFollow(FOLLOW_2);
             rule__Constant__ValueAlternatives_3_1_0();
@@ -9495,17 +10155,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__DayAssignment_4_1"
-    // InternalDTO.g:3142:1: rule__Constant__DayAssignment_4_1 : ( RULE_INT ) ;
+    // InternalDTO.g:3368:1: rule__Constant__DayAssignment_4_1 : ( RULE_INT ) ;
     public final void rule__Constant__DayAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3146:1: ( ( RULE_INT ) )
-            // InternalDTO.g:3147:2: ( RULE_INT )
+            // InternalDTO.g:3372:1: ( ( RULE_INT ) )
+            // InternalDTO.g:3373:2: ( RULE_INT )
             {
-            // InternalDTO.g:3147:2: ( RULE_INT )
-            // InternalDTO.g:3148:3: RULE_INT
+            // InternalDTO.g:3373:2: ( RULE_INT )
+            // InternalDTO.g:3374:3: RULE_INT
             {
              before(grammarAccess.getConstantAccess().getDayINTTerminalRuleCall_4_1_0()); 
             match(input,RULE_INT,FOLLOW_2); 
@@ -9532,17 +10192,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__MonthAssignment_4_3"
-    // InternalDTO.g:3157:1: rule__Constant__MonthAssignment_4_3 : ( RULE_INT ) ;
+    // InternalDTO.g:3383:1: rule__Constant__MonthAssignment_4_3 : ( RULE_INT ) ;
     public final void rule__Constant__MonthAssignment_4_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3161:1: ( ( RULE_INT ) )
-            // InternalDTO.g:3162:2: ( RULE_INT )
+            // InternalDTO.g:3387:1: ( ( RULE_INT ) )
+            // InternalDTO.g:3388:2: ( RULE_INT )
             {
-            // InternalDTO.g:3162:2: ( RULE_INT )
-            // InternalDTO.g:3163:3: RULE_INT
+            // InternalDTO.g:3388:2: ( RULE_INT )
+            // InternalDTO.g:3389:3: RULE_INT
             {
              before(grammarAccess.getConstantAccess().getMonthINTTerminalRuleCall_4_3_0()); 
             match(input,RULE_INT,FOLLOW_2); 
@@ -9569,17 +10229,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__YearAssignment_4_5"
-    // InternalDTO.g:3172:1: rule__Constant__YearAssignment_4_5 : ( RULE_INT ) ;
+    // InternalDTO.g:3398:1: rule__Constant__YearAssignment_4_5 : ( RULE_INT ) ;
     public final void rule__Constant__YearAssignment_4_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3176:1: ( ( RULE_INT ) )
-            // InternalDTO.g:3177:2: ( RULE_INT )
+            // InternalDTO.g:3402:1: ( ( RULE_INT ) )
+            // InternalDTO.g:3403:2: ( RULE_INT )
             {
-            // InternalDTO.g:3177:2: ( RULE_INT )
-            // InternalDTO.g:3178:3: RULE_INT
+            // InternalDTO.g:3403:2: ( RULE_INT )
+            // InternalDTO.g:3404:3: RULE_INT
             {
              before(grammarAccess.getConstantAccess().getYearINTTerminalRuleCall_4_5_0()); 
             match(input,RULE_INT,FOLLOW_2); 
@@ -9605,25 +10265,66 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Constant__YearAssignment_4_5"
 
 
+    // $ANTLR start "rule__Constant__ValueAssignment_5_1"
+    // InternalDTO.g:3413:1: rule__Constant__ValueAssignment_5_1 : ( ruleDecimal ) ;
+    public final void rule__Constant__ValueAssignment_5_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDTO.g:3417:1: ( ( ruleDecimal ) )
+            // InternalDTO.g:3418:2: ( ruleDecimal )
+            {
+            // InternalDTO.g:3418:2: ( ruleDecimal )
+            // InternalDTO.g:3419:3: ruleDecimal
+            {
+             before(grammarAccess.getConstantAccess().getValueDecimalParserRuleCall_5_1_0()); 
+            pushFollow(FOLLOW_2);
+            ruleDecimal();
+
+            state._fsp--;
+
+             after(grammarAccess.getConstantAccess().getValueDecimalParserRuleCall_5_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Constant__ValueAssignment_5_1"
+
+
     // $ANTLR start "rule__EntityOption__DeleteByFlagAssignment_0_1"
-    // InternalDTO.g:3187:1: rule__EntityOption__DeleteByFlagAssignment_0_1 : ( ( 'deleteByFlag' ) ) ;
+    // InternalDTO.g:3428:1: rule__EntityOption__DeleteByFlagAssignment_0_1 : ( ( 'deleteByFlag' ) ) ;
     public final void rule__EntityOption__DeleteByFlagAssignment_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3191:1: ( ( ( 'deleteByFlag' ) ) )
-            // InternalDTO.g:3192:2: ( ( 'deleteByFlag' ) )
+            // InternalDTO.g:3432:1: ( ( ( 'deleteByFlag' ) ) )
+            // InternalDTO.g:3433:2: ( ( 'deleteByFlag' ) )
             {
-            // InternalDTO.g:3192:2: ( ( 'deleteByFlag' ) )
-            // InternalDTO.g:3193:3: ( 'deleteByFlag' )
-            {
-             before(grammarAccess.getEntityOptionAccess().getDeleteByFlagDeleteByFlagKeyword_0_1_0()); 
-            // InternalDTO.g:3194:3: ( 'deleteByFlag' )
-            // InternalDTO.g:3195:4: 'deleteByFlag'
+            // InternalDTO.g:3433:2: ( ( 'deleteByFlag' ) )
+            // InternalDTO.g:3434:3: ( 'deleteByFlag' )
             {
              before(grammarAccess.getEntityOptionAccess().getDeleteByFlagDeleteByFlagKeyword_0_1_0()); 
-            match(input,45,FOLLOW_2); 
+            // InternalDTO.g:3435:3: ( 'deleteByFlag' )
+            // InternalDTO.g:3436:4: 'deleteByFlag'
+            {
+             before(grammarAccess.getEntityOptionAccess().getDeleteByFlagDeleteByFlagKeyword_0_1_0()); 
+            match(input,47,FOLLOW_2); 
              after(grammarAccess.getEntityOptionAccess().getDeleteByFlagDeleteByFlagKeyword_0_1_0()); 
 
             }
@@ -9651,17 +10352,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EntityOption__InheritanceMappingAssignment_1_3"
-    // InternalDTO.g:3206:1: rule__EntityOption__InheritanceMappingAssignment_1_3 : ( ruleInheritanceMappingType ) ;
+    // InternalDTO.g:3447:1: rule__EntityOption__InheritanceMappingAssignment_1_3 : ( ruleInheritanceMappingType ) ;
     public final void rule__EntityOption__InheritanceMappingAssignment_1_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3210:1: ( ( ruleInheritanceMappingType ) )
-            // InternalDTO.g:3211:2: ( ruleInheritanceMappingType )
+            // InternalDTO.g:3451:1: ( ( ruleInheritanceMappingType ) )
+            // InternalDTO.g:3452:2: ( ruleInheritanceMappingType )
             {
-            // InternalDTO.g:3211:2: ( ruleInheritanceMappingType )
-            // InternalDTO.g:3212:3: ruleInheritanceMappingType
+            // InternalDTO.g:3452:2: ( ruleInheritanceMappingType )
+            // InternalDTO.g:3453:3: ruleInheritanceMappingType
             {
              before(grammarAccess.getEntityOptionAccess().getInheritanceMappingInheritanceMappingTypeParserRuleCall_1_3_0()); 
             pushFollow(FOLLOW_2);
@@ -9692,21 +10393,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InheritanceMappingType__TypeAssignment"
-    // InternalDTO.g:3221:1: rule__InheritanceMappingType__TypeAssignment : ( ( rule__InheritanceMappingType__TypeAlternatives_0 ) ) ;
+    // InternalDTO.g:3462:1: rule__InheritanceMappingType__TypeAssignment : ( ( rule__InheritanceMappingType__TypeAlternatives_0 ) ) ;
     public final void rule__InheritanceMappingType__TypeAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3225:1: ( ( ( rule__InheritanceMappingType__TypeAlternatives_0 ) ) )
-            // InternalDTO.g:3226:2: ( ( rule__InheritanceMappingType__TypeAlternatives_0 ) )
+            // InternalDTO.g:3466:1: ( ( ( rule__InheritanceMappingType__TypeAlternatives_0 ) ) )
+            // InternalDTO.g:3467:2: ( ( rule__InheritanceMappingType__TypeAlternatives_0 ) )
             {
-            // InternalDTO.g:3226:2: ( ( rule__InheritanceMappingType__TypeAlternatives_0 ) )
-            // InternalDTO.g:3227:3: ( rule__InheritanceMappingType__TypeAlternatives_0 )
+            // InternalDTO.g:3467:2: ( ( rule__InheritanceMappingType__TypeAlternatives_0 ) )
+            // InternalDTO.g:3468:3: ( rule__InheritanceMappingType__TypeAlternatives_0 )
             {
              before(grammarAccess.getInheritanceMappingTypeAccess().getTypeAlternatives_0()); 
-            // InternalDTO.g:3228:3: ( rule__InheritanceMappingType__TypeAlternatives_0 )
-            // InternalDTO.g:3228:4: rule__InheritanceMappingType__TypeAlternatives_0
+            // InternalDTO.g:3469:3: ( rule__InheritanceMappingType__TypeAlternatives_0 )
+            // InternalDTO.g:3469:4: rule__InheritanceMappingType__TypeAlternatives_0
             {
             pushFollow(FOLLOW_2);
             rule__InheritanceMappingType__TypeAlternatives_0();
@@ -9739,17 +10440,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__TypeAssignment_0"
-    // InternalDTO.g:3236:1: rule__Attribute__TypeAssignment_0 : ( ruleAttributeType ) ;
+    // InternalDTO.g:3477:1: rule__Attribute__TypeAssignment_0 : ( ruleAttributeType ) ;
     public final void rule__Attribute__TypeAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3240:1: ( ( ruleAttributeType ) )
-            // InternalDTO.g:3241:2: ( ruleAttributeType )
+            // InternalDTO.g:3481:1: ( ( ruleAttributeType ) )
+            // InternalDTO.g:3482:2: ( ruleAttributeType )
             {
-            // InternalDTO.g:3241:2: ( ruleAttributeType )
-            // InternalDTO.g:3242:3: ruleAttributeType
+            // InternalDTO.g:3482:2: ( ruleAttributeType )
+            // InternalDTO.g:3483:3: ruleAttributeType
             {
              before(grammarAccess.getAttributeAccess().getTypeAttributeTypeParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -9780,17 +10481,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__NameAssignment_1"
-    // InternalDTO.g:3251:1: rule__Attribute__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalDTO.g:3492:1: rule__Attribute__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Attribute__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3255:1: ( ( RULE_ID ) )
-            // InternalDTO.g:3256:2: ( RULE_ID )
+            // InternalDTO.g:3496:1: ( ( RULE_ID ) )
+            // InternalDTO.g:3497:2: ( RULE_ID )
             {
-            // InternalDTO.g:3256:2: ( RULE_ID )
-            // InternalDTO.g:3257:3: RULE_ID
+            // InternalDTO.g:3497:2: ( RULE_ID )
+            // InternalDTO.g:3498:3: RULE_ID
             {
              before(grammarAccess.getAttributeAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -9817,17 +10518,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__OptionsAssignment_2_0"
-    // InternalDTO.g:3266:1: rule__Attribute__OptionsAssignment_2_0 : ( ruleAttributeOption ) ;
+    // InternalDTO.g:3507:1: rule__Attribute__OptionsAssignment_2_0 : ( ruleAttributeOption ) ;
     public final void rule__Attribute__OptionsAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3270:1: ( ( ruleAttributeOption ) )
-            // InternalDTO.g:3271:2: ( ruleAttributeOption )
+            // InternalDTO.g:3511:1: ( ( ruleAttributeOption ) )
+            // InternalDTO.g:3512:2: ( ruleAttributeOption )
             {
-            // InternalDTO.g:3271:2: ( ruleAttributeOption )
-            // InternalDTO.g:3272:3: ruleAttributeOption
+            // InternalDTO.g:3512:2: ( ruleAttributeOption )
+            // InternalDTO.g:3513:3: ruleAttributeOption
             {
              before(grammarAccess.getAttributeAccess().getOptionsAttributeOptionParserRuleCall_2_0_0()); 
             pushFollow(FOLLOW_2);
@@ -9858,17 +10559,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Attribute__OptionsAssignment_2_1_1"
-    // InternalDTO.g:3281:1: rule__Attribute__OptionsAssignment_2_1_1 : ( ruleAttributeOption ) ;
+    // InternalDTO.g:3522:1: rule__Attribute__OptionsAssignment_2_1_1 : ( ruleAttributeOption ) ;
     public final void rule__Attribute__OptionsAssignment_2_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3285:1: ( ( ruleAttributeOption ) )
-            // InternalDTO.g:3286:2: ( ruleAttributeOption )
+            // InternalDTO.g:3526:1: ( ( ruleAttributeOption ) )
+            // InternalDTO.g:3527:2: ( ruleAttributeOption )
             {
-            // InternalDTO.g:3286:2: ( ruleAttributeOption )
-            // InternalDTO.g:3287:3: ruleAttributeOption
+            // InternalDTO.g:3527:2: ( ruleAttributeOption )
+            // InternalDTO.g:3528:3: ruleAttributeOption
             {
              before(grammarAccess.getAttributeAccess().getOptionsAttributeOptionParserRuleCall_2_1_1_0()); 
             pushFollow(FOLLOW_2);
@@ -9899,21 +10600,21 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RefType__ReferenceAssignment"
-    // InternalDTO.g:3296:1: rule__RefType__ReferenceAssignment : ( ( RULE_ID ) ) ;
+    // InternalDTO.g:3537:1: rule__RefType__ReferenceAssignment : ( ( RULE_ID ) ) ;
     public final void rule__RefType__ReferenceAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3300:1: ( ( ( RULE_ID ) ) )
-            // InternalDTO.g:3301:2: ( ( RULE_ID ) )
+            // InternalDTO.g:3541:1: ( ( ( RULE_ID ) ) )
+            // InternalDTO.g:3542:2: ( ( RULE_ID ) )
             {
-            // InternalDTO.g:3301:2: ( ( RULE_ID ) )
-            // InternalDTO.g:3302:3: ( RULE_ID )
+            // InternalDTO.g:3542:2: ( ( RULE_ID ) )
+            // InternalDTO.g:3543:3: ( RULE_ID )
             {
              before(grammarAccess.getRefTypeAccess().getReferenceConceptCrossReference_0()); 
-            // InternalDTO.g:3303:3: ( RULE_ID )
-            // InternalDTO.g:3304:4: RULE_ID
+            // InternalDTO.g:3544:3: ( RULE_ID )
+            // InternalDTO.g:3545:4: RULE_ID
             {
              before(grammarAccess.getRefTypeAccess().getReferenceConceptIDTerminalRuleCall_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -9944,17 +10645,17 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CollectionType__OfTypeAssignment_2"
-    // InternalDTO.g:3315:1: rule__CollectionType__OfTypeAssignment_2 : ( ruleSingleType ) ;
+    // InternalDTO.g:3556:1: rule__CollectionType__OfTypeAssignment_2 : ( ruleSingleType ) ;
     public final void rule__CollectionType__OfTypeAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDTO.g:3319:1: ( ( ruleSingleType ) )
-            // InternalDTO.g:3320:2: ( ruleSingleType )
+            // InternalDTO.g:3560:1: ( ( ruleSingleType ) )
+            // InternalDTO.g:3561:2: ( ruleSingleType )
             {
-            // InternalDTO.g:3320:2: ( ruleSingleType )
-            // InternalDTO.g:3321:3: ruleSingleType
+            // InternalDTO.g:3561:2: ( ruleSingleType )
+            // InternalDTO.g:3562:3: ruleSingleType
             {
              before(grammarAccess.getCollectionTypeAccess().getOfTypeSingleTypeParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -9991,30 +10692,30 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000008010002L});
-    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x00000000000A0000L});
-    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x000007E007C40010L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x000007E007C00012L});
+    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x00000FE007C40020L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x00000FE007C00022L});
     public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000100000L});
     public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000400000L});
     public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000001000000L});
     public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x000003E007C00000L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x000007E007C00000L});
     public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x000007E007C00010L});
+    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x00000FE007C00020L});
     public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000000040000L});
     public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000200001860L});
+    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000200001850L});
     public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000060000000L});
     public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000080000000L});
     public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000000001800L});
     public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000800000000000L});
     public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000400000000L});
     public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000800000000L});
     public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x000000000000E000L});
@@ -10025,9 +10726,11 @@ public class InternalDTOParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000004000000000L});
     public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x0000008000000000L});
     public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x000003E000000000L});
-    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x0000080000000000L});
-    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x000003E007C00010L});
-    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x000007E000000000L});
+    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x000007E007C00020L});
+    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0000400000000000L});
 
 }

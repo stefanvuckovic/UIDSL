@@ -15,6 +15,8 @@ import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalConstant;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelFactory;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelPackage;
 import com.stefanvuckovic.domainmodel.domainModel.Entity;
@@ -125,6 +127,7 @@ public class DomainModelFactoryImpl extends EFactoryImpl implements DomainModelF
       case DomainModelPackage.STRING_CONSTANT: return createStringConstant();
       case DomainModelPackage.BOOL_CONSTANT: return createBoolConstant();
       case DomainModelPackage.DATE_CONSTANT: return createDateConstant();
+      case DomainModelPackage.DECIMAL_CONSTANT: return createDecimalConstant();
       case DomainModelPackage.NULL: return createNull();
       case DomainModelPackage.ENTITY_DELETE_OPTION: return createEntityDeleteOption();
       case DomainModelPackage.INHERITANCE_MAPPING_OPTION: return createInheritanceMappingOption();
@@ -133,6 +136,7 @@ public class DomainModelFactoryImpl extends EFactoryImpl implements DomainModelF
       case DomainModelPackage.LONG_TYPE: return createLongType();
       case DomainModelPackage.BOOL_TYPE: return createBoolType();
       case DomainModelPackage.DATE_TYPE: return createDateType();
+      case DomainModelPackage.DECIMAL_TYPE: return createDecimalType();
       case DomainModelPackage.REQUIRED: return createRequired();
       case DomainModelPackage.PART_OF: return createPartOf();
       case DomainModelPackage.RELATIONSHIP_OWNER: return createRelationshipOwner();
@@ -434,6 +438,17 @@ public class DomainModelFactoryImpl extends EFactoryImpl implements DomainModelF
    * <!-- end-user-doc -->
    * @generated
    */
+  public DecimalConstant createDecimalConstant()
+  {
+    DecimalConstantImpl decimalConstant = new DecimalConstantImpl();
+    return decimalConstant;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Null createNull()
   {
     NullImpl null_ = new NullImpl();
@@ -515,6 +530,17 @@ public class DomainModelFactoryImpl extends EFactoryImpl implements DomainModelF
   {
     DateTypeImpl dateType = new DateTypeImpl();
     return dateType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DecimalType createDecimalType()
+  {
+    DecimalTypeImpl decimalType = new DecimalTypeImpl();
+    return decimalType;
   }
 
   /**

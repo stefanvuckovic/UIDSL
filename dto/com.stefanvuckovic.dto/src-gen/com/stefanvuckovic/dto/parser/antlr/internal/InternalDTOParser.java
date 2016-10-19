@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalDTOParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'class'", "'extends'", "'{'", "'}'", "'representation'", "'@id'", "'text'", "'email'", "'password'", "'file'", "'image'", "'enum'", "'('", "','", "')'", "'L'", "'true'", "'false'", "'/'", "'null'", "'deleteByFlag'", "'inheritance'", "'='", "'SINGLE_TABLE'", "'TABLE_PER_CONCRETE_CLASS'", "'TABLE_PER_CLASS'", "';'", "'string'", "'int'", "'long'", "'boolean'", "'date'", "'List'", "'<'", "'>'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'class'", "'extends'", "'{'", "'}'", "'representation'", "'@id'", "'text'", "'email'", "'password'", "'file'", "'image'", "'enum'", "'('", "','", "')'", "'L'", "'true'", "'false'", "'/'", "'null'", "'deleteByFlag'", "'inheritance'", "'='", "'SINGLE_TABLE'", "'TABLE_PER_CONCRETE_CLASS'", "'TABLE_PER_CLASS'", "';'", "'string'", "'int'", "'long'", "'boolean'", "'date'", "'decimal'", "'List'", "'<'", "'>'", "'.'"
     };
     public static final int T__19=19;
     public static final int T__15=15;
@@ -63,6 +63,8 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
     public static final int RULE_ANY_OTHER=10;
     public static final int T__44=44;
     public static final int T__45=45;
+    public static final int T__46=46;
+    public static final int T__47=47;
     public static final int T__40=40;
     public static final int T__41=41;
     public static final int T__42=42;
@@ -496,7 +498,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                 int alt4=2;
                 int LA4_0 = input.LA(1);
 
-                if ( (LA4_0==RULE_ID||(LA4_0>=17 && LA4_0<=21)||(LA4_0>=38 && LA4_0<=43)) ) {
+                if ( (LA4_0==RULE_ID||(LA4_0>=17 && LA4_0<=21)||(LA4_0>=38 && LA4_0<=44)) ) {
                     alt4=1;
                 }
 
@@ -773,6 +775,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
             case 40:
             case 41:
             case 42:
+            case 43:
                 {
                 alt6=1;
                 }
@@ -1100,7 +1103,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
                 }
-                else if ( ((LA7_0>=17 && LA7_0<=21)||(LA7_0>=38 && LA7_0<=43)) ) {
+                else if ( ((LA7_0>=17 && LA7_0<=21)||(LA7_0>=38 && LA7_0<=44)) ) {
                     alt7=1;
                 }
 
@@ -1483,7 +1486,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleConstant"
-    // InternalDTO.g:552:1: ruleConstant returns [EObject current=null] : ( ( () ( (lv_value_1_0= RULE_INT ) ) ) | ( () ( (lv_value_3_0= RULE_INT ) ) otherlv_4= 'L' ) | ( () ( (lv_value_6_0= RULE_STRING ) ) ) | ( () ( ( (lv_value_8_1= 'true' | lv_value_8_2= 'false' ) ) ) ) | ( () ( (lv_day_10_0= RULE_INT ) ) otherlv_11= '/' ( (lv_month_12_0= RULE_INT ) ) otherlv_13= '/' ( (lv_year_14_0= RULE_INT ) ) ) | ( () otherlv_16= 'null' ) ) ;
+    // InternalDTO.g:552:1: ruleConstant returns [EObject current=null] : ( ( () ( (lv_value_1_0= RULE_INT ) ) ) | ( () ( (lv_value_3_0= RULE_INT ) ) otherlv_4= 'L' ) | ( () ( (lv_value_6_0= RULE_STRING ) ) ) | ( () ( ( (lv_value_8_1= 'true' | lv_value_8_2= 'false' ) ) ) ) | ( () ( (lv_day_10_0= RULE_INT ) ) otherlv_11= '/' ( (lv_month_12_0= RULE_INT ) ) otherlv_13= '/' ( (lv_year_14_0= RULE_INT ) ) ) | ( () ( (lv_value_16_0= ruleDecimal ) ) ) | ( () otherlv_18= 'null' ) ) ;
     public final EObject ruleConstant() throws RecognitionException {
         EObject current = null;
 
@@ -1498,21 +1501,28 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
         Token lv_month_12_0=null;
         Token otherlv_13=null;
         Token lv_year_14_0=null;
-        Token otherlv_16=null;
+        Token otherlv_18=null;
+        AntlrDatatypeRuleToken lv_value_16_0 = null;
+
 
 
         	enterRule();
 
         try {
-            // InternalDTO.g:558:2: ( ( ( () ( (lv_value_1_0= RULE_INT ) ) ) | ( () ( (lv_value_3_0= RULE_INT ) ) otherlv_4= 'L' ) | ( () ( (lv_value_6_0= RULE_STRING ) ) ) | ( () ( ( (lv_value_8_1= 'true' | lv_value_8_2= 'false' ) ) ) ) | ( () ( (lv_day_10_0= RULE_INT ) ) otherlv_11= '/' ( (lv_month_12_0= RULE_INT ) ) otherlv_13= '/' ( (lv_year_14_0= RULE_INT ) ) ) | ( () otherlv_16= 'null' ) ) )
-            // InternalDTO.g:559:2: ( ( () ( (lv_value_1_0= RULE_INT ) ) ) | ( () ( (lv_value_3_0= RULE_INT ) ) otherlv_4= 'L' ) | ( () ( (lv_value_6_0= RULE_STRING ) ) ) | ( () ( ( (lv_value_8_1= 'true' | lv_value_8_2= 'false' ) ) ) ) | ( () ( (lv_day_10_0= RULE_INT ) ) otherlv_11= '/' ( (lv_month_12_0= RULE_INT ) ) otherlv_13= '/' ( (lv_year_14_0= RULE_INT ) ) ) | ( () otherlv_16= 'null' ) )
+            // InternalDTO.g:558:2: ( ( ( () ( (lv_value_1_0= RULE_INT ) ) ) | ( () ( (lv_value_3_0= RULE_INT ) ) otherlv_4= 'L' ) | ( () ( (lv_value_6_0= RULE_STRING ) ) ) | ( () ( ( (lv_value_8_1= 'true' | lv_value_8_2= 'false' ) ) ) ) | ( () ( (lv_day_10_0= RULE_INT ) ) otherlv_11= '/' ( (lv_month_12_0= RULE_INT ) ) otherlv_13= '/' ( (lv_year_14_0= RULE_INT ) ) ) | ( () ( (lv_value_16_0= ruleDecimal ) ) ) | ( () otherlv_18= 'null' ) ) )
+            // InternalDTO.g:559:2: ( ( () ( (lv_value_1_0= RULE_INT ) ) ) | ( () ( (lv_value_3_0= RULE_INT ) ) otherlv_4= 'L' ) | ( () ( (lv_value_6_0= RULE_STRING ) ) ) | ( () ( ( (lv_value_8_1= 'true' | lv_value_8_2= 'false' ) ) ) ) | ( () ( (lv_day_10_0= RULE_INT ) ) otherlv_11= '/' ( (lv_month_12_0= RULE_INT ) ) otherlv_13= '/' ( (lv_year_14_0= RULE_INT ) ) ) | ( () ( (lv_value_16_0= ruleDecimal ) ) ) | ( () otherlv_18= 'null' ) )
             {
-            // InternalDTO.g:559:2: ( ( () ( (lv_value_1_0= RULE_INT ) ) ) | ( () ( (lv_value_3_0= RULE_INT ) ) otherlv_4= 'L' ) | ( () ( (lv_value_6_0= RULE_STRING ) ) ) | ( () ( ( (lv_value_8_1= 'true' | lv_value_8_2= 'false' ) ) ) ) | ( () ( (lv_day_10_0= RULE_INT ) ) otherlv_11= '/' ( (lv_month_12_0= RULE_INT ) ) otherlv_13= '/' ( (lv_year_14_0= RULE_INT ) ) ) | ( () otherlv_16= 'null' ) )
-            int alt12=6;
+            // InternalDTO.g:559:2: ( ( () ( (lv_value_1_0= RULE_INT ) ) ) | ( () ( (lv_value_3_0= RULE_INT ) ) otherlv_4= 'L' ) | ( () ( (lv_value_6_0= RULE_STRING ) ) ) | ( () ( ( (lv_value_8_1= 'true' | lv_value_8_2= 'false' ) ) ) ) | ( () ( (lv_day_10_0= RULE_INT ) ) otherlv_11= '/' ( (lv_month_12_0= RULE_INT ) ) otherlv_13= '/' ( (lv_year_14_0= RULE_INT ) ) ) | ( () ( (lv_value_16_0= ruleDecimal ) ) ) | ( () otherlv_18= 'null' ) )
+            int alt12=7;
             switch ( input.LA(1) ) {
             case RULE_INT:
                 {
                 switch ( input.LA(2) ) {
+                case 26:
+                    {
+                    alt12=2;
+                    }
+                    break;
                 case EOF:
                 case 24:
                 case 25:
@@ -1525,9 +1535,9 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                     alt12=5;
                     }
                     break;
-                case 26:
+                case 47:
                     {
-                    alt12=2;
+                    alt12=6;
                     }
                     break;
                 default:
@@ -1552,7 +1562,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                 break;
             case 30:
                 {
-                alt12=6;
+                alt12=7;
                 }
                 break;
             default:
@@ -1911,25 +1921,79 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // InternalDTO.g:757:3: ( () otherlv_16= 'null' )
+                    // InternalDTO.g:757:3: ( () ( (lv_value_16_0= ruleDecimal ) ) )
                     {
-                    // InternalDTO.g:757:3: ( () otherlv_16= 'null' )
-                    // InternalDTO.g:758:4: () otherlv_16= 'null'
+                    // InternalDTO.g:757:3: ( () ( (lv_value_16_0= ruleDecimal ) ) )
+                    // InternalDTO.g:758:4: () ( (lv_value_16_0= ruleDecimal ) )
                     {
                     // InternalDTO.g:758:4: ()
                     // InternalDTO.g:759:5: 
                     {
 
                     					current = forceCreateModelElement(
-                    						grammarAccess.getConstantAccess().getNullAction_5_0(),
+                    						grammarAccess.getConstantAccess().getDecimalConstantAction_5_0(),
                     						current);
                     				
 
                     }
 
-                    otherlv_16=(Token)match(input,30,FOLLOW_2); 
+                    // InternalDTO.g:765:4: ( (lv_value_16_0= ruleDecimal ) )
+                    // InternalDTO.g:766:5: (lv_value_16_0= ruleDecimal )
+                    {
+                    // InternalDTO.g:766:5: (lv_value_16_0= ruleDecimal )
+                    // InternalDTO.g:767:6: lv_value_16_0= ruleDecimal
+                    {
 
-                    				newLeafNode(otherlv_16, grammarAccess.getConstantAccess().getNullKeyword_5_1());
+                    						newCompositeNode(grammarAccess.getConstantAccess().getValueDecimalParserRuleCall_5_1_0());
+                    					
+                    pushFollow(FOLLOW_2);
+                    lv_value_16_0=ruleDecimal();
+
+                    state._fsp--;
+
+
+                    						if (current==null) {
+                    							current = createModelElementForParent(grammarAccess.getConstantRule());
+                    						}
+                    						set(
+                    							current,
+                    							"value",
+                    							lv_value_16_0,
+                    							"com.stefanvuckovic.domainmodel.DomainModel.Decimal");
+                    						afterParserOrEnumRuleCall();
+                    					
+
+                    }
+
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 7 :
+                    // InternalDTO.g:786:3: ( () otherlv_18= 'null' )
+                    {
+                    // InternalDTO.g:786:3: ( () otherlv_18= 'null' )
+                    // InternalDTO.g:787:4: () otherlv_18= 'null'
+                    {
+                    // InternalDTO.g:787:4: ()
+                    // InternalDTO.g:788:5: 
+                    {
+
+                    					current = forceCreateModelElement(
+                    						grammarAccess.getConstantAccess().getNullAction_6_0(),
+                    						current);
+                    				
+
+                    }
+
+                    otherlv_18=(Token)match(input,30,FOLLOW_2); 
+
+                    				newLeafNode(otherlv_18, grammarAccess.getConstantAccess().getNullKeyword_6_1());
                     			
 
                     }
@@ -1960,7 +2024,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEntityOption"
-    // InternalDTO.g:774:1: entryRuleEntityOption returns [EObject current=null] : iv_ruleEntityOption= ruleEntityOption EOF ;
+    // InternalDTO.g:803:1: entryRuleEntityOption returns [EObject current=null] : iv_ruleEntityOption= ruleEntityOption EOF ;
     public final EObject entryRuleEntityOption() throws RecognitionException {
         EObject current = null;
 
@@ -1968,8 +2032,8 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDTO.g:774:53: (iv_ruleEntityOption= ruleEntityOption EOF )
-            // InternalDTO.g:775:2: iv_ruleEntityOption= ruleEntityOption EOF
+            // InternalDTO.g:803:53: (iv_ruleEntityOption= ruleEntityOption EOF )
+            // InternalDTO.g:804:2: iv_ruleEntityOption= ruleEntityOption EOF
             {
              newCompositeNode(grammarAccess.getEntityOptionRule()); 
             pushFollow(FOLLOW_1);
@@ -1996,7 +2060,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEntityOption"
-    // InternalDTO.g:781:1: ruleEntityOption returns [EObject current=null] : ( ( () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) ) ) | ( () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) ) ) ) ;
+    // InternalDTO.g:810:1: ruleEntityOption returns [EObject current=null] : ( ( () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) ) ) | ( () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) ) ) ) ;
     public final EObject ruleEntityOption() throws RecognitionException {
         EObject current = null;
 
@@ -2010,10 +2074,10 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalDTO.g:787:2: ( ( ( () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) ) ) | ( () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) ) ) ) )
-            // InternalDTO.g:788:2: ( ( () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) ) ) | ( () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) ) ) )
+            // InternalDTO.g:816:2: ( ( ( () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) ) ) | ( () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) ) ) ) )
+            // InternalDTO.g:817:2: ( ( () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) ) ) | ( () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) ) ) )
             {
-            // InternalDTO.g:788:2: ( ( () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) ) ) | ( () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) ) ) )
+            // InternalDTO.g:817:2: ( ( () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) ) ) | ( () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) ) ) )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -2031,13 +2095,13 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
             }
             switch (alt13) {
                 case 1 :
-                    // InternalDTO.g:789:3: ( () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) ) )
+                    // InternalDTO.g:818:3: ( () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) ) )
                     {
-                    // InternalDTO.g:789:3: ( () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) ) )
-                    // InternalDTO.g:790:4: () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) )
+                    // InternalDTO.g:818:3: ( () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) ) )
+                    // InternalDTO.g:819:4: () ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) )
                     {
-                    // InternalDTO.g:790:4: ()
-                    // InternalDTO.g:791:5: 
+                    // InternalDTO.g:819:4: ()
+                    // InternalDTO.g:820:5: 
                     {
 
                     					current = forceCreateModelElement(
@@ -2047,11 +2111,11 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalDTO.g:797:4: ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) )
-                    // InternalDTO.g:798:5: (lv_deleteByFlag_1_0= 'deleteByFlag' )
+                    // InternalDTO.g:826:4: ( (lv_deleteByFlag_1_0= 'deleteByFlag' ) )
+                    // InternalDTO.g:827:5: (lv_deleteByFlag_1_0= 'deleteByFlag' )
                     {
-                    // InternalDTO.g:798:5: (lv_deleteByFlag_1_0= 'deleteByFlag' )
-                    // InternalDTO.g:799:6: lv_deleteByFlag_1_0= 'deleteByFlag'
+                    // InternalDTO.g:827:5: (lv_deleteByFlag_1_0= 'deleteByFlag' )
+                    // InternalDTO.g:828:6: lv_deleteByFlag_1_0= 'deleteByFlag'
                     {
                     lv_deleteByFlag_1_0=(Token)match(input,31,FOLLOW_2); 
 
@@ -2076,13 +2140,13 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:813:3: ( () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) ) )
+                    // InternalDTO.g:842:3: ( () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) ) )
                     {
-                    // InternalDTO.g:813:3: ( () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) ) )
-                    // InternalDTO.g:814:4: () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) )
+                    // InternalDTO.g:842:3: ( () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) ) )
+                    // InternalDTO.g:843:4: () otherlv_3= 'inheritance' otherlv_4= '=' ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) )
                     {
-                    // InternalDTO.g:814:4: ()
-                    // InternalDTO.g:815:5: 
+                    // InternalDTO.g:843:4: ()
+                    // InternalDTO.g:844:5: 
                     {
 
                     					current = forceCreateModelElement(
@@ -2100,11 +2164,11 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
                     				newLeafNode(otherlv_4, grammarAccess.getEntityOptionAccess().getEqualsSignKeyword_1_2());
                     			
-                    // InternalDTO.g:829:4: ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) )
-                    // InternalDTO.g:830:5: (lv_inheritanceMapping_5_0= ruleInheritanceMappingType )
+                    // InternalDTO.g:858:4: ( (lv_inheritanceMapping_5_0= ruleInheritanceMappingType ) )
+                    // InternalDTO.g:859:5: (lv_inheritanceMapping_5_0= ruleInheritanceMappingType )
                     {
-                    // InternalDTO.g:830:5: (lv_inheritanceMapping_5_0= ruleInheritanceMappingType )
-                    // InternalDTO.g:831:6: lv_inheritanceMapping_5_0= ruleInheritanceMappingType
+                    // InternalDTO.g:859:5: (lv_inheritanceMapping_5_0= ruleInheritanceMappingType )
+                    // InternalDTO.g:860:6: lv_inheritanceMapping_5_0= ruleInheritanceMappingType
                     {
 
                     						newCompositeNode(grammarAccess.getEntityOptionAccess().getInheritanceMappingInheritanceMappingTypeParserRuleCall_1_3_0());
@@ -2160,7 +2224,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleInheritanceMappingType"
-    // InternalDTO.g:853:1: entryRuleInheritanceMappingType returns [EObject current=null] : iv_ruleInheritanceMappingType= ruleInheritanceMappingType EOF ;
+    // InternalDTO.g:882:1: entryRuleInheritanceMappingType returns [EObject current=null] : iv_ruleInheritanceMappingType= ruleInheritanceMappingType EOF ;
     public final EObject entryRuleInheritanceMappingType() throws RecognitionException {
         EObject current = null;
 
@@ -2168,8 +2232,8 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDTO.g:853:63: (iv_ruleInheritanceMappingType= ruleInheritanceMappingType EOF )
-            // InternalDTO.g:854:2: iv_ruleInheritanceMappingType= ruleInheritanceMappingType EOF
+            // InternalDTO.g:882:63: (iv_ruleInheritanceMappingType= ruleInheritanceMappingType EOF )
+            // InternalDTO.g:883:2: iv_ruleInheritanceMappingType= ruleInheritanceMappingType EOF
             {
              newCompositeNode(grammarAccess.getInheritanceMappingTypeRule()); 
             pushFollow(FOLLOW_1);
@@ -2196,7 +2260,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleInheritanceMappingType"
-    // InternalDTO.g:860:1: ruleInheritanceMappingType returns [EObject current=null] : ( ( (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' ) ) ) ;
+    // InternalDTO.g:889:1: ruleInheritanceMappingType returns [EObject current=null] : ( ( (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' ) ) ) ;
     public final EObject ruleInheritanceMappingType() throws RecognitionException {
         EObject current = null;
 
@@ -2208,16 +2272,16 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalDTO.g:866:2: ( ( ( (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' ) ) ) )
-            // InternalDTO.g:867:2: ( ( (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' ) ) )
+            // InternalDTO.g:895:2: ( ( ( (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' ) ) ) )
+            // InternalDTO.g:896:2: ( ( (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' ) ) )
             {
-            // InternalDTO.g:867:2: ( ( (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' ) ) )
-            // InternalDTO.g:868:3: ( (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' ) )
+            // InternalDTO.g:896:2: ( ( (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' ) ) )
+            // InternalDTO.g:897:3: ( (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' ) )
             {
-            // InternalDTO.g:868:3: ( (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' ) )
-            // InternalDTO.g:869:4: (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' )
+            // InternalDTO.g:897:3: ( (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' ) )
+            // InternalDTO.g:898:4: (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' )
             {
-            // InternalDTO.g:869:4: (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' )
+            // InternalDTO.g:898:4: (lv_type_0_1= 'SINGLE_TABLE' | lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS' | lv_type_0_3= 'TABLE_PER_CLASS' )
             int alt14=3;
             switch ( input.LA(1) ) {
             case 34:
@@ -2244,7 +2308,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
             switch (alt14) {
                 case 1 :
-                    // InternalDTO.g:870:5: lv_type_0_1= 'SINGLE_TABLE'
+                    // InternalDTO.g:899:5: lv_type_0_1= 'SINGLE_TABLE'
                     {
                     lv_type_0_1=(Token)match(input,34,FOLLOW_2); 
 
@@ -2260,7 +2324,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:881:5: lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS'
+                    // InternalDTO.g:910:5: lv_type_0_2= 'TABLE_PER_CONCRETE_CLASS'
                     {
                     lv_type_0_2=(Token)match(input,35,FOLLOW_2); 
 
@@ -2276,7 +2340,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalDTO.g:892:5: lv_type_0_3= 'TABLE_PER_CLASS'
+                    // InternalDTO.g:921:5: lv_type_0_3= 'TABLE_PER_CLASS'
                     {
                     lv_type_0_3=(Token)match(input,36,FOLLOW_2); 
 
@@ -2320,7 +2384,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAttribute"
-    // InternalDTO.g:908:1: entryRuleAttribute returns [EObject current=null] : iv_ruleAttribute= ruleAttribute EOF ;
+    // InternalDTO.g:937:1: entryRuleAttribute returns [EObject current=null] : iv_ruleAttribute= ruleAttribute EOF ;
     public final EObject entryRuleAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -2328,8 +2392,8 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDTO.g:908:50: (iv_ruleAttribute= ruleAttribute EOF )
-            // InternalDTO.g:909:2: iv_ruleAttribute= ruleAttribute EOF
+            // InternalDTO.g:937:50: (iv_ruleAttribute= ruleAttribute EOF )
+            // InternalDTO.g:938:2: iv_ruleAttribute= ruleAttribute EOF
             {
              newCompositeNode(grammarAccess.getAttributeRule()); 
             pushFollow(FOLLOW_1);
@@ -2356,7 +2420,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAttribute"
-    // InternalDTO.g:915:1: ruleAttribute returns [EObject current=null] : ( ( (lv_type_0_0= ruleAttributeType ) ) ( (lv_name_1_0= RULE_ID ) ) ( ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )* )? otherlv_5= ';' ) ;
+    // InternalDTO.g:944:1: ruleAttribute returns [EObject current=null] : ( ( (lv_type_0_0= ruleAttributeType ) ) ( (lv_name_1_0= RULE_ID ) ) ( ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )* )? otherlv_5= ';' ) ;
     public final EObject ruleAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -2374,17 +2438,17 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalDTO.g:921:2: ( ( ( (lv_type_0_0= ruleAttributeType ) ) ( (lv_name_1_0= RULE_ID ) ) ( ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )* )? otherlv_5= ';' ) )
-            // InternalDTO.g:922:2: ( ( (lv_type_0_0= ruleAttributeType ) ) ( (lv_name_1_0= RULE_ID ) ) ( ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )* )? otherlv_5= ';' )
+            // InternalDTO.g:950:2: ( ( ( (lv_type_0_0= ruleAttributeType ) ) ( (lv_name_1_0= RULE_ID ) ) ( ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )* )? otherlv_5= ';' ) )
+            // InternalDTO.g:951:2: ( ( (lv_type_0_0= ruleAttributeType ) ) ( (lv_name_1_0= RULE_ID ) ) ( ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )* )? otherlv_5= ';' )
             {
-            // InternalDTO.g:922:2: ( ( (lv_type_0_0= ruleAttributeType ) ) ( (lv_name_1_0= RULE_ID ) ) ( ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )* )? otherlv_5= ';' )
-            // InternalDTO.g:923:3: ( (lv_type_0_0= ruleAttributeType ) ) ( (lv_name_1_0= RULE_ID ) ) ( ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )* )? otherlv_5= ';'
+            // InternalDTO.g:951:2: ( ( (lv_type_0_0= ruleAttributeType ) ) ( (lv_name_1_0= RULE_ID ) ) ( ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )* )? otherlv_5= ';' )
+            // InternalDTO.g:952:3: ( (lv_type_0_0= ruleAttributeType ) ) ( (lv_name_1_0= RULE_ID ) ) ( ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )* )? otherlv_5= ';'
             {
-            // InternalDTO.g:923:3: ( (lv_type_0_0= ruleAttributeType ) )
-            // InternalDTO.g:924:4: (lv_type_0_0= ruleAttributeType )
+            // InternalDTO.g:952:3: ( (lv_type_0_0= ruleAttributeType ) )
+            // InternalDTO.g:953:4: (lv_type_0_0= ruleAttributeType )
             {
-            // InternalDTO.g:924:4: (lv_type_0_0= ruleAttributeType )
-            // InternalDTO.g:925:5: lv_type_0_0= ruleAttributeType
+            // InternalDTO.g:953:4: (lv_type_0_0= ruleAttributeType )
+            // InternalDTO.g:954:5: lv_type_0_0= ruleAttributeType
             {
 
             					newCompositeNode(grammarAccess.getAttributeAccess().getTypeAttributeTypeParserRuleCall_0_0());
@@ -2411,11 +2475,11 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalDTO.g:942:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalDTO.g:943:4: (lv_name_1_0= RULE_ID )
+            // InternalDTO.g:971:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalDTO.g:972:4: (lv_name_1_0= RULE_ID )
             {
-            // InternalDTO.g:943:4: (lv_name_1_0= RULE_ID )
-            // InternalDTO.g:944:5: lv_name_1_0= RULE_ID
+            // InternalDTO.g:972:4: (lv_name_1_0= RULE_ID )
+            // InternalDTO.g:973:5: lv_name_1_0= RULE_ID
             {
             lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_17); 
 
@@ -2437,7 +2501,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalDTO.g:960:3: ( ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )* )?
+            // InternalDTO.g:989:3: ( ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )* )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -2446,13 +2510,13 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
             }
             switch (alt16) {
                 case 1 :
-                    // InternalDTO.g:961:4: ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )*
+                    // InternalDTO.g:990:4: ( (lv_options_2_0= ruleAttributeOption ) ) (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )*
                     {
-                    // InternalDTO.g:961:4: ( (lv_options_2_0= ruleAttributeOption ) )
-                    // InternalDTO.g:962:5: (lv_options_2_0= ruleAttributeOption )
+                    // InternalDTO.g:990:4: ( (lv_options_2_0= ruleAttributeOption ) )
+                    // InternalDTO.g:991:5: (lv_options_2_0= ruleAttributeOption )
                     {
-                    // InternalDTO.g:962:5: (lv_options_2_0= ruleAttributeOption )
-                    // InternalDTO.g:963:6: lv_options_2_0= ruleAttributeOption
+                    // InternalDTO.g:991:5: (lv_options_2_0= ruleAttributeOption )
+                    // InternalDTO.g:992:6: lv_options_2_0= ruleAttributeOption
                     {
 
                     						newCompositeNode(grammarAccess.getAttributeAccess().getOptionsAttributeOptionParserRuleCall_2_0_0());
@@ -2479,7 +2543,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalDTO.g:980:4: (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )*
+                    // InternalDTO.g:1009:4: (otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) ) )*
                     loop15:
                     do {
                         int alt15=2;
@@ -2492,17 +2556,17 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
                         switch (alt15) {
                     	case 1 :
-                    	    // InternalDTO.g:981:5: otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) )
+                    	    // InternalDTO.g:1010:5: otherlv_3= ',' ( (lv_options_4_0= ruleAttributeOption ) )
                     	    {
                     	    otherlv_3=(Token)match(input,24,FOLLOW_19); 
 
                     	    					newLeafNode(otherlv_3, grammarAccess.getAttributeAccess().getCommaKeyword_2_1_0());
                     	    				
-                    	    // InternalDTO.g:985:5: ( (lv_options_4_0= ruleAttributeOption ) )
-                    	    // InternalDTO.g:986:6: (lv_options_4_0= ruleAttributeOption )
+                    	    // InternalDTO.g:1014:5: ( (lv_options_4_0= ruleAttributeOption ) )
+                    	    // InternalDTO.g:1015:6: (lv_options_4_0= ruleAttributeOption )
                     	    {
-                    	    // InternalDTO.g:986:6: (lv_options_4_0= ruleAttributeOption )
-                    	    // InternalDTO.g:987:7: lv_options_4_0= ruleAttributeOption
+                    	    // InternalDTO.g:1015:6: (lv_options_4_0= ruleAttributeOption )
+                    	    // InternalDTO.g:1016:7: lv_options_4_0= ruleAttributeOption
                     	    {
 
                     	    							newCompositeNode(grammarAccess.getAttributeAccess().getOptionsAttributeOptionParserRuleCall_2_1_1_0());
@@ -2571,7 +2635,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAttributeType"
-    // InternalDTO.g:1014:1: entryRuleAttributeType returns [EObject current=null] : iv_ruleAttributeType= ruleAttributeType EOF ;
+    // InternalDTO.g:1043:1: entryRuleAttributeType returns [EObject current=null] : iv_ruleAttributeType= ruleAttributeType EOF ;
     public final EObject entryRuleAttributeType() throws RecognitionException {
         EObject current = null;
 
@@ -2579,8 +2643,8 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDTO.g:1014:54: (iv_ruleAttributeType= ruleAttributeType EOF )
-            // InternalDTO.g:1015:2: iv_ruleAttributeType= ruleAttributeType EOF
+            // InternalDTO.g:1043:54: (iv_ruleAttributeType= ruleAttributeType EOF )
+            // InternalDTO.g:1044:2: iv_ruleAttributeType= ruleAttributeType EOF
             {
              newCompositeNode(grammarAccess.getAttributeTypeRule()); 
             pushFollow(FOLLOW_1);
@@ -2607,7 +2671,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAttributeType"
-    // InternalDTO.g:1021:1: ruleAttributeType returns [EObject current=null] : (this_SingleType_0= ruleSingleType | this_CollectionType_1= ruleCollectionType ) ;
+    // InternalDTO.g:1050:1: ruleAttributeType returns [EObject current=null] : (this_SingleType_0= ruleSingleType | this_CollectionType_1= ruleCollectionType ) ;
     public final EObject ruleAttributeType() throws RecognitionException {
         EObject current = null;
 
@@ -2620,17 +2684,17 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalDTO.g:1027:2: ( (this_SingleType_0= ruleSingleType | this_CollectionType_1= ruleCollectionType ) )
-            // InternalDTO.g:1028:2: (this_SingleType_0= ruleSingleType | this_CollectionType_1= ruleCollectionType )
+            // InternalDTO.g:1056:2: ( (this_SingleType_0= ruleSingleType | this_CollectionType_1= ruleCollectionType ) )
+            // InternalDTO.g:1057:2: (this_SingleType_0= ruleSingleType | this_CollectionType_1= ruleCollectionType )
             {
-            // InternalDTO.g:1028:2: (this_SingleType_0= ruleSingleType | this_CollectionType_1= ruleCollectionType )
+            // InternalDTO.g:1057:2: (this_SingleType_0= ruleSingleType | this_CollectionType_1= ruleCollectionType )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
-            if ( (LA17_0==RULE_ID||(LA17_0>=17 && LA17_0<=21)||(LA17_0>=38 && LA17_0<=42)) ) {
+            if ( (LA17_0==RULE_ID||(LA17_0>=17 && LA17_0<=21)||(LA17_0>=38 && LA17_0<=43)) ) {
                 alt17=1;
             }
-            else if ( (LA17_0==43) ) {
+            else if ( (LA17_0==44) ) {
                 alt17=2;
             }
             else {
@@ -2641,7 +2705,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
             }
             switch (alt17) {
                 case 1 :
-                    // InternalDTO.g:1029:3: this_SingleType_0= ruleSingleType
+                    // InternalDTO.g:1058:3: this_SingleType_0= ruleSingleType
                     {
 
                     			newCompositeNode(grammarAccess.getAttributeTypeAccess().getSingleTypeParserRuleCall_0());
@@ -2659,7 +2723,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:1038:3: this_CollectionType_1= ruleCollectionType
+                    // InternalDTO.g:1067:3: this_CollectionType_1= ruleCollectionType
                     {
 
                     			newCompositeNode(grammarAccess.getAttributeTypeAccess().getCollectionTypeParserRuleCall_1());
@@ -2699,7 +2763,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSingleType"
-    // InternalDTO.g:1050:1: entryRuleSingleType returns [EObject current=null] : iv_ruleSingleType= ruleSingleType EOF ;
+    // InternalDTO.g:1079:1: entryRuleSingleType returns [EObject current=null] : iv_ruleSingleType= ruleSingleType EOF ;
     public final EObject entryRuleSingleType() throws RecognitionException {
         EObject current = null;
 
@@ -2707,8 +2771,8 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDTO.g:1050:51: (iv_ruleSingleType= ruleSingleType EOF )
-            // InternalDTO.g:1051:2: iv_ruleSingleType= ruleSingleType EOF
+            // InternalDTO.g:1079:51: (iv_ruleSingleType= ruleSingleType EOF )
+            // InternalDTO.g:1080:2: iv_ruleSingleType= ruleSingleType EOF
             {
              newCompositeNode(grammarAccess.getSingleTypeRule()); 
             pushFollow(FOLLOW_1);
@@ -2735,7 +2799,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSingleType"
-    // InternalDTO.g:1057:1: ruleSingleType returns [EObject current=null] : (this_BasicType_0= ruleBasicType | this_RefType_1= ruleRefType ) ;
+    // InternalDTO.g:1086:1: ruleSingleType returns [EObject current=null] : (this_BasicType_0= ruleBasicType | this_RefType_1= ruleRefType ) ;
     public final EObject ruleSingleType() throws RecognitionException {
         EObject current = null;
 
@@ -2748,14 +2812,14 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalDTO.g:1063:2: ( (this_BasicType_0= ruleBasicType | this_RefType_1= ruleRefType ) )
-            // InternalDTO.g:1064:2: (this_BasicType_0= ruleBasicType | this_RefType_1= ruleRefType )
+            // InternalDTO.g:1092:2: ( (this_BasicType_0= ruleBasicType | this_RefType_1= ruleRefType ) )
+            // InternalDTO.g:1093:2: (this_BasicType_0= ruleBasicType | this_RefType_1= ruleRefType )
             {
-            // InternalDTO.g:1064:2: (this_BasicType_0= ruleBasicType | this_RefType_1= ruleRefType )
+            // InternalDTO.g:1093:2: (this_BasicType_0= ruleBasicType | this_RefType_1= ruleRefType )
             int alt18=2;
             int LA18_0 = input.LA(1);
 
-            if ( ((LA18_0>=17 && LA18_0<=21)||(LA18_0>=38 && LA18_0<=42)) ) {
+            if ( ((LA18_0>=17 && LA18_0<=21)||(LA18_0>=38 && LA18_0<=43)) ) {
                 alt18=1;
             }
             else if ( (LA18_0==RULE_ID) ) {
@@ -2769,7 +2833,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
             }
             switch (alt18) {
                 case 1 :
-                    // InternalDTO.g:1065:3: this_BasicType_0= ruleBasicType
+                    // InternalDTO.g:1094:3: this_BasicType_0= ruleBasicType
                     {
 
                     			newCompositeNode(grammarAccess.getSingleTypeAccess().getBasicTypeParserRuleCall_0());
@@ -2787,7 +2851,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:1074:3: this_RefType_1= ruleRefType
+                    // InternalDTO.g:1103:3: this_RefType_1= ruleRefType
                     {
 
                     			newCompositeNode(grammarAccess.getSingleTypeAccess().getRefTypeParserRuleCall_1());
@@ -2827,7 +2891,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entrySuperBasicType"
-    // InternalDTO.g:1086:1: entrySuperBasicType returns [EObject current=null] : iv_superBasicType= superBasicType EOF ;
+    // InternalDTO.g:1115:1: entrySuperBasicType returns [EObject current=null] : iv_superBasicType= superBasicType EOF ;
     public final EObject entrySuperBasicType() throws RecognitionException {
         EObject current = null;
 
@@ -2835,8 +2899,8 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDTO.g:1086:51: (iv_superBasicType= superBasicType EOF )
-            // InternalDTO.g:1087:2: iv_superBasicType= superBasicType EOF
+            // InternalDTO.g:1115:51: (iv_superBasicType= superBasicType EOF )
+            // InternalDTO.g:1116:2: iv_superBasicType= superBasicType EOF
             {
              newCompositeNode(grammarAccess.getDomainModelBasicTypeRule()); 
             pushFollow(FOLLOW_1);
@@ -2863,7 +2927,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "superBasicType"
-    // InternalDTO.g:1093:1: superBasicType returns [EObject current=null] : ( ( () otherlv_1= 'string' ) | ( () otherlv_3= 'int' ) | ( () otherlv_5= 'long' ) | ( () otherlv_7= 'boolean' ) | ( () otherlv_9= 'date' ) ) ;
+    // InternalDTO.g:1122:1: superBasicType returns [EObject current=null] : ( ( () otherlv_1= 'string' ) | ( () otherlv_3= 'int' ) | ( () otherlv_5= 'long' ) | ( () otherlv_7= 'boolean' ) | ( () otherlv_9= 'date' ) | ( () otherlv_11= 'decimal' ) ) ;
     public final EObject superBasicType() throws RecognitionException {
         EObject current = null;
 
@@ -2872,16 +2936,17 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
         Token otherlv_5=null;
         Token otherlv_7=null;
         Token otherlv_9=null;
+        Token otherlv_11=null;
 
 
         	enterRule();
 
         try {
-            // InternalDTO.g:1099:2: ( ( ( () otherlv_1= 'string' ) | ( () otherlv_3= 'int' ) | ( () otherlv_5= 'long' ) | ( () otherlv_7= 'boolean' ) | ( () otherlv_9= 'date' ) ) )
-            // InternalDTO.g:1100:2: ( ( () otherlv_1= 'string' ) | ( () otherlv_3= 'int' ) | ( () otherlv_5= 'long' ) | ( () otherlv_7= 'boolean' ) | ( () otherlv_9= 'date' ) )
+            // InternalDTO.g:1128:2: ( ( ( () otherlv_1= 'string' ) | ( () otherlv_3= 'int' ) | ( () otherlv_5= 'long' ) | ( () otherlv_7= 'boolean' ) | ( () otherlv_9= 'date' ) | ( () otherlv_11= 'decimal' ) ) )
+            // InternalDTO.g:1129:2: ( ( () otherlv_1= 'string' ) | ( () otherlv_3= 'int' ) | ( () otherlv_5= 'long' ) | ( () otherlv_7= 'boolean' ) | ( () otherlv_9= 'date' ) | ( () otherlv_11= 'decimal' ) )
             {
-            // InternalDTO.g:1100:2: ( ( () otherlv_1= 'string' ) | ( () otherlv_3= 'int' ) | ( () otherlv_5= 'long' ) | ( () otherlv_7= 'boolean' ) | ( () otherlv_9= 'date' ) )
-            int alt19=5;
+            // InternalDTO.g:1129:2: ( ( () otherlv_1= 'string' ) | ( () otherlv_3= 'int' ) | ( () otherlv_5= 'long' ) | ( () otherlv_7= 'boolean' ) | ( () otherlv_9= 'date' ) | ( () otherlv_11= 'decimal' ) )
+            int alt19=6;
             switch ( input.LA(1) ) {
             case 38:
                 {
@@ -2908,6 +2973,11 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                 alt19=5;
                 }
                 break;
+            case 43:
+                {
+                alt19=6;
+                }
+                break;
             default:
                 NoViableAltException nvae =
                     new NoViableAltException("", 19, 0, input);
@@ -2917,13 +2987,13 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
             switch (alt19) {
                 case 1 :
-                    // InternalDTO.g:1101:3: ( () otherlv_1= 'string' )
+                    // InternalDTO.g:1130:3: ( () otherlv_1= 'string' )
                     {
-                    // InternalDTO.g:1101:3: ( () otherlv_1= 'string' )
-                    // InternalDTO.g:1102:4: () otherlv_1= 'string'
+                    // InternalDTO.g:1130:3: ( () otherlv_1= 'string' )
+                    // InternalDTO.g:1131:4: () otherlv_1= 'string'
                     {
-                    // InternalDTO.g:1102:4: ()
-                    // InternalDTO.g:1103:5: 
+                    // InternalDTO.g:1131:4: ()
+                    // InternalDTO.g:1132:5: 
                     {
 
                     					current = forceCreateModelElement(
@@ -2944,13 +3014,13 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalDTO.g:1115:3: ( () otherlv_3= 'int' )
+                    // InternalDTO.g:1144:3: ( () otherlv_3= 'int' )
                     {
-                    // InternalDTO.g:1115:3: ( () otherlv_3= 'int' )
-                    // InternalDTO.g:1116:4: () otherlv_3= 'int'
+                    // InternalDTO.g:1144:3: ( () otherlv_3= 'int' )
+                    // InternalDTO.g:1145:4: () otherlv_3= 'int'
                     {
-                    // InternalDTO.g:1116:4: ()
-                    // InternalDTO.g:1117:5: 
+                    // InternalDTO.g:1145:4: ()
+                    // InternalDTO.g:1146:5: 
                     {
 
                     					current = forceCreateModelElement(
@@ -2971,13 +3041,13 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalDTO.g:1129:3: ( () otherlv_5= 'long' )
+                    // InternalDTO.g:1158:3: ( () otherlv_5= 'long' )
                     {
-                    // InternalDTO.g:1129:3: ( () otherlv_5= 'long' )
-                    // InternalDTO.g:1130:4: () otherlv_5= 'long'
+                    // InternalDTO.g:1158:3: ( () otherlv_5= 'long' )
+                    // InternalDTO.g:1159:4: () otherlv_5= 'long'
                     {
-                    // InternalDTO.g:1130:4: ()
-                    // InternalDTO.g:1131:5: 
+                    // InternalDTO.g:1159:4: ()
+                    // InternalDTO.g:1160:5: 
                     {
 
                     					current = forceCreateModelElement(
@@ -2998,13 +3068,13 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalDTO.g:1143:3: ( () otherlv_7= 'boolean' )
+                    // InternalDTO.g:1172:3: ( () otherlv_7= 'boolean' )
                     {
-                    // InternalDTO.g:1143:3: ( () otherlv_7= 'boolean' )
-                    // InternalDTO.g:1144:4: () otherlv_7= 'boolean'
+                    // InternalDTO.g:1172:3: ( () otherlv_7= 'boolean' )
+                    // InternalDTO.g:1173:4: () otherlv_7= 'boolean'
                     {
-                    // InternalDTO.g:1144:4: ()
-                    // InternalDTO.g:1145:5: 
+                    // InternalDTO.g:1173:4: ()
+                    // InternalDTO.g:1174:5: 
                     {
 
                     					current = forceCreateModelElement(
@@ -3025,13 +3095,13 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalDTO.g:1157:3: ( () otherlv_9= 'date' )
+                    // InternalDTO.g:1186:3: ( () otherlv_9= 'date' )
                     {
-                    // InternalDTO.g:1157:3: ( () otherlv_9= 'date' )
-                    // InternalDTO.g:1158:4: () otherlv_9= 'date'
+                    // InternalDTO.g:1186:3: ( () otherlv_9= 'date' )
+                    // InternalDTO.g:1187:4: () otherlv_9= 'date'
                     {
-                    // InternalDTO.g:1158:4: ()
-                    // InternalDTO.g:1159:5: 
+                    // InternalDTO.g:1187:4: ()
+                    // InternalDTO.g:1188:5: 
                     {
 
                     					current = forceCreateModelElement(
@@ -3044,6 +3114,33 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
                     otherlv_9=(Token)match(input,42,FOLLOW_2); 
 
                     				newLeafNode(otherlv_9, grammarAccess.getDomainModelBasicTypeAccess().getDateKeyword_4_1());
+                    			
+
+                    }
+
+
+                    }
+                    break;
+                case 6 :
+                    // InternalDTO.g:1200:3: ( () otherlv_11= 'decimal' )
+                    {
+                    // InternalDTO.g:1200:3: ( () otherlv_11= 'decimal' )
+                    // InternalDTO.g:1201:4: () otherlv_11= 'decimal'
+                    {
+                    // InternalDTO.g:1201:4: ()
+                    // InternalDTO.g:1202:5: 
+                    {
+
+                    					current = forceCreateModelElement(
+                    						grammarAccess.getDomainModelBasicTypeAccess().getDecimalTypeAction_5_0(),
+                    						current);
+                    				
+
+                    }
+
+                    otherlv_11=(Token)match(input,43,FOLLOW_2); 
+
+                    				newLeafNode(otherlv_11, grammarAccess.getDomainModelBasicTypeAccess().getDecimalKeyword_5_1());
                     			
 
                     }
@@ -3074,7 +3171,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleRefType"
-    // InternalDTO.g:1174:1: entryRuleRefType returns [EObject current=null] : iv_ruleRefType= ruleRefType EOF ;
+    // InternalDTO.g:1217:1: entryRuleRefType returns [EObject current=null] : iv_ruleRefType= ruleRefType EOF ;
     public final EObject entryRuleRefType() throws RecognitionException {
         EObject current = null;
 
@@ -3082,8 +3179,8 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDTO.g:1174:48: (iv_ruleRefType= ruleRefType EOF )
-            // InternalDTO.g:1175:2: iv_ruleRefType= ruleRefType EOF
+            // InternalDTO.g:1217:48: (iv_ruleRefType= ruleRefType EOF )
+            // InternalDTO.g:1218:2: iv_ruleRefType= ruleRefType EOF
             {
              newCompositeNode(grammarAccess.getRefTypeRule()); 
             pushFollow(FOLLOW_1);
@@ -3110,7 +3207,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRefType"
-    // InternalDTO.g:1181:1: ruleRefType returns [EObject current=null] : ( (otherlv_0= RULE_ID ) ) ;
+    // InternalDTO.g:1224:1: ruleRefType returns [EObject current=null] : ( (otherlv_0= RULE_ID ) ) ;
     public final EObject ruleRefType() throws RecognitionException {
         EObject current = null;
 
@@ -3120,14 +3217,14 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalDTO.g:1187:2: ( ( (otherlv_0= RULE_ID ) ) )
-            // InternalDTO.g:1188:2: ( (otherlv_0= RULE_ID ) )
+            // InternalDTO.g:1230:2: ( ( (otherlv_0= RULE_ID ) ) )
+            // InternalDTO.g:1231:2: ( (otherlv_0= RULE_ID ) )
             {
-            // InternalDTO.g:1188:2: ( (otherlv_0= RULE_ID ) )
-            // InternalDTO.g:1189:3: (otherlv_0= RULE_ID )
+            // InternalDTO.g:1231:2: ( (otherlv_0= RULE_ID ) )
+            // InternalDTO.g:1232:3: (otherlv_0= RULE_ID )
             {
-            // InternalDTO.g:1189:3: (otherlv_0= RULE_ID )
-            // InternalDTO.g:1190:4: otherlv_0= RULE_ID
+            // InternalDTO.g:1232:3: (otherlv_0= RULE_ID )
+            // InternalDTO.g:1233:4: otherlv_0= RULE_ID
             {
 
             				if (current==null) {
@@ -3164,7 +3261,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCollectionType"
-    // InternalDTO.g:1204:1: entryRuleCollectionType returns [EObject current=null] : iv_ruleCollectionType= ruleCollectionType EOF ;
+    // InternalDTO.g:1247:1: entryRuleCollectionType returns [EObject current=null] : iv_ruleCollectionType= ruleCollectionType EOF ;
     public final EObject entryRuleCollectionType() throws RecognitionException {
         EObject current = null;
 
@@ -3172,8 +3269,8 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDTO.g:1204:55: (iv_ruleCollectionType= ruleCollectionType EOF )
-            // InternalDTO.g:1205:2: iv_ruleCollectionType= ruleCollectionType EOF
+            // InternalDTO.g:1247:55: (iv_ruleCollectionType= ruleCollectionType EOF )
+            // InternalDTO.g:1248:2: iv_ruleCollectionType= ruleCollectionType EOF
             {
              newCompositeNode(grammarAccess.getCollectionTypeRule()); 
             pushFollow(FOLLOW_1);
@@ -3200,7 +3297,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCollectionType"
-    // InternalDTO.g:1211:1: ruleCollectionType returns [EObject current=null] : (otherlv_0= 'List' otherlv_1= '<' ( (lv_ofType_2_0= ruleSingleType ) ) otherlv_3= '>' ) ;
+    // InternalDTO.g:1254:1: ruleCollectionType returns [EObject current=null] : (otherlv_0= 'List' otherlv_1= '<' ( (lv_ofType_2_0= ruleSingleType ) ) otherlv_3= '>' ) ;
     public final EObject ruleCollectionType() throws RecognitionException {
         EObject current = null;
 
@@ -3214,25 +3311,25 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalDTO.g:1217:2: ( (otherlv_0= 'List' otherlv_1= '<' ( (lv_ofType_2_0= ruleSingleType ) ) otherlv_3= '>' ) )
-            // InternalDTO.g:1218:2: (otherlv_0= 'List' otherlv_1= '<' ( (lv_ofType_2_0= ruleSingleType ) ) otherlv_3= '>' )
+            // InternalDTO.g:1260:2: ( (otherlv_0= 'List' otherlv_1= '<' ( (lv_ofType_2_0= ruleSingleType ) ) otherlv_3= '>' ) )
+            // InternalDTO.g:1261:2: (otherlv_0= 'List' otherlv_1= '<' ( (lv_ofType_2_0= ruleSingleType ) ) otherlv_3= '>' )
             {
-            // InternalDTO.g:1218:2: (otherlv_0= 'List' otherlv_1= '<' ( (lv_ofType_2_0= ruleSingleType ) ) otherlv_3= '>' )
-            // InternalDTO.g:1219:3: otherlv_0= 'List' otherlv_1= '<' ( (lv_ofType_2_0= ruleSingleType ) ) otherlv_3= '>'
+            // InternalDTO.g:1261:2: (otherlv_0= 'List' otherlv_1= '<' ( (lv_ofType_2_0= ruleSingleType ) ) otherlv_3= '>' )
+            // InternalDTO.g:1262:3: otherlv_0= 'List' otherlv_1= '<' ( (lv_ofType_2_0= ruleSingleType ) ) otherlv_3= '>'
             {
-            otherlv_0=(Token)match(input,43,FOLLOW_20); 
+            otherlv_0=(Token)match(input,44,FOLLOW_20); 
 
             			newLeafNode(otherlv_0, grammarAccess.getCollectionTypeAccess().getListKeyword_0());
             		
-            otherlv_1=(Token)match(input,44,FOLLOW_21); 
+            otherlv_1=(Token)match(input,45,FOLLOW_21); 
 
             			newLeafNode(otherlv_1, grammarAccess.getCollectionTypeAccess().getLessThanSignKeyword_1());
             		
-            // InternalDTO.g:1227:3: ( (lv_ofType_2_0= ruleSingleType ) )
-            // InternalDTO.g:1228:4: (lv_ofType_2_0= ruleSingleType )
+            // InternalDTO.g:1270:3: ( (lv_ofType_2_0= ruleSingleType ) )
+            // InternalDTO.g:1271:4: (lv_ofType_2_0= ruleSingleType )
             {
-            // InternalDTO.g:1228:4: (lv_ofType_2_0= ruleSingleType )
-            // InternalDTO.g:1229:5: lv_ofType_2_0= ruleSingleType
+            // InternalDTO.g:1271:4: (lv_ofType_2_0= ruleSingleType )
+            // InternalDTO.g:1272:5: lv_ofType_2_0= ruleSingleType
             {
 
             					newCompositeNode(grammarAccess.getCollectionTypeAccess().getOfTypeSingleTypeParserRuleCall_2_0());
@@ -3259,7 +3356,7 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,45,FOLLOW_2); 
+            otherlv_3=(Token)match(input,46,FOLLOW_2); 
 
             			newLeafNode(otherlv_3, grammarAccess.getCollectionTypeAccess().getGreaterThanSignKeyword_3());
             		
@@ -3284,6 +3381,102 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
     }
     // $ANTLR end "ruleCollectionType"
 
+
+    // $ANTLR start "entryRuleDecimal"
+    // InternalDTO.g:1297:1: entryRuleDecimal returns [String current=null] : iv_ruleDecimal= ruleDecimal EOF ;
+    public final String entryRuleDecimal() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleDecimal = null;
+
+
+        try {
+            // InternalDTO.g:1297:47: (iv_ruleDecimal= ruleDecimal EOF )
+            // InternalDTO.g:1298:2: iv_ruleDecimal= ruleDecimal EOF
+            {
+             newCompositeNode(grammarAccess.getDecimalRule()); 
+            pushFollow(FOLLOW_1);
+            iv_ruleDecimal=ruleDecimal();
+
+            state._fsp--;
+
+             current =iv_ruleDecimal.getText(); 
+            match(input,EOF,FOLLOW_2); 
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleDecimal"
+
+
+    // $ANTLR start "ruleDecimal"
+    // InternalDTO.g:1304:1: ruleDecimal returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_INT_0= RULE_INT kw= '.' this_INT_2= RULE_INT ) ;
+    public final AntlrDatatypeRuleToken ruleDecimal() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token this_INT_0=null;
+        Token kw=null;
+        Token this_INT_2=null;
+
+
+        	enterRule();
+
+        try {
+            // InternalDTO.g:1310:2: ( (this_INT_0= RULE_INT kw= '.' this_INT_2= RULE_INT ) )
+            // InternalDTO.g:1311:2: (this_INT_0= RULE_INT kw= '.' this_INT_2= RULE_INT )
+            {
+            // InternalDTO.g:1311:2: (this_INT_0= RULE_INT kw= '.' this_INT_2= RULE_INT )
+            // InternalDTO.g:1312:3: this_INT_0= RULE_INT kw= '.' this_INT_2= RULE_INT
+            {
+            this_INT_0=(Token)match(input,RULE_INT,FOLLOW_23); 
+
+            			current.merge(this_INT_0);
+            		
+
+            			newLeafNode(this_INT_0, grammarAccess.getDecimalAccess().getINTTerminalRuleCall_0());
+            		
+            kw=(Token)match(input,47,FOLLOW_14); 
+
+            			current.merge(kw);
+            			newLeafNode(kw, grammarAccess.getDecimalAccess().getFullStopKeyword_1());
+            		
+            this_INT_2=(Token)match(input,RULE_INT,FOLLOW_2); 
+
+            			current.merge(this_INT_2);
+            		
+
+            			newLeafNode(this_INT_2, grammarAccess.getDecimalAccess().getINTTerminalRuleCall_2());
+            		
+
+            }
+
+
+            }
+
+
+            	leaveRule();
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleDecimal"
+
     // Delegated rules
 
 
@@ -3295,8 +3488,8 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000003000L});
     public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x00000FC0003E4010L});
-    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x00000FC0003E0010L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x00001FC0003E4010L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x00001FC0003E0010L});
     public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000800002L});
     public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000058000060L});
     public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000003000000L});
@@ -3308,8 +3501,9 @@ public class InternalDTOParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000002000018000L});
     public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000002001000000L});
     public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x000007C0003E0010L});
-    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x00000FC0003E0010L});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000800000000000L});
 
 }

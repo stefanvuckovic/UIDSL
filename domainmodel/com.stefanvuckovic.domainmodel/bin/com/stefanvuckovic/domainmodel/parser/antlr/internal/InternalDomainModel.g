@@ -673,13 +673,42 @@ ruleConstant returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElement(
-						grammarAccess.getConstantAccess().getNullAction_5_0(),
+						grammarAccess.getConstantAccess().getDecimalConstantAction_5_0(),
 						$current);
 				}
 			)
-			otherlv_16='null'
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getConstantAccess().getValueDecimalParserRuleCall_5_1_0());
+					}
+					lv_value_16_0=ruleDecimal
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getConstantRule());
+						}
+						set(
+							$current,
+							"value",
+							lv_value_16_0,
+							"com.stefanvuckovic.domainmodel.DomainModel.Decimal");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)
+		    |
+		(
+			(
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getConstantAccess().getNullAction_6_0(),
+						$current);
+				}
+			)
+			otherlv_18='null'
 			{
-				newLeafNode(otherlv_16, grammarAccess.getConstantAccess().getNullKeyword_5_1());
+				newLeafNode(otherlv_18, grammarAccess.getConstantAccess().getNullKeyword_6_1());
 			}
 		)
 	)
@@ -1082,6 +1111,20 @@ ruleBasicType returns [EObject current=null]
 				newLeafNode(otherlv_9, grammarAccess.getBasicTypeAccess().getDateKeyword_4_1());
 			}
 		)
+		    |
+		(
+			(
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getBasicTypeAccess().getDecimalTypeAction_5_0(),
+						$current);
+				}
+			)
+			otherlv_11='decimal'
+			{
+				newLeafNode(otherlv_11, grammarAccess.getBasicTypeAccess().getDecimalKeyword_5_1());
+			}
+		)
 	)
 ;
 
@@ -1351,6 +1394,44 @@ ruleStaticFieldSelection returns [EObject current=null]
 				}
 			)
 		)
+	)
+;
+
+// Entry rule entryRuleDecimal
+entryRuleDecimal returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getDecimalRule()); }
+	iv_ruleDecimal=ruleDecimal
+	{ $current=$iv_ruleDecimal.current.getText(); }
+	EOF;
+
+// Rule Decimal
+ruleDecimal returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		this_INT_0=RULE_INT
+		{
+			$current.merge(this_INT_0);
+		}
+		{
+			newLeafNode(this_INT_0, grammarAccess.getDecimalAccess().getINTTerminalRuleCall_0());
+		}
+		kw='.'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getDecimalAccess().getFullStopKeyword_1());
+		}
+		this_INT_2=RULE_INT
+		{
+			$current.merge(this_INT_2);
+		}
+		{
+			newLeafNode(this_INT_2, grammarAccess.getDecimalAccess().getINTTerminalRuleCall_2());
+		}
 	)
 ;
 

@@ -37,6 +37,7 @@ Constant returns Expression:
 	{StringConstant} value=STRING |
 	{BoolConstant} value=('true' | 'false') |
 	{DateConstant} day=INT '/' month=INT '/' year=INT |
+	{DecimalConstant} value=Decimal |
 	{Null} 'null'
 ;
 
@@ -70,7 +71,8 @@ BasicType:
 	{IntType} 'int' |
 	{LongType} 'long' |
 	{BoolType} 'boolean' | 
-	{DateType} 'date'
+	{DateType} 'date' | 
+	{DecimalType} 'decimal'
 ;
 
 RefType:
@@ -105,3 +107,5 @@ SelectionMember:
 DumbSelectionMember returns SelectionMember:
 	'dumb_selection' type=AttributeType name=ID
 ;
+
+Decimal: INT '.' INT;

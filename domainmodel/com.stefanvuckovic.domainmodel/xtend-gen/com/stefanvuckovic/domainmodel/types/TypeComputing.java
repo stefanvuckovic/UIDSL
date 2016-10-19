@@ -6,6 +6,7 @@ import com.stefanvuckovic.domainmodel.domainModel.BoolConstant;
 import com.stefanvuckovic.domainmodel.domainModel.BoolType;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DateType;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalType;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelFactory;
 import com.stefanvuckovic.domainmodel.domainModel.EnumLiteral;
 import com.stefanvuckovic.domainmodel.domainModel.Expression;
@@ -32,6 +33,8 @@ public class TypeComputing {
   public final static BoolType BOOL_TYPE = DomainModelFactory.eINSTANCE.createBoolType();
   
   public final static DateType DATE_TYPE = DomainModelFactory.eINSTANCE.createDateType();
+  
+  public final static DecimalType DECIMAL_TYPE = DomainModelFactory.eINSTANCE.createDecimalType();
   
   public final static NullType NULL_TYPE = new NullType();
   
@@ -64,6 +67,12 @@ public class TypeComputing {
       if (c instanceof DateConstant) {
         _matched=true;
         _switchResult = TypeComputing.DATE_TYPE;
+      }
+    }
+    if (!_matched) {
+      if (c instanceof DecimalType) {
+        _matched=true;
+        _switchResult = TypeComputing.DECIMAL_TYPE;
       }
     }
     if (!_matched) {

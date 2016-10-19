@@ -2888,7 +2888,7 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//Constant Expression:
 	//	{IntConstant} value=INT | {LongConstant} value=INT 'L' | {StringConstant} value=STRING | {BoolConstant} value=('true'
-	//	| 'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {Null} 'null'
+	//	| 'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {DecimalConstant} value=Decimal | {Null} 'null'
 	public DomainModelGrammarAccess.ConstantElements getConstantAccess() {
 		return gaDomainModel.getConstantAccess();
 	}
@@ -2959,7 +2959,8 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//BasicType:
-	//	{StringType} 'string' | {IntType} 'int' | {LongType} 'long' | {BoolType} 'boolean' | {DateType} 'date';
+	//	{StringType} 'string' | {IntType} 'int' | {LongType} 'long' | {BoolType} 'boolean' | {DateType} 'date' | {DecimalType}
+	//	'decimal';
 	public DomainModelGrammarAccess.BasicTypeElements getDomainModelBasicTypeAccess() {
 		return gaDomainModel.getBasicTypeAccess();
 	}
@@ -3028,6 +3029,16 @@ public class UIDSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getDumbSelectionMemberRule() {
 		return getDumbSelectionMemberAccess().getRule();
+	}
+	
+	//Decimal:
+	//	INT '.' INT;
+	public DomainModelGrammarAccess.DecimalElements getDecimalAccess() {
+		return gaDomainModel.getDecimalAccess();
+	}
+	
+	public ParserRule getDecimalRule() {
+		return getDecimalAccess().getRule();
 	}
 	
 	//terminal ID:

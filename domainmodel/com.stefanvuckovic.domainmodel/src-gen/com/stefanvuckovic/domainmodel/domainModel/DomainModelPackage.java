@@ -757,6 +757,34 @@ public interface DomainModelPackage extends EPackage
   int DATE_CONSTANT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
   /**
+   * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.DecimalConstantImpl <em>Decimal Constant</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.domainmodel.domainModel.impl.DecimalConstantImpl
+   * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getDecimalConstant()
+   * @generated
+   */
+  int DECIMAL_CONSTANT = 23;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECIMAL_CONSTANT__VALUE = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Decimal Constant</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECIMAL_CONSTANT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.NullImpl <em>Null</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -764,7 +792,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getNull()
    * @generated
    */
-  int NULL = 23;
+  int NULL = 24;
 
   /**
    * The number of structural features of the '<em>Null</em>' class.
@@ -783,7 +811,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getEntityDeleteOption()
    * @generated
    */
-  int ENTITY_DELETE_OPTION = 24;
+  int ENTITY_DELETE_OPTION = 25;
 
   /**
    * The feature id for the '<em><b>Delete By Flag</b></em>' attribute.
@@ -811,7 +839,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getInheritanceMappingOption()
    * @generated
    */
-  int INHERITANCE_MAPPING_OPTION = 25;
+  int INHERITANCE_MAPPING_OPTION = 26;
 
   /**
    * The feature id for the '<em><b>Inheritance Mapping</b></em>' containment reference.
@@ -839,7 +867,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getStringType()
    * @generated
    */
-  int STRING_TYPE = 26;
+  int STRING_TYPE = 27;
 
   /**
    * The number of structural features of the '<em>String Type</em>' class.
@@ -858,7 +886,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getIntType()
    * @generated
    */
-  int INT_TYPE = 27;
+  int INT_TYPE = 28;
 
   /**
    * The number of structural features of the '<em>Int Type</em>' class.
@@ -877,7 +905,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getLongType()
    * @generated
    */
-  int LONG_TYPE = 28;
+  int LONG_TYPE = 29;
 
   /**
    * The number of structural features of the '<em>Long Type</em>' class.
@@ -896,7 +924,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getBoolType()
    * @generated
    */
-  int BOOL_TYPE = 29;
+  int BOOL_TYPE = 30;
 
   /**
    * The number of structural features of the '<em>Bool Type</em>' class.
@@ -915,7 +943,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getDateType()
    * @generated
    */
-  int DATE_TYPE = 30;
+  int DATE_TYPE = 31;
 
   /**
    * The number of structural features of the '<em>Date Type</em>' class.
@@ -927,6 +955,25 @@ public interface DomainModelPackage extends EPackage
   int DATE_TYPE_FEATURE_COUNT = BASIC_TYPE_FEATURE_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.DecimalTypeImpl <em>Decimal Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.stefanvuckovic.domainmodel.domainModel.impl.DecimalTypeImpl
+   * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getDecimalType()
+   * @generated
+   */
+  int DECIMAL_TYPE = 32;
+
+  /**
+   * The number of structural features of the '<em>Decimal Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECIMAL_TYPE_FEATURE_COUNT = BASIC_TYPE_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.RequiredImpl <em>Required</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -934,7 +981,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getRequired()
    * @generated
    */
-  int REQUIRED = 31;
+  int REQUIRED = 33;
 
   /**
    * The feature id for the '<em><b>Required</b></em>' attribute.
@@ -962,7 +1009,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getPartOf()
    * @generated
    */
-  int PART_OF = 32;
+  int PART_OF = 34;
 
   /**
    * The feature id for the '<em><b>Part Of</b></em>' attribute.
@@ -990,7 +1037,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getRelationshipOwner()
    * @generated
    */
-  int RELATIONSHIP_OWNER = 33;
+  int RELATIONSHIP_OWNER = 35;
 
   /**
    * The feature id for the '<em><b>Relationship Owner</b></em>' containment reference.
@@ -1018,7 +1065,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getCardinality()
    * @generated
    */
-  int CARDINALITY = 34;
+  int CARDINALITY = 36;
 
   /**
    * The feature id for the '<em><b>Card</b></em>' attribute.
@@ -1046,7 +1093,7 @@ public interface DomainModelPackage extends EPackage
    * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getCardinalityType()
    * @generated
    */
-  int CARDINALITY_TYPE = 35;
+  int CARDINALITY_TYPE = 37;
 
 
   /**
@@ -1533,6 +1580,27 @@ public interface DomainModelPackage extends EPackage
   EAttribute getDateConstant_Year();
 
   /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.domainmodel.domainModel.DecimalConstant <em>Decimal Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Decimal Constant</em>'.
+   * @see com.stefanvuckovic.domainmodel.domainModel.DecimalConstant
+   * @generated
+   */
+  EClass getDecimalConstant();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.stefanvuckovic.domainmodel.domainModel.DecimalConstant#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see com.stefanvuckovic.domainmodel.domainModel.DecimalConstant#getValue()
+   * @see #getDecimalConstant()
+   * @generated
+   */
+  EAttribute getDecimalConstant_Value();
+
+  /**
    * Returns the meta object for class '{@link com.stefanvuckovic.domainmodel.domainModel.Null <em>Null</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1633,6 +1701,16 @@ public interface DomainModelPackage extends EPackage
    * @generated
    */
   EClass getDateType();
+
+  /**
+   * Returns the meta object for class '{@link com.stefanvuckovic.domainmodel.domainModel.DecimalType <em>Decimal Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Decimal Type</em>'.
+   * @see com.stefanvuckovic.domainmodel.domainModel.DecimalType
+   * @generated
+   */
+  EClass getDecimalType();
 
   /**
    * Returns the meta object for class '{@link com.stefanvuckovic.domainmodel.domainModel.Required <em>Required</em>}'.
@@ -2166,6 +2244,24 @@ public interface DomainModelPackage extends EPackage
     EAttribute DATE_CONSTANT__YEAR = eINSTANCE.getDateConstant_Year();
 
     /**
+     * The meta object literal for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.DecimalConstantImpl <em>Decimal Constant</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.domainmodel.domainModel.impl.DecimalConstantImpl
+     * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getDecimalConstant()
+     * @generated
+     */
+    EClass DECIMAL_CONSTANT = eINSTANCE.getDecimalConstant();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DECIMAL_CONSTANT__VALUE = eINSTANCE.getDecimalConstant_Value();
+
+    /**
      * The meta object literal for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.NullImpl <em>Null</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2260,6 +2356,16 @@ public interface DomainModelPackage extends EPackage
      * @generated
      */
     EClass DATE_TYPE = eINSTANCE.getDateType();
+
+    /**
+     * The meta object literal for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.DecimalTypeImpl <em>Decimal Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.stefanvuckovic.domainmodel.domainModel.impl.DecimalTypeImpl
+     * @see com.stefanvuckovic.domainmodel.domainModel.impl.DomainModelPackageImpl#getDecimalType()
+     * @generated
+     */
+    EClass DECIMAL_TYPE = eINSTANCE.getDecimalType();
 
     /**
      * The meta object literal for the '{@link com.stefanvuckovic.domainmodel.domainModel.impl.RequiredImpl <em>Required</em>}' class.

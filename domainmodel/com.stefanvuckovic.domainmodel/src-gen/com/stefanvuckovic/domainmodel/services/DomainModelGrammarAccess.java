@@ -321,16 +321,20 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cYearAssignment_4_5 = (Assignment)cGroup_4.eContents().get(5);
 		private final RuleCall cYearINTTerminalRuleCall_4_5_0 = (RuleCall)cYearAssignment_4_5.eContents().get(0);
 		private final Group cGroup_5 = (Group)cAlternatives.eContents().get(5);
-		private final Action cNullAction_5_0 = (Action)cGroup_5.eContents().get(0);
-		private final Keyword cNullKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
+		private final Action cDecimalConstantAction_5_0 = (Action)cGroup_5.eContents().get(0);
+		private final Assignment cValueAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cValueDecimalParserRuleCall_5_1_0 = (RuleCall)cValueAssignment_5_1.eContents().get(0);
+		private final Group cGroup_6 = (Group)cAlternatives.eContents().get(6);
+		private final Action cNullAction_6_0 = (Action)cGroup_6.eContents().get(0);
+		private final Keyword cNullKeyword_6_1 = (Keyword)cGroup_6.eContents().get(1);
 		
 		//Constant Expression:
 		//	{IntConstant} value=INT | {LongConstant} value=INT 'L' | {StringConstant} value=STRING | {BoolConstant} value=('true'
-		//	| 'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {Null} 'null'
+		//	| 'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {DecimalConstant} value=Decimal | {Null} 'null'
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{IntConstant} value=INT | {LongConstant} value=INT 'L' | {StringConstant} value=STRING | {BoolConstant} value=('true' |
-		//'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {Null} 'null'
+		//'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {DecimalConstant} value=Decimal | {Null} 'null'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//{IntConstant} value=INT
@@ -420,14 +424,26 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getYearINTTerminalRuleCall_4_5_0() { return cYearINTTerminalRuleCall_4_5_0; }
 		
-		//{Null} 'null'
+		//{DecimalConstant} value=Decimal
 		public Group getGroup_5() { return cGroup_5; }
 		
+		//{DecimalConstant}
+		public Action getDecimalConstantAction_5_0() { return cDecimalConstantAction_5_0; }
+		
+		//value=Decimal
+		public Assignment getValueAssignment_5_1() { return cValueAssignment_5_1; }
+		
+		//Decimal
+		public RuleCall getValueDecimalParserRuleCall_5_1_0() { return cValueDecimalParserRuleCall_5_1_0; }
+		
+		//{Null} 'null'
+		public Group getGroup_6() { return cGroup_6; }
+		
 		//{Null}
-		public Action getNullAction_5_0() { return cNullAction_5_0; }
+		public Action getNullAction_6_0() { return cNullAction_6_0; }
 		
 		//'null'
-		public Keyword getNullKeyword_5_1() { return cNullKeyword_5_1; }
+		public Keyword getNullKeyword_6_1() { return cNullKeyword_6_1; }
 	}
 	public class OptionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.domainmodel.DomainModel.Option");
@@ -643,12 +659,17 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_4 = (Group)cAlternatives.eContents().get(4);
 		private final Action cDateTypeAction_4_0 = (Action)cGroup_4.eContents().get(0);
 		private final Keyword cDateKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
+		private final Group cGroup_5 = (Group)cAlternatives.eContents().get(5);
+		private final Action cDecimalTypeAction_5_0 = (Action)cGroup_5.eContents().get(0);
+		private final Keyword cDecimalKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
 		
 		//BasicType:
-		//	{StringType} 'string' | {IntType} 'int' | {LongType} 'long' | {BoolType} 'boolean' | {DateType} 'date';
+		//	{StringType} 'string' | {IntType} 'int' | {LongType} 'long' | {BoolType} 'boolean' | {DateType} 'date' | {DecimalType}
+		//	'decimal';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{StringType} 'string' | {IntType} 'int' | {LongType} 'long' | {BoolType} 'boolean' | {DateType} 'date'
+		//{StringType} 'string' | {IntType} 'int' | {LongType} 'long' | {BoolType} 'boolean' | {DateType} 'date' | {DecimalType}
+		//'decimal'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//{StringType} 'string'
@@ -695,6 +716,15 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//'date'
 		public Keyword getDateKeyword_4_1() { return cDateKeyword_4_1; }
+		
+		//{DecimalType} 'decimal'
+		public Group getGroup_5() { return cGroup_5; }
+		
+		//{DecimalType}
+		public Action getDecimalTypeAction_5_0() { return cDecimalTypeAction_5_0; }
+		
+		//'decimal'
+		public Keyword getDecimalKeyword_5_1() { return cDecimalKeyword_5_1; }
 	}
 	public class RefTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.domainmodel.DomainModel.RefType");
@@ -921,6 +951,29 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 	}
+	public class DecimalElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.domainmodel.DomainModel.Decimal");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cINTTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cINTTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		
+		//Decimal:
+		//	INT '.' INT;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//INT '.' INT
+		public Group getGroup() { return cGroup; }
+		
+		//INT
+		public RuleCall getINTTerminalRuleCall_0() { return cINTTerminalRuleCall_0; }
+		
+		//'.'
+		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
+		
+		//INT
+		public RuleCall getINTTerminalRuleCall_2() { return cINTTerminalRuleCall_2; }
+	}
 	
 	public class CardinalityTypeElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "com.stefanvuckovic.domainmodel.DomainModel.CardinalityType");
@@ -972,6 +1025,7 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 	private final StaticFieldSelectionElements pStaticFieldSelection;
 	private final SelectionMemberElements pSelectionMember;
 	private final DumbSelectionMemberElements pDumbSelectionMember;
+	private final DecimalElements pDecimal;
 	
 	private final Grammar grammar;
 	
@@ -1003,6 +1057,7 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 		this.pStaticFieldSelection = new StaticFieldSelectionElements();
 		this.pSelectionMember = new SelectionMemberElements();
 		this.pDumbSelectionMember = new DumbSelectionMemberElements();
+		this.pDecimal = new DecimalElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1100,7 +1155,7 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//Constant Expression:
 	//	{IntConstant} value=INT | {LongConstant} value=INT 'L' | {StringConstant} value=STRING | {BoolConstant} value=('true'
-	//	| 'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {Null} 'null'
+	//	| 'false') | {DateConstant} day=INT '/' month=INT '/' year=INT | {DecimalConstant} value=Decimal | {Null} 'null'
 	public ConstantElements getConstantAccess() {
 		return pConstant;
 	}
@@ -1171,7 +1226,8 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//BasicType:
-	//	{StringType} 'string' | {IntType} 'int' | {LongType} 'long' | {BoolType} 'boolean' | {DateType} 'date';
+	//	{StringType} 'string' | {IntType} 'int' | {LongType} 'long' | {BoolType} 'boolean' | {DateType} 'date' | {DecimalType}
+	//	'decimal';
 	public BasicTypeElements getBasicTypeAccess() {
 		return pBasicType;
 	}
@@ -1251,6 +1307,16 @@ public class DomainModelGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getDumbSelectionMemberRule() {
 		return getDumbSelectionMemberAccess().getRule();
+	}
+	
+	//Decimal:
+	//	INT '.' INT;
+	public DecimalElements getDecimalAccess() {
+		return pDecimal;
+	}
+	
+	public ParserRule getDecimalRule() {
+		return getDecimalAccess().getRule();
 	}
 	
 	//terminal ID:

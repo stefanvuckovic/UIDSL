@@ -11,6 +11,7 @@ import com.stefanvuckovic.domainmodel.domainModel.IntConstant
 import com.stefanvuckovic.domainmodel.domainModel.LongConstant
 import com.stefanvuckovic.domainmodel.domainModel.Null
 import com.stefanvuckovic.domainmodel.domainModel.StringConstant
+import com.stefanvuckovic.domainmodel.domainModel.DecimalType
 
 class TypeComputing {
 
@@ -19,6 +20,7 @@ class TypeComputing {
 	public static val LONG_TYPE = DomainModelFactory.eINSTANCE.createLongType
 	public static val BOOL_TYPE = DomainModelFactory.eINSTANCE.createBoolType
 	public static val DATE_TYPE = DomainModelFactory.eINSTANCE.createDateType
+	public static val DECIMAL_TYPE = DomainModelFactory.eINSTANCE.createDecimalType
 	public static val NULL_TYPE = new NullType
 	
 	def AttributeType getType(Expression c) {
@@ -33,6 +35,8 @@ class TypeComputing {
 				BOOL_TYPE
 			DateConstant:
 				DATE_TYPE
+			DecimalType:
+				DECIMAL_TYPE
 			Null:
 				NULL_TYPE
 		}

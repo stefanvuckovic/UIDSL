@@ -13,6 +13,7 @@ import com.stefanvuckovic.domainmodel.domainModel.BoolConstant;
 import com.stefanvuckovic.domainmodel.domainModel.CollectionType;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
 import com.stefanvuckovic.domainmodel.domainModel.DateConstant;
+import com.stefanvuckovic.domainmodel.domainModel.DecimalConstant;
 import com.stefanvuckovic.domainmodel.domainModel.DomainModelFactory;
 import com.stefanvuckovic.domainmodel.domainModel.Expression;
 import com.stefanvuckovic.domainmodel.domainModel.IntConstant;
@@ -2459,6 +2460,12 @@ public class UIDSLGenerator extends AbstractGenerator {
         int _year = ((DateConstant)e).getYear();
         String _string_2 = Integer.valueOf(_year).toString();
         return (_plus_2 + _string_2);
+      }
+    }
+    if (!_matched) {
+      if (e instanceof DecimalConstant) {
+        _matched=true;
+        _switchResult = ((DecimalConstant)e).getValue();
       }
     }
     if (!_matched) {

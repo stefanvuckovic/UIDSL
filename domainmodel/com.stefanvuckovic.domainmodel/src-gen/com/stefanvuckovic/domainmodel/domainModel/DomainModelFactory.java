@@ -231,6 +231,15 @@ public interface DomainModelFactory extends EFactory
   DateConstant createDateConstant();
 
   /**
+   * Returns a new object of class '<em>Decimal Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Decimal Constant</em>'.
+   * @generated
+   */
+  DecimalConstant createDecimalConstant();
+
+  /**
    * Returns a new object of class '<em>Null</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -301,6 +310,15 @@ public interface DomainModelFactory extends EFactory
    * @generated
    */
   DateType createDateType();
+
+  /**
+   * Returns a new object of class '<em>Decimal Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Decimal Type</em>'.
+   * @generated
+   */
+  DecimalType createDecimalType();
 
   /**
    * Returns a new object of class '<em>Required</em>'.
