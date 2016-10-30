@@ -124,14 +124,26 @@ public class DTOGenerator extends AbstractGenerator {
         _builder.newLineIfNotEmpty();
       }
     }
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public ");
+    String _name_3 = dto.getName();
+    _builder.append(_name_3, "\t");
+    _builder.append("() {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    EList<Attribute> _attributes_1 = dto.getAttributes();
+    CharSequence _compileCollectionAttrsInit = this.generator.compileCollectionAttrsInit(_attributes_1);
+    _builder.append(_compileCollectionAttrsInit, "\t\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
     _builder.newLine();
     {
-      EList<Attribute> _attributes_1 = dto.getAttributes();
-      for(final Attribute attribute_1 : _attributes_1) {
-        _builder.append("\t");
-        CharSequence _compileAttributeAnnotations = this.generator.compileAttributeAnnotations(attribute_1);
-        _builder.append(_compileAttributeAnnotations, "\t");
-        _builder.newLineIfNotEmpty();
+      EList<Attribute> _attributes_2 = dto.getAttributes();
+      for(final Attribute attribute_1 : _attributes_2) {
         _builder.append("\t");
         _builder.append("public ");
         AttributeType _type_1 = attribute_1.getType();
@@ -141,16 +153,16 @@ public class DTOGenerator extends AbstractGenerator {
         AttributeType _type_2 = attribute_1.getType();
         String _ter = this.generator.getter(_type_2);
         _builder.append(_ter, "\t");
-        String _name_3 = attribute_1.getName();
-        String _firstUpper = StringExtensions.toFirstUpper(_name_3);
+        String _name_4 = attribute_1.getName();
+        String _firstUpper = StringExtensions.toFirstUpper(_name_4);
         _builder.append(_firstUpper, "\t");
         _builder.append("() {");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
         _builder.append("\t");
         _builder.append("return ");
-        String _name_4 = attribute_1.getName();
-        _builder.append(_name_4, "\t\t");
+        String _name_5 = attribute_1.getName();
+        _builder.append(_name_5, "\t\t");
         _builder.append(";");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
@@ -160,26 +172,26 @@ public class DTOGenerator extends AbstractGenerator {
         _builder.newLine();
         _builder.append("\t");
         _builder.append("public void set");
-        String _name_5 = attribute_1.getName();
-        String _firstUpper_1 = StringExtensions.toFirstUpper(_name_5);
+        String _name_6 = attribute_1.getName();
+        String _firstUpper_1 = StringExtensions.toFirstUpper(_name_6);
         _builder.append(_firstUpper_1, "\t");
         _builder.append("(");
         AttributeType _type_3 = attribute_1.getType();
         String _compile_2 = this.compile(_type_3);
         _builder.append(_compile_2, "\t");
         _builder.append(" ");
-        String _name_6 = attribute_1.getName();
-        _builder.append(_name_6, "\t");
+        String _name_7 = attribute_1.getName();
+        _builder.append(_name_7, "\t");
         _builder.append(") {");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
         _builder.append("\t");
         _builder.append("this.");
-        String _name_7 = attribute_1.getName();
-        _builder.append(_name_7, "\t\t");
-        _builder.append(" = ");
         String _name_8 = attribute_1.getName();
         _builder.append(_name_8, "\t\t");
+        _builder.append(" = ");
+        String _name_9 = attribute_1.getName();
+        _builder.append(_name_9, "\t\t");
         _builder.append(";");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");

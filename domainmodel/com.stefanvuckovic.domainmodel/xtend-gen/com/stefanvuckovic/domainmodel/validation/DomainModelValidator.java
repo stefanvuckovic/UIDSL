@@ -301,8 +301,8 @@ public class DomainModelValidator extends AbstractDomainModelValidator {
       EList<Expression> _params_1 = literal.getParams();
       int _size_3 = _params_1.size();
       String _plus_2 = (_plus_1 + Integer.valueOf(_size_3));
-      EAttribute _concept_Name = DomainModelPackage.eINSTANCE.getConcept_Name();
-      this.error(_plus_2, _concept_Name);
+      EAttribute _enumLiteral_Name = DomainModelPackage.eINSTANCE.getEnumLiteral_Name();
+      this.error(_plus_2, _enumLiteral_Name);
     }
   }
   

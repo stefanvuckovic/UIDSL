@@ -31,6 +31,10 @@ defaults def {
 		input_component : inputDate
 		output_component : textComp
 	}
+	default for decimal {
+		input_component: textfield
+		output_component: textComp
+	}
 	default for image {
 		input_component : fileUpload
 		output_component : imageComponent

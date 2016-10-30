@@ -40,9 +40,11 @@ class DomainToDTOGenerator extends AbstractGenerator {
 	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val model = resource.allContents.toIterable.filter(MappingModel).head
+		if(!model.mappers.empty) {
 			for (m : model.mappers) {
 				fsa.generateFile('''«packageName»/«m.name».java''', m.compileMapper)
 			}
+		}
 	}
 	
 	def compileMapper(Mapper m) {

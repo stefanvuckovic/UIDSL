@@ -74,15 +74,20 @@ public class DomainToDTOGenerator extends AbstractGenerator {
     Iterable<MappingModel> _filter = Iterables.<MappingModel>filter(_iterable, MappingModel.class);
     final MappingModel model = IterableExtensions.<MappingModel>head(_filter);
     EList<Mapper> _mappers = model.getMappers();
-    for (final Mapper m : _mappers) {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append(this.packageName, "");
-      _builder.append("/");
-      String _name = m.getName();
-      _builder.append(_name, "");
-      _builder.append(".java");
-      CharSequence _compileMapper = this.compileMapper(m);
-      fsa.generateFile(_builder.toString(), _compileMapper);
+    boolean _isEmpty = _mappers.isEmpty();
+    boolean _not = (!_isEmpty);
+    if (_not) {
+      EList<Mapper> _mappers_1 = model.getMappers();
+      for (final Mapper m : _mappers_1) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append(this.packageName, "");
+        _builder.append("/");
+        String _name = m.getName();
+        _builder.append(_name, "");
+        _builder.append(".java");
+        CharSequence _compileMapper = this.compileMapper(m);
+        fsa.generateFile(_builder.toString(), _compileMapper);
+      }
     }
   }
   

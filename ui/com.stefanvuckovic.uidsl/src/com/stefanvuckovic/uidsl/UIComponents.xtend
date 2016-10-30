@@ -21,6 +21,10 @@ class UIComponents {
 	
 	public static val SECTION = "section"
 	
+	public static val GROUP = "group"
+	
+	public static val PANEL = "panel"
+	
 	public static val TEXT_FIELD = "textfield"
 	
 	public static val TEXT_AREA = "textarea"

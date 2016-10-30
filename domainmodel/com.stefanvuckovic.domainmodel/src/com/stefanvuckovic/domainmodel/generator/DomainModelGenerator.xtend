@@ -51,7 +51,9 @@ import static extension org.eclipse.xtext.EcoreUtil2.*
 class DomainModelGenerator extends AbstractGenerator {
 
 	@Inject extension DomainModelUtil
-	 
+	
+	var counter = 1;
+	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val uri = resource.URI.toPlatformString(true)
 		if(uri != LibraryConstants.COMMON_ENTITY_LIBRARY) {
@@ -62,6 +64,7 @@ class DomainModelGenerator extends AbstractGenerator {
 				}
 			}
 		}
+		counter = 1;
 	}
 	
 	def compile(Concept concept) {
@@ -158,13 +161,21 @@ class DomainModelGenerator extends AbstractGenerator {
 			
 			@javax.persistence.Entity
 			«entity.inheritanceMapping.compile»
-			public class «entity.name» «IF entity.superType != null»extends «entity.superType.name» «ENDIF»{
+			public class «entity.name» «IF entity.superType != null»extends «entity.superType.name»«ELSE»implements java.io.Serializable«ENDIF» {
+				
+				private static final long serialVersionUID = «counter»L;«{counter++; ""}»
+				
 				«FOR attribute : entity.attributes»
 				private «attribute.type.compile» «attribute.name»;
 				«ENDFOR»
 				«FOR attribute : additionalAttrs»
 				private «attribute.type.compile» «attribute.name»;
 				«ENDFOR»
+				
+				public «entity.name»() {
+					«entity.attributes.compileCollectionAttrsInit»
+					«additionalAttrs.compileCollectionAttrsInit»
+				}
 			
 				«FOR attribute : entity.attributes»
 				«attribute.compileAttributeAnnotations»
@@ -192,6 +203,14 @@ class DomainModelGenerator extends AbstractGenerator {
 		'''
 	}
 	
+	def compileCollectionAttrsInit(Iterable<? extends Attribute> attrs) '''
+		«FOR a : attrs»
+		«IF a.type instanceof CollectionType»
+		«a.name» = new java.util.ArrayList<>();
+		«ENDIF»
+		«ENDFOR»
+	'''
+	
 	def compileAttributeAnnotations(Attribute attr) '''
 		«IF attr.name.equals("id")»
 		@javax.persistence.Id
@@ -210,6 +229,11 @@ class DomainModelGenerator extends AbstractGenerator {
 		«IF attr.type.collectionType && attr.cardinality != null && attr.cardinality.card == CardinalityType.ONE && attr.relationshipOwner == null»
 		@javax.persistence.JoinColumn(name="_«attr.getContainerOfType(Concept).name.toFirstLower»")
 		«ENDIF»
+		«ENDIF»
+		«IF attr.type instanceof RefType && attr.type.attributeEntityRefTypeIfExists != null»
+		@javax.persistence.JoinColumn(nullable=«IF attr.requiredOption != null»«false»«ELSE»false«ENDIF»)
+		«ELSEIF !(attr.type instanceof CollectionType)»
+		@javax.persistence.Column(nullable=«IF attr.requiredOption != null»«false»«ELSE»false«ENDIF»)
 		«ENDIF»
 	'''
 	
@@ -312,9 +336,9 @@ class DomainModelGenerator extends AbstractGenerator {
 				return "java.util.Date"
 			DecimalType:
 				if(primitive) {
-					return "Double"
-				} else {
 					return "double"
+				} else {
+					return "Double"
 				}
 		}
 	}

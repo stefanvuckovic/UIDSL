@@ -58,9 +58,12 @@ class DTOGenerator extends AbstractGenerator {
 			«FOR attribute : dto.attributes»
 			private «attribute.type.compile» «attribute.name»;
 			«ENDFOR»
+			
+			public «dto.name»() {
+				«dto.attributes.compileCollectionAttrsInit»
+			}
 		
 			«FOR attribute : dto.attributes»
-			«attribute.compileAttributeAnnotations»
 			public «attribute.type.compile» «attribute.type.getter»«attribute.name.toFirstUpper»() {
 				return «attribute.name»;
 			}

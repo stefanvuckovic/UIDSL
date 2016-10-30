@@ -457,7 +457,10 @@ public class UIDSLGenerator extends AbstractGenerator {
         _builder.append(";");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
-        _builder.append("}\t\t");
+        _builder.append("}\t");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("\t");
         _builder.newLine();
       }
     }
@@ -522,6 +525,8 @@ public class UIDSLGenerator extends AbstractGenerator {
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
         _builder.append("}");
+        _builder.newLine();
+        _builder.append("\t");
         _builder.newLine();
       }
     }
@@ -856,6 +861,12 @@ public class UIDSLGenerator extends AbstractGenerator {
         _builder.append("\t");
         _builder.append("<h:body>");
         _builder.newLine();
+        _builder.append("\t");
+        _builder.append("<div class=\"container\">");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("<div class=\"row col-md-8\">");
+        _builder.newLine();
       } else {
         _builder.append("\t");
         _builder.append("<ui:define name=\"metadata\">");
@@ -896,6 +907,10 @@ public class UIDSLGenerator extends AbstractGenerator {
         _builder.append("</ui:composition>");
         _builder.newLine();
       } else {
+        _builder.append("</div>");
+        _builder.newLine();
+        _builder.append("</div>");
+        _builder.newLine();
         _builder.append("</h:body>");
         _builder.newLine();
         _builder.append("</html>");
@@ -1124,6 +1139,20 @@ public class UIDSLGenerator extends AbstractGenerator {
     _builder.append("\t");
     _builder.append("</f:facet>");
     _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<link rel=\"stylesheet\" type=\"text/css\" media=\"all\"");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("href=\"#{request.contextPath}/resources/css/bootstrap.min.css\" />");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<link rel=\"stylesheet\" type=\"text/css\" media=\"all\"");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("href=\"#{request.contextPath}/resources/css/style.css\" />");
+    _builder.newLine();
     _builder.append("</h:head>");
     _builder.newLine();
     return _builder;
@@ -1187,10 +1216,22 @@ public class UIDSLGenerator extends AbstractGenerator {
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
+    _builder.append("<div class=\"container\">");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<div class=\"row col-md-8\">");
+    _builder.newLine();
+    _builder.append("\t\t");
     EList<UIElement> _elements = templateFragOverride.getElements();
     CharSequence _compileUIElements = this.compileUIElements(_elements);
-    _builder.append(_compileUIElements, "\t");
+    _builder.append(_compileUIElements, "\t\t");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("</div>");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("</div>");
+    _builder.newLine();
     _builder.append("</ui:define>");
     _builder.newLine();
     return _builder;
@@ -1577,6 +1618,12 @@ public class UIDSLGenerator extends AbstractGenerator {
         case UIComponents.SECTION:
           _switchResult = this.compileSection(compInstance);
           break;
+        case UIComponents.GROUP:
+          _switchResult = this.compileGroup(compInstance);
+          break;
+        case UIComponents.PANEL:
+          _switchResult = this.compilePanel(compInstance);
+          break;
         case UIComponents.TEXT_FIELD:
           _switchResult = this.compileTextField(compInstance);
           break;
@@ -1707,7 +1754,7 @@ public class UIDSLGenerator extends AbstractGenerator {
   
   public CharSequence compileAction(final UIComponentInstance inst) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("<p:commandLink");
+    _builder.append("<p:commandLink styleClass=\"btn btn-primary\"");
     _builder.newLine();
     _builder.append("\t");
     final PropertyValueInstance action = this._uIDSLUtil.getProperty(inst, UIComponents.ACTION_ACTION_PROPERTY);
@@ -1738,7 +1785,7 @@ public class UIDSLGenerator extends AbstractGenerator {
   
   public CharSequence compileForm(final UIComponentInstance inst) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("<h:form>");
+    _builder.append("<h:form styleClass=\"form-horizontal\">");
     _builder.newLine();
     _builder.append("\t");
     CharSequence _compileChildComponents = this.compileChildComponents(inst);
@@ -1794,99 +1841,118 @@ public class UIDSLGenerator extends AbstractGenerator {
     String _name = sc.getName();
     final String listenerName = this.addAndReturnFileUploadListener(fieldName, _name);
     _builder.newLineIfNotEmpty();
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("<div id=\"fileUploadSection");
-    _builder.append(this.counter, "");
+    _builder.append(this.counter, "\t");
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t");
+    _builder.append("\t\t");
     _builder.append("<p:fileUpload id=\"fileUploadFile");
-    _builder.append(this.counter, "\t");
+    _builder.append(this.counter, "\t\t");
     _builder.append("\" ");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t    ");
+    _builder.append("\t\t    ");
     _builder.append("process=\"@this\"");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("\t\t\t");
     _builder.append("style=\"display: none;\"");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("\t\t\t");
     _builder.append("styleClass=\"fileUploadFile\"");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("\t\t\t");
     _builder.append("fileUploadListener=\"");
     UIContainer _containerOfType_1 = EcoreUtil2.<UIContainer>getContainerOfType(inst, UIContainer.class);
     String _mainBeanRefName = this.getMainBeanRefName(_containerOfType_1);
-    _builder.append(_mainBeanRefName, "\t\t");
+    _builder.append(_mainBeanRefName, "\t\t\t");
     _builder.append(".");
-    _builder.append(listenerName, "\t\t");
+    _builder.append(listenerName, "\t\t\t");
     _builder.append("\"  ");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t    ");
+    _builder.append("\t\t    ");
     _builder.append("dragDropSupport=\"true\"");
     _builder.newLine();
-    _builder.append("        ");
+    _builder.append("\t        ");
     _builder.append("fileLimit=\"1\"");
     _builder.newLine();
-    _builder.append("       \t");
+    _builder.append("\t       \t");
     _builder.append("auto=\"true\">");
     _builder.newLine();
-    _builder.append("\t    ");
+    _builder.append("\t\t    ");
     _builder.append("</p:fileUpload>");
     _builder.newLine();
-    _builder.append("\t    ");
+    _builder.append("\t\t    ");
     _builder.append("<a href=\"javascript:void(0);\" id=\"linkTriggerSimpleFileUpload\">");
     PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.CAPTION_PROPERTY);
     Expression _value_1 = _property_1.getValue();
     String _compileExpression = this.compileExpression(_value_1, true, false);
-    _builder.append(_compileExpression, "\t    ");
+    _builder.append(_compileExpression, "\t\t    ");
     _builder.append("</a>");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t");
     _builder.append("</div>");
     _builder.newLine();
+    _builder.append("\t");
     _builder.append("<script>");
     _builder.newLine();
-    _builder.append("    ");
+    _builder.append("\t    ");
     _builder.append("$(\'#fileUploadSection");
-    _builder.append(this.counter, "    ");
+    _builder.append(this.counter, "\t    ");
     _builder.append(" #linkTriggerSimpleFileUpload\').on(\'click\', function(e) {");
     _builder.newLineIfNotEmpty();
-    _builder.append(" \t\t");
+    _builder.append("\t \t\t");
     _builder.append("e.stopPropagation();");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("\t\t\t");
     _builder.append("$(\'#fileUploadSection");
-    _builder.append(this.counter, "\t\t");
+    _builder.append(this.counter, "\t\t\t");
     _builder.append(" .fileUploadFile :input\').trigger(\'click\');");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t");
+    _builder.append("\t\t");
     _builder.append("});");
     _builder.newLine();
+    _builder.append("\t");
     _builder.append("</script>");
     String _xblockexpression = null;
     {
       this.counter++;
       _xblockexpression = "";
     }
-    _builder.append(_xblockexpression, "");
+    _builder.append(_xblockexpression, "\t");
     _builder.newLineIfNotEmpty();
+    _builder.append("</div>");
+    _builder.newLine();
     return _builder;
   }
   
   public CharSequence compileInputDate(final UIComponentInstance inst) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("<p:calendar value=\"");
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<h:inputText type=\"date\" value=\"");
     PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
     Expression _value = _property.getValue();
     String _compileExpression = this.compileExpression(_value, true, false);
-    _builder.append(_compileExpression, "");
-    _builder.append("\" />");
+    _builder.append(_compileExpression, "\t");
+    _builder.append("\" styleClass=\"form-control\"> ");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("<f:convertDateTime pattern=\"yyyy-MM-dd\" /> ");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("</h:inputText>");
+    _builder.newLine();
+    _builder.append("</div>");
+    _builder.newLine();
     return _builder;
   }
   
   public CharSequence compileTable(final UIComponentInstance inst) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("<table>");
+    _builder.append("<table class=\"table\">");
     _builder.newLine();
     _builder.append("\t");
     final PropertyValueInstance value = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
@@ -2053,6 +2119,10 @@ public class UIDSLGenerator extends AbstractGenerator {
         _builder.newLineIfNotEmpty();
       }
     }
+    _builder.append("\t");
+    CharSequence _compileChildComponents = this.compileChildComponents(inst);
+    _builder.append(_compileChildComponents, "\t");
+    _builder.newLineIfNotEmpty();
     _builder.append("</h:link>");
     _builder.newLine();
     return _builder;
@@ -2100,7 +2170,7 @@ public class UIDSLGenerator extends AbstractGenerator {
     Expression _value = _property.getValue();
     String _compileExpression = this.compileExpression(_value, true, false);
     _builder.append(_compileExpression, "");
-    _builder.append("\"/>");
+    _builder.append("\" styleClass=\"col-md-3 control-label\"/>");
     _builder.newLineIfNotEmpty();
     return _builder;
   }
@@ -2113,25 +2183,28 @@ public class UIDSLGenerator extends AbstractGenerator {
     _builder.newLineIfNotEmpty();
     final UIComponentInstance childLabel = this._uIDSLUtil.getChildComponent(inst, UIComponents.MULTI_SELECT_CHECKBOX_LABEL);
     _builder.newLineIfNotEmpty();
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("<h:selectManyCheckbox value=\"");
     PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
     Expression _value_1 = _property_1.getValue();
     String _compileExpression = this.compileExpression(_value_1, true, false);
-    _builder.append(_compileExpression, "");
-    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\">");
+    _builder.append(_compileExpression, "\t");
+    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\" layout=\"pageDirection\">");
     _builder.newLineIfNotEmpty();
-    _builder.append("    ");
+    _builder.append("\t    ");
     _builder.append("<f:selectItems value=\"");
     Expression _expression = iteration.getExpression();
     String _compileExpression_1 = this.compileExpression(_expression, true, false);
-    _builder.append(_compileExpression_1, "    ");
+    _builder.append(_compileExpression_1, "\t    ");
     _builder.append("\" var=\"");
     Variable _var = iteration.getVar();
     String _name = _var.getName();
-    _builder.append(_name, "    ");
+    _builder.append(_name, "\t    ");
     _builder.append("\"");
     _builder.newLineIfNotEmpty();
-    _builder.append("   \t\t");
+    _builder.append("\t   \t\t");
     _builder.append("itemLabel=\"");
     String _xifexpression = null;
     boolean _notEquals = (!Objects.equal(childLabel, null));
@@ -2140,49 +2213,58 @@ public class UIDSLGenerator extends AbstractGenerator {
       Expression _value_2 = _property_2.getValue();
       _xifexpression = this.compileExpression(_value_2, true, false);
     }
-    _builder.append(_xifexpression, "   \t\t");
+    _builder.append(_xifexpression, "\t   \t\t");
     _builder.append("\" itemValue=\"#{");
     Variable _var_1 = iteration.getVar();
     String _name_1 = _var_1.getName();
-    _builder.append(_name_1, "   \t\t");
+    _builder.append(_name_1, "\t   \t\t");
     _builder.append("}\" />");
     _builder.newLineIfNotEmpty();
-    _builder.append("</h:selectManyCheckbox>\t\t");
+    _builder.append("\t");
+    _builder.append("</h:selectManyCheckbox>");
+    _builder.newLine();
+    _builder.append("</div>\t");
     _builder.newLine();
     return _builder;
   }
   
   public CharSequence compileBoolCheckBox(final UIComponentInstance inst) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("<h:selectBooleanCheckbox id=\"boolCheckbox");
-    _builder.append(this.counter, "");
+    _builder.append(this.counter, "\t");
     _builder.append("\" value=\"");
     PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
     Expression _value = _property.getValue();
     String _compileExpression = this.compileExpression(_value, true, false);
-    _builder.append(_compileExpression, "");
+    _builder.append(_compileExpression, "\t");
     _builder.append("\" disabled=\"");
     PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.ENABLED_PROPERTY);
     Expression _value_1 = _property_1.getValue();
     String _compileExpression_1 = this.compileExpression(_value_1, true, true);
-    _builder.append(_compileExpression_1, "");
+    _builder.append(_compileExpression_1, "\t");
     _builder.append("\" />");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t");
     _builder.append("<h:outputLabel for=\"boolCheckbox");
-    _builder.append(this.counter, "");
+    _builder.append(this.counter, "\t");
     _builder.append("\" value=\"");
     PropertyValueInstance _property_2 = this._uIDSLUtil.getProperty(inst, UIComponents.CAPTION_PROPERTY);
     Expression _value_2 = _property_2.getValue();
     String _compileExpression_2 = this.compileExpression(_value_2, true, false);
-    _builder.append(_compileExpression_2, "");
+    _builder.append(_compileExpression_2, "\t");
     _builder.append("\" />");
     String _xblockexpression = null;
     {
       this.counter++;
       _xblockexpression = "";
     }
-    _builder.append(_xblockexpression, "");
+    _builder.append(_xblockexpression, "\t");
     _builder.newLineIfNotEmpty();
+    _builder.append("</div>");
+    _builder.newLine();
     return _builder;
   }
   
@@ -2194,25 +2276,28 @@ public class UIDSLGenerator extends AbstractGenerator {
     _builder.newLineIfNotEmpty();
     final UIComponentInstance childLabel = this._uIDSLUtil.getChildComponent(inst, UIComponents.RADIO_SELECTION_LABEL);
     _builder.newLineIfNotEmpty();
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("<h:selectOneRadio value=\"");
     PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
     Expression _value_1 = _property_1.getValue();
     String _compileExpression = this.compileExpression(_value_1, true, false);
-    _builder.append(_compileExpression, "");
-    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\">");
+    _builder.append(_compileExpression, "\t");
+    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\" layout=\"pageDirection\">");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t");
+    _builder.append("\t\t");
     _builder.append("<f:selectItems value=\"");
     Expression _expression = iteration.getExpression();
     String _compileExpression_1 = this.compileExpression(_expression, true, false);
-    _builder.append(_compileExpression_1, "\t");
+    _builder.append(_compileExpression_1, "\t\t");
     _builder.append("\" var=\"");
     Variable _var = iteration.getVar();
     String _name = _var.getName();
-    _builder.append(_name, "\t");
+    _builder.append(_name, "\t\t");
     _builder.append("\"");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t\t");
+    _builder.append("\t\t\t");
     _builder.append("itemLabel=\"");
     String _xifexpression = null;
     boolean _notEquals = (!Objects.equal(childLabel, null));
@@ -2221,32 +2306,40 @@ public class UIDSLGenerator extends AbstractGenerator {
       Expression _value_2 = _property_2.getValue();
       _xifexpression = this.compileExpression(_value_2, true, false);
     }
-    _builder.append(_xifexpression, "\t\t");
+    _builder.append(_xifexpression, "\t\t\t");
     _builder.append("\" itemValue=\"#{");
     Variable _var_1 = iteration.getVar();
     String _name_1 = _var_1.getName();
-    _builder.append(_name_1, "\t\t");
+    _builder.append(_name_1, "\t\t\t");
     _builder.append("}\" />");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t");
     _builder.append("</h:selectOneRadio>\t\t");
+    _builder.newLine();
+    _builder.append("</div>");
     _builder.newLine();
     return _builder;
   }
   
   public CharSequence compilePasswordField(final UIComponentInstance inst) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("<h:inputSecret value=\"");
+    _builder.append("<div class=\"col-md-9\">\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<h:inputSecret styleClass=\"form-control\" value=\"");
     PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
     Expression _value = _property.getValue();
     String _compileExpression = this.compileExpression(_value, true, false);
-    _builder.append(_compileExpression, "");
+    _builder.append(_compileExpression, "\t");
     _builder.append("\" placeholder=\"");
     PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.CAPTION_PROPERTY);
     Expression _value_1 = _property_1.getValue();
     String _compileExpression_1 = this.compileExpression(_value_1, true, false);
-    _builder.append(_compileExpression_1, "");
+    _builder.append(_compileExpression_1, "\t");
     _builder.append("\" />");
     _builder.newLineIfNotEmpty();
+    _builder.append("</div>");
+    _builder.newLine();
     return _builder;
   }
   
@@ -2258,25 +2351,28 @@ public class UIDSLGenerator extends AbstractGenerator {
     _builder.newLineIfNotEmpty();
     final UIComponentInstance childLabel = this._uIDSLUtil.getChildComponent(inst, UIComponents.COMBO_BOX_LABEL);
     _builder.newLineIfNotEmpty();
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("<h:selectOneMenu value=\"");
     PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
     Expression _value_1 = _property_1.getValue();
     String _compileExpression = this.compileExpression(_value_1, true, false);
-    _builder.append(_compileExpression, "");
-    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\">");
+    _builder.append(_compileExpression, "\t");
+    _builder.append("\" styleClass=\"form-control\" converter=\"omnifaces.SelectItemsConverter\">");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t");
+    _builder.append("\t\t");
     _builder.append("<f:selectItems value=\"");
     Expression _expression = iteration.getExpression();
     String _compileExpression_1 = this.compileExpression(_expression, true, false);
-    _builder.append(_compileExpression_1, "\t");
+    _builder.append(_compileExpression_1, "\t\t");
     _builder.append("\" var=\"");
     Variable _var = iteration.getVar();
     String _name = _var.getName();
-    _builder.append(_name, "\t");
+    _builder.append(_name, "\t\t");
     _builder.append("\"");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t\t");
+    _builder.append("\t\t\t");
     _builder.append("itemLabel=\"");
     String _xifexpression = null;
     boolean _notEquals = (!Objects.equal(childLabel, null));
@@ -2285,48 +2381,59 @@ public class UIDSLGenerator extends AbstractGenerator {
       Expression _value_2 = _property_2.getValue();
       _xifexpression = this.compileExpression(_value_2, true, false);
     }
-    _builder.append(_xifexpression, "\t\t");
+    _builder.append(_xifexpression, "\t\t\t");
     _builder.append("\" itemValue=\"#{");
     Variable _var_1 = iteration.getVar();
     String _name_1 = _var_1.getName();
-    _builder.append(_name_1, "\t\t");
+    _builder.append(_name_1, "\t\t\t");
     _builder.append("}\" />");
     _builder.newLineIfNotEmpty();
-    _builder.append("</h:selectOneMenu>\t\t");
+    _builder.append("\t");
+    _builder.append("</h:selectOneMenu>");
+    _builder.newLine();
+    _builder.append("</div>\t\t");
     _builder.newLine();
     return _builder;
   }
   
   public CharSequence compileTextArea(final UIComponentInstance inst) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("<h:inputTextarea row=\"");
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<h:inputTextarea rows=\"");
     PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.TEXT_AREA_ROWS);
     Expression _value = _property.getValue();
     String _compileExpression = this.compileExpression(_value, true, false);
-    _builder.append(_compileExpression, "");
+    _builder.append(_compileExpression, "\t");
     _builder.append("\" value=\"");
     PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
     Expression _value_1 = _property_1.getValue();
     String _compileExpression_1 = this.compileExpression(_value_1, true, false);
-    _builder.append(_compileExpression_1, "");
+    _builder.append(_compileExpression_1, "\t");
     _builder.append("\" ");
     _builder.newLineIfNotEmpty();
-    _builder.append("   ");
+    _builder.append("\t   ");
+    _builder.append("styleClass=\"form-control\"");
+    _builder.newLine();
+    _builder.append("\t   ");
     _builder.append("disabled=\"");
     PropertyValueInstance _property_2 = this._uIDSLUtil.getProperty(inst, UIComponents.ENABLED_PROPERTY);
     Expression _value_2 = _property_2.getValue();
     String _compileExpression_2 = this.compileExpression(_value_2, true, true);
-    _builder.append(_compileExpression_2, "   ");
+    _builder.append(_compileExpression_2, "\t   ");
     _builder.append("\" ");
     _builder.newLineIfNotEmpty();
-    _builder.append("   ");
+    _builder.append("\t   ");
     _builder.append("placeholder=\"");
     PropertyValueInstance _property_3 = this._uIDSLUtil.getProperty(inst, UIComponents.CAPTION_PROPERTY);
     Expression _value_3 = _property_3.getValue();
     String _compileExpression_3 = this.compileExpression(_value_3, true, false);
-    _builder.append(_compileExpression_3, "   ");
+    _builder.append(_compileExpression_3, "\t   ");
     _builder.append("\" />");
     _builder.newLineIfNotEmpty();
+    _builder.append("</div>");
+    _builder.newLine();
     return _builder;
   }
   
@@ -2344,32 +2451,40 @@ public class UIDSLGenerator extends AbstractGenerator {
     }
     final String enabled = _xifexpression;
     _builder.newLineIfNotEmpty();
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("<h:inputText value=\"");
     PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
     Expression _value_1 = _property.getValue();
     String _compileExpression = this.compileExpression(_value_1, true, false);
-    _builder.append(_compileExpression, "");
+    _builder.append(_compileExpression, "\t");
     _builder.append("\" ");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t");
+    _builder.append("\t\t");
+    _builder.append("styleClass=\"form-control\"");
+    _builder.newLine();
+    _builder.append("\t\t");
     _builder.append("disabled=\"");
-    _builder.append(enabled, "\t");
+    _builder.append(enabled, "\t\t");
     _builder.append("\"");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t");
+    _builder.append("\t\t");
     _builder.append("placeholder=\"");
     PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.CAPTION_PROPERTY);
     Expression _value_2 = _property_1.getValue();
     String _compileExpression_1 = this.compileExpression(_value_2, true, false);
-    _builder.append(_compileExpression_1, "\t");
+    _builder.append(_compileExpression_1, "\t\t");
     _builder.append("\" />");
     _builder.newLineIfNotEmpty();
+    _builder.append("</div>");
+    _builder.newLine();
     return _builder;
   }
   
   public CharSequence compileSection(final UIComponentInstance inst) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("<div>");
+    _builder.append("<div class=\"form-horizontal\">");
     _builder.newLine();
     _builder.append("\t");
     CharSequence _compileChildComponents = this.compileChildComponents(inst);
@@ -2380,20 +2495,76 @@ public class UIDSLGenerator extends AbstractGenerator {
     return _builder;
   }
   
+  public CharSequence compileGroup(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<div class=\"form-group\">");
+    _builder.newLine();
+    _builder.append("\t");
+    CharSequence _compileChildComponents = this.compileChildComponents(inst);
+    _builder.append(_compileChildComponents, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</div>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compilePanel(final UIComponentInstance inst) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<div class=\"panel panel-default\">");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<div class=\"panel-body\">");
+    _builder.newLine();
+    _builder.append("\t\t");
+    CharSequence _compileChildComponents = this.compileChildComponents(inst);
+    _builder.append(_compileChildComponents, "\t\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("</div>");
+    _builder.newLine();
+    _builder.append("</div>");
+    _builder.newLine();
+    return _builder;
+  }
+  
   public CharSequence compileTextComp(final UIComponentInstance inst) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("<h:outputText escape=\"");
-    PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.TEXT_COMP_ESCAPE_PROPERTY);
-    Expression _value = _property.getValue();
-    String _compileExpression = this.compileExpression(_value, true, true);
-    _builder.append(_compileExpression, "");
-    _builder.append("\" value=\"");
-    PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
-    Expression _value_1 = _property_1.getValue();
-    String _compileExpression_1 = this.compileExpression(_value_1, true, false);
-    _builder.append(_compileExpression_1, "");
-    _builder.append("\" />");
-    _builder.newLineIfNotEmpty();
+    {
+      UIComponentInstance _containerOfType = EcoreUtil2.<UIComponentInstance>getContainerOfType(inst, UIComponentInstance.class);
+      boolean _notEquals = (!Objects.equal(_containerOfType, null));
+      if (_notEquals) {
+        _builder.append("<h:outputText escape=\"");
+        PropertyValueInstance _property = this._uIDSLUtil.getProperty(inst, UIComponents.TEXT_COMP_ESCAPE_PROPERTY);
+        Expression _value = _property.getValue();
+        String _compileExpression = this.compileExpression(_value, true, true);
+        _builder.append(_compileExpression, "");
+        _builder.append("\" value=\"");
+        PropertyValueInstance _property_1 = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+        Expression _value_1 = _property_1.getValue();
+        String _compileExpression_1 = this.compileExpression(_value_1, true, false);
+        _builder.append(_compileExpression_1, "");
+        _builder.append("\" />");
+        _builder.newLineIfNotEmpty();
+      } else {
+        _builder.append("<div class=\"col-md-9\">");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("<h:outputText escape=\"");
+        PropertyValueInstance _property_2 = this._uIDSLUtil.getProperty(inst, UIComponents.TEXT_COMP_ESCAPE_PROPERTY);
+        Expression _value_2 = _property_2.getValue();
+        String _compileExpression_2 = this.compileExpression(_value_2, true, true);
+        _builder.append(_compileExpression_2, "\t");
+        _builder.append("\" value=\"");
+        PropertyValueInstance _property_3 = this._uIDSLUtil.getProperty(inst, UIComponents.VALUE_PROPERTY);
+        Expression _value_3 = _property_3.getValue();
+        String _compileExpression_3 = this.compileExpression(_value_3, true, false);
+        _builder.append(_compileExpression_3, "\t");
+        _builder.append("\" />");
+        _builder.newLineIfNotEmpty();
+        _builder.append("</div>");
+        _builder.newLine();
+      }
+    }
     return _builder;
   }
   
@@ -2582,17 +2753,22 @@ public class UIDSLGenerator extends AbstractGenerator {
     {
       final boolean output = (c instanceof OutputUIComponent);
       StringConcatenation _builder = new StringConcatenation();
+      _builder.append("<div class=\"col-md-9\">");
+      _builder.newLine();
+      _builder.append("\t");
       _builder.append("<h:inputText value=\"");
       Expression _value = c.getValue();
       String _compileExpression = this.compileExpression(_value, true, false);
-      _builder.append(_compileExpression, "");
-      _builder.append("\" ");
+      _builder.append(_compileExpression, "\t");
+      _builder.append("\"  styleClass=\"form-control\"");
       _builder.newLineIfNotEmpty();
-      _builder.append("\t");
+      _builder.append("\t\t");
       _builder.append("disabled=\"");
-      _builder.append(output, "\t");
+      _builder.append(output, "\t\t");
       _builder.append("\" />");
       _builder.newLineIfNotEmpty();
+      _builder.append("</div>");
+      _builder.newLine();
       _xblockexpression = _builder;
     }
     return _xblockexpression;
@@ -2603,17 +2779,22 @@ public class UIDSLGenerator extends AbstractGenerator {
     {
       final boolean output = (c instanceof OutputUIComponent);
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("<h:inputTextarea row=\"3\" value=\"");
+      _builder.append("<div class=\"col-md-9\">");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("<h:inputTextarea rows=\"5\" value=\"");
       Expression _value = c.getValue();
       String _compileExpression = this.compileExpression(_value, true, false);
-      _builder.append(_compileExpression, "");
-      _builder.append("\" ");
+      _builder.append(_compileExpression, "\t");
+      _builder.append("\" styleClass=\"form-control\"");
       _builder.newLineIfNotEmpty();
-      _builder.append("\t");
+      _builder.append("\t\t");
       _builder.append("disabled=\"");
-      _builder.append(output, "\t");
+      _builder.append(output, "\t\t");
       _builder.append("\" />");
       _builder.newLineIfNotEmpty();
+      _builder.append("</div>");
+      _builder.newLine();
       _xblockexpression = _builder;
     }
     return _xblockexpression;
@@ -2683,89 +2864,106 @@ public class UIDSLGenerator extends AbstractGenerator {
     String _name = sc.getName();
     final String listenerName = this.addAndReturnFileUploadListener(fieldName, _name);
     _builder.newLineIfNotEmpty();
-    _builder.append("\t");
+    _builder.append("<div class=\"col-md-9\">");
     _builder.newLine();
+    _builder.append("\t");
     _builder.append("<div id=\"fileUploadSection");
-    _builder.append(this.counter, "");
+    _builder.append(this.counter, "\t");
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t");
+    _builder.append("\t\t");
     _builder.append("<p:fileUpload id=\"fileUploadFile");
-    _builder.append(this.counter, "\t");
+    _builder.append(this.counter, "\t\t");
     _builder.append("\" ");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t\t");
+    _builder.append("\t\t\t");
     _builder.append("process=\"@this\"");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("\t\t\t");
     _builder.append("style=\"display: none;\"");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("\t\t\t");
     _builder.append("styleClass=\"fileUploadFile\"");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("\t\t\t");
     _builder.append("fileUploadListener=\"#{");
     UIContainer _containerOfType_1 = EcoreUtil2.<UIContainer>getContainerOfType(c, UIContainer.class);
     String _mainBeanRefName = this.getMainBeanRefName(_containerOfType_1);
-    _builder.append(_mainBeanRefName, "\t\t");
+    _builder.append(_mainBeanRefName, "\t\t\t");
     _builder.append(".");
-    _builder.append(listenerName, "\t\t");
+    _builder.append(listenerName, "\t\t\t");
     _builder.append("}\"  ");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t\t");
+    _builder.append("\t\t\t");
     _builder.append("dragDropSupport=\"true\"");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("\t\t\t");
     _builder.append("fileLimit=\"1\"");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("\t\t\t");
     _builder.append("auto=\"true\">");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("\t\t");
     _builder.append("</p:fileUpload>");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("\t\t");
     _builder.append("<a href=\"javascript:void(0);\" id=\"linkTriggerSimpleFileUpload\">Upload</a>");
     _builder.newLine();
+    _builder.append("\t");
     _builder.append("</div>");
     _builder.newLine();
-    _builder.append("<script>");
-    _builder.newLine();
     _builder.append("\t");
-    _builder.append("$(\'#fileUploadSection");
-    _builder.append(this.counter, "\t");
-    _builder.append(" #linkTriggerSimpleFileUpload\').on(\'click\', function(e) {");
-    _builder.newLineIfNotEmpty();
-    _builder.append("\t\t");
-    _builder.append("e.stopPropagation();");
+    _builder.append("<script>");
     _builder.newLine();
     _builder.append("\t\t");
     _builder.append("$(\'#fileUploadSection");
     _builder.append(this.counter, "\t\t");
+    _builder.append(" #linkTriggerSimpleFileUpload\').on(\'click\', function(e) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t\t");
+    _builder.append("e.stopPropagation();");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("$(\'#fileUploadSection");
+    _builder.append(this.counter, "\t\t\t");
     _builder.append(" .fileUploadFile :input\').trigger(\'click\');");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t");
+    _builder.append("\t\t");
     _builder.append("});");
     _builder.newLine();
+    _builder.append("\t");
     _builder.append("</script>");
     String _xblockexpression = null;
     {
       this.counter++;
       _xblockexpression = "";
     }
-    _builder.append(_xblockexpression, "");
+    _builder.append(_xblockexpression, "\t");
     _builder.newLineIfNotEmpty();
+    _builder.append("</div>");
+    _builder.newLine();
     return _builder;
   }
   
   public CharSequence generateDefaultInputDate(final DefaultComponent c) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("<p:calendar value=\"");
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<h:inputText type=\"date\" value=\"");
     Expression _value = c.getValue();
     String _compileExpression = this.compileExpression(_value, true, false);
-    _builder.append(_compileExpression, "");
-    _builder.append("\" />");
+    _builder.append(_compileExpression, "\t");
+    _builder.append("\" styleClass=\"form-control\"> ");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("<f:convertDateTime pattern=\"yyyy-MM-dd\" /> ");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("</h:inputText>");
+    _builder.newLine();
+    _builder.append("</div>");
+    _builder.newLine();
     return _builder;
   }
   
@@ -2776,7 +2974,7 @@ public class UIDSLGenerator extends AbstractGenerator {
     AttributeType _type = this._typeComputing.getType(value);
     final CollectionType type = ((CollectionType) _type);
     _builder.newLineIfNotEmpty();
-    _builder.append("<table>");
+    _builder.append("<table class=\"table\"\">");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("<ui:repeat var=\"_v\" value=\"");
@@ -2906,26 +3104,32 @@ public class UIDSLGenerator extends AbstractGenerator {
     _builder.newLineIfNotEmpty();
     final String scRefName = this.getMainBeanRefName(cont);
     _builder.newLineIfNotEmpty();
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("<h:selectManyCheckbox value=\"");
     String _compileExpression = this.compileExpression(value, true, false);
-    _builder.append(_compileExpression, "");
-    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\">");
+    _builder.append(_compileExpression, "\t");
+    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\" layout=\"pageDirection\">");
     _builder.newLineIfNotEmpty();
-    _builder.append("    ");
+    _builder.append("\t    ");
     _builder.append("<f:selectItems value=\"#{");
-    _builder.append(scRefName, "    ");
+    _builder.append(scRefName, "\t    ");
     _builder.append(".");
-    _builder.append(selectFromName, "    ");
+    _builder.append(selectFromName, "\t    ");
     _builder.append("}\" var=\"_v\"");
     _builder.newLineIfNotEmpty();
-    _builder.append("   \t\t");
+    _builder.append("\t   \t\t");
     _builder.append("itemLabel=\"#{");
     SingleType _ofType = type.getOfType();
     String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(_ofType, "_v");
-    _builder.append(_defaultRepresentationAttribute, "   \t\t");
+    _builder.append(_defaultRepresentationAttribute, "\t   \t\t");
     _builder.append("}\" itemValue=\"#{_v}\" />");
     _builder.newLineIfNotEmpty();
-    _builder.append("</h:selectManyCheckbox>\t\t");
+    _builder.append("\t");
+    _builder.append("</h:selectManyCheckbox>");
+    _builder.newLine();
+    _builder.append("</div>\t");
     _builder.newLine();
     return _builder;
   }
@@ -2934,30 +3138,36 @@ public class UIDSLGenerator extends AbstractGenerator {
     StringConcatenation _builder = new StringConcatenation();
     final boolean output = (c instanceof OutputUIComponent);
     _builder.newLineIfNotEmpty();
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("<h:selectBooleanCheckbox id=\"boolCheckbox");
-    _builder.append(this.counter, "");
+    _builder.append(this.counter, "\t");
     _builder.append("\" value=\"");
     Expression _value = c.getValue();
     String _compileExpression = this.compileExpression(_value, true, false);
-    _builder.append(_compileExpression, "");
+    _builder.append(_compileExpression, "\t");
     _builder.append("\" disabled=\"");
-    _builder.append(output, "");
+    _builder.append(output, "\t");
     _builder.append("\" />");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t");
     _builder.append("<h:outputLabel for=\"boolCheckbox");
-    _builder.append(this.counter, "");
+    _builder.append(this.counter, "\t");
     _builder.append("\" value=\"");
     Expression _value_1 = c.getValue();
     String _variableOrMemberName = this.getVariableOrMemberName(_value_1);
-    _builder.append(_variableOrMemberName, "");
+    _builder.append(_variableOrMemberName, "\t");
     _builder.append("\" />");
     String _xblockexpression = null;
     {
       this.counter++;
       _xblockexpression = "";
     }
-    _builder.append(_xblockexpression, "");
+    _builder.append(_xblockexpression, "\t");
     _builder.newLineIfNotEmpty();
+    _builder.append("</div>");
+    _builder.newLine();
     return _builder;
   }
   
@@ -2985,41 +3195,52 @@ public class UIDSLGenerator extends AbstractGenerator {
     _builder.newLineIfNotEmpty();
     final String scRefName = this.getMainBeanRefName(cont);
     _builder.newLineIfNotEmpty();
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("<h:selectOneRadio value=\"");
     String _compileExpression = this.compileExpression(value, true, false);
-    _builder.append(_compileExpression, "");
-    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\">");
-    _builder.newLineIfNotEmpty();
-    _builder.append("\t");
-    _builder.append("<f:selectItems value=\"");
-    _builder.append(scRefName, "\t");
-    _builder.append(".");
-    _builder.append(selectFromName, "\t");
-    _builder.append("\" var=\"_v\"");
+    _builder.append(_compileExpression, "\t");
+    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\" layout=\"pageDirection\">");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
+    _builder.append("<f:selectItems value=\"");
+    _builder.append(scRefName, "\t\t");
+    _builder.append(".");
+    _builder.append(selectFromName, "\t\t");
+    _builder.append("\" var=\"_v\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t\t");
     _builder.append("itemLabel=\"");
     String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(type, "_v");
-    _builder.append(_defaultRepresentationAttribute, "\t\t");
+    _builder.append(_defaultRepresentationAttribute, "\t\t\t");
     _builder.append("\" itemValue=\"#{_v}\" />");
     _builder.newLineIfNotEmpty();
-    _builder.append("</h:selectOneRadio>\t\t");
+    _builder.append("\t");
+    _builder.append("</h:selectOneRadio>");
+    _builder.newLine();
+    _builder.append("</div>\t");
     _builder.newLine();
     return _builder;
   }
   
   public CharSequence generateDefaultPasswordField(final DefaultComponent c) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("<h:inputSecret value=\"");
     Expression _value = c.getValue();
     String _compileExpression = this.compileExpression(_value, true, false);
-    _builder.append(_compileExpression, "");
+    _builder.append(_compileExpression, "\t");
     _builder.append("\" placeholder=\"");
     Expression _value_1 = c.getValue();
     String _variableOrMemberName = this.getVariableOrMemberName(_value_1);
-    _builder.append(_variableOrMemberName, "");
-    _builder.append("\" />");
+    _builder.append(_variableOrMemberName, "\t");
+    _builder.append("\" styleClass=\"form-control\" />");
     _builder.newLineIfNotEmpty();
+    _builder.append("</div>");
+    _builder.newLine();
     return _builder;
   }
   
@@ -3047,37 +3268,48 @@ public class UIDSLGenerator extends AbstractGenerator {
     _builder.newLineIfNotEmpty();
     final String scRefName = this.getMainBeanRefName(cont);
     _builder.newLineIfNotEmpty();
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("<h:selectOneMenu value=\"");
     String _compileExpression = this.compileExpression(value, true, false);
-    _builder.append(_compileExpression, "");
-    _builder.append("\" converter=\"omnifaces.SelectItemsConverter\">");
-    _builder.newLineIfNotEmpty();
-    _builder.append("\t");
-    _builder.append("<f:selectItems value=\"#{");
-    _builder.append(scRefName, "\t");
-    _builder.append(".");
-    _builder.append(selectFromName, "\t");
-    _builder.append("}\" var=\"_v\"");
+    _builder.append(_compileExpression, "\t");
+    _builder.append("\" styleClass=\"form-control\" converter=\"omnifaces.SelectItemsConverter\">");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
+    _builder.append("<f:selectItems value=\"#{");
+    _builder.append(scRefName, "\t\t");
+    _builder.append(".");
+    _builder.append(selectFromName, "\t\t");
+    _builder.append("}\" var=\"_v\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t\t");
     _builder.append("itemLabel=\"#{");
     String _defaultRepresentationAttribute = this.getDefaultRepresentationAttribute(type, "_v");
-    _builder.append(_defaultRepresentationAttribute, "\t\t");
+    _builder.append(_defaultRepresentationAttribute, "\t\t\t");
     _builder.append("}\" itemValue=\"#{_v}\" />");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t");
     _builder.append("</h:selectOneMenu>");
+    _builder.newLine();
+    _builder.append("</div>");
     _builder.newLine();
     return _builder;
   }
   
   public CharSequence generateDefaultTextComp(final DefaultComponent c) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<div class=\"col-md-9\">");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("<h:outputText value=\"");
     Expression _value = c.getValue();
     String _defaultOutputExpression = this.getDefaultOutputExpression(_value);
-    _builder.append(_defaultOutputExpression, "");
+    _builder.append(_defaultOutputExpression, "\t");
     _builder.append("\" />");
     _builder.newLineIfNotEmpty();
+    _builder.append("</div>");
+    _builder.newLine();
     return _builder;
   }
   

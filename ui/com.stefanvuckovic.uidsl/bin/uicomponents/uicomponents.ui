@@ -1,5 +1,5 @@
 component textComp {
-	value required valueProperty : string or text or email or password or int or long or date or object or enum
+	value required valueProperty : string or text or email or password or int or long or decimal or date or object or enum
 	escape required : boolean
 }
 
@@ -11,8 +11,16 @@ component section {
 	allowed_nested_components : ALL
 }
 
+component group {
+	allowed_nested_components : ALL
+}
+
+component panel {
+	allowed_nested_components : ALL
+}
+
 component textfield {
-	value required valueProperty : string or int or long or text or email or password
+	value required valueProperty : string or int or long or decimal or text or email or password
 	caption required : string
 	enabled required : boolean
 }
@@ -47,7 +55,7 @@ component comboBox {
 	selectFrom required : collection
 	child_component cardinality=one:
 		component label {
-			value required : string or enum
+			value required : string or enum or int or long or decimal or email
 		}
 }
 
@@ -82,7 +90,7 @@ component label {
 component link {
 	value required valueProperty : string or file or page
 	openInNewWindow required : boolean
-	allowed_nested_components : imageComponent, section, label, textComp
+	allowed_nested_components : imageComponent, section, textComp
 }
 
 //component internalLink {

@@ -1,11 +1,18 @@
 package com.stefanvuckovic.uidsl
 
 import com.stefanvuckovic.domainmodel.domainModel.AttributeType
+import com.stefanvuckovic.domainmodel.domainModel.Expression
 import com.stefanvuckovic.dto.DTOUtil
+import com.stefanvuckovic.uidsl.scoping.CustomIndex
+import com.stefanvuckovic.uidsl.types.TypeConformance
 import com.stefanvuckovic.uidsl.uIDSL.AlternativeType
+import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent
 import com.stefanvuckovic.uidsl.uIDSL.CollectionGeneralType
+import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition
 import com.stefanvuckovic.uidsl.uIDSL.EnumGeneralType
 import com.stefanvuckovic.uidsl.uIDSL.Field
+import com.stefanvuckovic.uidsl.uIDSL.IterationExpression
+import com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression
 import com.stefanvuckovic.uidsl.uIDSL.Method
 import com.stefanvuckovic.uidsl.uIDSL.ObjectGeneralType
 import com.stefanvuckovic.uidsl.uIDSL.PageType
@@ -15,16 +22,9 @@ import com.stefanvuckovic.uidsl.uIDSL.PropertyValue
 import com.stefanvuckovic.uidsl.uIDSL.ServerComponent
 import com.stefanvuckovic.uidsl.uIDSL.UIComponent
 import com.stefanvuckovic.uidsl.uIDSL.UIComponentInstance
-import javax.inject.Inject
-import com.stefanvuckovic.uidsl.uIDSL.ChildUIComponent
-import org.eclipse.emf.ecore.EObject
-import com.stefanvuckovic.uidsl.scoping.CustomIndex
-import com.stefanvuckovic.uidsl.uIDSL.CustomDefaultComponentsDefinition
-import com.stefanvuckovic.uidsl.types.TypeConformance
-import com.stefanvuckovic.uidsl.uIDSL.MemberSelectionExpression
 import com.stefanvuckovic.uidsl.uIDSL.VariableReference
-import com.stefanvuckovic.domainmodel.domainModel.Expression
-import com.stefanvuckovic.uidsl.uIDSL.IterationExpression
+import javax.inject.Inject
+import org.eclipse.emf.ecore.EObject
 
 class UIDSLUtil {
 	
@@ -116,7 +116,7 @@ class UIDSLUtil {
 	
 	def getCustomDefaultComponentForType(EObject ctx, AttributeType type, boolean input) {
 		val compType = if(input) "input" else "output"
-		ctx.customDefaultComponents.findFirst[c | areTypesSame(type, c.type.type) && c.compType == compType]
+		ctx.customDefaultComponents?.findFirst[c | areTypesSame(type, c.type.type) && c.compType == compType]
 	}
 	
 	def VariableReference getReferencedVariableFromExpression(Expression e) {

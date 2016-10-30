@@ -36,6 +36,7 @@ import com.stefanvuckovic.domainmodel.domainModel.Null;
 import com.stefanvuckovic.domainmodel.domainModel.PartOf;
 import com.stefanvuckovic.domainmodel.domainModel.RefType;
 import com.stefanvuckovic.domainmodel.domainModel.RelationshipOwner;
+import com.stefanvuckovic.domainmodel.domainModel.Required;
 import com.stefanvuckovic.domainmodel.domainModel.SingleType;
 import com.stefanvuckovic.domainmodel.domainModel.StaticFieldSelection;
 import com.stefanvuckovic.domainmodel.domainModel.StringConstant;
@@ -75,6 +76,8 @@ public class DomainModelGenerator extends AbstractGenerator {
   @Extension
   private DomainModelUtil _domainModelUtil;
   
+  private int counter = 1;
+  
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
     URI _uRI = resource.getURI();
@@ -99,6 +102,7 @@ public class DomainModelGenerator extends AbstractGenerator {
         }
       }
     }
+    this.counter = 1;
   }
   
   public CharSequence compile(final Concept concept) {
@@ -418,11 +422,27 @@ public class DomainModelGenerator extends AbstractGenerator {
           Entity _superType_2 = entity.getSuperType();
           String _name_1 = _superType_2.getName();
           _builder.append(_name_1, "");
-          _builder.append(" ");
+        } else {
+          _builder.append("implements java.io.Serializable");
         }
       }
-      _builder.append("{");
+      _builder.append(" {");
       _builder.newLineIfNotEmpty();
+      _builder.append("\t");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("private static final long serialVersionUID = ");
+      _builder.append(this.counter, "\t");
+      _builder.append("L;");
+      String _xblockexpression_1 = null;
+      {
+        this.counter++;
+        _xblockexpression_1 = "";
+      }
+      _builder.append(_xblockexpression_1, "\t");
+      _builder.newLineIfNotEmpty();
+      _builder.append("\t");
+      _builder.newLine();
       {
         EList<Attribute> _attributes = entity.getAttributes();
         for(final Attribute attribute : _attributes) {
@@ -452,10 +472,30 @@ public class DomainModelGenerator extends AbstractGenerator {
           _builder.newLineIfNotEmpty();
         }
       }
+      _builder.append("\t");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("public ");
+      String _name_4 = entity.getName();
+      _builder.append(_name_4, "\t");
+      _builder.append("() {");
+      _builder.newLineIfNotEmpty();
+      _builder.append("\t\t");
+      EList<Attribute> _attributes_1 = entity.getAttributes();
+      CharSequence _compileCollectionAttrsInit = this.compileCollectionAttrsInit(_attributes_1);
+      _builder.append(_compileCollectionAttrsInit, "\t\t");
+      _builder.newLineIfNotEmpty();
+      _builder.append("\t\t");
+      CharSequence _compileCollectionAttrsInit_1 = this.compileCollectionAttrsInit(additionalAttrs);
+      _builder.append(_compileCollectionAttrsInit_1, "\t\t");
+      _builder.newLineIfNotEmpty();
+      _builder.append("\t");
+      _builder.append("}");
+      _builder.newLine();
       _builder.newLine();
       {
-        EList<Attribute> _attributes_1 = entity.getAttributes();
-        for(final Attribute attribute_2 : _attributes_1) {
+        EList<Attribute> _attributes_2 = entity.getAttributes();
+        for(final Attribute attribute_2 : _attributes_2) {
           _builder.append("\t");
           CharSequence _compileAttributeAnnotations = this.compileAttributeAnnotations(attribute_2);
           _builder.append(_compileAttributeAnnotations, "\t");
@@ -469,16 +509,16 @@ public class DomainModelGenerator extends AbstractGenerator {
           AttributeType _type_3 = attribute_2.getType();
           String _ter = this.getter(_type_3);
           _builder.append(_ter, "\t");
-          String _name_4 = attribute_2.getName();
-          String _firstUpper = StringExtensions.toFirstUpper(_name_4);
+          String _name_5 = attribute_2.getName();
+          String _firstUpper = StringExtensions.toFirstUpper(_name_5);
           _builder.append(_firstUpper, "\t");
           _builder.append("() {");
           _builder.newLineIfNotEmpty();
           _builder.append("\t");
           _builder.append("\t");
           _builder.append("return ");
-          String _name_5 = attribute_2.getName();
-          _builder.append(_name_5, "\t\t");
+          String _name_6 = attribute_2.getName();
+          _builder.append(_name_6, "\t\t");
           _builder.append(";");
           _builder.newLineIfNotEmpty();
           _builder.append("\t");
@@ -488,26 +528,26 @@ public class DomainModelGenerator extends AbstractGenerator {
           _builder.newLine();
           _builder.append("\t");
           _builder.append("public void set");
-          String _name_6 = attribute_2.getName();
-          String _firstUpper_1 = StringExtensions.toFirstUpper(_name_6);
+          String _name_7 = attribute_2.getName();
+          String _firstUpper_1 = StringExtensions.toFirstUpper(_name_7);
           _builder.append(_firstUpper_1, "\t");
           _builder.append("(");
           AttributeType _type_4 = attribute_2.getType();
           String _compile_4 = this.compile(_type_4);
           _builder.append(_compile_4, "\t");
           _builder.append(" ");
-          String _name_7 = attribute_2.getName();
-          _builder.append(_name_7, "\t");
+          String _name_8 = attribute_2.getName();
+          _builder.append(_name_8, "\t");
           _builder.append(") {");
           _builder.newLineIfNotEmpty();
           _builder.append("\t");
           _builder.append("\t");
           _builder.append("this.");
-          String _name_8 = attribute_2.getName();
-          _builder.append(_name_8, "\t\t");
-          _builder.append(" = ");
           String _name_9 = attribute_2.getName();
           _builder.append(_name_9, "\t\t");
+          _builder.append(" = ");
+          String _name_10 = attribute_2.getName();
+          _builder.append(_name_10, "\t\t");
           _builder.append(";");
           _builder.newLineIfNotEmpty();
           _builder.append("\t");
@@ -532,16 +572,16 @@ public class DomainModelGenerator extends AbstractGenerator {
           AttributeType _type_6 = attribute_3.getType();
           String _ter_1 = this.getter(_type_6);
           _builder.append(_ter_1, "\t");
-          String _name_10 = attribute_3.getName();
-          String _firstUpper_2 = StringExtensions.toFirstUpper(_name_10);
+          String _name_11 = attribute_3.getName();
+          String _firstUpper_2 = StringExtensions.toFirstUpper(_name_11);
           _builder.append(_firstUpper_2, "\t");
           _builder.append("() {");
           _builder.newLineIfNotEmpty();
           _builder.append("\t");
           _builder.append("\t");
           _builder.append("return ");
-          String _name_11 = attribute_3.getName();
-          _builder.append(_name_11, "\t\t");
+          String _name_12 = attribute_3.getName();
+          _builder.append(_name_12, "\t\t");
           _builder.append(";");
           _builder.newLineIfNotEmpty();
           _builder.append("\t");
@@ -551,26 +591,26 @@ public class DomainModelGenerator extends AbstractGenerator {
           _builder.newLine();
           _builder.append("\t");
           _builder.append("public void set");
-          String _name_12 = attribute_3.getName();
-          String _firstUpper_3 = StringExtensions.toFirstUpper(_name_12);
+          String _name_13 = attribute_3.getName();
+          String _firstUpper_3 = StringExtensions.toFirstUpper(_name_13);
           _builder.append(_firstUpper_3, "\t");
           _builder.append("(");
           AttributeType _type_7 = attribute_3.getType();
           String _compile_6 = this.compile(_type_7);
           _builder.append(_compile_6, "\t");
           _builder.append(" ");
-          String _name_13 = attribute_3.getName();
-          _builder.append(_name_13, "\t");
+          String _name_14 = attribute_3.getName();
+          _builder.append(_name_14, "\t");
           _builder.append(") {");
           _builder.newLineIfNotEmpty();
           _builder.append("\t");
           _builder.append("\t");
           _builder.append("this.");
-          String _name_14 = attribute_3.getName();
-          _builder.append(_name_14, "\t\t");
-          _builder.append(" = ");
           String _name_15 = attribute_3.getName();
           _builder.append(_name_15, "\t\t");
+          _builder.append(" = ");
+          String _name_16 = attribute_3.getName();
+          _builder.append(_name_16, "\t\t");
           _builder.append(";");
           _builder.newLineIfNotEmpty();
           _builder.append("\t");
@@ -585,6 +625,24 @@ public class DomainModelGenerator extends AbstractGenerator {
       _xblockexpression = _builder;
     }
     return _xblockexpression;
+  }
+  
+  public CharSequence compileCollectionAttrsInit(final Iterable<? extends Attribute> attrs) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      for(final Attribute a : attrs) {
+        {
+          AttributeType _type = a.getType();
+          if ((_type instanceof CollectionType)) {
+            String _name = a.getName();
+            _builder.append(_name, "");
+            _builder.append(" = new java.util.ArrayList<>();");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    return _builder;
   }
   
   public CharSequence compileAttributeAnnotations(final Attribute attr) {
@@ -661,6 +719,39 @@ public class DomainModelGenerator extends AbstractGenerator {
             _builder.append("\")");
             _builder.newLineIfNotEmpty();
           }
+        }
+      }
+    }
+    {
+      if (((attr.getType() instanceof RefType) && (!Objects.equal(this._domainModelUtil.getAttributeEntityRefTypeIfExists(attr.getType()), null)))) {
+        _builder.append("@javax.persistence.JoinColumn(nullable=");
+        {
+          Required _requiredOption = this._domainModelUtil.requiredOption(attr);
+          boolean _notEquals_3 = (!Objects.equal(_requiredOption, null));
+          if (_notEquals_3) {
+            _builder.append(false, "");
+          } else {
+            _builder.append("false");
+          }
+        }
+        _builder.append(")");
+        _builder.newLineIfNotEmpty();
+      } else {
+        AttributeType _type_3 = attr.getType();
+        boolean _not = (!(_type_3 instanceof CollectionType));
+        if (_not) {
+          _builder.append("@javax.persistence.Column(nullable=");
+          {
+            Required _requiredOption_1 = this._domainModelUtil.requiredOption(attr);
+            boolean _notEquals_4 = (!Objects.equal(_requiredOption_1, null));
+            if (_notEquals_4) {
+              _builder.append(false, "");
+            } else {
+              _builder.append("false");
+            }
+          }
+          _builder.append(")");
+          _builder.newLineIfNotEmpty();
         }
       }
     }
@@ -839,9 +930,9 @@ public class DomainModelGenerator extends AbstractGenerator {
       if (type instanceof DecimalType) {
         _matched=true;
         if (primitive) {
-          return "Double";
-        } else {
           return "double";
+        } else {
+          return "Double";
         }
       }
     }

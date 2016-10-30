@@ -242,10 +242,14 @@ public class UIDSLUtil {
       }
       final String compType = _xifexpression;
       EList<CustomDefaultComponentDefinition> _customDefaultComponents = this.getCustomDefaultComponents(ctx);
-      final Function1<CustomDefaultComponentDefinition, Boolean> _function = (CustomDefaultComponentDefinition c) -> {
-        return Boolean.valueOf((this._typeConformance.areTypesSame(type, c.getType().getType()) && Objects.equal(c.getCompType(), compType)));
-      };
-      _xblockexpression = IterableExtensions.<CustomDefaultComponentDefinition>findFirst(_customDefaultComponents, _function);
+      CustomDefaultComponentDefinition _findFirst = null;
+      if (_customDefaultComponents!=null) {
+        final Function1<CustomDefaultComponentDefinition, Boolean> _function = (CustomDefaultComponentDefinition c) -> {
+          return Boolean.valueOf((this._typeConformance.areTypesSame(type, c.getType().getType()) && Objects.equal(c.getCompType(), compType)));
+        };
+        _findFirst=IterableExtensions.<CustomDefaultComponentDefinition>findFirst(_customDefaultComponents, _function);
+      }
+      _xblockexpression = _findFirst;
     }
     return _xblockexpression;
   }

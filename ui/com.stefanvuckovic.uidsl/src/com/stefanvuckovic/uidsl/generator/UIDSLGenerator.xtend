@@ -182,7 +182,8 @@ class UIDSLGenerator extends AbstractGenerator {
 						
 			public void set«preparedName»(«f.type.compile» «f.name») {
 				this.«f.name» = «f.name»;
-			}		
+			}	
+				
 			«ENDFOR»
 			«FOR f : additionalFields»
 			«val preparedName = if(f.name.length > 1 && Character.isUpperCase(f.name.charAt(1))) f.name else f.name.toFirstUpper»
@@ -193,6 +194,7 @@ class UIDSLGenerator extends AbstractGenerator {
 			public void set«preparedName»(«f.type.compile» «f.name») {
 				this.«f.name» = «f.name»;
 			}
+			
 			«ENDFOR»
 		}
 	'''
@@ -320,6 +322,8 @@ class UIDSLGenerator extends AbstractGenerator {
 			«page.pageParamsAndInitAction»
 			«pageHead»
 			<h:body>
+			<div class="container">
+			<div class="row col-md-8">
 			«ELSE»
 			<ui:define name="metadata">
 				«page.serverComponents.createUIParamsForServerComponents»
@@ -333,6 +337,8 @@ class UIDSLGenerator extends AbstractGenerator {
 		«IF hasTemplate»
 		</ui:composition>
 		«ELSE»
+		</div>
+		</div>
 		</h:body>
 		</html>
 		«ENDIF»
@@ -433,6 +439,11 @@ class UIDSLGenerator extends AbstractGenerator {
 				<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
 				<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 			</f:facet>
+			
+			<link rel="stylesheet" type="text/css" media="all"
+				href="#{request.contextPath}/resources/css/bootstrap.min.css" />
+			<link rel="stylesheet" type="text/css" media="all"
+				href="#{request.contextPath}/resources/css/style.css" />
 		</h:head>
 	'''
 	
@@ -458,7 +469,11 @@ class UIDSLGenerator extends AbstractGenerator {
 	
 	def compileTemplateFragmentOverride(TemplateFragmentOverride templateFragOverride) '''
 		<ui:define name="«templateFragOverride.overridenFragment.name»">
-			«templateFragOverride.elements.compileUIElements»
+			<div class="container">
+			<div class="row col-md-8">
+				«templateFragOverride.elements.compileUIElements»
+			</div>
+			</div>
 		</ui:define>
 	'''
 	
@@ -657,6 +672,10 @@ class UIDSLGenerator extends AbstractGenerator {
 				compileTextComp(compInstance)
 			case SECTION:
 				compileSection(compInstance)
+			case GROUP:
+				compileGroup(compInstance)
+			case PANEL:
+				compilePanel(compInstance)
 			case TEXT_FIELD:
 				compileTextField(compInstance)
 			case TEXT_AREA:
@@ -728,7 +747,7 @@ class UIDSLGenerator extends AbstractGenerator {
 	'''
 	
 	def compileAction(UIComponentInstance inst) '''
-		<p:commandLink
+		<p:commandLink styleClass="btn btn-primary"
 			«val action = inst.getProperty(ACTION_ACTION_PROPERTY)»
 			«IF action != null» 
 			action="«action.value.compileExpression(true, false)»"
@@ -738,7 +757,7 @@ class UIDSLGenerator extends AbstractGenerator {
 	'''
 	
 	def compileForm(UIComponentInstance inst) '''
-		<h:form>
+		<h:form styleClass="form-horizontal">
 			«inst.compileChildComponents»
 		</h:form>
 	'''
@@ -755,32 +774,38 @@ class UIDSLGenerator extends AbstractGenerator {
 		«val sc = inst.getContainerOfType(UIContainer).containerMainServerComponent»
 		«val fieldName = getVariableOrMemberName(inst.getProperty(VALUE_PROPERTY).value)»
 		«val listenerName = addAndReturnFileUploadListener(fieldName, sc.name)»
-		<div id="fileUploadSection«counter»">
-			<p:fileUpload id="fileUploadFile«counter»" 
-			    process="@this"
-				style="display: none;"
-				styleClass="fileUploadFile"
-				fileUploadListener="«inst.getContainerOfType(UIContainer).mainBeanRefName».«listenerName»"  
-			    dragDropSupport="true"
-		        fileLimit="1"
-		       	auto="true">
-			    </p:fileUpload>
-			    <a href="javascript:void(0);" id="linkTriggerSimpleFileUpload">«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»</a>
+		<div class="col-md-9">
+			<div id="fileUploadSection«counter»">
+				<p:fileUpload id="fileUploadFile«counter»" 
+				    process="@this"
+					style="display: none;"
+					styleClass="fileUploadFile"
+					fileUploadListener="«inst.getContainerOfType(UIContainer).mainBeanRefName».«listenerName»"  
+				    dragDropSupport="true"
+			        fileLimit="1"
+			       	auto="true">
+				    </p:fileUpload>
+				    <a href="javascript:void(0);" id="linkTriggerSimpleFileUpload">«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»</a>
+			</div>
+			<script>
+			    $('#fileUploadSection«counter» #linkTriggerSimpleFileUpload').on('click', function(e) {
+			 		e.stopPropagation();
+					$('#fileUploadSection«counter» .fileUploadFile :input').trigger('click');
+				});
+			</script>«{ counter++; "" }»
 		</div>
-		<script>
-		    $('#fileUploadSection«counter» #linkTriggerSimpleFileUpload').on('click', function(e) {
-		 		e.stopPropagation();
-				$('#fileUploadSection«counter» .fileUploadFile :input').trigger('click');
-			});
-		</script>«{ counter++; "" }»
 	'''
 	
 	def compileInputDate(UIComponentInstance inst) '''
-		<p:calendar value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" />
+		<div class="col-md-9">
+			<h:inputText type="date" value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" styleClass="form-control"> 
+				<f:convertDateTime pattern="yyyy-MM-dd" /> 
+			</h:inputText>
+		</div>
 	'''
 	
 	def compileTable(UIComponentInstance inst) '''
-		<table>
+		<table class="table">
 			«val value = inst.getProperty(VALUE_PROPERTY)»
 			«IF value.value instanceof IterationExpression»
 			«val iter = value.value as IterationExpression»
@@ -832,6 +857,7 @@ class UIDSLGenerator extends AbstractGenerator {
 			«ENDIF»
 			«{ paramIndex++; "" }»	
 			«ENDFOR»
+			«inst.compileChildComponents»
 		</h:link>
 	'''
 	
@@ -850,43 +876,53 @@ class UIDSLGenerator extends AbstractGenerator {
 	}
 	
 	def compileLabel(UIComponentInstance inst) '''
-		<h:outputLabel value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»"/>
+		<h:outputLabel value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" styleClass="col-md-3 control-label"/>
 	'''
 	
 	def compileMultiSelectCheckbox(UIComponentInstance inst) '''
 		«val iteration = inst.getProperty(SELECT_FROM_PROPERTY).value as IterationExpression»
 		«val childLabel = inst.getChildComponent(MULTI_SELECT_CHECKBOX_LABEL)»
-		<h:selectManyCheckbox value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
-		    <f:selectItems value="«iteration.expression.compileExpression(true, false)»" var="«iteration.^var.name»"
-		   		itemLabel="«if(childLabel != null) childLabel.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" itemValue="#{«iteration.^var.name»}" />
-		</h:selectManyCheckbox>		
+		<div class="col-md-9">
+			<h:selectManyCheckbox value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter" layout="pageDirection">
+			    <f:selectItems value="«iteration.expression.compileExpression(true, false)»" var="«iteration.^var.name»"
+			   		itemLabel="«if(childLabel != null) childLabel.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" itemValue="#{«iteration.^var.name»}" />
+			</h:selectManyCheckbox>
+		</div>	
 	'''
 	
 	def compileBoolCheckBox(UIComponentInstance inst) '''
-		<h:selectBooleanCheckbox id="boolCheckbox«counter»" value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" disabled="«inst.getProperty(ENABLED_PROPERTY).value.compileExpression(true, true)»" />
-		<h:outputLabel for="boolCheckbox«counter»" value="«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»" />«{ counter++; "" }»
+		<div class="col-md-9">
+			<h:selectBooleanCheckbox id="boolCheckbox«counter»" value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" disabled="«inst.getProperty(ENABLED_PROPERTY).value.compileExpression(true, true)»" />
+			<h:outputLabel for="boolCheckbox«counter»" value="«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»" />«{ counter++; "" }»
+		</div>
 	'''
 	
 	def compileRadioSelection(UIComponentInstance inst) '''
 		«val iteration = inst.getProperty(SELECT_FROM_PROPERTY).value as IterationExpression»
 		«val childLabel = inst.getChildComponent(RADIO_SELECTION_LABEL)»
-		<h:selectOneRadio value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
-			<f:selectItems value="«iteration.expression.compileExpression(true, false)»" var="«iteration.^var.name»"
-				itemLabel="«if(childLabel != null) childLabel.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" itemValue="#{«iteration.^var.name»}" />
-		</h:selectOneRadio>		
+		<div class="col-md-9">
+			<h:selectOneRadio value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter" layout="pageDirection">
+				<f:selectItems value="«iteration.expression.compileExpression(true, false)»" var="«iteration.^var.name»"
+					itemLabel="«if(childLabel != null) childLabel.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" itemValue="#{«iteration.^var.name»}" />
+			</h:selectOneRadio>		
+		</div>
 	'''
 	
 	def compilePasswordField(UIComponentInstance inst) '''
-		<h:inputSecret value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" placeholder="«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»" />
+		<div class="col-md-9">	
+			<h:inputSecret styleClass="form-control" value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" placeholder="«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»" />
+		</div>
 	'''
 	
 	def compileComboBox(UIComponentInstance inst) '''
 		«val iteration = inst.getProperty(SELECT_FROM_PROPERTY).value as IterationExpression»
 		«val childLabel = inst.getChildComponent(COMBO_BOX_LABEL)»
-		<h:selectOneMenu value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
-			<f:selectItems value="«iteration.expression.compileExpression(true, false)»" var="«iteration.^var.name»"
-				itemLabel="«if(childLabel != null) childLabel.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" itemValue="#{«iteration.^var.name»}" />
-		</h:selectOneMenu>		
+		<div class="col-md-9">
+			<h:selectOneMenu value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" styleClass="form-control" converter="omnifaces.SelectItemsConverter">
+				<f:selectItems value="«iteration.expression.compileExpression(true, false)»" var="«iteration.^var.name»"
+					itemLabel="«if(childLabel != null) childLabel.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" itemValue="#{«iteration.^var.name»}" />
+			</h:selectOneMenu>
+		</div>		
 	'''
 	
 //	def compileSpinner(UIComponentInstance inst) {
@@ -898,27 +934,53 @@ class UIDSLGenerator extends AbstractGenerator {
 //	}
 	
 	def compileTextArea(UIComponentInstance inst) '''
-		<h:inputTextarea row="«inst.getProperty(TEXT_AREA_ROWS).value.compileExpression(true, false)»" value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" 
-		   disabled="«inst.getProperty(ENABLED_PROPERTY).value.compileExpression(true, true)»" 
-		   placeholder="«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»" />
+		<div class="col-md-9">
+			<h:inputTextarea rows="«inst.getProperty(TEXT_AREA_ROWS).value.compileExpression(true, false)»" value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" 
+			   styleClass="form-control"
+			   disabled="«inst.getProperty(ENABLED_PROPERTY).value.compileExpression(true, true)»" 
+			   placeholder="«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»" />
+		</div>
 	'''
 	
 	def compileTextField(UIComponentInstance inst) '''
 		«val enabledProp = inst.getProperty(ENABLED_PROPERTY)»
 		«val enabled = if(enabledProp == null) "false" else enabledProp.value.compileExpression(true, true)»
-		<h:inputText value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" 
-			disabled="«enabled»"
-			placeholder="«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»" />
+		<div class="col-md-9">
+			<h:inputText value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" 
+				styleClass="form-control"
+				disabled="«enabled»"
+				placeholder="«inst.getProperty(CAPTION_PROPERTY).value.compileExpression(true, false)»" />
+		</div>
 	'''
 	
 	def compileSection(UIComponentInstance inst) '''
-		<div>
+		<div class="form-horizontal">
 			«inst.compileChildComponents»
 		</div>
 	'''
 	
+	def compileGroup(UIComponentInstance inst) '''
+		<div class="form-group">
+			«inst.compileChildComponents»
+		</div>
+	'''
+	
+	def compilePanel(UIComponentInstance inst) '''
+		<div class="panel panel-default">
+			<div class="panel-body">
+				«inst.compileChildComponents»
+			</div>
+		</div>
+	'''
+	
 	def compileTextComp(UIComponentInstance inst) '''
+		«IF inst.getContainerOfType(UIComponentInstance) != null»
 		<h:outputText escape="«inst.getProperty(TEXT_COMP_ESCAPE_PROPERTY).value.compileExpression(true, true)»" value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" />
+		«ELSE»
+		<div class="col-md-9">
+			<h:outputText escape="«inst.getProperty(TEXT_COMP_ESCAPE_PROPERTY).value.compileExpression(true, true)»" value="«inst.getProperty(VALUE_PROPERTY).value.compileExpression(true, false)»" />
+		</div>
+		«ENDIF»
 	'''
 	
 	def compileChildComponents(UIComponentInstance inst) '''
@@ -982,16 +1044,20 @@ class UIDSLGenerator extends AbstractGenerator {
 	def generateDefaultTextField(DefaultComponent c) {
 		val output = c instanceof OutputUIComponent
 		'''
-			<h:inputText value="«c.value.compileExpression(true, false)»" 
-				disabled="«output»" />
+			<div class="col-md-9">
+				<h:inputText value="«c.value.compileExpression(true, false)»"  styleClass="form-control"
+					disabled="«output»" />
+			</div>
 		'''
 	}
 	
 	def generateDefaultTextArea(DefaultComponent c) {
 		val output = c instanceof OutputUIComponent
 		'''
-			<h:inputTextarea row="3" value="«c.value.compileExpression(true, false)»" 
-				disabled="«output»" />
+			<div class="col-md-9">
+				<h:inputTextarea rows="5" value="«c.value.compileExpression(true, false)»" styleClass="form-control"
+					disabled="«output»" />
+			</div>
 		'''
 	}
 	
@@ -1017,35 +1083,40 @@ class UIDSLGenerator extends AbstractGenerator {
 		«val sc = c.getContainerOfType(UIContainer).containerMainServerComponent»
 		«val fieldName = getVariableOrMemberName(c.value)»
 		«val listenerName = addAndReturnFileUploadListener(fieldName, sc.name)»
-			
-		<div id="fileUploadSection«counter»">
-			<p:fileUpload id="fileUploadFile«counter»" 
-				process="@this"
-				style="display: none;"
-				styleClass="fileUploadFile"
-				fileUploadListener="#{«c.getContainerOfType(UIContainer).mainBeanRefName».«listenerName»}"  
-				dragDropSupport="true"
-				fileLimit="1"
-				auto="true">
-			</p:fileUpload>
-			<a href="javascript:void(0);" id="linkTriggerSimpleFileUpload">Upload</a>
+		<div class="col-md-9">
+			<div id="fileUploadSection«counter»">
+				<p:fileUpload id="fileUploadFile«counter»" 
+					process="@this"
+					style="display: none;"
+					styleClass="fileUploadFile"
+					fileUploadListener="#{«c.getContainerOfType(UIContainer).mainBeanRefName».«listenerName»}"  
+					dragDropSupport="true"
+					fileLimit="1"
+					auto="true">
+				</p:fileUpload>
+				<a href="javascript:void(0);" id="linkTriggerSimpleFileUpload">Upload</a>
+			</div>
+			<script>
+				$('#fileUploadSection«counter» #linkTriggerSimpleFileUpload').on('click', function(e) {
+					e.stopPropagation();
+					$('#fileUploadSection«counter» .fileUploadFile :input').trigger('click');
+				});
+			</script>«{ counter++; "" }»
 		</div>
-		<script>
-			$('#fileUploadSection«counter» #linkTriggerSimpleFileUpload').on('click', function(e) {
-				e.stopPropagation();
-				$('#fileUploadSection«counter» .fileUploadFile :input').trigger('click');
-			});
-		</script>«{ counter++; "" }»
 	'''
 	
 	def generateDefaultInputDate(DefaultComponent c) '''
-		<p:calendar value="«c.value.compileExpression(true, false)»" />
+		<div class="col-md-9">
+			<h:inputText type="date" value="«c.value.compileExpression(true, false)»" styleClass="form-control"> 
+				<f:convertDateTime pattern="yyyy-MM-dd" /> 
+			</h:inputText>
+		</div>
 	'''
 	
 	def generateDefaultTable(DefaultComponent c) '''
 		«val value = c.value»
 		«val type = value.type as CollectionType»
-		<table>
+		<table class="table"">
 			<ui:repeat var="_v" value="«value.compileExpression(true, false)»">
 			 	<tr>
 					«FOR col : getDefaultColumnsForAttributeType(type.ofType, "_v")»		
@@ -1103,16 +1174,20 @@ class UIDSLGenerator extends AbstractGenerator {
 		«val selectFromName = cont.getUniqueFieldNameForCollectionType(c.value.variableOrMemberName)»
 		«val fld = addFieldToServerComponent(cont, selectFromName, type)»
 		«val scRefName = cont.mainBeanRefName»
-		<h:selectManyCheckbox value="«value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
-		    <f:selectItems value="#{«scRefName».«selectFromName»}" var="_v"
-		   		itemLabel="#{«type.ofType.getDefaultRepresentationAttribute("_v")»}" itemValue="#{_v}" />
-		</h:selectManyCheckbox>		
+		<div class="col-md-9">
+			<h:selectManyCheckbox value="«value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter" layout="pageDirection">
+			    <f:selectItems value="#{«scRefName».«selectFromName»}" var="_v"
+			   		itemLabel="#{«type.ofType.getDefaultRepresentationAttribute("_v")»}" itemValue="#{_v}" />
+			</h:selectManyCheckbox>
+		</div>	
 	'''
 	
 	def generateDefaultBoolCheckBox(DefaultComponent c) '''
 		«val output = c instanceof OutputUIComponent»
-		<h:selectBooleanCheckbox id="boolCheckbox«counter»" value="«c.value.compileExpression(true, false)»" disabled="«output»" />
-		<h:outputLabel for="boolCheckbox«counter»" value="«c.value.variableOrMemberName»" />«{ counter++; "" }»
+		<div class="col-md-9">
+			<h:selectBooleanCheckbox id="boolCheckbox«counter»" value="«c.value.compileExpression(true, false)»" disabled="«output»" />
+			<h:outputLabel for="boolCheckbox«counter»" value="«c.value.variableOrMemberName»" />«{ counter++; "" }»
+		</div>
 	'''
 	
 	def generateDefaultRadioSelection(DefaultComponent c) '''
@@ -1123,14 +1198,18 @@ class UIDSLGenerator extends AbstractGenerator {
 		«val selectFromType = DomainModelFactory.eINSTANCE.createCollectionType => [ofType = type.copy]»
 		«val fld = addFieldToServerComponent(cont, selectFromName, selectFromType)»
 		«val scRefName = cont.mainBeanRefName»
-		<h:selectOneRadio value="«value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
-			<f:selectItems value="«scRefName».«selectFromName»" var="_v"
-				itemLabel="«type.getDefaultRepresentationAttribute("_v")»" itemValue="#{_v}" />
-		</h:selectOneRadio>		
+		<div class="col-md-9">
+			<h:selectOneRadio value="«value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter" layout="pageDirection">
+				<f:selectItems value="«scRefName».«selectFromName»" var="_v"
+					itemLabel="«type.getDefaultRepresentationAttribute("_v")»" itemValue="#{_v}" />
+			</h:selectOneRadio>
+		</div>	
 	'''
 	
 	def generateDefaultPasswordField(DefaultComponent c) '''
-		<h:inputSecret value="«c.value.compileExpression(true, false)»" placeholder="«c.value.variableOrMemberName»" />
+		<div class="col-md-9">
+			<h:inputSecret value="«c.value.compileExpression(true, false)»" placeholder="«c.value.variableOrMemberName»" styleClass="form-control" />
+		</div>
 	'''
 	
 	def generateDefaultComboBox(DefaultComponent c) '''
@@ -1141,14 +1220,18 @@ class UIDSLGenerator extends AbstractGenerator {
 		«val selectFromType = DomainModelFactory.eINSTANCE.createCollectionType => [ofType = type.copy]»
 		«val fld = addFieldToServerComponent(cont, selectFromName, selectFromType)»
 		«val scRefName = cont.mainBeanRefName»
-		<h:selectOneMenu value="«value.compileExpression(true, false)»" converter="omnifaces.SelectItemsConverter">
-			<f:selectItems value="#{«scRefName».«selectFromName»}" var="_v"
-				itemLabel="#{«type.getDefaultRepresentationAttribute("_v")»}" itemValue="#{_v}" />
-		</h:selectOneMenu>
+		<div class="col-md-9">
+			<h:selectOneMenu value="«value.compileExpression(true, false)»" styleClass="form-control" converter="omnifaces.SelectItemsConverter">
+				<f:selectItems value="#{«scRefName».«selectFromName»}" var="_v"
+					itemLabel="#{«type.getDefaultRepresentationAttribute("_v")»}" itemValue="#{_v}" />
+			</h:selectOneMenu>
+		</div>
 	'''
 	
 	def generateDefaultTextComp(DefaultComponent c) '''
-		<h:outputText value="«c.value.defaultOutputExpression»" />
+		<div class="col-md-9">
+			<h:outputText value="«c.value.defaultOutputExpression»" />
+		</div>
 	'''
 	
 	def addFieldToServerComponent(UIContainer cont, String fieldName, AttributeType fieldType) {

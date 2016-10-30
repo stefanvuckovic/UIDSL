@@ -6,9 +6,11 @@ package com.stefanvuckovic.dto.generator;
 import com.google.common.collect.Iterables;
 import com.stefanvuckovic.domainmodel.domainModel.Attribute;
 import com.stefanvuckovic.domainmodel.domainModel.Concept;
+import com.stefanvuckovic.dto.DTOUtil;
 import com.stefanvuckovic.dto.dTO.DTOClass;
 import com.stefanvuckovic.dto.dTO.DTOModel;
 import java.util.List;
+import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -18,6 +20,7 @@ import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
 import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
@@ -31,6 +34,10 @@ import org.eclipse.xtext.xbase.lib.StringExtensions;
  */
 @SuppressWarnings("all")
 public class DTOUIGenerator extends AbstractGenerator {
+  @Inject
+  @Extension
+  private DTOUtil _dTOUtil;
+  
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
     TreeIterator<EObject> _allContents = resource.getAllContents();
@@ -48,14 +55,16 @@ public class DTOUIGenerator extends AbstractGenerator {
         StringConcatenation _builder_1 = new StringConcatenation();
         _builder_1.append("ui/");
         String _name = c.getName();
-        _builder_1.append(_name, "");
+        String _firstLower = StringExtensions.toFirstLower(_name);
+        _builder_1.append(_firstLower, "");
         _builder_1.append("Edit.ui");
         CharSequence _compileEditComponents = this.compileEditComponents(c);
         fsa.generateFile(_builder_1.toString(), _compileEditComponents);
         StringConcatenation _builder_2 = new StringConcatenation();
         _builder_2.append("ui/");
         String _name_1 = c.getName();
-        _builder_2.append(_name_1, "");
+        String _firstLower_1 = StringExtensions.toFirstLower(_name_1);
+        _builder_2.append(_firstLower_1, "");
         _builder_2.append("View.ui");
         CharSequence _compileViewComponents = this.compileViewComponents(c);
         fsa.generateFile(_builder_2.toString(), _compileViewComponents);
@@ -102,14 +111,15 @@ public class DTOUIGenerator extends AbstractGenerator {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("page ");
     String _name = c.getName();
-    _builder.append(_name, "");
+    String _firstLower = StringExtensions.toFirstLower(_name);
+    _builder.append(_firstLower, "");
     _builder.append("View(");
     String _name_1 = c.getName();
     _builder.append(_name_1, "");
     _builder.append(" ");
     String _name_2 = c.getName();
-    String _firstLower = StringExtensions.toFirstLower(_name_2);
-    _builder.append(_firstLower, "");
+    String _firstLower_1 = StringExtensions.toFirstLower(_name_2);
+    _builder.append(_firstLower_1, "");
     _builder.append(") uses ");
     String _name_3 = c.getName();
     _builder.append(_name_3, "");
@@ -118,28 +128,49 @@ public class DTOUIGenerator extends AbstractGenerator {
     _builder.append("\t");
     _builder.append("override body {");
     _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("#section {");
+    _builder.newLine();
     {
       EList<Attribute> _attributes = c.getAttributes();
       for(final Attribute attr : _attributes) {
-        _builder.append("\t\t");
-        _builder.append("#label value:\"");
-        String _name_4 = attr.getName();
-        String _splitCamelCaseAttrName = this.splitCamelCaseAttrName(_name_4);
-        _builder.append(_splitCamelCaseAttrName, "\t\t");
-        _builder.append("\"");
-        _builder.newLineIfNotEmpty();
-        _builder.append("\t\t");
-        _builder.append("output(");
-        String _name_5 = c.getName();
-        String _firstLower_1 = StringExtensions.toFirstLower(_name_5);
-        _builder.append(_firstLower_1, "\t\t");
-        _builder.append(".");
-        String _name_6 = attr.getName();
-        _builder.append(_name_6, "\t\t");
-        _builder.append(")");
-        _builder.newLineIfNotEmpty();
+        {
+          boolean _isID = this._dTOUtil.isID(attr);
+          boolean _not = (!_isID);
+          if (_not) {
+            _builder.append("\t\t\t");
+            _builder.append("#group {");
+            _builder.newLine();
+            _builder.append("\t\t\t");
+            _builder.append("\t");
+            _builder.append("#label value:\"");
+            String _name_4 = attr.getName();
+            String _splitCamelCaseAttrName = this.splitCamelCaseAttrName(_name_4);
+            String _firstUpper = StringExtensions.toFirstUpper(_splitCamelCaseAttrName);
+            _builder.append(_firstUpper, "\t\t\t\t");
+            _builder.append("\"");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t\t\t");
+            _builder.append("\t");
+            _builder.append("output(");
+            String _name_5 = c.getName();
+            String _firstLower_2 = StringExtensions.toFirstLower(_name_5);
+            _builder.append(_firstLower_2, "\t\t\t\t");
+            _builder.append(".");
+            String _name_6 = attr.getName();
+            _builder.append(_name_6, "\t\t\t\t");
+            _builder.append(")");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t\t\t");
+            _builder.append("}");
+            _builder.newLine();
+          }
+        }
       }
     }
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
     _builder.newLine();
@@ -167,14 +198,15 @@ public class DTOUIGenerator extends AbstractGenerator {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("page ");
     String _name = c.getName();
-    _builder.append(_name, "");
-    _builder.append("View(");
+    String _firstLower = StringExtensions.toFirstLower(_name);
+    _builder.append(_firstLower, "");
+    _builder.append("Edit(");
     String _name_1 = c.getName();
     _builder.append(_name_1, "");
     _builder.append(" ");
     String _name_2 = c.getName();
-    String _firstLower = StringExtensions.toFirstLower(_name_2);
-    _builder.append(_firstLower, "");
+    String _firstLower_1 = StringExtensions.toFirstLower(_name_2);
+    _builder.append(_firstLower_1, "");
     _builder.append(") uses ");
     String _name_3 = c.getName();
     _builder.append(_name_3, "");
@@ -189,29 +221,50 @@ public class DTOUIGenerator extends AbstractGenerator {
     {
       EList<Attribute> _attributes = c.getAttributes();
       for(final Attribute attr : _attributes) {
-        _builder.append("\t\t\t");
-        _builder.append("#label value:\"");
-        String _name_4 = attr.getName();
-        String _splitCamelCaseAttrName = this.splitCamelCaseAttrName(_name_4);
-        _builder.append(_splitCamelCaseAttrName, "\t\t\t");
-        _builder.append("\"");
-        _builder.newLineIfNotEmpty();
-        _builder.append("\t\t\t");
-        _builder.append("input(");
-        String _name_5 = c.getName();
-        String _firstLower_1 = StringExtensions.toFirstLower(_name_5);
-        _builder.append(_firstLower_1, "\t\t\t");
-        _builder.append(".");
-        String _name_6 = attr.getName();
-        _builder.append(_name_6, "\t\t\t");
-        _builder.append(")");
-        _builder.newLineIfNotEmpty();
+        {
+          boolean _isID = this._dTOUtil.isID(attr);
+          boolean _not = (!_isID);
+          if (_not) {
+            _builder.append("\t\t\t");
+            _builder.append("#group {");
+            _builder.newLine();
+            _builder.append("\t\t\t");
+            _builder.append("\t");
+            _builder.append("#label value:\"");
+            String _name_4 = attr.getName();
+            String _splitCamelCaseAttrName = this.splitCamelCaseAttrName(_name_4);
+            String _firstUpper = StringExtensions.toFirstUpper(_splitCamelCaseAttrName);
+            _builder.append(_firstUpper, "\t\t\t\t");
+            _builder.append("\"");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t\t\t");
+            _builder.append("\t");
+            _builder.append("input(");
+            String _name_5 = c.getName();
+            String _firstLower_2 = StringExtensions.toFirstLower(_name_5);
+            _builder.append(_firstLower_2, "\t\t\t\t");
+            _builder.append(".");
+            String _name_6 = attr.getName();
+            _builder.append(_name_6, "\t\t\t\t");
+            _builder.append(")");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t\t\t");
+            _builder.append("}");
+            _builder.newLine();
+          }
+        }
       }
     }
     _builder.append("\t\t\t");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("#action action : sc.save()");
+    _builder.append("#action action : sc.save() {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("#textComp value : \"Save\" escape : false");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
     _builder.newLine();
     _builder.append("\t\t");
     _builder.append("}");

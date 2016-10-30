@@ -93,6 +93,11 @@ PropertyValue:
 	name=ID required?='required'? valueProperty?='valueProperty'? ':' type=TypeExpression
 ;
 
+Component: 
+	UIComponentInstance |
+	DefaultUIComponent
+;
+
 UIComponentInstance:
 	{UIComponentInstance} '#'component=[UIComponent] properties+=PropertyValueInstance* 
 		('{' childElements+=Component* '}')?
@@ -247,11 +252,6 @@ DefaultComponentConfig:
 DefaultUIComponent returns DefaultComponent:
 	{InputUIComponent} 'input' '(' value = MemberSelectionExpression ')' |
 	{OutputUIComponent} 'output' '(' value = MemberSelectionExpression ')'
-;
-
-Component: 
-	UIComponentInstance |
-	DefaultUIComponent
 ;
 
 CustomDefaultComponentsDefinition:

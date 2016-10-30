@@ -65,5 +65,9 @@ class DTOUtil {
 	def getObjectRepresentationAttribute(DTOClass c) {
 		c.attributes.findFirst[a | a.options.filter(ObjectRepresentation).size == 1]
 	}
+	
+	def isID(Attribute attr) {
+		attr.options?.findFirst[o | o instanceof IDAttribute] != null
+	}
 
 }

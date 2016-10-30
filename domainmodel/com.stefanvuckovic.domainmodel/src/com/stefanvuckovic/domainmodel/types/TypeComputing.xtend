@@ -51,7 +51,7 @@ class TypeComputing {
 					try {
 						return (enumCont.attributes.get((cont as EnumLiteral).params.indexOf(e))).type
 					} catch (Throwable t) {
-						return null // otherwise there is no specific expected type
+						return null
 					}
 				}
 		}

@@ -9,6 +9,8 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import javax.inject.Inject
+import com.stefanvuckovic.dto.DTOUtil
 
 /**
  * Generates code from your model files on save.
@@ -17,12 +19,14 @@ import org.eclipse.xtext.generator.IGeneratorContext
  */
 class DTOUIGenerator extends AbstractGenerator {
 	
+	@Inject extension DTOUtil
+	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val model = resource.allContents.toIterable.filter(DTOModel).head
 		fsa.generateFile('''ui/mainTemplate.ui''', generateDefaultTemplate)
 		for (c : model.concepts.filter(DTOClass)) {
-			fsa.generateFile('''ui/«c.name»Edit.ui''', c.compileEditComponents)
-			fsa.generateFile('''ui/«c.name»View.ui''', c.compileViewComponents)
+			fsa.generateFile('''ui/«c.name.toFirstLower»Edit.ui''', c.compileEditComponents)
+			fsa.generateFile('''ui/«c.name.toFirstLower»View.ui''', c.compileViewComponents)
 		}
 	}
 	
@@ -43,12 +47,18 @@ class DTOUIGenerator extends AbstractGenerator {
 	'''
 	
 	def compileViewPage(DTOClass c) '''
-		page «c.name»View(«c.name» «c.name.toFirstLower») uses «c.name»ViewSC sc template:mainTemplate {
+		page «c.name.toFirstLower»View(«c.name» «c.name.toFirstLower») uses «c.name»ViewSC sc template:mainTemplate {
 			override body {
-				«FOR attr : c.attributes»
-				#label value:"«attr.name.splitCamelCaseAttrName»"
-				output(«c.name.toFirstLower».«attr.name»)
-				«ENDFOR»
+				#section {
+					«FOR attr : c.attributes»
+					«IF !attr.isID»
+					#group {
+						#label value:"«attr.name.splitCamelCaseAttrName.toFirstUpper»"
+						output(«c.name.toFirstLower».«attr.name»)
+					}
+					«ENDIF»
+					«ENDFOR»
+				}
 			}
 		}
 	'''
@@ -60,15 +70,21 @@ class DTOUIGenerator extends AbstractGenerator {
 	'''
 	
 	def compileEditPage(DTOClass c) '''
-		page «c.name»View(«c.name» «c.name.toFirstLower») uses «c.name»EditSC sc template:mainTemplate {
+		page «c.name.toFirstLower»Edit(«c.name» «c.name.toFirstLower») uses «c.name»EditSC sc template:mainTemplate {
 			override body {
 				#form {
 					«FOR attr : c.attributes»
-					#label value:"«attr.name.splitCamelCaseAttrName»"
-					input(«c.name.toFirstLower».«attr.name»)
+					«IF !attr.isID»
+					#group {
+						#label value:"«attr.name.splitCamelCaseAttrName.toFirstUpper»"
+						input(«c.name.toFirstLower».«attr.name»)
+					}
+					«ENDIF»
 					«ENDFOR»
 					
-					#action action : sc.save()
+					#action action : sc.save() {
+						#textComp value : "Save" escape : false
+					}
 				}
 			}
 		}

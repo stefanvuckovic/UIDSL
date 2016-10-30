@@ -254,7 +254,7 @@ class DomainModelValidator extends AbstractDomainModelValidator {
 		val enum = literal.eContainer as Enum
 		if (literal.params.size != enum.attributes.size) {
 			error("Invalid number of arguments: expected " + enum.attributes.size + " but was " + literal.params.size,
-				DomainModelPackage.eINSTANCE.concept_Name)
+				DomainModelPackage.eINSTANCE.enumLiteral_Name)
 		}
 	}
 	

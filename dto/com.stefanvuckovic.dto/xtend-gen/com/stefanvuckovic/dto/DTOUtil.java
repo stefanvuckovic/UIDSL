@@ -133,4 +133,16 @@ public class DTOUtil {
     };
     return IterableExtensions.<Attribute>findFirst(_attributes, _function);
   }
+  
+  public boolean isID(final Attribute attr) {
+    EList<AttributeOption> _options = attr.getOptions();
+    AttributeOption _findFirst = null;
+    if (_options!=null) {
+      final Function1<AttributeOption, Boolean> _function = (AttributeOption o) -> {
+        return Boolean.valueOf((o instanceof IDAttribute));
+      };
+      _findFirst=IterableExtensions.<AttributeOption>findFirst(_options, _function);
+    }
+    return (!Objects.equal(_findFirst, null));
+  }
 }
